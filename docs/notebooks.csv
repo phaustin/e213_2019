@@ -1,0 +1,16 @@
+filename,lesson_num,lesson_string,title,url_path
+l1_a-taste-of-python.ipynb,1,Lesson 1,A taste of python,https://github.com/phaustin/eosc213/blob/test/notebooks/geopython/L1/l1_a-taste-of-python.ipynb
+l2_Python-basic-elements.ipynb,2,Lesson 2,Basic elements,https://github.com/phaustin/eosc213/blob/test/notebooks/geopython/L2/l2_Python-basic-elements.ipynb
+l3_conditional-statements.ipynb,3,Lesson 3,conditional statements,https://github.com/phaustin/eosc213/blob/test/notebooks/geopython/L3/l3_conditional-statements.ipynb
+l3_for-loops.ipynb,3,Lesson 3,for loops,https://github.com/phaustin/eosc213/blob/test/notebooks/geopython/L3/l3_for-loops.ipynb
+l4_modules.ipynb,4,Lesson 4,modules,https://github.com/phaustin/eosc213/blob/test/notebooks/geopython/L4/l4_modules.ipynb
+l4_functions.ipynb,4,Lesson 4,functions,https://github.com/phaustin/eosc213/blob/test/notebooks/geopython/L4/l4_functions.ipynb
+l4_writing-scripts.ipynb,4,Lesson 4,writing scripts,https://github.com/phaustin/eosc213/blob/test/notebooks/geopython/L4/l4_writing-scripts.ipynb
+l5_np_2-Processing-data-with-NumPy.ipynb,5,Lesson 5,numpy data processing,https://github.com/phaustin/eosc213/blob/test/notebooks/geopython/L5/NumPy/l5_np_2-Processing-data-with-NumPy.ipynb
+l5_np_1-Exploring-data-using-numpy.ipynb,5,Lesson 5,numpy data exploration,https://github.com/phaustin/eosc213/blob/test/notebooks/geopython/L5/NumPy/l5_np_1-Exploring-data-using-numpy.ipynb
+l5_pd_processing-data-with-pandas.ipynb,5,Lesson 5,pandas data processing,https://github.com/phaustin/eosc213/blob/test/notebooks/geopython/L5/Pandas/l5_pd_processing-data-with-pandas.ipynb
+l5_pd_Exploring-data-using-pandas.ipynb,5,Lesson 5,pandas data exploration,https://github.com/phaustin/eosc213/blob/test/notebooks/geopython/L5/Pandas/l5_pd_Exploring-data-using-pandas.ipynb
+l6_np_Advanced-data-processing-with-NumPy.ipynb,6,Lesson 6,Advanced data processiong with numpy,https://github.com/phaustin/eosc213/blob/test/notebooks/geopython/L6/numpy/l6_np_Advanced-data-processing-with-NumPy.ipynb
+l6_pd_advanced-data-processing-with-pandas.ipynb,6,Lesson 6,Advanced data processing with pandas,https://github.com/phaustin/eosc213/blob/test/notebooks/geopython/L6/pandas/l6_pd_advanced-data-processing-with-pandas.ipynb
+l7_matplotlib.ipynb,7,Lesson 7,Matplotlib,https://github.com/phaustin/eosc213/blob/test/notebooks/geopython/L7/l7_matplotlib.ipynb
+l7_advanced-plotting.ipynb,7,Lesson 7,Advanced plotting,https://github.com/phaustin/eosc213/blob/test/notebooks/geopython/L7/l7_advanced-plotting.ipynb
