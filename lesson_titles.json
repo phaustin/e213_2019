@@ -1,0 +1,80 @@
+{
+    "('notebooks', 'geopython', 'L3')": [
+        [
+            "conditional statements",
+            "l3_conditional-statements.ipynb"
+        ],
+        [
+            "for loops",
+            "l3_for-loops.ipynb"
+        ]
+    ],
+    "('notebooks', 'geopython', 'L4')": [
+        [
+            "modules",
+            "l4_modules.ipynb"
+        ],
+        [
+            "functions",
+            "l4_functions.ipynb"
+        ],
+        [
+            "writing scripts",
+            "l4_writing-scripts.ipynb"
+        ]
+    ],
+    "('notebooks', 'geopython', 'L5', 'NumPy')": [
+        [
+            "numpy data processing",
+            "l5_np_2-Processing-data-with-NumPy.ipynb"
+        ],
+        [
+            "numpy data exploration",
+            "l5_np_1-Exploring-data-using-numpy.ipynb"
+        ]
+    ],
+    "('notebooks', 'geopython', 'L5', 'Pandas')": [
+        [
+            "pandas data processing",
+            "l5_pd_processing-data-with-pandas.ipynb"
+        ],
+        [
+            "pandas data exploration",
+            "l5_pd_Exploring-data-using-pandas.ipynb"
+        ]
+    ],
+    "('notebooks', 'geopython', 'L2')": [
+        [
+            "Basic elements",
+            "l2_Python-basic-elements.ipynb"
+        ]
+    ],
+    "('notebooks', 'geopython', 'L7')": [
+        [
+            "Matplotlib",
+            "l7_matplotlib.ipynb"
+        ],
+        [
+            "Advanced plotting",
+            "l7_advanced-plotting.ipynb"
+        ]
+    ],
+    "('notebooks', 'geopython', 'L1')": [
+        [
+            "A taste of python",
+            "l1_a-taste-of-python.ipynb"
+        ]
+    ],
+    "('notebooks', 'geopython', 'L6', 'numpy')": [
+        [
+            "Advanced data processiong with numpy",
+            "l6_np_Advanced-data-processing-with-NumPy.ipynb"
+        ]
+    ],
+    "('notebooks', 'geopython', 'L6', 'pandas')": [
+        [
+            "Advanced data processing with pandas",
+            "l6_pd_advanced-data-processing-with-pandas.ipynb"
+        ]
+    ]
+}
