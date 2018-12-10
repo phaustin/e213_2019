@@ -9,9 +9,13 @@ workflow:
 
 python scripts/finall.py
 
-edit out.json and save ass "lesson_titles.json"
+edit scripts/out.json and save as "docs/lesson_titles.json"
+
+then run:
 
 python scripts/build_table.py
+
+which produces docs/notebook_list.md
 
 """
 
