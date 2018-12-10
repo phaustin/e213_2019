@@ -8,6 +8,7 @@ import collections
 import markdown_generator as mg
 import pandas as pd
 from pathlib import Path
+import pdb
 
 lessons_file=Path(__file__).parent.parent / Path('docs/lesson_titles.json')
 with open(lessons_file,'r') as f:
@@ -42,7 +43,7 @@ df=notebooks_df.sort_values('lesson_num')
 df.to_csv('notebooks.csv',index=False)
 
 #
-# write the markdown table
+# write the markdown table for the notebooks
 #
 outname="notebook_list.md"
 outpath=lessons_file.parent / Path(outname)
@@ -60,7 +61,31 @@ with open(outpath, 'w') as f:
 
 print(f"wrote the markdown file {str(outpath.resolve())}")
 
+rst_file=Path(__file__).parent.parent / Path('scripts/rst_out.json')
+with open(rst_file,'r') as f:
+    rst_files=json.load(f)
 
+rst_df = pd.DataFrame.from_records(rst_files)
+rst_df.columns=["lesson","filename"]
+df=rst_df.sort_values('lesson')
+
+outname="rst_list.md"
+outpath=lessons_file.parent / Path(outname)
+root = root + "/geo_python_rst"
+with open(outpath, 'w') as f:
+    writer = mg.Writer(f)
+    table = mg.Table()
+    table.add_column('Lesson')
+    table.add_column('Github link')
+    for index,row in df.iterrows():
+        row_dict=row.to_dict()
+        list_path=[row_dict['lesson'],row_dict['filename']]
+        url_path='/'.join([root] + list_path)
+        link = mg.link(url_path,row_dict['filename'])
+        table.append(row_dict['lesson'],link)
+    writer.write(table)
+
+print(f"wrote the markdown file {str(outpath.resolve())}")
     
 
 
