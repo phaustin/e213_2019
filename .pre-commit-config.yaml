@@ -1,17 +1,19 @@
 repos:
 -   repo: https://github.com/ambv/black
-    rev: stable
+    rev: 18.9b0
     hooks:
     - id: black
       language_version: python3.7
+      types: [python]
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v2.0.0
     hooks:
     - id: flake8
+      types: [python]
 -   repo: local
     hooks:
     - id: jupytext
       name: jupytext
-      entry: python scripts/pre_commit_jupytext.py
+      entry: python a301/scripts/pre_commit_jupytext.py
       language: system
       files: \.ipynb$
