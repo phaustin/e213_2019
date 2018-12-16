@@ -15,7 +15,7 @@ nb = jupytext.readf(nbfile)
 pydir = pyfile.parent / Path("python")
 pydir.mkdir(parents=True, exist_ok=True)
 pypath = pydir / pyfile.name
-jupytext.writef(nb, pypath, format="percent")
+jupytext.writef(nb, pypath, format_name="percent")
 cmd = f"git add {str(pypath)}"
 status1, output1 = subprocess.getstatusoutput(cmd)
 with open("jupytext_logfile.txt", "w") as f:
