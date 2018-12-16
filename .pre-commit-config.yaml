@@ -14,6 +14,6 @@ repos:
     hooks:
     - id: jupytext
       name: jupytext
-      entry: python a301/scripts/pre_commit_jupytext.py
+      entry: python scripts/pre_commit_jupytext.py
       language: system
       files: \.ipynb$
