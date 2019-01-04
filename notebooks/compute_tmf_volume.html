@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>4. Introduction to computational methods &#8212; A301</title>
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="3. A301 Cheatsheet" href="../cheat_sheet.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          Home</a>
+        <span class="navbar-text navbar-version pull-left"><b>2018Sep01</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">1. Texts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#remote-sensing">1.1. Remote sensing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#python">1.2. Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#moving-from-matlab-to-python">1.3. Moving from matlab to python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#mapping">1.4. Mapping</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">2. Getting started with Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#installing-python">2.1. Installing python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#installing-extra-dependencies">2.2. Installing extra dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">3. Cheat sheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-shell-commands">3.1. Useful shell commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-conda-and-pip-commands">3.2. Useful conda and pip commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-git-commands">3.3. Useful git commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-debugger-commands">3.4. Useful debugger commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#folders-and-files">3.5. Folders and files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-pyhdf-commands">3.6. Useful pyhdf commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#modis-information">3.7. Modis information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#a301-utilities">3.8. A301 utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4. First Notebook</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Data-file">4.1. Data file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Algorithm">4.2. Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Python-code">4.3. Python code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Python-modules/libraries">4.4. Python modules/libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Handle-graphics-with-Matplotlib">4.5. Handle graphics with <code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code></a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">1. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">2. Getting started with Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">3. Cheat sheet</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4. First Notebook</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Data-file">4.1. Data file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Algorithm">4.2. Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Python-code">4.3. Python code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Python-modules/libraries">4.4. Python modules/libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Handle-graphics-with-Matplotlib">4.5. Handle graphics with <code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code></a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../cheat_sheet.html" title="Previous Chapter: 3. A301 Cheatsheet"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 3. A301 Cheatsheet</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/notebooks/compute_tmf_volume.py.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">1. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">2. Getting started with Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">3. Cheat sheet</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4. First Notebook</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Data-file">4.1. Data file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Algorithm">4.2. Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Python-code">4.3. Python code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Python-modules/libraries">4.4. Python modules/libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Handle-graphics-with-Matplotlib">4.5. Handle graphics with <code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 7ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<h1><p>Table of Contents</p>
+</h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;Introduction to computational methods</p>
+<ul class="toc-item"><li><p>1.1&nbsp;&nbsp;Data file</p>
+</li><li><p>1.2&nbsp;&nbsp;Algorithm</p>
+</li><li><p>1.3&nbsp;&nbsp;Python code</p>
+</li><li><p>1.4&nbsp;&nbsp;Python modules/libraries</p>
+</li><li><p>1.5&nbsp;&nbsp;Handle graphics with Matplotlib</p>
+</li></ul></li></ul></div><div class="section" id="Introduction-to-computational-methods">
+<h1>4. Introduction to computational methods<a class="headerlink" href="#Introduction-to-computational-methods" title="Permalink to this headline">¶</a></h1>
+<p>This notebook introduces a python program to integrate daily average flow into and out of the tailings management facility (TMF), and the volume of water in the TMF through time.</p>
+<div class="section" id="Data-file">
+<h2>4.1. Data file<a class="headerlink" href="#Data-file" title="Permalink to this headline">¶</a></h2>
+<p>This notebook assumes that a comma-separated variable (csv) file named <code class="docutils literal notranslate"><span class="pre">july2016-tmf-flow.csv</span></code> exists in the current working directory. The file contains three columns with headers:</p>
+<p><code class="docutils literal notranslate"><span class="pre">date</span></code> <code class="docutils literal notranslate"><span class="pre">outflow</span></code> <code class="docutils literal notranslate"><span class="pre">inflow</span></code></p>
+<p>The first 4 lines of the file are:</p>
+<p><code class="docutils literal notranslate"><span class="pre">date,outflow,inflow</span> <span class="pre">2016-07-01,0.0703,0.1181</span> <span class="pre">2016-07-02,0.066,0.1121</span> <span class="pre">2016-07-03,0.0621,0.1079</span></code></p>
+<p>The data in the csv file is in the following format</p>
+<p><code class="docutils literal notranslate"><span class="pre">date</span></code> is in <code class="docutils literal notranslate"><span class="pre">yyyy-mm-dd</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">outflow</span></code> is the daily average outflow in <span class="math notranslate nohighlight">\(m^3/s\)</span></p>
+<p><code class="docutils literal notranslate"><span class="pre">inflow</span></code> is the daily average inflow in <span class="math notranslate nohighlight">\(m^3/s\)</span></p>
+</div>
+<div class="section" id="Algorithm">
+<h2>4.2. Algorithm<a class="headerlink" href="#Algorithm" title="Permalink to this headline">¶</a></h2>
+<p>The volume of water in the TMF on day <span class="math notranslate nohighlight">\(t\)</span> of the computation is <span class="math notranslate nohighlight">\(V(t)\)</span>, the daily average outflow is <span class="math notranslate nohighlight">\(Q_{out}\)</span> and the daily average inflow is <span class="math notranslate nohighlight">\(Q_{out}\)</span></p>
+<p>The basic computational algorithm is:</p>
+<ol class="arabic simple">
+<li>Read in the date, <span class="math notranslate nohighlight">\(Q_{out}\)</span> and <span class="math notranslate nohighlight">\(Q_{out}\)</span> data from the file <code class="docutils literal notranslate"><span class="pre">july2016-tmf-flow.csv</span></code>.</li>
+<li>Compute the change in volume over the day <span class="math notranslate nohighlight">\(\Delta V = (Q_{in} - Q_{out})\Delta t\)</span></li>
+<li>Update the volume of the TMF: <span class="math notranslate nohighlight">\(V(t+\Delta t) = V(t) + \Delta V\)</span></li>
+<li>Loop through all dates in the file until complete.</li>
+</ol>
+</div>
+<div class="section" id="Python-code">
+<h2>4.3. Python code<a class="headerlink" href="#Python-code" title="Permalink to this headline">¶</a></h2>
+<p>We’ll introduce python concepts as we go in the course, so we don’t expect you to fully understand this code yet. We’ll therefore only provide a cursory explanation here.</p>
+</div>
+<div class="section" id="Python-modules/libraries">
+<h2>4.4. Python modules/libraries<a class="headerlink" href="#Python-modules/libraries" title="Permalink to this headline">¶</a></h2>
+<p>It is good practice to import libaries at the beginning of a program. Libaries are collections of python code.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>import matplotlib.dates as mdates
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+</pre></div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">import</span></code> command tells python to import the library. The <code class="docutils literal notranslate"><span class="pre">as</span></code> specifies a user - chosen nickname for library to be used in this program. So for this program, the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> library will also be known as <code class="docutils literal notranslate"><span class="pre">np</span></code>.</p>
+<p>We are importing four libraries or library sections:</p>
+<p><code class="docutils literal notranslate"><span class="pre">numpy</span></code> is a library with numerical - related codes. We’ll use it alot in the course.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> is a libary with codes to manipulate tabular data, that is data organized in rows and columns.</p>
+<p><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> is a vast library for plotting. We don’t need the whole library, but only two subsections.</p>
+<p><code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code>, nicknamed <code class="docutils literal notranslate"><span class="pre">plt</span></code> is a subsection containing so-called handle graphics. We’ll use it alot.</p>
+<p><code class="docutils literal notranslate"><span class="pre">matplotlib.dates</span></code>, which we nickname <code class="docutils literal notranslate"><span class="pre">mdates</span></code> is a specialty subsection containing code for manipulating date formats.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span># use pandas to read in csv data
+data_file = &quot;july2016-tmf-flow.csv&quot;
+flow = pd.read_csv(data_file)
+</pre></div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">pd.read_csv</span></code> command from the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> library reads all the rows and columns from the file <code class="docutils literal notranslate"><span class="pre">july2016-tmf-flow.csv</span></code>.</p>
+<p>We could have also written the command as <code class="docutils literal notranslate"><span class="pre">pandas.read.csv</span></code>, but we used our nickname <code class="docutils literal notranslate"><span class="pre">pd</span></code> to save some typing.</p>
+<p>Here we see the power of the pandas library. This command contains code to open the file, read in each line of data from the csv file,and then stores that data in a <code class="docutils literal notranslate"><span class="pre">dataframe</span></code> that we named <code class="docutils literal notranslate"><span class="pre">flow</span></code>. You can think of a <code class="docutils literal notranslate"><span class="pre">dataframe</span></code> as rows and columns of data. In our case, the data in the <code class="docutils literal notranslate"><span class="pre">dataframe</span></code> is dates, outflows and inflows.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span># find number of days of data in file using shape method on dataframe named flow
+
+n = flow.shape[0]
+print(f&quot;Number of days in file: {n}&quot;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Number of days in file: 31
+</pre></div></div>
+</div>
+<p>This line of code uses the <code class="docutils literal notranslate"><span class="pre">.shape</span></code> method, which returns the dimension (number of rows and columns) in the dataframe <code class="docutils literal notranslate"><span class="pre">flow</span></code>. <code class="docutils literal notranslate"><span class="pre">.shape[0]</span></code> is the number of rows, or in our case, the number of days of outflow and inflow data in the dataframe, which we assign to the variable <code class="docutils literal notranslate"><span class="pre">n</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span># allocate np arrays for time and volume for calculations -
+# doing this in advance makes python run faster
+
+v = np.zeros(n, float)
+</pre></div>
+</div>
+</div>
+<p>The function <code class="docutils literal notranslate"><span class="pre">zeros</span></code> from the numpy library creates an array of zeros. Python runs faster if the arrays used for computation are defined in advance, versus on the fly. Here we create an array <code class="docutils literal notranslate"><span class="pre">v</span></code> of <code class="docutils literal notranslate"><span class="pre">n</span></code> zeros of type <code class="docutils literal notranslate"><span class="pre">float</span></code>. Each element in <code class="docutils literal notranslate"><span class="pre">v</span></code> will store the volume of water in the TMF on a specific day.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span># print  the columns in the dataframe
+print(f&quot;Columns in csv file: {flow.columns}&quot;)
+
+# convert column called date to pandas date format
+# and store in column called yearmonthday
+
+flow[&quot;yearmonthday&quot;] = pd.to_datetime(flow[&quot;date&quot;])
+
+# see the data in the column yearmonthday
+print(f&quot;type of the timestap object: {type(flow[&#39;yearmonthday&#39;][0])}&quot;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Columns in csv file: Index([&#39;date&#39;, &#39;outflow&#39;, &#39;inflow&#39;], dtype=&#39;object&#39;)
+type of the timestap object: &lt;class &#39;pandas._libs.tslibs.timestamps.Timestamp&#39;&gt;
+</pre></div></div>
+</div>
+<p>We first print the names of the columns in the dataframe that were read in from the <code class="docutils literal notranslate"><span class="pre">csv</span></code> file. We do this using the <code class="docutils literal notranslate"><span class="pre">.columns</span></code> method on the <code class="docutils literal notranslate"><span class="pre">flow</span></code> dataframe; that is <code class="docutils literal notranslate"><span class="pre">flow.columns</span></code> returns the indices of the columns in the dataframe.</p>
+<p>The command <code class="docutils literal notranslate"><span class="pre">flow[&quot;yearmonthday&quot;]</span> <span class="pre">=</span> <span class="pre">pd.to_datetime(flow[&quot;date&quot;]</span></code> uses the pandas method <code class="docutils literal notranslate"><span class="pre">.to_datetime</span></code> to convert the data in the column indexed with <code class="docutils literal notranslate"><span class="pre">date</span></code> in the dataframe <code class="docutils literal notranslate"><span class="pre">flow</span></code> to a date format that pandas understands, and then stores those panda dates in the dataframe <code class="docutils literal notranslate"><span class="pre">flow</span></code> in a new column with index <code class="docutils literal notranslate"><span class="pre">yearmonthday</span></code>.</p>
+<p>We then print out the type of the data in the column <code class="docutils literal notranslate"><span class="pre">yearmonthday</span></code> to prove that it is now a date.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span># set volume in TMF at time zero to 8.1 x 10^6 m^3
+
+v[0] = 8.1e6
+
+&quot;&quot;&quot;
+loop through and compute volume through time
+since flow is in m^3/s, and flows are daily average flows, must convert
+to m^3 in a day by multiplying by 86400 s/d
+&quot;&quot;&quot;
+seconds_per_day = 86400.0
+for i in range(n - 1):
+    v[i + 1] = v[i] + (flow[&quot;inflow&quot;][i] - flow[&quot;outflow&quot;][i]) * seconds_per_day
+</pre></div>
+</div>
+</div>
+<p>This is the guts of the computation. We first set the volume in the TMF at time zero to <span class="math notranslate nohighlight">\(8.1\times 10^6 m^3\)</span>.</p>
+<p>Then we loop through the days in the dataframe and compute the change in volume over each day as described above: <span class="math notranslate nohighlight">\(V(t+\Delta t) = V(t) + (Q_{in} - Q_{out})\Delta t\)</span>, where <span class="math notranslate nohighlight">\(\Delta t\)</span> is <span class="math notranslate nohighlight">\(86400\)</span> seconds (one day).</p>
+<p>In python we use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop. The command <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">range(n</span> <span class="pre">-</span> <span class="pre">1):</span></code> sets <code class="docutils literal notranslate"><span class="pre">i</span></code> to <code class="docutils literal notranslate"><span class="pre">0</span></code>, then enters the loop and when finished the loop, sets <code class="docutils literal notranslate"><span class="pre">i</span></code> to <code class="docutils literal notranslate"><span class="pre">1</span></code>, enters the loop,…, <code class="docutils literal notranslate"><span class="pre">n-1</span></code>. On the last time through the loop, <code class="docutils literal notranslate"><span class="pre">i=n-1</span></code> so that when we compute<code class="docutils literal notranslate"><span class="pre">v[i+1]</span></code> for the last time, we are computing <code class="docutils literal notranslate"><span class="pre">v[n]</span></code>.</p>
+<p>The rest of the code is used to generate the plot of outflow and inflow over time in on subplot, and volume of water in the TMF over time in another subplot.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span># call a figure with two plots, vertically stacked, sharing x axis
+
+fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True, figsize=(8, 8))
+
+# format for the x axis label to be month - day eg 07-03 for July 3
+# format string for dates that will be plotted on the x axis
+
+myFmt = mdates.DateFormatter(&quot;%m-%d&quot;)
+
+# in the plot ax, plot outflow and inflow as separate lines
+
+ax1.plot(flow[&quot;yearmonthday&quot;], flow[&quot;outflow&quot;], label=&quot;Outflow&quot;)
+ax1.plot(flow[&quot;yearmonthday&quot;], flow[&quot;inflow&quot;], label=&quot;Inflow&quot;)
+ax1.set(ylabel=&quot;flow $m^3/s$&quot;)
+ax1.legend()
+
+# set format string for the major labels on the x axis
+
+ax1.xaxis.set_major_formatter(myFmt)
+fig.autofmt_xdate()
+
+# in second plot, plot the volume in TMF in m^3, which is stored in the array v
+
+ax2.plot(flow[&quot;yearmonthday&quot;], v, label=&quot;Volume in TMF&quot;)
+ax2.set(xlabel=&quot;date&quot;, ylabel=&quot;Volume in TMF $m^3$&quot;)
+ax2.legend()
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;matplotlib.legend.Legend at 0x115047748&gt;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_compute_tmf_volume_16_1.png" src="../_images/notebooks_compute_tmf_volume_16_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Handle-graphics-with-Matplotlib">
+<h2>4.5. Handle graphics with <code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code><a class="headerlink" href="#Handle-graphics-with-Matplotlib" title="Permalink to this headline">¶</a></h2>
+<p>Python’s <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> package is massive and can be confusing. We hope that by showing you the essentials in this course, you can later learn what you need on your own.</p>
+<p>The first thing we do here is call into existence a <code class="docutils literal notranslate"><span class="pre">figure</span></code>, which is a place to put plots, and tell python that we want two subplots, confusingly called <code class="docutils literal notranslate"><span class="pre">axes</span></code>, to go into the figure.</p>
+<p>(if you want more details right away, see <a class="reference external" href="https://realpython.com/python-matplotlib-guide/">https://realpython.com/python-matplotlib-guide/</a>)</p>
+<p>The command <code class="docutils literal notranslate"><span class="pre">fig,</span> <span class="pre">(ax1,ax2)</span> <span class="pre">=</span> <span class="pre">plt.subplots(2,1,</span> <span class="pre">sharex=True)</span></code> calls the <code class="docutils literal notranslate"><span class="pre">subplots</span></code> function from <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code> library, nicknamed in our code as <code class="docutils literal notranslate"><span class="pre">plt</span></code> hence the function name <code class="docutils literal notranslate"><span class="pre">plt.subplots</span></code>. The <code class="docutils literal notranslate"><span class="pre">2,</span> <span class="pre">1</span></code> argument indicates we want the subplots in 2 rows, 1 column, and the <code class="docutils literal notranslate"><span class="pre">sharex=True</span></code> indicates both plots share the same x axis. The two axes objects are <em>unpacked</em> into the two variables ax1 and ax2.</p>
+<p>The two plots (axes) we created are here referenced as <code class="docutils literal notranslate"><span class="pre">ax1</span></code> and <code class="docutils literal notranslate"><span class="pre">ax2</span></code>. Axes are a special object type in python. We then apply methods (functions specific to a particular object type) to the axes to create the plots, adding data, formating etc with a sequence of methods. When we have finished, we use the function <code class="docutils literal notranslate"><span class="pre">plt.show()</span></code> to show the plots.</p>
+<p>In the code above we first set the format for the dates on the x axis using the function <code class="docutils literal notranslate"><span class="pre">mdates.DateFormatter</span></code>.</p>
+<p>Then we create the plot referred to by <code class="docutils literal notranslate"><span class="pre">ax1</span></code>. We first plot the outflow, then inflow data. We then set a label for the y axis to <span class="math notranslate nohighlight">\(flow~ m^3/s\)</span>.</p>
+<p>We then indicate that legend should appear in the plot.</p>
+<p>The next commands are used to format the x axis, which are dates (the plots show flows versus date) `ax2.xaxis.set_major_formatter(myFmt)</p>
+<p>fig.autofmt_xdate()’</p>
+<p>Finally, plot the second plot, referred to as <code class="docutils literal notranslate"><span class="pre">ax2</span></code>.</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, Philip Austin.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
