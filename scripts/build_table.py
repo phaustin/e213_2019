@@ -2,11 +2,12 @@
 build a table of contents file called
 notebook_list.md that has the sorted notebooks plus their urls
 """
-import json
 import collections
+import json
+from pathlib import Path
+
 import markdown_generator as mg
 import pandas as pd
-from pathlib import Path
 
 lessons_file = Path(__file__).parent.parent / Path("docs/lesson_titles.json")
 with open(lessons_file, "r") as f:

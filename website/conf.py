@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import sphinx_bootstrap_theme
 import jupytext
+import sphinx_bootstrap_theme
 
 print("do i see this")
 #
