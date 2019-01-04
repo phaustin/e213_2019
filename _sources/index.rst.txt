@@ -5,8 +5,8 @@
 
 .. include:: refs.txt
    
-ATSC 301: Atmospheric radiation and remote sensing
-==================================================
+EOSC 213: Computational Methods in Geological Engineering
+=========================================================
 
 
 Course materials
