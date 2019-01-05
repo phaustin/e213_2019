@@ -1,2 +1,2 @@
 #!/bin/bash -v
-sphinx-build -vvv -N -b html . _build
+sphinx-build -v -N -b html .f _build
