@@ -1,2 +1,2 @@
 #! /bin/bash
-gh-import 
+ghp-import --no-jekyll -p _build
