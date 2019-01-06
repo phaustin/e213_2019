@@ -11,9 +11,7 @@
 #     language: python
 #     name: python3
 # ---
-
 # %% [markdown]
 # # Introduction
-
 # %%
-print('here is day 1')
+print("here is day 1")

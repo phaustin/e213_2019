@@ -11,7 +11,6 @@
 #     language: python
 #     name: python3
 # ---
-
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"><li><span><a href="#Introduction-to-computational-methods" data-toc-modified-id="Introduction-to-computational-methods-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Introduction to computational methods</a></span><ul class="toc-item"><li><span><a href="#Data-file-test2" data-toc-modified-id="Data-file-test2-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Data file test2</a></span></li><li><span><a href="#Algorithm" data-toc-modified-id="Algorithm-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Algorithm</a></span></li><li><span><a href="#Python-code" data-toc-modified-id="Python-code-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Python code</a></span></li><li><span><a href="#Python-modules/libraries" data-toc-modified-id="Python-modules/libraries-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Python modules/libraries</a></span></li><li><span><a href="#Handle-graphics-with-Matplotlib" data-toc-modified-id="Handle-graphics-with-Matplotlib-1.5"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>Handle graphics with <code>Matplotlib</code></a></span></li></ul></li></ul></div>
