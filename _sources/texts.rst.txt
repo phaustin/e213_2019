@@ -21,4 +21,5 @@ Moving from matlab to python
   
 * `Numpy for matlab users <https://docs.scipy.org/doc/numpy/user/numpy-for-matlab-users.html>`_
 
-* Here is a `python translation <http://nbviewer.jupyter.org/gist/phaustin/1af744215e51562d010b9f6a19c0724c>`_  by `Don MacMillen <http://blogs.siam.org/from-matlab-guide-to-ipython-notebook/>`_ of Chapter 1 of `his matlab guide <https://epubs.siam.org/doi/book/10.1137/1.9780898717891>`_
+* Here is a `python translation <http://nbviewer.jupyter.org/gist/phaustin/1af744215e51562d010b9f6a19c0724c>`_  by `Don MacMillen <http://blogs.siam.org/from-matlab-guide-to-ipython-notebook/>`_ of Chapter 1 of `this matlab guide <http://gw2jh3xr2c.search.serialssolutions.com/?sid=sersol&SS_jc=TC_032092198&title=MATLAB%20Guide%2C%20Third%20Edition>`_ (Matlab Guide, 3rd edition, Higham, Desmond J, 2016)
+  
