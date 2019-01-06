@@ -13,16 +13,18 @@ Course materials
 ________________
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :numbered: 2           
 
+   Weekly notes <week_notes>
+              
    Texts <texts>
    
    Getting started with Python <getting_started>
 
    Cheat sheet <cheat_sheet>
 
-   First Notebook <notebooks/compute_tmf_volume.py>
+   Notebook index <notebook_index>
    
 
 Index
