@@ -10,7 +10,7 @@ Week by week topics
 +++++++++++++++++++
 
 
-Week 2  Jan 3
+Week 1  Jan 3
 =============
 
 * `Introductory slides <pdfs/e213_01_Introduction.pdf>`_

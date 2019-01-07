@@ -89,20 +89,6 @@
    "execution_count": null,
    "metadata": {},
    "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
    "source": [
     "# Calculate area of rectangle\n",
     "area = length * width\n",
@@ -199,9 +185,6 @@
    },
    "outputs": [],
    "source": [
-    "\n",
-    "\n",
-    "\n",
     "\n",
     "\n"
    ]
@@ -314,9 +297,6 @@
    },
    "outputs": [],
    "source": [
-    "\n",
-    "\n",
-    "\n",
     "\n",
     "\n"
    ]
@@ -486,32 +466,12 @@
    ]
   },
   {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {
-    "lines_to_next_cell": 2
-   },
-   "outputs": [],
-   "source": [
-    "\n",
-    "\n"
-   ]
-  },
-  {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
     "# Exercise 1.1\n",
     "\n",
-    "**a)** Create a variable `y` with a value of `7`\n",
-    "\n",
-    "Below is the first example of an autograded jupyter notebook cell.  Replace the lines:\n",
-    "\n",
-    "```python\n",
-    "# YOUR CODE HERE\n",
-    "raise NotImplementedError()\n",
-    "```\n",
-    "with your own answer.\n"
+    "**a)** Create a variable `y` with a value of `7`"
    ]
   },
   {
@@ -539,7 +499,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "You statement should pass the following test, which will pass silently if y=7.  \n"
+    "You statement should pass the following test:"
    ]
   },
   {
@@ -563,14 +523,6 @@
    "source": [
     "from numpy.testing import assert_almost_equal\n",
     "assert_almost_equal(y,7,decimal=1)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "Try making it fail by changing the 7 to an 8.  To do that you'll need to create a new\n",
-    "cell below this one (which is locked to modification) and copy assert into that cell."
    ]
   },
   {
@@ -633,7 +585,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Bonus exercises"
+    "### Bonus exercises"
    ]
   },
   {
@@ -728,9 +680,6 @@
    "outputs": [],
    "source": [
     "\n",
-    "\n",
-    "\n",
-    "\n",
     "\n"
    ]
   },
@@ -749,7 +698,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Use `?` after the function name to see the documentation. (remove the # and execute)"
+    "Use `?` after the function name to see the documentation."
    ]
   },
   {
@@ -758,7 +707,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "#round?"
+    "round?"
    ]
   },
   {
@@ -968,7 +917,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "#fraction_rounded?"
+    "fraction_rounded?"
    ]
   },
   {
@@ -984,7 +933,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "#fraction_rounded??"
+    "fraction_rounded??"
    ]
   },
   {
@@ -1037,7 +986,7 @@
    "metadata": {
     "deletable": false,
     "nbgrader": {
-     "checksum": "ac00fa7c32215d19f907e214c706c982",
+     "checksum": "e8ac6c11a500077ead460e4b10989327",
      "grade": false,
      "grade_id": "cell-ec6800b6465d8a7b",
      "locked": false,
@@ -1050,7 +999,7 @@
     "# YOUR CODE HERE\n",
     "raise NotImplementedError()\n",
     "\n",
-    "# You code should pass the following test:\n",
+    "# You code sould pass the following test:\n",
     "from numpy.testing import assert_almost_equal\n",
     "assert_almost_equal(temp_F,59.0,decimal=1)\n",
     "print(convert_celsius(30))"
@@ -1062,9 +1011,8 @@
    "metadata": {
     "deletable": false,
     "editable": false,
-    "lines_to_next_cell": 2,
     "nbgrader": {
-     "checksum": "2937f56c8545c335c03f73987717e36d",
+     "checksum": "335cfb4b17472a704bc1a0e07e9a667b",
      "grade": true,
      "grade_id": "cell-7aeb0c61250c5a72",
      "locked": true,
@@ -1074,16 +1022,13 @@
     }
    },
    "outputs": [],
-   "source": [
-    "# Here is a cell with a hidden test that doesn't show the answer.  We are testing your function\n",
-    "# with a different input value."
-   ]
+   "source": []
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Bonus exercises\n",
+    "### Bonus exercises\n",
     "\n",
     "**c)** Create a new function based on your function from part (a), which converts the temperature from Celsius to Fahrenheit and also prints a message about the temperature:\n",
     "- If the input temperature is less than 10 C, it prints `'Chilly!'`, \n",
@@ -1154,9 +1099,6 @@
    },
    "outputs": [],
    "source": [
-    "\n",
-    "\n",
-    "\n",
     "\n",
     "\n"
    ]
@@ -1324,9 +1266,6 @@
    "outputs": [],
    "source": [
     "\n",
-    "\n",
-    "\n",
-    "\n",
     "\n"
    ]
   },
@@ -1346,9 +1285,6 @@
    "outputs": [],
    "source": [
     "\n",
-    "\n",
-    "\n",
-    "\n",
     "\n"
    ]
   },
@@ -1367,9 +1303,6 @@
    },
    "outputs": [],
    "source": [
-    "\n",
-    "\n",
-    "\n",
     "\n",
     "\n"
    ]
@@ -1550,7 +1483,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Bonus exercises\n",
+    "### Bonus exercises\n",
     "\n",
     "**d) Creating a sequence of integers** \n",
     "\n",
@@ -1719,7 +1652,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Bonus exercises\n",
+    "### Bonus exercises\n",
     "\n",
     "c) Create a new *empty* dictionary `groceries` with the syntax `groceries = {}` and then display `groceries`. Add a key `'eggs'` with a value of `12` and display the updated `groceries` dictionary."
    ]
