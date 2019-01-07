@@ -46,47 +46,47 @@ def main(args=None):
     # print(f'here are the output files: {txt_out},{rst_out}')
     # print(f'DEBUG: here is the noteobok order from find_notebooks.py: \n{pprint.pformat(notebook_order)}\n')
     web_notebooks_path = website_dir / Path("web_notebooks")
+    web_pybooks_path = website_dir / Path("_build/python")
     os.makedirs(web_notebooks_path, exist_ok=True)
     #
     # first line of table
     #
-    table_list = [["notebook", "html", "python"]]
+    table_list = [["cocalc folder", "html", "python"]]
     namelist = []
+    file_list = []
+    git_url = "https://github.com/phaustin/eosc213_students/blob/master/python"
     for week, weeklist in notebook_order.items():
         week_head = "**{}**".format(week)
         table_list.append([week_head, " ", " "])
         for notebook in weeklist:
-            html_name = f"{notebook}.html"
             py_name = f"{notebook}.py"
             nb_name = f"{notebook}.ipynb"
-            nb_file = list(notebook_dir.glob(f"**/{nb_name}"))[0]
-            print(list(notebook_dir.glob(f"**/{html_name}"))[0].is_file())
-            print(list(notebook_dir.glob(f"**/{py_name}"))[0].is_file())
+            nb_file = list(context.student_dir.glob(f"**/{nb_name}"))[0]
+            py_file = list(context.student_dir.glob(f"**/{py_name}"))[0]
             print(nb_file.is_file())
+            nb_path = str(nb_file.relative_to(context.student_dir))
             shutil.copy(nb_file, web_notebooks_path)
+            shutil.copy(py_file, web_pybooks_path)
             namelist.append(notebook)
-            ipynb = r"`{}_ipynb`_"
+            ipynb = r"{}_ipynb_"
             html = r"`{}_html`_"
             python = r"`{}_py`_"
             ipynb, html, python = [
                 item.format(notebook) for item in [ipynb, html, python]
             ]
+            ipynb = nb_path
             table_list.append([ipynb, html, python])
-    print(table_list)
+            file_list.append(nb_path)
+    print(f"tablelist: {table_list}")
     # #
     # # write out the shortcuts
     # #
-    github_url = "https://github.com/phaustin"
     with open(txt_out, "w") as notetxt:
         print(f"writing {str(txt_out.resolve())}")
-        for name in namelist:
-            notetxt.write(
-                f".. _{name}_ipynb: {github_url}/blob/master/notebooks/{name}.ipynb\n"
-            )
-            notetxt.write(f".. _{name}_html: html/{name}.html\n")
-            notetxt.write(
-                f".. _{name}_py: {github_url}/blob/master/notebooks/python/{name}.py\n"
-            )
+        for name, filepath in zip(namelist, file_list):
+            notetxt.write(f".. _{name}_ipynb: {filepath}\n")
+            notetxt.write(f".. _{name}_html: web_notebooks/{name}.ipynb\n")
+            notetxt.write(f".. _{name}_py: {git_url}/{name}.py\n")
 
     header = """
     .. include:: index_notebooks.txt

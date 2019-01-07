@@ -14,6 +14,7 @@ home_dir = Path.home()
 assign_dir = home_dir / Path("Nextcloud/213/graded_assignments")
 assign_source = home_dir / assign_dir / Path("source")
 assign_release = home_dir / assign_dir / Path("release")
+student_dir = root_dir.parent / Path("eosc213_students")
 
 # can_path = Path(os.environ['HOME']) / Path('repos/canvas_scripting')
 # sys.path.insert(0, can_path)

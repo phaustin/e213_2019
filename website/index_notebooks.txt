@@ -1,3 +1,3 @@
-.. _1-python-basics_ipynb: https://github.com/phaustin/blob/master/notebooks/1-python-basics.ipynb
-.. _1-python-basics_html: html/1-python-basics.html
-.. _1-python-basics_py: https://github.com/phaustin/blob/master/notebooks/python/1-python-basics.py
+.. _1-python-basics_ipynb: notebooks/first_notebook/1-python-basics.ipynb
+.. _1-python-basics_html: web_notebooks/1-python-basics.ipynb
+.. _1-python-basics_py: https://github.com/phaustin/eosc213_students/blob/master/python/1-python-basics.py

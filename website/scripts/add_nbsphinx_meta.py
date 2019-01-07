@@ -2,6 +2,8 @@
 add the nbsphinx metadata tag {"execute": "never"} to
 a notebook's metadata
 
+usage:  python add_nbsphinx_meta.py 1-python-basics.ipynb nb_folder="."
+
 """
 import argparse
 from pathlib import Path
@@ -13,11 +15,17 @@ import nbformat
 def add_meta(nb_name, nb_folder=None):
     if nb_folder is None:
         nb_file = list(context.notebook_dir.glob(f"**/{nb_name}"))[0]
-        with open(nb_file, "r") as f:
-            nb = nbformat.read(f, as_version=nbformat.NO_CONVERT)
+        print(f"file exists?: {nb_file.is_file()}")
+        the_folder = nb_file.parent()
+    else:
+        nb_file = Path(nb_folder) / Path(nb_name)
+        the_folder = nb_file.parent
+        print(f"file exists?: {nb_file.is_file()}")
+    with open(nb_file, "r") as f:
+        nb = nbformat.read(f, as_version=nbformat.NO_CONVERT)
     nbsphinx = nbformat.from_dict({"execute": "never"})
     nb["metadata"]["nbsphinx"] = nbsphinx
-    outfile = context.notebook_dir / Path("trythis.ipynb")
+    outfile = the_folder / Path("trythis.ipynb")
     with open(outfile, "w") as f:
         nbformat.write(nb, f, version=nbformat.NO_CONVERT)
     return outfile
@@ -38,7 +46,7 @@ def make_parser():
                       Nextcloud/213/graded_assignments/release
                       folder"""
     parser.add_argument(
-        "--d",
+        "-d",
         action="store",
         dest="notebook_dir",
         default="student_release_dir",
@@ -51,7 +59,7 @@ def make_parser():
 def main(args=None):
     parser = make_parser()
     args = parser.parse_args(args)
-    add_meta(args.filename, root=args.root)
+    add_meta(args.notebook_name, nb_folder=args.notebook_dir)
 
 
 if __name__ == "__main__":
