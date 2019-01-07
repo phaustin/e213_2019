@@ -224,10 +224,6 @@
 
 .. _Introduction to Python for Science: http://clouds.eos.ubc.ca/~phil/djpine_python
 
-.. _Whirlwind: http://clouds.eos.ubc.ca/~phil/courses/atsc301/whirlwind/Index.html
-
-.. _whirlwind.zip: http://clouds.eos.ubc.ca/~phil/courses/atsc301/downloads/WhirlwindTourOfPython-notebooks.zip
-
 .. _sw carpentry bash 2: http://swcarpentry.github.io/shell-novice/02-filedir
 
 .. _sw carpentry bash 3: http://swcarpentry.github.io/shell-novice/03-create
