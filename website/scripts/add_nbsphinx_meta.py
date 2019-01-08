@@ -4,6 +4,10 @@ a notebook's metadata
 
 usage:  python add_nbsphinx_meta.py 1-python-basics.ipynb nb_folder="."
 
+this modifies 1-python-basics.ipynb inplace and also puts a copy in
+eosc213/website/web_notebooks  so nbsphinx will pick it up in the sphinx-build
+and not try to run it.
+
 """
 import argparse
 import shutil
@@ -32,11 +36,14 @@ def add_meta(nb_name, nb_folder=None):
         nb = nbformat.read(f, as_version=nbformat.NO_CONVERT)
     nbsphinx = nbformat.from_dict({"execute": "never"})
     nb["metadata"]["nbsphinx"] = nbsphinx
-    outfile = the_folder / Path("trythis.ipynb")
+    outfile = the_folder / Path("temporary_notebook.ipynb")
     with open(outfile, "w") as f:
         nbformat.write(nb, f, version=nbformat.NO_CONVERT)
     print(f"wrote new file {outfile}")
     shutil.copy(outfile, nb_file)
+    web_notebooks = context.website_dir / Path("web_notebooks")
+    shutil.copy(outfile, nb_file)
+    shutil.copy(outfile, web_notebooks)
     print(f"overwrote {nb_file}")
     return outfile
 
