@@ -6,6 +6,7 @@ usage:  python add_nbsphinx_meta.py 1-python-basics.ipynb nb_folder="."
 
 """
 import argparse
+import shutil
 from pathlib import Path
 
 import context
@@ -14,13 +15,19 @@ import nbformat
 
 def add_meta(nb_name, nb_folder=None):
     if nb_folder is None:
-        nb_file = list(context.notebook_dir.glob(f"**/{nb_name}"))[0]
-        print(f"file exists?: {nb_file.is_file()}")
-        the_folder = nb_file.parent()
+        nb_file = list(context.student_dir.glob(f"**/{nb_name}"))[0]
+        if nb_file.is_file():
+            print(f"working with {nb_file}")
+        else:
+            raise ValueError(f"could not find {nb_file}")
+        the_folder = nb_file.parent
     else:
         nb_file = Path(nb_folder) / Path(nb_name)
         the_folder = nb_file.parent
-        print(f"file exists?: {nb_file.is_file()}")
+        if nb_file.is_file():
+            print(f"working with {nb_file}")
+        else:
+            raise ValueError(f"could not find {nb_file} in {nb_folder}")
     with open(nb_file, "r") as f:
         nb = nbformat.read(f, as_version=nbformat.NO_CONVERT)
     nbsphinx = nbformat.from_dict({"execute": "never"})
@@ -28,6 +35,9 @@ def add_meta(nb_name, nb_folder=None):
     outfile = the_folder / Path("trythis.ipynb")
     with open(outfile, "w") as f:
         nbformat.write(nb, f, version=nbformat.NO_CONVERT)
+    print(f"wrote new file {outfile}")
+    shutil.copy(outfile, nb_file)
+    print(f"overwrote {nb_file}")
     return outfile
 
 
@@ -46,12 +56,7 @@ def make_parser():
                       Nextcloud/213/graded_assignments/release
                       folder"""
     parser.add_argument(
-        "-d",
-        action="store",
-        dest="notebook_dir",
-        default="student_release_dir",
-        type=str,
-        help=help_message,
+        "-d", action="store", dest="notebook_dir", type=str, help=help_message
     )
     return parser
 
