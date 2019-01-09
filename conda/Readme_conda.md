@@ -9,3 +9,6 @@ See https://conda.io/docs/user-guide/tasks/manage-environments.html#create-env-f
 
       conda env create -f e213_env.yml
 
+1. then activate with:
+
+      conda activate e213
