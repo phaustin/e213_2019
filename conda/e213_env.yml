@@ -2,8 +2,6 @@ name: e213
 channels:
   - conda-forge
   - defaults
-  - phaustin
-  - file://Users/phil/pha_conda
 dependencies:
   - alabaster=0.7.12
   - alembic=0.9.9
