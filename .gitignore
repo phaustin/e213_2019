@@ -9,3 +9,4 @@ website/web_notebooks
 notebooks_out.json
 rst_out.json
 1-python-basics.ipynb
+*.ipynb

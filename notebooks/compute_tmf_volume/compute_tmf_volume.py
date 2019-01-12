@@ -1,6 +1,11 @@
 # ---
 # jupyter:
 #   jupytext:
+#     metadata_filter:
+#       cells:
+#         additional: all
+#       notebook:
+#         additional: all
 #     text_representation:
 #       extension: .py
 #       format_name: percent
@@ -10,11 +15,34 @@
 #     display_name: Python 3
 #     language: python
 #     name: python3
+#   language_info:
+#     codemirror_mode:
+#       name: ipython
+#       version: 3
+#     file_extension: .py
+#     mimetype: text/x-python
+#     name: python
+#     nbconvert_exporter: python
+#     pygments_lexer: ipython3
+#     version: 3.6.7
+#   toc:
+#     base_numbering: 1
+#     nav_menu: {}
+#     number_sections: true
+#     sideBar: true
+#     skip_h1_title: false
+#     title_cell: Table of Contents
+#     title_sidebar: Contents
+#     toc_cell: true
+#     toc_position: {}
+#     toc_section_display: true
+#     toc_window_display: true
 # ---
-# %% [markdown] {"toc": true}
+
+# %% [markdown] {"toc": true, "lines_to_next_cell": 0}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#Introduction-to-computational-methods" data-toc-modified-id="Introduction-to-computational-methods-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Introduction to computational methods</a></span><ul class="toc-item"><li><span><a href="#Data-file-test2" data-toc-modified-id="Data-file-test2-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Data file test2</a></span></li><li><span><a href="#Algorithm" data-toc-modified-id="Algorithm-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Algorithm</a></span></li><li><span><a href="#Python-code" data-toc-modified-id="Python-code-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Python code</a></span></li><li><span><a href="#Python-modules/libraries" data-toc-modified-id="Python-modules/libraries-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Python modules/libraries</a></span></li><li><span><a href="#Handle-graphics-with-Matplotlib" data-toc-modified-id="Handle-graphics-with-Matplotlib-1.5"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>Handle graphics with <code>Matplotlib</code></a></span></li></ul></li></ul></div>
-# %% [markdown]
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Introduction-to-computational-methods" data-toc-modified-id="Introduction-to-computational-methods-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Introduction to computational methods</a></span><ul class="toc-item"><li><span><a href="#Data-file-test2--hello-everyone" data-toc-modified-id="Data-file-test2--hello-everyone-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Data file test2  hello everyone</a></span></li><li><span><a href="#Algorithm" data-toc-modified-id="Algorithm-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Algorithm</a></span></li><li><span><a href="#Python-code" data-toc-modified-id="Python-code-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Python code</a></span></li><li><span><a href="#Python-modules/libraries" data-toc-modified-id="Python-modules/libraries-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Python modules/libraries</a></span></li><li><span><a href="#Handle-graphics-with-Matplotlib" data-toc-modified-id="Handle-graphics-with-Matplotlib-1.5"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>Handle graphics with <code>Matplotlib</code></a></span></li></ul></li></ul></div>
+# %% [markdown] {"lines_to_next_cell": 0}
 # # Introduction to computational methods
 #
 # This notebook introduces a python program to integrate daily average flow into and out of
@@ -53,16 +81,16 @@
 # 2. Compute the change in volume over the day $\Delta V = (Q_{in} - Q_{out})\Delta t$
 # 3. Update the volume of the TMF: $V(t+\Delta t) = V(t) + \Delta V$
 # 4. Loop through all dates in the file until complete.
-# %% [markdown]
+# %% [markdown] {"lines_to_next_cell": 0}
 # ## Python code
 # We'll introduce python concepts as we go in the course, so we don't expect you to fully understand
 # this code yet. We'll therefore only provide a cursory explanation here.
 #
-# %% [markdown]
+# %% [markdown] {"lines_to_next_cell": 0}
 # ## Python modules/libraries
 # It is good practice to import libaries at the beginning of a program. Libaries are collections of python code.
 #
-# %%
+# %% {"lines_to_next_cell": 2}
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 import numpy as np
@@ -124,7 +152,7 @@ v = np.zeros(n, float)
 # are defined in advance, versus on the fly. Here we create an array `v` of `n` zeros of type `float`. Each element in
 # `v` will store the volume of water in the TMF on a specific day.
 
-# %%
+# %% {"lines_to_next_cell": 2}
 # print  the columns in the dataframe
 print(f"Columns in csv file: {flow.columns}")
 
@@ -148,7 +176,7 @@ print(f"type of the timestap object: {type(flow['yearmonthday'][0])}")
 #
 # We then print out the type of the data in the column `yearmonthday` to prove that it is now a date.
 
-# %%
+# %% {"lines_to_next_cell": 2}
 # set volume in TMF at time zero to 8.1 x 10^6 m^3
 
 v[0] = 8.1e6
@@ -158,6 +186,8 @@ loop through and compute volume through time
 since flow is in m^3/s, and flows are daily average flows, must convert
 to m^3 in a day by multiplying by 86400 s/d
 """
+inflow = flow['inflow'].values
+print(inflow.dtype)
 seconds_per_day = 86400.0
 for i in range(n - 1):
     v[i + 1] = v[i] + (flow["inflow"][i] - flow["outflow"][i]) * seconds_per_day
@@ -176,7 +206,7 @@ for i in range(n - 1):
 # The rest of the code is used to generate the plot of outflow and inflow over time in on subplot,
 # and volume of water in the TMF over time in another subplot.
 
-# %%
+# %% {"lines_to_next_cell": 2}
 # call a figure with two plots, vertically stacked, sharing x axis
 
 fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True, figsize=(8, 8))
@@ -202,7 +232,7 @@ fig.autofmt_xdate()
 
 ax2.plot(flow["yearmonthday"], v, label="Volume in TMF")
 ax2.set(xlabel="date", ylabel="Volume in TMF $m^3$")
-ax2.legend()
+ax2.legend();
 
 
 # %% [markdown]
