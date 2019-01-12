@@ -23,5 +23,5 @@ Week 2  Jan 7/Jan 11
 
 * `python basics notebook <web_notebooks/1-python-basics.ipynb>`_
 
-* `Day 2 post-class slices <https://www.dropbox.com/s/4ye71utxzozbusl/Lect1.pdf?dl=0>`_
+* `Day 2 post-class slides <https://www.dropbox.com/s/4ye71utxzozbusl/Lect1.pdf?dl=0>`_
   
