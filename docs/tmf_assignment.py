@@ -39,7 +39,7 @@
 #     toc_section_display: true
 #     toc_window_display: true
 # ---
-# %% [markdown] {"toc": true}
+# %% [markdown] {"toc": true, "lines_to_next_cell": 0}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"></ul></div>
 # %% [markdown]
@@ -95,7 +95,7 @@
 #     be written (a positive quantity when sulfate is entering into the
 #     TMF):
 #
-# \[j_{\text{pore}} = k\left( c_{\text{pore}} - c_{\text{TMF}} \right)\]
+# $j_{\text{pore}} = k\left( c_{\text{pore}} - c_{\text{TMF}} \right)$
 #
 # > where $j_{\text{pore}}\ mg/(s \cdot m^{2})$ is the flux rate of
 # > sulfate per unit area of the bottom of the TMF and $k$ is the flux
@@ -105,7 +105,7 @@
 # > area $j_{\text{area}}$ by the total area of the TMF bottom
 # > $A_{\text{bottom}}\ $ in $m^{2}$ :
 #
-# \[J_{\text{pore}} = A_{\text{bottom}}{\times j}_{\text{pore}}\]
+# $J_{\text{pore}} = A_{\text{bottom}}{\times j}_{\text{pore}}$
 #
 # 4)  Leaving via the discharge ditch. Sulfate leaves the TMF with the
 #     water that is discharged at a rate $Q_{\text{discharge}}\ m^{3}/s$
@@ -122,16 +122,16 @@
 #
 # | Symbol                   | Units                 | Description                                                  | Value                   |
 # | ------------------------ | --------------------- | ------------------------------------------------------------ | ----------------------- |
-# | \[c_{\text{pit}}\]       | \[mg/L\]              | Concentration of sulfate in pit water (assume constant)      | \[50\]                  |
-# | \[Q_{\text{pit}}\]       | \[m^{3}/s\]           | Flow rate of water from the pit into TMF (assume constant)   | 0.030                   |
-# | \[c_{\text{mill}}\]      | \[mg/L\]              | Concentration of sulfate in mill water (assume constant)     | \[700\]                 |
-# | \[Q_{\text{mill}}\]      | \[m^{3}/s\]           | Flow rate of water from mill into TMF (assume constant)      | 0.014                   |
-# | \[Q_{\text{discharge}}\] | \[m^{3}/s\]           | Flow rate of water from TMF to environment (assume constant) | 0.044                   |
-# | \[c_{\text{pore}}\]      | \[mg/L\]              | Concentration of sulfate in porewater at bottom of pond      | 2000                    |
-# | \[k\]                    | \[L/(s \cdot m^{2})\] | Flux coefficient from porewater to water column              | \[2.5 \times 10^{- 5}\] |
-# | \[A_{\text{bottom}}\]    | \[m^{2}\]             | Total area of TMF bottom                                     | \[3 \times 10^{5}\]     |
-# | \[V_{\text{TMF}}\]       | \[m^{3}\]             | Volume of water in TMF at start of simulation                | \[8.1 \times 10^{6}\]   |
-# | \[c_{0}\]                | $mg/L$              | Concentration of sulfate in TMF water at start of simulation | \[93\]                  |
+# | $c_{\text{pit}}$       | $mg/L$              | Concentration of sulfate in pit water (assume constant)      | $50$                  |
+# | $Q_{\text{pit}}$       | $m^{3}/s$           | Flow rate of water from the pit into TMF (assume constant)   | 0.030                   |
+# | $c_{\text{mill}}$      | $mg/L$              | Concentration of sulfate in mill water (assume constant)     | $700$                 |
+# | $Q_{\text{mill}}$      | $m^{3}/s$           | Flow rate of water from mill into TMF (assume constant)      | 0.014                   |
+# | $Q_{\text{discharge}}$ | $m^{3}/s$           | Flow rate of water from TMF to environment (assume constant) | 0.044                   |
+# | $c_{\text{pore}}$      | $mg/L$              | Concentration of sulfate in porewater at bottom of pond      | 2000                    |
+# | $k$                    | $L/(s \cdot m^{2})$ | Flux coefficient from porewater to water column              | $2.5 \times 10^{- 5}$ |
+# | $A_{\text{bottom}}$    | $m^{2}$             | Total area of TMF bottom                                     | $3 \times 10^{5}$     |
+# | $V_{\text{TMF}}$       | $m^{3}$             | Volume of water in TMF at start of simulation                | $8.1 \times 10^{6}$   |
+# | $c_{0}$                | $mg/L$              | Concentration of sulfate in TMF water at start of simulation | $93$                  |
 #
 # **Model**
 #
