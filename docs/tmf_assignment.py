@@ -120,7 +120,7 @@
 # You will need these parameters for your
 # model
 #
-# | Symbol                   | Units                 | Description                                                  | Value                   |
+# | Symbol                   | Symbol Units                | Description                                                  |&nbsp; &nbsp; &nbsp; &nbsp; Value                   |
 # | ------------------------ | --------------------- | ------------------------------------------------------------ | ----------------------- |
 # | $c_{\text{pit}}$       | $mg/L$              | Concentration of sulfate in pit water (assume constant)      | $50$                  |
 # | $Q_{\text{pit}}$       | $m^{3}/s$           | Flow rate of water from the pit into TMF (assume constant)   | 0.030                   |
