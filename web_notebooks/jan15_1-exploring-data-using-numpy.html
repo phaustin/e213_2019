@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Exploring data using NumPy &#8212; E213</title>
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          Home</a>
+        <span class="navbar-text navbar-version pull-left"><b>2019Jan01</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-1-jan-3">1.1. Week 1  Jan 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-2-jan-8-jan-10">1.2. Week 2  Jan 8/Jan 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-3-jan-15-jan-17">1.3. Week 3  Jan 15/Jan 17</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">2. Python Introductory Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html#moving-from-matlab-to-python">3. Moving from matlab to python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Getting started with Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#cocalc">4.1. Cocalc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-shell-commands">5.1. Useful shell commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-git-commands">5.2. Useful git commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-debugger-commands">5.3. Useful debugger commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">2. Python Introductory Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html#moving-from-matlab-to-python">3. Moving from matlab to python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Getting started with Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/web_notebooks/jan15_1-exploring-data-using-numpy.ipynb.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">2. Python Introductory Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html#moving-from-matlab-to-python">3. Moving from matlab to python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Getting started with Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+
+  
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 7ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<h1><p>Table of Contents</p>
+</h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;Exploring data using NumPy</p>
+</li><li><p>2&nbsp;&nbsp;What is NumPy?</p>
+</li><li><p>3&nbsp;&nbsp;Reading a data file with pandas</p>
+<ul class="toc-item"><li><p>3.1&nbsp;&nbsp;Importing NumPy and pandas</p>
+</li><li><p>3.2&nbsp;&nbsp;Reading data</p>
+</li><li><p>3.3&nbsp;&nbsp;Reading a data file</p>
+</li><li><p>3.4&nbsp;&nbsp;Converting to a numpy ndarray</p>
+</li></ul></li><li><p>4&nbsp;&nbsp;Exploring our dataset</p>
+<ul class="toc-item"><li><p>4.1&nbsp;&nbsp;Checking the array data type</p>
+</li><li><p>4.2&nbsp;&nbsp;Checking the data array type</p>
+</li><li><p>4.3&nbsp;&nbsp;Checking the size of the dataset</p>
+</li></ul></li><li><p>5&nbsp;&nbsp;Working with our data - Index slicing</p>
+<ul class="toc-item"><li><p>5.1&nbsp;&nbsp;Subsetting a set of rows in an array</p>
+<ul class="toc-item"><li><p>5.1.1&nbsp;&nbsp;Differences from matlab</p>
+</li></ul></li><li><p>5.2&nbsp;&nbsp;Slicing our data into columns</p>
+</li><li><p>5.3&nbsp;&nbsp;Checking the data in memory</p>
+</li></ul></li><li><p>6&nbsp;&nbsp;Basic data calculations in NumPy</p>
+<ul class="toc-item"><li><ul class="toc-item"><li><p>6.0.1&nbsp;&nbsp;Data type conversions</p>
+</li></ul></li></ul></li></ul></div><div class="section" id="Exploring-data-using-NumPy">
+<h1>Exploring data using NumPy<a class="headerlink" href="#Exploring-data-using-NumPy" title="Permalink to this headline">¶</a></h1>
+<p>Our first task in this week’s lesson is to learn how to read and explore data files using <a class="reference external" href="http://www.numpy.org/">NumPy</a>. We are also going to need another module called <a class="reference external" href="https://pandas.pydata.org/">Pandas</a> to get a csv file into numpy. We are not going discuss pandas in this lesson, but you’ll hear more about it later in the course.</p>
+</div>
+<div class="section" id="What-is-NumPy?">
+<h1>What is NumPy?<a class="headerlink" href="#What-is-NumPy?" title="Permalink to this headline">¶</a></h1>
+<p>NumPy is a library for Python designed for efficient scientific (numerical) computing. It is an essential library in Python that is used under the hood in many other modules (including <a class="reference external" href="https://pandas.pydata.org/">Pandas</a>). Here, we will get a sense of a few things NumPy can do.</p>
+</div>
+<div class="section" id="Reading-a-data-file-with-pandas">
+<h1>Reading a data file with pandas<a class="headerlink" href="#Reading-a-data-file-with-pandas" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Importing-NumPy-and-pandas">
+<h2>Importing NumPy and pandas<a class="headerlink" href="#Importing-NumPy-and-pandas" title="Permalink to this headline">¶</a></h2>
+<p>Now we’re ready to read in our temperature data file. First, we need to import the NumPy and pandas module.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>  <span class="c1"># noqa</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+<p>That’s it! NumPy is now ready to use. Notice that we have imported the NumPy module with the name <code class="docutils literal notranslate"><span class="pre">np</span></code>.</p>
+</div>
+<div class="section" id="Reading-data">
+<h2>Reading data<a class="headerlink" href="#Reading-data" title="Permalink to this headline">¶</a></h2>
+<p>Below we will read the file data/Kumpula-June-2016-w-metadata.txt</p>
+<p>Use your cocalc file browser to open the file data/Kumpula-June-2016-w-metadata.txt in the data folder. You should see this:</p>
+# Data file contents: Daily temperatures (mean, min, max) for Kumpula, Helsinki
+#                     for June 1-30, 2016
+# Data source: https://www.ncdc.noaa.gov/cdo-web/search?datasetid=GHCND
+# Data processing: Extracted temperatures from raw data file, converted to
+#                  comma-separated format
+#
+# David Whipp - 02.10.2017
+
+YEARMODA,TEMP,MAX,MIN
+20160601,65.5,73.6,54.7
+20160602,65.8,80.8,55.0
+...<p>Note the format – there is some header information we want to skip, the column names on line 9 and then rows of data. We will get a DataFrame with 4 columns – the year/month/day, temperature on that day, and the historical maximum and minimum.</p>
+</div>
+<div class="section" id="Reading-a-data-file">
+<h2>Reading a data file<a class="headerlink" href="#Reading-a-data-file" title="Permalink to this headline">¶</a></h2>
+<p>Now we’ll read the file data into a pandas<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> object. Remember that python counts from 0, so the header on line 9 is at row 8 in python.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data_frame</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;data/Kumpula-June-2016-w-metadata.txt&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">skip_blank_lines</span><span class="o">=</span><span class="bp">False</span>
+<span class="p">)</span>
+<span class="n">data_frame</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Converting-to-a-numpy-ndarray">
+<h2>Converting to a numpy ndarray<a class="headerlink" href="#Converting-to-a-numpy-ndarray" title="Permalink to this headline">¶</a></h2>
+<p>Since this notebook is focussed on numpy, not pandas, we want to get the data out of the pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> into a numpy array to work with. That’s done using the values attribute</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data</span> <span class="o">=</span> <span class="n">data_frame</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+</div>
+<p>Note, here we are doing two things:</p>
+<ol class="arabic simple">
+<li>creating the new object <code class="docutils literal notranslate"><span class="pre">data</span></code> (unlike C where variables are explicitly declared before they are used here, we create it dynamically, or on the fly)</li>
+<li>We take the values from the dataframe and assign them to <code class="docutils literal notranslate"><span class="pre">data</span></code> Also note that jupyter does not print out anything to see when we assign a variable using an equals sign. Only the last item in a cell is printed automatically. Printing any other variable requires calling it with the print() function.</li>
+</ol>
+</div>
+</div>
+<div class="section" id="Exploring-our-dataset">
+<h1>Exploring our dataset<a class="headerlink" href="#Exploring-our-dataset" title="Permalink to this headline">¶</a></h1>
+<p>A normal first step when you load new data is to explore the dataset a bit to understand what is there and its format.</p>
+<div class="section" id="Checking-the-array-data-type">
+<h2>Checking the array data type<a class="headerlink" href="#Checking-the-array-data-type" title="Permalink to this headline">¶</a></h2>
+<p>Perhaps as a first step, we can check the type of data we have in our NumPy array <code class="docutils literal notranslate"><span class="pre">data</span></code>. Try using google to find out how to check an object type in python.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+
+<span></span>
+</pre></div>
+</div>
+</div>
+<p>You should cofirm that it’s a NumPy <em>ndarray</em>, not much of a surprise here.</p>
+</div>
+<div class="section" id="Checking-the-data-array-type">
+<h2>Checking the data array type<a class="headerlink" href="#Checking-the-data-array-type" title="Permalink to this headline">¶</a></h2>
+<p>The ndarray is a container – it essentially points to a region of computer memory that holds a sequence of numbers represented as bit patterns. Those bits can be interpreted floating point, integer, or boolean, and each number may occupy 1, 8, 16, 32 or 64 bits. The ndarray object stores that information in an <a class="reference external" href="http://blog.thedigitalcatonline.com/blog/2015/01/12/accessing-attributes-in-python/">attribute</a> called its <code class="docutils literal notranslate"><span class="pre">dtype</span></code> or data tipe</p>
+<p>Let’s now have a look at the data type in our ndarray. We can find this in the <code class="docutils literal notranslate"><span class="pre">dtype</span></code> attribute that is part of the ndarray data type, something that is known automatically for this kind of data.</p>
+<p>To summarize – all python objects have a type. Objects of type ndarray hold data with a particular dtype. Every data element in an ndarray has the same dtype.</p>
+<p>Print out the type of the data ndarray below.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># YOUR CODE HERE</span>
+<span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Here we see the data are floating point values with 64-bit precision.</p>
+<div class="admonition note">
+<p class="admonition-title"><strong>Note:</strong></p>
+<p>There are some exceptions, but normal NumPy arrays will all have the same data type.</p>
+</div>
+</div>
+<div class="section" id="Checking-the-size-of-the-dataset">
+<h2>Checking the size of the dataset<a class="headerlink" href="#Checking-the-size-of-the-dataset" title="Permalink to this headline">¶</a></h2>
+<p>We can also check to see how many rows and columns we have in the dataset using the <code class="docutils literal notranslate"><span class="pre">shape</span></code> attribute.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># YOUR CODE HERE</span>
+<span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Here we see how there are 30 rows of data and 4 columns.</p>
+</div>
+</div>
+<div class="section" id="Working-with-our-data---Index-slicing">
+<h1>Working with our data - Index slicing<a class="headerlink" href="#Working-with-our-data---Index-slicing" title="Permalink to this headline">¶</a></h1>
+<p>Let’s have another quick look at our data.</p>
+<p>Need an explicit instruction. Maybe</p>
+<p>Just enter the name of the variable, <code class="docutils literal notranslate"><span class="pre">data</span></code> and run the cell to see the array.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+
+<span></span>
+</pre></div>
+</div>
+</div>
+<p>This is OK, but we can certainly make it easier to work with. We can start by slicing our data up into different columns and creating new variables with the column data. Slices from our array can be extracted using the <em>index values</em>. In our case, we have two indices in our 2D data structure. For example, the index values <code class="docutils literal notranslate"><span class="pre">[2,0]</span></code></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+
+<span></span>
+</pre></div>
+</div>
+</div>
+<p>give us the value at row 2, column 0.</p>
+<p>We can also use ranges of rows and columns using the <code class="docutils literal notranslate"><span class="pre">:</span></code> character. To get, for example the values from the first 3 columns of row 12, we could type</p>
+<p><code class="docutils literal notranslate"><span class="pre">data[12,</span> <span class="pre">0:3]</span></code></p>
+<p>Below, enter the code to get the first 5 rows of values in column zero</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+
+<span></span>
+</pre></div>
+</div>
+</div>
+<p>Not bad, right?</p>
+<p>In fact, we don’t even necessarily need the lower bound for this slice of data because NumPy will assume it for us if we don’t list it. Let’s see another example.</p>
+<div class="section" id="Subsetting-a-set-of-rows-in-an-array">
+<h2>Subsetting a set of rows in an array<a class="headerlink" href="#Subsetting-a-set-of-rows-in-an-array" title="Permalink to this headline">¶</a></h2>
+<p>Can you figure out how to see the first 5 rows of data (all columns)? Note, if you put the colon <code class="docutils literal notranslate"><span class="pre">:</span></code> in the array index, python will give you all rows or columns. Eg <code class="docutils literal notranslate"><span class="pre">data[1,:]</span></code> will give you all columns from row 1.</p>
+<div class="section" id="Differences-from-matlab">
+<h3>Differences from matlab<a class="headerlink" href="#Differences-from-matlab" title="Permalink to this headline">¶</a></h3>
+<p>Note a couple of important difference from matlab. In python:</p>
+<ol class="arabic simple">
+<li>The first item in an array is at index 0, not 1</li>
+<li>The slice [0:5] has 5 elements: 0,1,2,3,4.</li>
+<li>Index numbers can be negative: if an array a contains <code class="docutils literal notranslate"><span class="pre">a=</span> <span class="pre">[0,1,2,3,4]</span></code>, then <code class="docutils literal notranslate"><span class="pre">a[-1]</span></code> contains 4, <code class="docutils literal notranslate"><span class="pre">a[-2]</span></code> contains 3, etc. Try creating a array below with numpy.arange and accessing various elements in the cell below. What happens if you try an index beyond the end of the array?</li>
+</ol>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span>
+
+</pre></div>
+</div>
+</div>
+<p>Here, the lower bound of the index range <code class="docutils literal notranslate"><span class="pre">0</span></code> is assumed and we get all rows up to (but not including) index <code class="docutils literal notranslate"><span class="pre">5</span></code>.</p>
+</div>
+</div>
+<div class="section" id="Slicing-our-data-into-columns">
+<h2>Slicing our data into columns<a class="headerlink" href="#Slicing-our-data-into-columns" title="Permalink to this headline">¶</a></h2>
+<p>Now let’s use the ideas of index slicing to cut our 2D data into 4 separate columns that will be easier to work with.</p>
+<p>As you might recall from the header of the file, we have 4 data values: <code class="docutils literal notranslate"><span class="pre">YEARMODA</span></code>, <code class="docutils literal notranslate"><span class="pre">TEMP</span></code>, <code class="docutils literal notranslate"><span class="pre">MAX</span></code>, and <code class="docutils literal notranslate"><span class="pre">MIN</span></code>. We can exract all of the values from a given column by not listing and upper or lower bound for the index slice.</p>
+<p>Create a new array called <code class="docutils literal notranslate"><span class="pre">dateYMD</span></code> from the first column of the <code class="docutils literal notranslate"><span class="pre">data</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+
+<span></span>
+</pre></div>
+</div>
+</div>
+<p>Note, as mentioned above, python does not print out anything when we assign a variable with an equals sign.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+
+<span></span>
+</pre></div>
+</div>
+</div>
+<p>OK, this looks promising. Let’s quickly handle the others.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">temp</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">temp_max</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">temp_min</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>Now we have 4 variables, one for each column in the data file. This should make life easier when we want to perform some calculations on our data.</p>
+</div>
+<div class="section" id="Checking-the-data-in-memory">
+<h2>Checking the data in memory<a class="headerlink" href="#Checking-the-data-in-memory" title="Permalink to this headline">¶</a></h2>
+<p>We can see the types of data we have defined at this point, the variable names, and their types using the <code class="docutils literal notranslate"><span class="pre">%whos</span></code> magic command. This is quite handy. Enter the command below and see what you get. For technical reasons we need to comment out the line below when we generate this notebook. Uncomment it and run the cell.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#%whos</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Basic-data-calculations-in-NumPy">
+<h1>Basic data calculations in NumPy<a class="headerlink" href="#Basic-data-calculations-in-NumPy" title="Permalink to this headline">¶</a></h1>
+<p>NumPy ndarrays have a set of attributes they know about themselves and methods they can use to make calculations using the data. Useful methods include <code class="docutils literal notranslate"><span class="pre">mean()</span></code>, <code class="docutils literal notranslate"><span class="pre">min()</span></code>, <code class="docutils literal notranslate"><span class="pre">max()</span></code>, and <code class="docutils literal notranslate"><span class="pre">std()</span></code> (the standard deviation). The general format to use a method is <code class="docutils literal notranslate"><span class="pre">objectname.method()</span></code>. Our objects include the numpy arrays that we created above.</p>
+<p>For example, can you find the mean temperature in the dataset? Do that in the cell below and save it in a variable called <code class="docutils literal notranslate"><span class="pre">mean_temp</span></code></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># YOUR CODE HERE</span>
+<span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<p>How about the maximum maximum temperature? Remember that you’ve read the daily climatological maximum from column 2 above. Save the maximum of that column as the variable temp_max below.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># YOUR CODE HERE</span>
+<span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<p>Lastly, we can convert our ndarray data from one data type to another using the <code class="docutils literal notranslate"><span class="pre">astype()</span></code> method. As we see in the output from <code class="docutils literal notranslate"><span class="pre">%whos</span></code> above, our <code class="docutils literal notranslate"><span class="pre">date</span></code> array contains <code class="docutils literal notranslate"><span class="pre">float64</span></code> data, but it was simply integer values in the data file.</p>
+<p>For example to convert to a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array named <code class="docutils literal notranslate"><span class="pre">varname1</span></code> to <code class="docutils literal notranslate"><span class="pre">float64</span></code> and assign it to <code class="docutils literal notranslate"><span class="pre">varname2</span></code> use <code class="docutils literal notranslate"><span class="pre">varname2</span> <span class="pre">=</span> <span class="pre">varname1.astype(&quot;float64&quot;)</span></code>. Note, in python, you can do this in place, that is if <code class="docutils literal notranslate"><span class="pre">varname1</span></code> and <code class="docutils literal notranslate"><span class="pre">varname2</span></code> are the same, the net effect is to convert the type of <code class="docutils literal notranslate"><span class="pre">varname1</span></code>.</p>
+<p>Can you figure out how to convert <code class="docutils literal notranslate"><span class="pre">dateYMD</span></code> to integers using <code class="docutils literal notranslate"><span class="pre">astype()</span></code>?</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+
+
+
+
+<span></span>
+</pre></div>
+</div>
+</div>
+<p>Check the dtype attribute to confirm</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+
+<span></span>
+</pre></div>
+</div>
+</div>
+<p>Now we see our dates as whole integer values.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">dateYMD</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2019, Philip Austin.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
