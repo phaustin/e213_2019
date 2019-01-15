@@ -2,7 +2,7 @@
 """
 code to find notebooks
 
-and try another line
+python $e213/website/scripts/find_notebooks.py
 """
 import json
 import os
@@ -61,6 +61,7 @@ def main(args=None):
         for notebook in weeklist:
             py_name = f"{notebook}.py"
             nb_name = f"{notebook}.ipynb"
+            print(f"processing {nb_name} in folder {context.student_dir}")
             nb_file = list(context.student_dir.glob(f"**/{nb_name}"))[0]
             py_file = list(context.student_dir.glob(f"**/{py_name}"))[0]
             print(nb_file.is_file())

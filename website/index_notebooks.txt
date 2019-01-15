@@ -1,3 +1,9 @@
 .. _1-python-basics_ipynb: notebooks/first_notebook/1-python-basics.ipynb
 .. _1-python-basics_html: web_notebooks/1-python-basics.ipynb
 .. _1-python-basics_py: https://github.com/phaustin/eosc213_students/blob/master/python/1-python-basics.py
+.. _jan15_1-exploring-data-using-numpy_ipynb: notebooks/jan15_1-exploring-data-using-numpy.ipynb
+.. _jan15_1-exploring-data-using-numpy_html: web_notebooks/jan15_1-exploring-data-using-numpy.ipynb
+.. _jan15_1-exploring-data-using-numpy_py: https://github.com/phaustin/eosc213_students/blob/master/python/jan15_1-exploring-data-using-numpy.py
+.. _jan15_2_matplotlib_ipynb: notebooks/jan15_2_matplotlib.ipynb
+.. _jan15_2_matplotlib_html: web_notebooks/jan15_2_matplotlib.ipynb
+.. _jan15_2_matplotlib_py: https://github.com/phaustin/eosc213_students/blob/master/python/jan15_2_matplotlib.py

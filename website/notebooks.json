@@ -1,5 +1,9 @@
 {
     "week 2": [
         "1-python-basics"
+    ],
+    "week 3": [
+        "jan15_1-exploring-data-using-numpy",
+        "jan15_2_matplotlib"
     ]
 }

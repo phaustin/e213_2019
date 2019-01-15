@@ -29,7 +29,7 @@ assign_source = home_dir / assign_dir / Path("source")
 # /Users/phil/Nextcloud/213/graded_assignments/source
 assign_release = home_dir / assign_dir / Path("release")
 # /Users/phil/Nextcloud/213/graded_assignments/source
-student_dir = root_dir.parent / Path("eosc213_studentsn")
+student_dir = root_dir.parent / Path("eosc213_students")
 # /Users/phil/repos/eosc213_students
 sep = "*" * 30
 print(f"{sep}\ncontext imported. Front of path:\n{sys.path[0]}\n{sys.path[1]}\n{sep}\n")

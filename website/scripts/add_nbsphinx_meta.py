@@ -37,13 +37,18 @@ def add_meta(nb_name, nb_folder=None):
     nbsphinx = nbformat.from_dict({"execute": "never"})
     nb["metadata"]["nbsphinx"] = nbsphinx
     outfile = the_folder / Path("temporary_notebook.ipynb")
+    if outfile.is_file():
+        outfile.unlink()
     with open(outfile, "w") as f:
         nbformat.write(nb, f, version=nbformat.NO_CONVERT)
     print(f"wrote new file {outfile}")
     shutil.copy(outfile, nb_file)
     web_notebooks = context.website_dir / Path("web_notebooks")
     shutil.copy(outfile, nb_file)
-    shutil.copy(outfile, web_notebooks)
+    try:
+        shutil.copy(outfile, web_notebooks)
+    except shutil.SameFileError:
+        pass
     print(f"overwrote {nb_file}")
     return outfile
 
