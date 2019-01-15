@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # ---
 # jupyter:
 #   jupytext:
@@ -41,271 +40,210 @@
 #     toc_section_display: true
 #     toc_window_display: true
 # ---
-
 # %% [markdown] {"lines_to_next_cell": 0, "toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#Plotting-with-Matplotlib" data-toc-modified-id="Plotting-with-Matplotlib-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Plotting with Matplotlib</a></span><ul class="toc-item"><li><span><a href="#This-assignment" data-toc-modified-id="This-assignment-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>This assignment</a></span></li><li><span><a href="#Our-dataset" data-toc-modified-id="Our-dataset-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Our dataset</a></span></li><li><span><a href="#Getting-started" data-toc-modified-id="Getting-started-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Getting started</a></span><ul class="toc-item"><li><span><a href="#Loading-the-data-with-pandas" data-toc-modified-id="Loading-the-data-with-pandas-1.3.1"><span class="toc-item-num">1.3.1&nbsp;&nbsp;</span>Loading the data with pandas</a></span></li></ul></li><li><span><a href="#Our-first-plot" data-toc-modified-id="Our-first-plot-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Our first plot</a></span></li><li><span><a href="#Basic-plot-formatting" data-toc-modified-id="Basic-plot-formatting-1.5"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>Basic plot formatting</a></span><ul class="toc-item"><li><span><a href="#Embiggening*-the-plot" data-toc-modified-id="Embiggening*-the-plot-1.5.1"><span class="toc-item-num">1.5.1&nbsp;&nbsp;</span>Embiggening* the plot</a></span></li><li><span><a href="#Adding-text-labels-to-a-plot" data-toc-modified-id="Adding-text-labels-to-a-plot-1.5.2"><span class="toc-item-num">1.5.2&nbsp;&nbsp;</span>Adding text labels to a plot</a></span></li><li><span><a href="#Changing-the-axis-ranges" data-toc-modified-id="Changing-the-axis-ranges-1.5.3"><span class="toc-item-num">1.5.3&nbsp;&nbsp;</span>Changing the axis ranges</a></span></li><li><span><a href="#repeat-with-clipped-axes" data-toc-modified-id="repeat-with-clipped-axes-1.5.4"><span class="toc-item-num">1.5.4&nbsp;&nbsp;</span>repeat with clipped axes</a></span></li></ul></li><li><span><a href="#Bar-plots-in-Matplotlib" data-toc-modified-id="Bar-plots-in-Matplotlib-1.6"><span class="toc-item-num">1.6&nbsp;&nbsp;</span>Bar plots in Matplotlib</a></span></li><li><span><a href="#Saving-your-plots-as-image-files" data-toc-modified-id="Saving-your-plots-as-image-files-1.7"><span class="toc-item-num">1.7&nbsp;&nbsp;</span>Saving your plots as image files</a></span></li><li><span><a href="#Task-1:-Plotting-like-the-&quot;pros&quot;" data-toc-modified-id="Task-1:-Plotting-like-the-&quot;pros&quot;-1.8"><span class="toc-item-num">1.8&nbsp;&nbsp;</span>Task 1: Plotting like the "pros"</a></span></li><li><span><a href="#Task-2:-Plotting-only-part-of-a-dataset" data-toc-modified-id="Task-2:-Plotting-only-part-of-a-dataset-1.9"><span class="toc-item-num">1.9&nbsp;&nbsp;</span>Task 2: Plotting only part of a dataset</a></span></li></ul></li></ul></div>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Introduction-to-computational-methods" data-toc-modified-id="Introduction-to-computational-methods-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Introduction to computational methods</a></span><ul class="toc-item"><li><span><a href="#Data-file" data-toc-modified-id="Data-file-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Data file</a></span></li><li><span><a href="#Algorithm" data-toc-modified-id="Algorithm-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Algorithm</a></span></li><li><span><a href="#Python-code" data-toc-modified-id="Python-code-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Python code</a></span></li><li><span><a href="#Python-modules/libraries" data-toc-modified-id="Python-modules/libraries-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Python modules/libraries</a></span></li><li><span><a href="#convert-flow-to-a-numpy-array" data-toc-modified-id="convert-flow-to-a-numpy-array-1.5"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>convert flow to a numpy array</a></span></li></ul></li></ul></div>
 # %% [markdown] {"lines_to_next_cell": 0}
-# # Plotting with Matplotlib
+# # Introduction to computational methods
 #
-# Though there are many options for plotting data in Python, we will be using [Matplotlib](https://matplotlib.org/).
-# In particular, we will be using the `pyplot` module in Matplotlib, which provides MATLAB-like plotting.
-# The reason for this is simple: Matplotlib is the most common module used for plotting in Python and many examples of plotting you may find online will be using Matplotlib.
-# %% [markdown]
-# ## This assignment
+# This notebook introduces a python program to integrate daily average flow into and out of
+# the tailings management facility (TMF), and the volume of water in the TMF through time.
 #
-# Run the cells in this notebook -- feel free to experiment with the plots.
+# ## Data file
+# This notebook assumes that a comma-separated variable (csv) file named `july2016-tmf-flow.csv`
+# exists in the current working directory. The file contains three columns with headers:
 #
-# There are two tasks at the bottom of the notebook which you should complete and
-# upload as usual.
-
+# `date` `outflow` `inflow`
+#
+# The first 4 lines of the file are:
+#
+# `date,outflow,inflow
+# 2016-07-01,0.0703,0.1181
+# 2016-07-02,0.066,0.1121
+# 2016-07-03,0.0621,0.1079`
+#
+# The data in the csv file is in the following format
+#
+# `date` is in `yyyy-mm-dd`
+#
+# `outflow` is the daily average outflow in $m^3/s$
+#
+# `inflow` is the daily average inflow in $m^3/s$
+#
+#
+#
+# ## Algorithm
+# The volume of water in the TMF on day $t$ of the computation is $V(t)$, the daily average outflow is $Q_{out}$
+# and the daily average inflow is $Q_{out}$
+#
+# The basic computational algorithm is:
+#
+# 1. Read in the date, $Q_{out}$ and $Q_{out}$ data from the file `july2016-tmf-flow.csv`.
+# 2. Compute the change in volume over the day $\Delta V = (Q_{in} - Q_{out})\Delta t$
+# 3. Update the volume of the TMF: $V(t+\Delta t) = V(t) + \Delta V$
+# 4. Loop through all dates in the file until complete.
 # %% [markdown] {"lines_to_next_cell": 0}
-# ## Our dataset
+# ## Python code
+# We'll introduce python concepts as we go in the course, so we don't expect you to fully understand
+# this code yet. We'll therefore only provide a cursory explanation here.
 #
-# For our first lesson plotting data using Matplotlib we will again be using the weather data file from Lesson 5.
+# %% [markdown] {"lines_to_next_cell": 0}
+# ## Python modules/libraries
+# It is good practice to import libaries at the beginning of a program. Libaries are collections of python code.
 #
-# - The data file (`Kumpula-June-2016-w-metadata.txt`) is in the `data` subdirectory.
-# - It contains observed daily mean, minimum, and maximum temperatures from June 2016 recorded from the Kumpula weather observation station in Helsinki. It is derived from a data file of daily temperature measurments downloaded from the [US National Oceanographic and Atmospheric Administration’s National Centers for Environmental Information climate database](https://www.ncdc.noaa.gov/cdo-web/).
-#
-# ## Getting started
-#
-# Let's start by importing the pyplot submodule of Matplotlib.
 # %% {"lines_to_next_cell": 2}
+import matplotlib.dates as mdates
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from matplotlib import pyplot as plt
 
 
-# %% [markdown] {"lines_to_next_cell": 0}
-# Note again that we are renaming the Matplotlib pyplot submodule when we import it.
-# Perhaps now it is more clear why you might want to rename a module on import.
-# Having to type `matplotlib.pyplot` every time you use one of its methods would be a pain.
-#
-# ### Loading the data with pandas
-#
 # %% [markdown]
-# Now we can read in the data file in the same way we have for the numpy notebook
+# The `import` command tells python to import the library. The `as` specifies a user - chosen nickname for library
+# to be used in this program. So for this program, the `numpy` library will also be known as `np`.
+#
+# We are importing four libraries or library sections:
+#
+# `numpy` is a library with numerical - related codes. We'll use it alot in the course.
+#
+# `pandas` is a libary with codes to manipulate tabular data, that is data organized in rows and columns.
+#
+# `matplotlib` is a vast library for plotting. We don't need the whole library, but only two subsections.
+#
+# `matplotlib.pyplot`, nicknamed `plt` is a subsection containing so-called handle graphics. We'll use it alot.
+#
+# `matplotlib.dates`,  which we nickname `mdates` is a specialty subsection containing code for manipulating date formats.
+#
 
 # %%
-dataFrame = pd.read_csv(
-    "data/Kumpula-June-2016-w-metadata.txt", 
-    header=[8], skip_blank_lines=False
-)
-data = dataFrame.values
+# use pandas to read in csv data
+data_file = "data/july2016-tmf-flow.csv"
+df_flow = pd.read_csv(data_file)
+df_flow.head()
 
 # %% [markdown]
-# As you may recall, we will now have a data file with 4 columns.
-# Let's rename each of those below.
-
-# %%
-date = data[:, 0]
-temp = data[:, 1]
-temp_max = data[:, 2]
-temp_min = data[:, 3]
-
-# %% [markdown]
-# OK, great.
-# One thing we'll do a bit differently this week is that we're going to split the data from `dataFrame` into separate Pandas value arrays so we can plot things in the same way as with NumPy.
-# We can split the data into separate series as follows:
-
-# %%
-date = dataFrame["YEARMODA"].values
-temp = dataFrame["TEMP"].values
-temp_max = dataFrame["MAX"].values
-temp_min = dataFrame["MIN"].values
-
-# %% [markdown]
-# The `.values` attribute of a Pandas series returns only the numerical values of the given series, not the index list.
-
-# %% [markdown]
-# ## Our first plot
+# The `pd.read_csv` command from the `pandas` library reads all the rows and columns from the file `july2016-tmf-flow.csv`.
 #
-# OK, so let’s get to plotting! We can start by using the Matplotlib plt.plot() function.
+# We could have also written the command as `pandas.read.csv`, but we used our nickname `pd` to save some typing.
+#
+# Here we see the power of the pandas library. This command contains code to open the file, read in each line of data from the
+# csv file,and then stores that data in a `dataframe` that we named `flow`. You can think of a `dataframe` as rows and
+# columns of data. In our case, the data in the `dataframe` is dates, outflows and inflows.
+
+# %% [markdown]
+# ## convert flow to a numpy array
+
+# %%
+flow = df_flow.values
+
+# find number of days of data (number of rows in array)
+
+n = flow.shape[0]
+print(f"Number of days in file: {n}")
+flow[:4, :]
+
+# %% [markdown]
+# This line of code uses the `.shape` method, which returns the dimension (number of rows and columns) in the dataframe
+# `flow`. `.shape[0]` is the number of rows, or in our case, the number of days of outflow and inflow data in the dataframe,
+# which we assign to the variable `n`.
+#
+#
+
+# %%
+# allocate np arrays for time and volume for calculations -
+# doing this in advance makes python run faster
+
+v = np.zeros(n, float)
+
+# %% [markdown]
+# The function `zeros` from the numpy library creates an array of zeros. Python runs faster if the arrays used for computation
+# are defined in advance, versus on the fly. Here we create an array `v` of `n` zeros of type `float`. Each element in
+# `v` will store the volume of water in the TMF on a specific day.
 
 # %% {"lines_to_next_cell": 2}
-x = date
-y = temp
-plt.plot(x, y);
+# print  the columns in the dataframe
+print(f"Columns in csv file: {df_flow.columns}")
+
+# convert column called date to pandas date format
+# and store in column called yearmonthday
+
+df_flow["yearmonthday"] = pd.to_datetime(df_flow["date"])
+
+# see the data in the column yearmonthday
+print(f"type of the timestap object: {type(df_flow['yearmonthday'][0])}")
 
 
 # %% [markdown]
-# If all goes well, you should see the plot above.
+# We first print the names of the columns in the dataframe that were read in from the `csv` file.
+# We do this using the `.columns` method on the `flow` dataframe; that is `flow.columns` returns the indices of
+# the columns in the dataframe.
 #
-# OK, so what happened here?
-# Well, first we assigned the values we would like to plot, the year and temperature, to the variables `x` and `y`.
-# This isn’t necessary, *per se*, but does make it easier to see what is plotted.
-# Next, it is perhaps pretty obvious that `plt.plot()` is a function in pyplot that produces a simple *x*-*y* plot.
-# Conveniently, plots are automatically displayed in Jupyter notebooks, so there is no need for the additional `plt.show()` function you might see in examples you can find online.
-
-# %% [markdown]
-# ## Basic plot formatting
+# The command `flow["yearmonthday"] = pd.to_datetime(flow["date"]` uses the pandas method `.to_datetime`
+# to convert the data in the column indexed with `date` in the dataframe `flow` to a date format that pandas
+# understands, and then stores those panda dates in the dataframe `flow` in a new column with index `yearmonthday`.
 #
-# We can make our plot look a bit nicer and provide more information by using a few additional pyplot options.
+# We then print out the type of the data in the column `yearmonthday` to prove that it is now a date.
 
 # %% {"lines_to_next_cell": 2}
-plt.plot(x, y, 'ro--')
-plt.title('Kumpula temperatures in June 2016')
-plt.xlabel('Date')
-plt.ylabel('Temperature [°F]');
+# set volume in TMF at time zero to 8.1 x 10^6 m^3
+
+v[0] = 8.1e6
+
+"""
+loop through and compute volume through time
+since flow is in m^3/s, and flows are daily average flows, must convert
+to m^3 in a day by multiplying by 86400 s/d
+"""
+seconds_per_day = 86400.0
+inflow = flow[:, 1]
+outflow = flow[:, 2]
+for i in range(n - 1):
+    v[i + 1] = v[i] + (inflow[i] - outflow[i]) * seconds_per_day
+
+df_flow["volume"] = v
 
 
 # %% [markdown]
-# This should produce the plot above.
+# This is the guts of the computation. We first set the volume in the TMF at time zero to $8.1\times 10^6 m^3$.
 #
-# Now we see our temperature data as a red dashed line with circles showing the data points.
-# This comes from the additional `ro--` used with `plt.plot()`.
-# In this case, `r` tells the `plt.plot()` function to use red color, `o` tells it to show circles at the points, and `--` says to use a dashed line.
-# You can use `help(plt.plot)` to find out more about formatting plots.
-# Better yet, check out the [documentation for `plt.plot()` online](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html).
-# We have also added a title and axis labels, but their use is straightforward.
-
-# %% [markdown]
-# ### Embiggening\* the plot
+# Then we loop through the days in the dataframe and compute the change in volume over each day as described above:
+# $V(t+\Delta t) = V(t) + (Q_{in} - Q_{out})\Delta t$, where $\Delta t$ is $86400$ seconds (one day).
 #
-# While the plot sizes we're working with are OK, it would be nice to have them displayed a bit larger.
-# Fortunately, there is an easy way to make the plots larger in Jupyter notebooks.
-# To set the default plot size to be larger, simply run the Python cell below.
-
-# %%
-plt.rcParams["figure.figsize"] = [12, 6]
-
-# %% [markdown]
-# The cell above sets the default plot size to be 12 inches wide by 6 inches tall.
-# Feel free to change these values if you prefer.
+# In python we use a `for` loop. The command `for i in range(n - 1):` sets `i` to `0`, then enters the loop and when finished the loop,
+# sets `i` to `1`, enters the loop,..., `n-1`.
+# On the last time through the loop, `i=n-1` so that when we compute`v[i+1]` for the last time, we are computing `v[n]`.
 #
-# To test whether this is working as expected, simply re-run one of the earlier cells that generated a plot.
-#
-# \* To *[embiggen](https://en.oxforddictionaries.com/definition/embiggen)* means to enlarge.
-# It's a perfectly [cromulent](https://en.oxforddictionaries.com/definition/cromulent) word.
-
-# %% [markdown]
-# ### Adding text labels to a plot
-#
-# Adding text to plots can be done using `plt.text()`.
-#
-# ```python
-# plt.text(20160604.0, 68.0, 'High temperature in early June')
-# ```
-#
-# This will display the text "High temperature in early June" at the location `x = 20160604.0` (i.e., June 4, 2016), `y = 68.0` on the plot.
-# We'll see how to do this in a live example in just a second.
-# With our approach to plotting thus far, the commands related to an individual plot should all be in the same Python cell.
-
-# %% [markdown]
-# ### Changing the axis ranges
-#
-# Changing the plot axes can be done using the `plt.axis()` function.
-#
-# ```python
-# plt.axis([20160601, 20160615, 55.0, 70.0])
-# ```
-#
-# The format for `plt.axis()` is `[xmin, xmax, ymin, ymax]` enclosed in square brackets (i.e., a Python list).
-# Here, the *x* range would be changed to the equivalents of June 1, 2016 to June 15, 2016 and the *y* range would be 55.0-70.0.
-# The complete set of commands to plot would thus be:
+# The rest of the code is used to generate the plot of outflow and inflow over time in on subplot,
+# and volume of water in the TMF over time in another subplot.
 
 # %% {"lines_to_next_cell": 2}
-plt.plot(x, y, "ro--")
-plt.title("Kumpula temperatures in June 2016")
-plt.xlabel("Date")
-plt.ylabel("Temperature [°F]");
+# make some plots
 
+# format for the x axis label to be month - day eg 07-03 for July 3
+# format string for dates that will be plotted on the x axis
 
-# %% [markdown]
-# ### repeat with clipped axes
+myFmt = mdates.DateFormatter("%m-%d")
 
-# %%
-plt.plot(x, y, 'ro--')
-plt.title("Kumpula temperatures in June 2016")
-plt.xlabel("Date")
-plt.ylabel("Temperature [°F]")
-plt.text(20160604.0, 68.0, "High temperature in early June")
-plt.axis([20160601, 20160615, 55.0, 70.0]);
+# in the plot ax, plot outflow and inflow as separate lines
 
-# %% [markdown]
-# ## Bar plots in Matplotlib
-#
-# In addition to line plots, there are many other options for plotting in Matplotlib.
-# Bar plots are one option, which can be used quite similarly to line plots.
+plt.style.use("ggplot")
+plt.rcParams["figure.figsize"] = [10, 10]
+plt.plot(df_flow["yearmonthday"], df_flow["inflow"], label="Inflow")
+plt.plot(df_flow["yearmonthday"], df_flow["outflow"], label="Outflow")
+plt.legend()
+ax = plt.gca()
+fig = plt.gcf()
+ax.set(ylabel="flow $m^3/s$", xlabel="date")
+ax.xaxis.set_major_formatter(myFmt)
+fig.autofmt_xdate()
 
-# %%
-plt.bar(x, y)
-plt.title('Kumpula temperatures in June 2016')
-plt.xlabel('Date')
-plt.ylabel('Temperature [°F]')
-plt.text(20160604.0, 68.0, 'High temperature in early June')
-plt.axis([20160601, 20160615, 55.0, 70.0]);
-
-# %% [markdown]
-# You can find more about how to format bar charts on the [Matplotlib documentation website](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.bar.html?highlight=matplotlib%20pyplot%20bar#matplotlib.pyplot.bar).
-
-# %% [markdown]
-# ## Saving your plots as image files
-#
-# Saving plots created using Matplotlib done several ways.
-# The recommendation for use outside of Jupyter notebooks is to use the `plt.savefig()` function.
-# When using `plt.savefig()`, you simply give a list of commands to generate a plot and list `plt.savefig()` with some parameters as the last command.
-# The file name is required, and the image format will be determined based on the listed file extension.
-#
-# Matplotlib plots can be saved in a number of useful file formats, including PNG, PDF, and EPS.
-# PNG is a nice format for raster images, and EPS is probably easiest to use for vector graphics.
-# Let's check out an example and save our lovely bar plot.
 
 # %% {"lines_to_next_cell": 2}
-plt.bar(x, y)
-plt.title("Kumpula temperatures in June 2016")
-plt.xlabel("Date")
-plt.ylabel("Temperature [°F]")
-plt.text(20160604.0, 68.0, "High temperature in early June")
-plt.axis([20160601, 20160615, 55.0, 70.0])
-plt.savefig('bar-plot.png')
-
-
-# %% [markdown]
-# If you refresh your **Files** tab on the left side of the JupyterLab window you should now see `bar-plot.png` listed.
-# We could try to save another version in higher resolution with a minor change to our plot commands above.
-
-# %% {"lines_to_next_cell": 2}
-plt.bar(x, y)
-plt.title("Kumpula temperatures in June 2016")
-plt.xlabel("Date")
-plt.ylabel("Temperature [°F]")
-plt.text(20160604.0, 68.0, "High temperature in early June")
-plt.axis([20160601, 20160615, 55.0, 70.0])
-plt.savefig('bar-plot-hi-res.pdf', dpi=600)
-
-
-# %% [markdown] {"deletable": false, "editable": false, "nbgrader": {"checksum": "dc2659482e2836551d85c78169edaa01", "grade": false, "grade_id": "cell-7a3c2a23d10ff4c6", "locked": true, "schema_version": 1, "solution": false}}
-# ## Task 1: Plotting like the "pros"
-#
-# We’re only introducing a tiny amount of what can be done with pyplot.
-# In most cases, when we would like to create some more complicated type of plot, we would search using [Google](https://www.google.fi/) or visit the [Matplotlib plot gallery](http://matplotlib.org/gallery.html).
-# The great thing about the [Matplotlib plot gallery](http://matplotlib.org/gallery.html) is that not only can you find example plots there, but you can also find the Python commands used to create the plots.
-# This makes it easy to take a working example from the gallery and modify it for your use.
-#
-# Your job in this task is to:
-#
-# 1. Visit the [Matplotlib plot gallery](http://matplotlib.org/gallery.html)
-# 2. Find an interesting plot and click on it
-# 3. Copy the code you find listed beneath the plot on the page that loads
-# 4. Paste that into an Python cell in this notebook and run it to reproduce the plot
-#
-# After you have reproduced the plot, you are welcome to try to make a small change to the plot commands and see what happens.
-# For this, you can simply edit the Python cell contents and re-run.
-
-# %% {"deletable": false, "nbgrader": {"checksum": "6c93c9def1ddd28ff2489285d76b14ed", "grade": true, "grade_id": "cell-935c3f0838b3c3c1", "locked": false, "points": 5, "schema_version": 1, "solution": true}}
-# YOUR CODE HERE
-raise NotImplementedError()
-
-# %% [markdown] {"deletable": false, "editable": false, "nbgrader": {"checksum": "28f8590834fb06aeff760c968cd0c48a", "grade": false, "grade_id": "cell-18844911794679a3", "locked": true, "schema_version": 1, "solution": false}}
-# ## Task 2: Plotting only part of a dataset
-#
-# For this task, you should use the values for arrays `x` and `y` calculated earlier in this part of the lesson, and use `plt.axis()` to limit the plot to the following *x* and *y* ranges: *x = June 7-14*, *y = 45.0-65.0*.
-#
-# - What do you expect to see in this case?
-#
-# **Note**: In order to get the plot to display properly, you will need to first type in the `plt.plot()` command, then `plt.axis()`.
-
-# %% {"deletable": false, "nbgrader": {"checksum": "e528384fe1e43036e1c94eb0653976c6", "grade": true, "grade_id": "cell-986c16b84ab694e5", "locked": false, "points": 5, "schema_version": 1, "solution": true}}
-# YOUR CODE HERE
-raise NotImplementedError()
+# # in second plot, plot the volume in TMF in m^3, which is stored in the "volume" column
+plt.plot(df_flow["yearmonthday"], df_flow["volume"], label="Volume in TMF")
+plt.legend()
+ax = plt.gca()
+fig = plt.gcf()
+ax.set(ylabel="flow $m^3/s$", xlabel="date")
+ax.xaxis.set_major_formatter(myFmt)
+fig.autofmt_xdate()

@@ -19,8 +19,10 @@ ________________
    Weekly notes <week_notes>
               
    Texts <texts>
+
+   Python <getting_started>
+              
    
-   Getting started with Python <getting_started>
 
    Cheat sheet <cheat_sheet>
 
