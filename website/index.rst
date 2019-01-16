@@ -17,12 +17,12 @@ ________________
    :numbered: 2           
 
    Weekly notes <week_notes>
-              
+
+   Assignment solutions <solutions>
+      
    Texts <texts>
 
    Python <getting_started>
-              
-   
 
    Cheat sheet <cheat_sheet>
 
