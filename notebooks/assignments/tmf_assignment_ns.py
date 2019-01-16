@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # ---
 # jupyter:
-#   celltoolbar: Create Assignment
 #   jupytext:
 #     metadata_filter:
 #       cells:
@@ -26,7 +25,7 @@
 #     name: python
 #     nbconvert_exporter: python
 #     pygments_lexer: ipython3
-#     version: 3.6.7
+#     version: 3.7.1
 #   toc:
 #     base_numbering: 1
 #     nav_menu: {}
@@ -42,19 +41,17 @@
 # ---
 # %% [markdown] {"lines_to_next_cell": 0, "toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"></ul></div>
-# %% [markdown] {"lines_to_next_cell": 0}
-# **EOSC 213**
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Mixing-calculations" data-toc-modified-id="Mixing-calculations-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Mixing calculations</a></span><ul class="toc-item"><li><span><a href="#ODEs-and-Euler’s-method**" data-toc-modified-id="ODEs-and-Euler’s-method**-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>ODEs and Euler’s method**</a></span></li><li><span><a href="#Problem-description-and-conceptual-model" data-toc-modified-id="Problem-description-and-conceptual-model-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Problem description and conceptual model</a></span></li><li><span><a href="#Identification-of-sulfate-sources" data-toc-modified-id="Identification-of-sulfate-sources-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Identification of sulfate sources</a></span><ul class="toc-item"><li><span><a href="#Parameters" data-toc-modified-id="Parameters-1.3.1"><span class="toc-item-num">1.3.1&nbsp;&nbsp;</span>Parameters</a></span></li></ul></li><li><span><a href="#Evolution-of-the-mass-of-water" data-toc-modified-id="Evolution-of-the-mass-of-water-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Evolution of the mass of water</a></span></li><li><span><a href="#Evolution-of-the-mass-of-sulfates" data-toc-modified-id="Evolution-of-the-mass-of-sulfates-1.5"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>Evolution of the mass of sulfates</a></span></li><li><span><a href="#Mass-balance" data-toc-modified-id="Mass-balance-1.6"><span class="toc-item-num">1.6&nbsp;&nbsp;</span>Mass balance</a></span><ul class="toc-item"><li><span><a href="#Associated-ODE" data-toc-modified-id="Associated-ODE-1.6.1"><span class="toc-item-num">1.6.1&nbsp;&nbsp;</span>Associated ODE</a></span></li><li><span><a href="#Analytical-Solution" data-toc-modified-id="Analytical-Solution-1.6.2"><span class="toc-item-num">1.6.2&nbsp;&nbsp;</span>Analytical Solution</a></span></li><li><span><a href="#Error-estimation" data-toc-modified-id="Error-estimation-1.6.3"><span class="toc-item-num">1.6.3&nbsp;&nbsp;</span>Error estimation</a></span></li></ul></li></ul></li><li><span><a href="#Plot-the-errors" data-toc-modified-id="Plot-the-errors-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Plot the errors</a></span><ul class="toc-item"><li><ul class="toc-item"><li><span><a href="#Influence-of-the-timestep" data-toc-modified-id="Influence-of-the-timestep-2.0.1"><span class="toc-item-num">2.0.1&nbsp;&nbsp;</span>Influence of the timestep</a></span></li></ul></li></ul></li></ul></div>
+# %% [markdown]
+# # Mixing calculations
 #
-# **Mixing calculations**
-#
-# **ODEs and Euler’s method**
+# ## ODEs and Euler’s method**
 #
 # The objective of this assignment is to create a python program that
 # computes the concentration of sulfate in time in the water in a tailings
 # management facility (TMF) at a mine site.
 #
-# **Problem description and conceptual model**
+# ## Problem description and conceptual model
 #
 # Sulfate $SO_{4}^{2 -}$ is one of the “major” dissolved constituents in
 # most terrestrial waters (the others being sodium, calcium, magnesium,
@@ -66,7 +63,7 @@
 #
 # We will go back to the TMF problem, where we want to know and assess the sulfate concentration evolution through time.
 #
-# **Identification of sulfate sources**
+# ## Identification of sulfate sources
 #
 # To compute the concentration of sulfate in the TMF water, we need to
 # know where it is coming from and going to and use that knowledge to
@@ -122,7 +119,7 @@
 #     points in the TMF, and therefore the water leaving the TMF has that
 #     same concentration $c_{\text{TMF}}\ $.
 #
-# **Parameters**
+# ### Parameters
 #
 # You will need these parameters for your
 # model
@@ -142,8 +139,8 @@
 #
 #
 #
-# %% [markdown] {"lines_to_next_cell": 0}
-# **Evolution of the mass of water**
+# %% [markdown]
+# ## Evolution of the mass of water
 #
 # First, we will check the evolution of the volume of water in the TMF. Let us denote by $V(t)$ the volume of water in the TMF at every time step.
 #
@@ -185,7 +182,7 @@ V0 = 8.1e9  # volume of water in L
 
 
 # %% [markdown]
-# **Evolution of the mass of sulfates**
+# ## Evolution of the mass of sulfates
 #
 # We have 4 main processes impacting the quantity of sulfates in the TMF. We will compute the evolution of this mass over time. First, initialize the required variable (initial mass, and the different input parameters).
 #
@@ -228,8 +225,7 @@ m0
 #
 #
 
-# %% {"nbgrader": {"schema_version": 1, "solution": true, "grade": true, "locked": false, "points": 4, "grade_id": "cell-e2f4cd3a35825d0c"}}
-### BEGIN SOLUTION
+# %%
 dt = 1  # day
 Seconds_in_a_day = 24 * 3600
 dt = dt * Seconds_in_a_day
@@ -237,7 +233,6 @@ m = m0 + Q_pit * c_pit * dt
 S_pit = Q_pit * c_pit * dt
 
 S_pit
-### END SOLUTION
 
 # %% [markdown]
 # 2. Advective flux from the mill
@@ -319,8 +314,10 @@ c
 #
 
 # %%
+import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
 # %% [markdown]
 # Before setting an array, it is better to know its size.
@@ -400,7 +397,9 @@ ax3.set(xlabel="Time (years)", ylabel="discharge (kg)")
 #
 
 # %% [markdown]
-# **Mass balance**
+# ## Mass balance
+#
+# ### Associated ODE
 #
 # Therefore, if the mass of sulfates at a certain time $t_0$ $m(t)$ is $m(t_0) = m_0$, the mass of sulfates at $t+\Delta t$ is:
 # \begin{equation}
@@ -431,5 +430,181 @@ ax3.set(xlabel="Time (years)", ylabel="discharge (kg)")
 # \frac{dc_{\text{TMF}}}{dt} =  \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \right)    -Q_{\text{dis}} c_{\text{TMF}}}{V_0}
 # \end{equation}
 # which is a 1$^{st}$ order linear ODE.
+#
+# The latter can be rewritten in the following way:
+#
+# \begin{equation}
+# \frac{dc_{\text{TMF}}}{dt} + \lambda c_{\text{TMF}} = Q
+# \end{equation}
+#
+# ### Analytical Solution
+#
+# Check that the solution of the homogeneous problem is
+# \begin{equation}
+# c_H(t) = A \mathrm{exp}(-\lambda t)
+# \end{equation}
+# Check that the solution of the particular problem is
+# \begin{equation}
+# c_p(t) = \frac{Q}{\lambda}
+# \end{equation}
+#
+# So that the general solution to the ODE is:
+# \begin{equation}
+# c_{\text{TMF}}(t) = \frac{Q}{\lambda} + A \mathrm{exp}(-\lambda t)
+# \end{equation}
+#
+# Find the value of A so that the initial condition is satisfied.
+#
+
+# %% {"lines_to_next_cell": 2}
+# Assign a value of A so that function c_tmf is the analytical solution to the differential problem
+c_inf = (Q_pit * c_pit + Q_mill * c_mill + Area * k * c_pore) / (Q_dis + Area * k)
+A = c0 - c_inf
+
+
+# %% [markdown] {"lines_to_next_cell": 2}
+# Plot the real analytical solution vs the computed solution.
+
+
+# %%
+# code here the plots
+c_real = np.zeros(n, float)
+error = np.zeros(n, float)
+rel_error = np.zeros(n, float)
+rel_error[0] = 0
+error[0] = 0
+c_real[0] = c0
+lam = (Area * k + Q_dis) / V0
+for i in range(n - 1):
+    c_real[i + 1] = c_inf + (c0 - c_inf) * np.exp(-lam * time[i + 1] * 24 * 3600 * 365)
+    error[i + 1] = c[i + 1] - c_real[i + 1]
+    rel_error[i + 1] = (c[i + 1] - c_real[i + 1]) / c_real[i + 1]
+
+fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(8, 12))
+
+# First plot is the evolution of concentration
+
+ax1.plot(time, c, label="Concentration")
+ax1.plot(time, c_real, label="Real solution")
+ax1.set(xlabel="Time (years)", ylabel="Concentration (mg/L)")
+ax1.legend()
+
+# Second plot is the evolution of the error
+
+ax2.plot(time, error, label="Absolute error")
+ax2.set(xlabel="Time (years)", ylabel="Error (mg/L)")
+ax2.legend()
+
+# Third plot is the relative error
+ax3.plot(time, rel_error, label="Relative error")
+ax3.set(xlabel="Time (years)", ylabel="Error (-)")
+ax3.legend()
+
+# %% [markdown]
+# ### Error estimation
+#
+# Now that we know the real solution to the problem, we can assess the error we have made.
+# Plot the absolute error, the relative error that we did through time.
+
+# %% [markdown] {"trusted": true}
+# # Plot the errors
+
+# %% [markdown]
+# ### Influence of the timestep
+#
+# The error is arising from the timestepping approach we have used. During one timestep, we have computed the discharge flux and the source-term from the "pore" as if the concentration $c_{\text{TMF}}$ was constant through the timestep. This is actually not true. So, the bigger the timesteps, the bigger the error.
+#
+# Try the same methods used above for different timesteps (0.1 day, 1 day, 10 days, 50 days) and compare each of these solutions to the real solution and comment on the error.
+
+# %% {"lines_to_next_cell": 2}
+## First timestep = 0.1 day
+n = 10 * 365 * Tf
+dt = 0.1 * Seconds_in_a_day
+m1 = np.zeros(n, float)
+c1 = np.zeros(n, float)
+time1 = np.zeros(n, float)
+error1 = np.zeros(n, float)
+m1[0] = m0
+c1[0] = c0
+
+for i in range(n - 1):
+    S_pit = Q_pit * c_pit
+    S_mill = Q_mill * c_mill
+    S_dis = Q_dis * c1[i]
+    S_pore = Area * k * (c_pore - c1[i])
+
+    m1[i + 1] = m1[i] + (S_pore + S_pit + S_mill - S_dis) * dt
+    c1[i + 1] = m1[i + 1] / V0
+    time1[i + 1] = i * 0.1 / 365  # time in years
+    c_real_t = c_inf + (c0 - c_inf) * np.exp(-lam * time1[i + 1] * 24 * 3600 * 365)
+    error1[i + 1] = (c1[i + 1] - c_real_t) / c_real_t
+
+## Second timestep = 10 day
+n = int(365 / 10 * Tf)
+dt = 10 * Seconds_in_a_day
+m2 = np.zeros(n, float)
+c2 = np.zeros(n, float)
+error2 = np.zeros(n, float)
+time2 = np.zeros(n, float)
+m2[0] = m0
+c2[0] = c0
+
+for i in range(n - 1):
+    S_pit = Q_pit * c_pit
+    S_mill = Q_mill * c_mill
+    S_dis = Q_dis * c2[i]
+    S_pore = Area * k * (c_pore - c2[i])
+
+    m2[i + 1] = m2[i] + (S_pore + S_pit + S_mill - S_dis) * dt
+    c2[i + 1] = m2[i + 1] / V0
+    time2[i + 1] = i * 10 / 365  # time in years
+    c_real_t = c_inf + (c0 - c_inf) * np.exp(-lam * time2[i + 1] * 24 * 3600 * 365)
+    error2[i + 1] = (c2[i + 1] - c_real_t) / c_real_t
+
+## Third timestep = 50 day
+n = int(365 / 50 * Tf)
+dt = 50 * Seconds_in_a_day
+m3 = np.zeros(n, float)
+c3 = np.zeros(n, float)
+time3 = np.zeros(n, float)
+error3 = np.zeros(n, float)
+m3[0] = m0
+c3[0] = c0
+
+for i in range(n - 1):
+    S_pit = Q_pit * c_pit
+    S_mill = Q_mill * c_mill
+    S_dis = Q_dis * c3[i]
+    S_pore = Area * k * (c_pore - c3[i])
+
+    m3[i + 1] = m3[i] + (S_pore + S_pit + S_mill - S_dis) * dt
+    c3[i + 1] = m3[i + 1] / V0
+    time3[i + 1] = i * 50 / 365  # time in years
+    c_real_t = c_inf + (c0 - c_inf) * np.exp(-lam * time3[i + 1] * 24 * 3600 * 365)
+    error3[i + 1] = (c3[i + 1] - c_real_t) / c_real_t
+
+## Plot the different
+
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 8))
+
+# First plot is the evolution of concentration
+
+ax1.plot(time1, c1, label="Concentration - tstep = 0.1 day")
+ax1.plot(time, c, label="Concentration - tstep = 1 day")
+ax1.plot(time2, c2, label="Concentration - tstep = 10 days")
+ax1.plot(time3, c3, label="Concentration - tstep = 50 days")
+ax1.plot(time, c_real, label="Real solution")
+ax1.set(xlabel="Time (years)", ylabel="Concentration (mg/L)")
+ax1.legend(loc="upper center", bbox_to_anchor=(1.3, 1))
+
+# Second plot is the evolution of the error
+
+ax2.plot(time1, 100 * error1, label="Rel error - tstep = 0.1 day")
+ax2.plot(time, 100 * rel_error, label="Rel error - tstep = 1 day")
+ax2.plot(time2, 100 * error2, label="Rel error - tstep = 10 days")
+ax2.plot(time3, 100 * error3, label="Rel error - tstep = 50 days")
+ax2.set(xlabel="Time (years)", ylabel="Error (%)")
+ax2.legend()
+
 
 # %% {"lines_to_next_cell": 3}
