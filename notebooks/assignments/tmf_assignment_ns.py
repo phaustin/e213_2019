@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # ---
 # jupyter:
+#   celltoolbar: Create Assignment
 #   jupytext:
 #     metadata_filter:
 #       cells:
@@ -25,7 +26,7 @@
 #     name: python
 #     nbconvert_exporter: python
 #     pygments_lexer: ipython3
-#     version: 3.7.1
+#     version: 3.6.5
 #   toc:
 #     base_numbering: 1
 #     nav_menu: {}
@@ -39,17 +40,22 @@
 #     toc_section_display: true
 #     toc_window_display: true
 # ---
+
 # %% [markdown] {"lines_to_next_cell": 0, "toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"><li><span><a href="#Mixing-calculations" data-toc-modified-id="Mixing-calculations-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Mixing calculations</a></span><ul class="toc-item"><li><span><a href="#ODEs-and-Euler’s-method**" data-toc-modified-id="ODEs-and-Euler’s-method**-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>ODEs and Euler’s method**</a></span></li><li><span><a href="#Problem-description-and-conceptual-model" data-toc-modified-id="Problem-description-and-conceptual-model-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Problem description and conceptual model</a></span></li><li><span><a href="#Identification-of-sulfate-sources" data-toc-modified-id="Identification-of-sulfate-sources-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Identification of sulfate sources</a></span><ul class="toc-item"><li><span><a href="#Parameters" data-toc-modified-id="Parameters-1.3.1"><span class="toc-item-num">1.3.1&nbsp;&nbsp;</span>Parameters</a></span></li></ul></li><li><span><a href="#Evolution-of-the-mass-of-water" data-toc-modified-id="Evolution-of-the-mass-of-water-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Evolution of the mass of water</a></span></li><li><span><a href="#Evolution-of-the-mass-of-sulfates" data-toc-modified-id="Evolution-of-the-mass-of-sulfates-1.5"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>Evolution of the mass of sulfates</a></span></li><li><span><a href="#Mass-balance" data-toc-modified-id="Mass-balance-1.6"><span class="toc-item-num">1.6&nbsp;&nbsp;</span>Mass balance</a></span><ul class="toc-item"><li><span><a href="#Associated-ODE" data-toc-modified-id="Associated-ODE-1.6.1"><span class="toc-item-num">1.6.1&nbsp;&nbsp;</span>Associated ODE</a></span></li><li><span><a href="#Analytical-Solution" data-toc-modified-id="Analytical-Solution-1.6.2"><span class="toc-item-num">1.6.2&nbsp;&nbsp;</span>Analytical Solution</a></span></li><li><span><a href="#Error-estimation" data-toc-modified-id="Error-estimation-1.6.3"><span class="toc-item-num">1.6.3&nbsp;&nbsp;</span>Error estimation</a></span></li></ul></li></ul></li><li><span><a href="#Plot-the-errors" data-toc-modified-id="Plot-the-errors-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Plot the errors</a></span><ul class="toc-item"><li><ul class="toc-item"><li><span><a href="#Influence-of-the-timestep" data-toc-modified-id="Influence-of-the-timestep-2.0.1"><span class="toc-item-num">2.0.1&nbsp;&nbsp;</span>Influence of the timestep</a></span></li></ul></li></ul></li></ul></div>
-# %% [markdown]
-# # Mixing calculations
+# %% [markdown] {"lines_to_next_cell": 0}
+# # Assignment
 #
-# ## ODEs and Euler’s method**
+# ## Objectives and description**
 #
 # The objective of this assignment is to create a python program that
 # computes the concentration of sulfate in time in the water in a tailings
 # management facility (TMF) at a mine site.
+#
+# The goal is to describe the computational approach to the resolution of a typical "0D" problem. In the end, the goal is to understand how the computational approach corresponds to the resolution of an ODE. We will investigate that ODE and study its solutions. That will allow us to compare the accuracy of the numerical solution, because mathematics allowed us to know, in this particular case, the exact solution of a problem.
+#
+# This assignment is built so that the concepts of the accuracy of a solution are naturally introduced. In the end, you will realize that you will have implemented what is called the forward Euler approach. 
 #
 # ## Problem description and conceptual model
 #
@@ -139,14 +145,14 @@
 #
 #
 #
-# %% [markdown]
+# %% [markdown] {"lines_to_next_cell": 0}
 # ## Evolution of the mass of water
 #
 # First, we will check the evolution of the volume of water in the TMF. Let us denote by $V(t)$ the volume of water in the TMF at every time step.
 #
 # The flux from the pit and the mill are positive source terms for the volume of water, while the discharge is a negative source term (a sink term).
 #
-# Over a certain time $\Delta t$, the amount of water (in L) which is coming in/out the TMF are denoted $S_{\text{pit}}, $S_{\text{mill}}, $S_{\text{dis}} and are equal to
+# Over a certain time $\Delta t$, the amount of water (in L) which is coming in/out the TMF are denoted $S_{\text{pit}}$, $S_{\text{mill}}$, $S_{\text{dis}}$ and are equal to
 #
 # \begin{equation}
 # \left\lbrace
@@ -168,18 +174,42 @@
 # \end{array}
 # \end{equation}
 #
+# How does the volume of water change with time?
+#
+#
+# %%
+from numpy.testing import assert_almost_equal
+
+# %% {"nbgrader": {"schema_version": 1, "solution": true, "grade": true, "locked": false, "grade_id": "cell-a09bbce77de223da", "points": 1}}
+Q_pit = 30
+Q_mill = 14
+Q_dis = 44
+###BEGIN SOLUTION
+Q_pit+Q_mill-Q_dis
+###END SOLUTION
+
+# %% [markdown]
 # Considering the values given, we have:
 #
 # \begin{equation}
 # \frac{V(t+\Delta t)-V(t)}{\Delta t} = 30 + 14 - 44 = 0 \Longleftrightarrow V(t) = V_0
 # \end{equation}
 #
-# Indicating that the volume of water is constant through time.
+# Indicating that the volume of water is constant through time!
 #
 # Let's assigne a variable whose value is the volume of water in the TMF:
-# %% {"lines_to_next_cell": 2}
-V0 = 8.1e9  # volume of water in L
 
+# %% {"lines_to_next_cell": 2, "nbgrader": {"schema_version": 1, "solution": true, "grade": false, "locked": false, "grade_id": "cell-113d07a78f5dd226"}}
+V0 = 0
+#  Change the value of V0 to match the given data
+
+###BEGIN SOLUTION
+V0 = 8.1e9  # volume of water in L
+###END SOLUTION
+
+
+# %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": true, "locked": true, "points": 1, "grade_id": "cell-ebe77652bfd42a8e"}}
+assert_almost_equal(V0,8.1e9,decimal=1)
 
 # %% [markdown]
 # ## Evolution of the mass of sulfates
@@ -191,9 +221,6 @@ V0 = 8.1e9  # volume of water in L
 
 # %% {"lines_to_next_cell": 2}
 c0 = 93  # initial concentration
-Q_pit = 30
-Q_mill = 14
-Q_dis = 44
 
 c_pit = 50
 c_pore = 2000
@@ -202,10 +229,19 @@ c_mill = 700
 k = 2.5e-5
 Area = 3e5
 
-# Initial mass of sulfates = Volume of water * c0
-m0 = c0 * V0
-m0
 
+# %% [markdown]
+# What is the initial mass of sulfates? (in mg)
+
+# %% {"nbgrader": {"schema_version": 1, "solution": true, "grade": false, "locked": false, "grade_id": "cell-2372ba7e97931ee6"}}
+m0 = 0
+# Change the value of m0 so that it corresponds to the initial mass (in mg) of sulfates in the TMF.
+###BEGIN SOLUTION
+m0 = c0 * V0
+###END SOLUTION
+
+# %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": true, "locked": true, "points": 1, "grade_id": "cell-bf5d8ad9924f2552"}}
+assert_almost_equal(m0,7.533e11,decimal=1)
 
 # %% [markdown]
 # 1. Advective flux from the pit and the mill
@@ -221,30 +257,38 @@ m0
 # \end{equation}
 #
 #
-# Compute the mass of sulfates after 1 day if the pit is the only source of sulfate. Create a variable S_pit corresponding to the mass of sulfates brought by the pit.
+# Compute the mass of sulfates after 1 day if the pit is the only source of sulfate. Create a variable S_pit corresponding to the mass (mg) of sulfates brought by the pit in one day.
 #
 #
 
-# %%
+# %% {"nbgrader": {"schema_version": 1, "solution": true, "grade": false, "locked": false, "grade_id": "cell-be9d32b64825de70"}}
 dt = 1  # day
 Seconds_in_a_day = 24 * 3600
-dt = dt * Seconds_in_a_day
-m = m0 + Q_pit * c_pit * dt
-S_pit = Q_pit * c_pit * dt
+S_pit = 0
 
-S_pit
+###BEGIN SOLUTION
+S_pit = Q_pit * c_pit * dt * Seconds_in_a_day
+###END SOLUTION
+
+# %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": true, "locked": true, "points": 1, "grade_id": "cell-b0f765e9007b556b"}}
+assert_almost_equal(S_pit,129600000,decimal=1)
 
 # %% [markdown]
 # 2. Advective flux from the mill
 #
-# Do the same if we only consider the mill as a sulfate source. (name of the variable = S_mill)
+# If we only consider the mill as a sulfate source, how will the mass of sulfates evolve in one day. Assign this value in variable named S_mill (in mg).
 #
 #
 
-# %%
-m = m0 + Q_mill * c_mill * dt
-S_mill = Q_mill * c_mill * dt
-S_mill
+# %% {"nbgrader": {"schema_version": 1, "solution": true, "grade": false, "locked": false, "grade_id": "cell-fc68eb0af7e61cfa"}}
+S_mill = 0
+###BEGIN SOLUTION
+S_mill = Q_mill * c_mill * dt * Seconds_in_a_day
+###END SOLUTION
+
+# %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": true, "locked": true, "grade_id": "cell-7584745de7a3187e", "points": 1}}
+#assert that S_mill = 846720000
+assert_almost_equal(S_mill,846720000,decimal=1)
 
 # %% [markdown]
 # 3. Discharge flux from the TMF
@@ -255,13 +299,18 @@ S_mill
 # M_{\text{dis}} = Q_{\text{dis}}  c_{\text{TMF}} \Delta t
 # \end{equation}
 #
-# How will the discharge change the mass of sulfates over one day? Create a variable called S_dis which stores that value.
+# How will the discharge change the mass of sulfates over one day? Create a variable called S_dis which stores that value (in mg).
 #
 
-# %%
-m = m0 - Q_dis * c0 * dt
-S_dis = Q_dis * c0 * dt
-S_dis
+# %% {"nbgrader": {"schema_version": 1, "solution": true, "grade": false, "locked": false, "grade_id": "cell-43706ee6c2fba2a1"}}
+S_dis = 0
+###BEGIN SOLUTION
+S_dis = Q_dis * c0 * dt * Seconds_in_a_day
+###END SOLUTION
+
+# %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": true, "locked": true, "points": 1, "grade_id": "cell-e29825a21bf3f2e8"}}
+
+assert_almost_equal(S_dis,353548800,decimal=1)
 
 # %% [markdown]
 # 4. First order mass transfer
@@ -276,68 +325,86 @@ S_dis
 # M_{\text{pore}} = A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \right) \Delta t
 # \end{equation}
 #
-# How will this mass transfer impact the mass of sulfate? Create a variable S_pore which stores the value of the sulfate brought by this first order mass transfer
+# How will this mass transfer impact the mass of sulfate? Create a variable S_pore which stores the value (in mg) of the sulfate brought by this first order mass transfer.
 #
 
-# %%
-m = m0 + Area * k * (c_pore - c0) * dt
-S_pore = Area * k * (c_pore - c0) * dt
-print(S_pore)
+# %% {"nbgrader": {"schema_version": 1, "solution": true, "grade": false, "locked": false, "grade_id": "cell-9bff3ecfa902f301"}}
+S_pore = 0
+###BEGIN SOLUTION
+S_pore = Area * k * (c_pore - c0) * dt * Seconds_in_a_day
+###END SOLUTION
+
+# %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": true, "locked": true, "points": 1, "grade_id": "cell-c83065e1b82a3abe"}}
+#ASSERT THAT S_PORE = 1235736000.0
+assert_almost_equal(S_pore,1235736000,decimal=1)
 
 # %% [markdown]
-# Now, compute the total evolution of the mass of sulfates after one day, and print its value and how it has changed.
+# Now, compute the total evolution of the mass of sulfates after one day, and print its value and how it has changed. Store that value (in mg) in a variable called m1.
 #
 
-# %%
-m = m0 + S_pore + S_pit + S_mill - S_dis
-print(S_pore)
-print(S_pit)
-print(S_mill)
-print(S_dis)
-S_pore + S_pit + S_mill - S_dis
+# %% {"nbgrader": {"schema_version": 1, "solution": true, "grade": false, "locked": false, "grade_id": "cell-6077ebff299ad1b0"}}
+m1 = 0
+###BEGIN SOLUTION
+m1 = m0 + S_pore + S_pit + S_mill - S_dis
+###END SOLUTION
+
+# %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": true, "locked": true, "points": 1, "grade_id": "cell-7af99e25848e170f"}}
+#assert that m1=7.5516e11
+assert_almost_equal(m1,755158507200,decimal=1)
 
 # %% [markdown]
-# This is the mass, to compute the new concentration, we have to divide by the mass of water.
+# This is the mass after 1 day (in mg). What is the concentration after one day? Store that value in a variable called c1 (in mg/L).
 
-# %%
-c = m / V0
-c
+# %% {"nbgrader": {"schema_version": 1, "solution": true, "grade": false, "locked": false, "grade_id": "cell-eed606a5f5b25f6f"}}
+c1 = 0
+###BEGIN SOLUTION
+c1 = m1 / V0
+###END SOLUTION
+
+# %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": true, "locked": true, "points": 1, "grade_id": "cell-bb3d1f8b92cdfc0c"}}
+#assert that c1=93.2294453333
+assert_almost_equal(c1,93.2294453333,decimal=3)
 
 # %% [markdown]
 # We can see that concentration has increased by only 0.2%.
-
-# %% {"lines_to_next_cell": 2}
-
-
-# %% [markdown]
-# We have computed the evolution of the mass of sulfates in the TMF after one day. Let us apply the same method over a large period of time, using daily timesteps again. Let's say we want to model the evolution of the mass over a period of 10 years. Create and initialize the required arrays.
+#
+# We have computed the evolution of the mass of sulfates in the TMF after one day. How would you do that after another day?
+#
+# We will use a loop to do that calculation, to compute the evolution of the concentration over a large period of time (10 years, for example), using daily timesteps again. 
+#
+# At the end, we want to plot the evolution of the concentration, so we have to store its values in an array, whose size corresponds to the amount of timesteps required. 
+#
+# Using daily timesteps, what size would that array need to be if we want to monitor the concentration for 10 years. That size is an integer called n.
+#
 #
 
+# %% {"nbgrader": {"schema_version": 1, "solution": true, "grade": false, "locked": false, "grade_id": "cell-1fd7b979fdedb3f6"}}
+Tf = 10 #years
+
+### BEGIN SOLUTION
+n = int(1+365*Tf/dt)
+### END SOLUTION
+
+# %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": true, "locked": true, "points": 1, "grade_id": "cell-7a3c87c2eac1fad5"}}
+# Assert that n = 3651
+assert_almost_equal(n,3651,decimal=1)
+
 # %%
-import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
+
+# Let us assign some arrays to describe our problem
+m = np.zeros(n, float) # represents the mass of sulfates (mg) at each time
+c = np.zeros(n, float) # represents the concentration of sultates (mg/L) at each time
+Spit = np.zeros(n, float) # represents at each time, the amount of sulfates (in kg) brought by the pit
+Smill = np.zeros(n, float) # represents at each time, the amount of sulfates (in kg) brought by the mill
+Sdis = np.zeros(n, float) # represents at each time, the amount of sulfates (in kg) discharged
+Spore = np.zeros(n, float) # represents at each time, the amount of sulfates (in kg) brought by the tailing
+time = np.zeros(n, float) # represents the time at each timestep
+discharge = np.zeros(n, float) # represents the cumulative discharge of sulfates (in kg)
 
 # %% [markdown]
-# Before setting an array, it is better to know its size.
-#
-
-# %%
-Tf = 10  # years
-n = 365 * Tf  # 1 calculation per day, for Tf years
-
-m = np.zeros(n, float)
-c = np.zeros(n, float)
-Spit = np.zeros(n, float)
-Smill = np.zeros(n, float)
-Sdis = np.zeros(n, float)
-Spore = np.zeros(n, float)
-time = np.zeros(n, float)
-discharge = np.zeros(n, float)
-
-# %% [markdown]
-# Then, let us initialize the initial values.
+# First, we initialize the initial mass and concentrations.
 #
 
 # %% {"lines_to_next_cell": 2}
@@ -349,28 +416,42 @@ c[0] = c0
 # Then, we need to compute these terms at every timesteps, by looping over the different times
 #
 
-# %% {"lines_to_next_cell": 2}
+# %% {"lines_to_next_cell": 2, "nbgrader": {"schema_version": 1, "solution": true, "grade": true, "locked": false, "points": 5, "grade_id": "cell-02c577db8f512061"}}
+###BEGIN SOLUTION
 for i in range(n - 1):
     S_pit = Q_pit * c_pit
     S_mill = Q_mill * c_mill
     S_dis = Q_dis * c[i]
     S_pore = Area * k * (c_pore - c[i])
+    
+    Spit[i + 1] = S_pit * dt  * Seconds_in_a_day/ 1e6
+    Smill[i + 1] = S_mill * dt  * Seconds_in_a_day/ 1e6
+    Sdis[i + 1] = S_dis * dt  * Seconds_in_a_day/ 1e6
+    Spore[i + 1] = S_pore * dt  * Seconds_in_a_day/ 1e6
 
-    Spit[i + 1] = S_pit * dt / 1e6
-    Smill[i + 1] = S_mill * dt / 1e6
-    Sdis[i + 1] = S_dis * dt / 1e6
-    Spore[i + 1] = S_pore * dt / 1e6
-
-    m[i + 1] = m[i] + (S_pore + S_pit + S_mill - S_dis) * dt
-    discharge[i + 1] = discharge[i] + (S_pore + S_pit + S_mill - S_dis) * dt / 1e6
+    m[i + 1] = m[i] + (S_pore + S_pit + S_mill - S_dis) * dt  * Seconds_in_a_day
+    discharge[i + 1] = discharge[i]  + S_dis * dt  * Seconds_in_a_day / 1e6
     c[i + 1] = m[i + 1] / V0
-    time[i + 1] = i / 365  # time in years
+    time[i + 1] = (i+1) / 365  # time in years
+###END SOLUTION
 
+
+# %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": true, "locked": true, "points": 5, "grade_id": "cell-b329fb3c5008055f"}}
+assert_almost_equal(c[n-1],454.46947737053875,decimal=0)
+### CHECK THAT THE LAST VALUE OF c is between 500-520 mg/L
+### CHECK that last discharge value is around m(n-1) is between  4.4e6 and 4.6e6
+
+# %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": true, "locked": true, "points": 0, "grade_id": "cell-e9da3dd3143069f1"}}
+assert_almost_equal(discharge[n-1],4.584599422624083e+06,decimal=1)
 
 # %% [markdown]
 # The calculation is now performed, let us look at the results using matplotlib.
+# Design 3 vertically stacked plots
+# 1. The first should show the evolution of the concentration over time
+# 2. The second should show the relative importance of the different sources/sinks
+# 3. The third should show the cumulative discharge (in kg) of sulfates
 
-# %%
+# %% {"nbgrader": {"schema_version": 1, "solution": true, "grade": true, "locked": false, "points": 5, "grade_id": "cell-46d08bddb2fe7b38"}}
 # call a figure with two plots, vertically stacked, sharing x(time) axis
 
 fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(8, 12))
@@ -395,79 +476,53 @@ ax3.set(xlabel="Time (years)", ylabel="discharge (kg)")
 
 # %% [markdown]
 #
-
-# %% [markdown]
 # ## Mass balance
 #
 # ### Associated ODE
 #
-# Therefore, if the mass of sulfates at a certain time $t_0$ $m(t)$ is $m(t_0) = m_0$, the mass of sulfates at $t+\Delta t$ is:
-# \begin{equation}
-# \begin{array}{llll}
-# & m(t_0 + \Delta t) & = & m(t_0) + M_{\text{pit}} + M_{\text{mill}} + M_{\text{pore}} - M_{\text{dis}} \\
-# \Longleftrightarrow & m(t_0 + \Delta t) & = & m(t_0) + \left(Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \right)    -Q_{\text{dis}} c_{\text{TMF}}\right) \Delta t \\
-# \Longleftrightarrow & \frac{m(t_0 + \Delta t)-m(t_0)}{\Delta t} & = &  Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \right)    -Q_{\text{dis}} c_{\text{TMF}}  \\
-# \end{array}
-# \end{equation}
+# We can (and you will!) show that this problem can be described by a linear non-homogeneous 1st order ODE. We can (and you will) verify that the solution to this ODE is given by:
 #
-# The link between concentration and mass of sulfates is the volume of water
-# \begin{equation}
-# c_{\text{TMF}}(t) = \frac{m(t)}{V(t)}
-# \end{equation}
-#
-# But, since the volume of water is constant, we have:
-# \begin{equation}
-# c_{\text{TMF}}(t) = \frac{m(t)}{V_0}
-# \end{equation}
-#
-# Therefore, if we divide the latter equation by $V_0$, we have:
-# \begin{equation}
-# \frac{c_{\text{TMF}}(t_0 + \Delta t)-c_{\text{TMF}}(t_0)}{\Delta t} =  \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \right)    -Q_{\text{dis}} c_{\text{TMF}}}{V_0}
-# \end{equation}
-#
-# Going to the limit $\Delta t \rightarrow 0$ (i.e. $\Delta t= dt$), this becomes:
-# \begin{equation}
-# \frac{dc_{\text{TMF}}}{dt} =  \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \right)    -Q_{\text{dis}} c_{\text{TMF}}}{V_0}
-# \end{equation}
-# which is a 1$^{st}$ order linear ODE.
-#
-# The latter can be rewritten in the following way:
-#
-# \begin{equation}
-# \frac{dc_{\text{TMF}}}{dt} + \lambda c_{\text{TMF}} = Q
-# \end{equation}
-#
-# ### Analytical Solution
-#
-# Check that the solution of the homogeneous problem is
-# \begin{equation}
-# c_H(t) = A \mathrm{exp}(-\lambda t)
-# \end{equation}
-# Check that the solution of the particular problem is
-# \begin{equation}
-# c_p(t) = \frac{Q}{\lambda}
-# \end{equation}
-#
-# So that the general solution to the ODE is:
 # \begin{equation}
 # c_{\text{TMF}}(t) = \frac{Q}{\lambda} + A \mathrm{exp}(-\lambda t)
+# \end{equation}
+#
+# where
+# \begin{equation}
+# \left\lbrace
+# \begin{array}{lll}
+# Q & = & \frac{Q_{\text{pit}}c_{\text{pit}} + Q_{\text{mill}}c_{\text{mill}}+ A_{\text{bottom}}kc_{\text{p}}}{V_0} \\ 
+# \lambda & = & \frac{A_{\text{bottom}}k+Q_{\text{dis}}}{V_0} 
+# \end{array}
+# \right.
 # \end{equation}
 #
 # Find the value of A so that the initial condition is satisfied.
 #
 
-# %% {"lines_to_next_cell": 2}
-# Assign a value of A so that function c_tmf is the analytical solution to the differential problem
+# %% {"lines_to_next_cell": 2, "nbgrader": {"schema_version": 1, "solution": false, "grade": true, "locked": true, "points": 0, "grade_id": "cell-6f7dd8352a1c8c86"}}
+A = 0
+# Assign A to its real value so that the previous solution matches the initial ccondition of the problem
+###BEGIN SOLUTION
 c_inf = (Q_pit * c_pit + Q_mill * c_mill + Area * k * c_pore) / (Q_dis + Area * k)
 A = c0 - c_inf
+###END SOLUTION
 
+
+# %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": true, "locked": true, "points": 2, "grade_id": "cell-0093877e19c5c0c6"}}
+#check that A is between -417 and -418
+assert_almost_equal(A,-417.6796,decimal=0)
 
 # %% [markdown] {"lines_to_next_cell": 2}
-# Plot the real analytical solution vs the computed solution.
+# Again, we want a triple vertical plots (with time as x-axis).
+# 1. The first plot shows the computed solution vs the analytical solution
+# 2. The second plot shows the absolute error (computed_solution - real solution)
+# 3. The third plot shows the relative error (computed_solution-real_solution)/real_solution
+#
+# To do that, you need to compute the real solution and store it in an array. You also have to compute the error and relative error. The next cell should contain the analytical calculation of the real solution and every plot material.
 
 
-# %%
-# code here the plots
+# %% {"nbgrader": {"schema_version": 1, "solution": true, "grade": true, "locked": false, "points": 5, "grade_id": "cell-7566713fe04d3d02"}}
+###BEGIN SOLUTION
 c_real = np.zeros(n, float)
 error = np.zeros(n, float)
 rel_error = np.zeros(n, float)
@@ -500,14 +555,7 @@ ax3.plot(time, rel_error, label="Relative error")
 ax3.set(xlabel="Time (years)", ylabel="Error (-)")
 ax3.legend()
 
-# %% [markdown]
-# ### Error estimation
-#
-# Now that we know the real solution to the problem, we can assess the error we have made.
-# Plot the absolute error, the relative error that we did through time.
-
-# %% [markdown] {"trusted": true}
-# # Plot the errors
+###END SOLUTION
 
 # %% [markdown]
 # ### Influence of the timestep
@@ -516,9 +564,10 @@ ax3.legend()
 #
 # Try the same methods used above for different timesteps (0.1 day, 1 day, 10 days, 50 days) and compare each of these solutions to the real solution and comment on the error.
 
-# %% {"lines_to_next_cell": 2}
-## First timestep = 0.1 day
-n = 10 * 365 * Tf
+# %% {"lines_to_next_cell": 2, "nbgrader": {"schema_version": 1, "solution": true, "grade": true, "locked": false, "points": 5, "grade_id": "cell-2fec890573e90a1b"}}
+###BEGIN SOLUTION
+# First timestep = 0.1 day
+n = 1 + 10 * 365 * Tf
 dt = 0.1 * Seconds_in_a_day
 m1 = np.zeros(n, float)
 c1 = np.zeros(n, float)
@@ -540,7 +589,7 @@ for i in range(n - 1):
     error1[i + 1] = (c1[i + 1] - c_real_t) / c_real_t
 
 ## Second timestep = 10 day
-n = int(365 / 10 * Tf)
+n = 1 + int(365 / 10 * Tf)
 dt = 10 * Seconds_in_a_day
 m2 = np.zeros(n, float)
 c2 = np.zeros(n, float)
@@ -562,7 +611,7 @@ for i in range(n - 1):
     error2[i + 1] = (c2[i + 1] - c_real_t) / c_real_t
 
 ## Third timestep = 50 day
-n = int(365 / 50 * Tf)
+n = 1+int(365 / 50 * Tf)
 dt = 50 * Seconds_in_a_day
 m3 = np.zeros(n, float)
 c3 = np.zeros(n, float)
@@ -606,5 +655,18 @@ ax2.plot(time3, 100 * error3, label="Rel error - tstep = 50 days")
 ax2.set(xlabel="Time (years)", ylabel="Error (%)")
 ax2.legend()
 
+###END SOLUTION
 
-# %% {"lines_to_next_cell": 3}
+
+# %% [markdown] {"lines_to_next_cell": 2, "trusted": false}
+# How would you change the method if the volume of water was not constant? 
+
+
+# %% {"lines_to_next_cell": 2, "nbgrader": {"schema_version": 1, "solution": true, "grade": true, "locked": false, "points": 3, "grade_id": "cell-1b62e4a53dbbbe2c"}}
+# I WANT THEM TO SAY THAT AFTER EACH TIMESTEP, THEY WOULD HAVE TO COMPUTE V, 
+# the volume of water, and use that value to divide the mass to obtain the concentration. 
+# But we might not have an analytical solution then!
+
+
+# %%
+
