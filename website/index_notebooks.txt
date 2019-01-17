@@ -7,3 +7,12 @@
 .. _jan15_2_matplotlib_ipynb: notebooks/jan15_2_matplotlib.ipynb
 .. _jan15_2_matplotlib_html: web_notebooks/jan15_2_matplotlib.ipynb
 .. _jan15_2_matplotlib_py: https://github.com/phaustin/eosc213_students/blob/master/python/jan15_2_matplotlib.py
+.. _jan15_3-processing-data-using-numpy_ipynb: notebooks/jan15_3-processing-data-using-numpy.ipynb
+.. _jan15_3-processing-data-using-numpy_html: web_notebooks/jan15_3-processing-data-using-numpy.ipynb
+.. _jan15_3-processing-data-using-numpy_py: https://github.com/phaustin/eosc213_students/blob/master/python/jan15_3-processing-data-using-numpy.py
+.. _compute_tmf_volume_ipynb: notebooks/compute_tmf_volume.ipynb
+.. _compute_tmf_volume_html: web_notebooks/compute_tmf_volume.ipynb
+.. _compute_tmf_volume_py: https://github.com/phaustin/eosc213_students/blob/master/python/compute_tmf_volume.py
+.. _tmf_assignment_pha_ipynb: notebooks/tmf_assignment_pha.ipynb
+.. _tmf_assignment_pha_html: web_notebooks/tmf_assignment_pha.ipynb
+.. _tmf_assignment_pha_py: https://github.com/phaustin/eosc213_students/blob/master/python/tmf_assignment_pha.py

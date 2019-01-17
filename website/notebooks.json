@@ -4,6 +4,9 @@
     ],
     "week 3": [
         "jan15_1-exploring-data-using-numpy",
-        "jan15_2_matplotlib"
+        "jan15_2_matplotlib",
+        "jan15_3-processing-data-using-numpy",
+        "compute_tmf_volume",
+        "tmf_assignment_pha"
     ]
 }
