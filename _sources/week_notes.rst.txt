@@ -34,5 +34,13 @@ Week 3  Jan 15/Jan 17
 
   - First matplotlib notebook `jan15_2_matplotlib_html`_
 
+  - Second numpy notebook: `jan15_3-processing-data-using-numpy_html`_
+
+  - TMF demo notebook:  `compute_tmf_volume_html`_
+
+  - TMF assignment notebook: `tmf_assignment_pha_html`_  
+
+* Solution posted: `1-python-basics_solution <http://clouds.eoas.ubc.ca/~phil/Downloads/e213_solutions/1-python-basics_solution.html>`_
+    
   - Good reference on plotting with matplotlib is
     `D. J. Pine Chapter 5: Plotting with matplotlib <https://clouds.eos.ubc.ca/~phil/djpine_python/chap5/chap5_plot.html>`_
