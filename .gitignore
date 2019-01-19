@@ -5,7 +5,6 @@ website/web_notebooks
 .DS_Store
 .ipynb_checkpoints
 
-*ipynb
 notebooks_out.json
 rst_out.json
 1-python-basics.ipynb

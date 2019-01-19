@@ -1,7 +1,8 @@
 """
-add the nbsphinx metadata tag 
-    nbsphinx = nbformat.from_dict({"execute": "never"})
-to a notebook's metadata
+add the nbsphinx metadata tag {"execute": "never"} to
+a notebook's metadata
+
+"jupytext": {"formats": "ipynb"}
 
 usage:  python add_nbsphinx_meta.py 1-python-basics.ipynb nb_folder="."
 
