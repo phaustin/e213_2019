@@ -1,7 +1,6 @@
 jupytext_logfile.txt
 notebooks/.ipynb_checkpoints
 notebooks/python/*workspace*
-website/web_notebooks
 .DS_Store
 .ipynb_checkpoints
 
