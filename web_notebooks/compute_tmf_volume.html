@@ -116,7 +116,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/web_notebooks/compute_tmf_volume.ipynb.txt"
+  <a href="../_sources/web_notebooks/compute_tmf_volume.py.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -392,7 +392,7 @@ div.rendered_html tbody tr:hover {
 <h2>Python modules/libraries<a class="headerlink" href="#Python-modules/libraries" title="Permalink to this headline">¶</a></h2>
 <p>It is good practice to import libaries at the beginning of a program. Libaries are collections of python code.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -410,8 +410,8 @@ div.rendered_html tbody tr:hover {
 <p><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> is a vast library for plotting. We don’t need the whole library, but only two subsections.</p>
 <p><code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code>, nicknamed <code class="docutils literal notranslate"><span class="pre">plt</span></code> is a subsection containing so-called handle graphics. We’ll use it alot.</p>
 <p><code class="docutils literal notranslate"><span class="pre">matplotlib.dates</span></code>, which we nickname <code class="docutils literal notranslate"><span class="pre">mdates</span></code> is a specialty subsection containing code for manipulating date formats.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -422,77 +422,14 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>date</th>
-      <th>outflow</th>
-      <th>inflow</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>2016-07-01</td>
-      <td>0.0703</td>
-      <td>0.1181</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2016-07-02</td>
-      <td>0.0660</td>
-      <td>0.1121</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>2016-07-03</td>
-      <td>0.0621</td>
-      <td>0.1079</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>2016-07-04</td>
-      <td>0.0599</td>
-      <td>0.1115</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>2016-07-05</td>
-      <td>0.0574</td>
-      <td>0.1108</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
-</div>
 <p>The <code class="docutils literal notranslate"><span class="pre">pd.read_csv</span></code> command from the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> library reads all the rows and columns from the file <code class="docutils literal notranslate"><span class="pre">july2016-tmf-flow.csv</span></code>.</p>
 <p>We could have also written the command as <code class="docutils literal notranslate"><span class="pre">pandas.read.csv</span></code>, but we used our nickname <code class="docutils literal notranslate"><span class="pre">pd</span></code> to save some typing.</p>
 <p>Here we see the power of the pandas library. This command contains code to open the file, read in each line of data from the csv file,and then stores that data in a <code class="docutils literal notranslate"><span class="pre">dataframe</span></code> that we named <code class="docutils literal notranslate"><span class="pre">flow</span></code>. You can think of a <code class="docutils literal notranslate"><span class="pre">dataframe</span></code> as rows and columns of data. In our case, the data in the <code class="docutils literal notranslate"><span class="pre">dataframe</span></code> is dates, outflows and inflows.</p>
 </div>
 <div class="section" id="convert-flow-to-a-numpy-array">
 <h2>convert flow to a numpy array<a class="headerlink" href="#convert-flow-to-a-numpy-array" title="Permalink to this headline">¶</a></h2>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -506,29 +443,9 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Number of days in file: 31
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
-</pre></div>
-</div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>array([[&#39;2016-07-01&#39;, 0.0703, 0.1181],
-       [&#39;2016-07-02&#39;, 0.066, 0.1121],
-       [&#39;2016-07-03&#39;, 0.0621, 0.1079],
-       [&#39;2016-07-04&#39;, 0.0599, 0.1115]], dtype=object)
-</pre></div>
-</div>
-</div>
 <p>This line of code uses the <code class="docutils literal notranslate"><span class="pre">.shape</span></code> method, which returns the dimension (number of rows and columns) in the dataframe <code class="docutils literal notranslate"><span class="pre">flow</span></code>. <code class="docutils literal notranslate"><span class="pre">.shape[0]</span></code> is the number of rows, or in our case, the number of days of outflow and inflow data in the dataframe, which we assign to the variable <code class="docutils literal notranslate"><span class="pre">n</span></code>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -540,8 +457,8 @@ Number of days in file: 31
 </div>
 </div>
 <p>The function <code class="docutils literal notranslate"><span class="pre">zeros</span></code> from the numpy library creates an array of zeros. Python runs faster if the arrays used for computation are defined in advance, versus on the fly. Here we create an array <code class="docutils literal notranslate"><span class="pre">v</span></code> of <code class="docutils literal notranslate"><span class="pre">n</span></code> zeros of type <code class="docutils literal notranslate"><span class="pre">float</span></code>. Each element in <code class="docutils literal notranslate"><span class="pre">v</span></code> will store the volume of water in the TMF on a specific day.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -558,20 +475,11 @@ Number of days in file: 31
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Columns in csv file: Index([&#39;date&#39;, &#39;outflow&#39;, &#39;inflow&#39;], dtype=&#39;object&#39;)
-type of the timestap object: &lt;class &#39;pandas._libs.tslibs.timestamps.Timestamp&#39;&gt;
-</pre></div></div>
-</div>
 <p>We first print the names of the columns in the dataframe that were read in from the <code class="docutils literal notranslate"><span class="pre">csv</span></code> file. We do this using the <code class="docutils literal notranslate"><span class="pre">.columns</span></code> method on the <code class="docutils literal notranslate"><span class="pre">flow</span></code> dataframe; that is <code class="docutils literal notranslate"><span class="pre">flow.columns</span></code> returns the indices of the columns in the dataframe.</p>
 <p>The command <code class="docutils literal notranslate"><span class="pre">flow[&quot;yearmonthday&quot;]</span> <span class="pre">=</span> <span class="pre">pd.to_datetime(flow[&quot;date&quot;]</span></code> uses the pandas method <code class="docutils literal notranslate"><span class="pre">.to_datetime</span></code> to convert the data in the column indexed with <code class="docutils literal notranslate"><span class="pre">date</span></code> in the dataframe <code class="docutils literal notranslate"><span class="pre">flow</span></code> to a date format that pandas understands, and then stores those panda dates in the dataframe <code class="docutils literal notranslate"><span class="pre">flow</span></code> in a new column with index <code class="docutils literal notranslate"><span class="pre">yearmonthday</span></code>.</p>
 <p>We then print out the type of the data in the column <code class="docutils literal notranslate"><span class="pre">yearmonthday</span></code> to prove that it is now a date.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -598,8 +506,8 @@ type of the timestap object: &lt;class &#39;pandas._libs.tslibs.timestamps.Times
 <p>Then we loop through the days in the dataframe and compute the change in volume over each day as described above: <span class="math notranslate nohighlight">\(V(t+\Delta t) = V(t) + (Q_{in} - Q_{out})\Delta t\)</span>, where <span class="math notranslate nohighlight">\(\Delta t\)</span> is <span class="math notranslate nohighlight">\(86400\)</span> seconds (one day).</p>
 <p>In python we use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop. The command <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">range(n</span> <span class="pre">-</span> <span class="pre">1):</span></code> sets <code class="docutils literal notranslate"><span class="pre">i</span></code> to <code class="docutils literal notranslate"><span class="pre">0</span></code>, then enters the loop and when finished the loop, sets <code class="docutils literal notranslate"><span class="pre">i</span></code> to <code class="docutils literal notranslate"><span class="pre">1</span></code>, enters the loop,…, <code class="docutils literal notranslate"><span class="pre">n-1</span></code>. On the last time through the loop, <code class="docutils literal notranslate"><span class="pre">i=n-1</span></code> so that when we compute<code class="docutils literal notranslate"><span class="pre">v[i+1]</span></code> for the last time, we are computing <code class="docutils literal notranslate"><span class="pre">v[n]</span></code>.</p>
 <p>The rest of the code is used to generate the plot of outflow and inflow over time in on subplot, and volume of water in the TMF over time in another subplot.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -625,15 +533,8 @@ type of the timestap object: &lt;class &#39;pandas._libs.tslibs.timestamps.Times
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/web_notebooks_compute_tmf_volume_17_0.png" src="../_images/web_notebooks_compute_tmf_volume_17_0.png" />
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -646,13 +547,6 @@ type of the timestap object: &lt;class &#39;pandas._libs.tslibs.timestamps.Times
 <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">myFmt</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">autofmt_xdate</span><span class="p">()</span>
 </pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/web_notebooks_compute_tmf_volume_18_0.png" src="../_images/web_notebooks_compute_tmf_volume_18_0.png" />
 </div>
 </div>
 </div>

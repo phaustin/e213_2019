@@ -116,7 +116,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/web_notebooks/tmf_assignment_pha.ipynb.txt"
+  <a href="../_sources/web_notebooks/tmf_assignment_pha.py.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -365,8 +365,8 @@ div.rendered_html tbody tr:hover {
 </li><li><p>1.6.2&nbsp;&nbsp;Influence of the timestep</p>
 </li></ul></li></ul></li></ul></div><div class="section" id="Assignment">
 <h1>Assignment<a class="headerlink" href="#Assignment" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="Objectives-and-description**">
-<h2>Objectives and description**<a class="headerlink" href="#Objectives-and-description**" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Objectives-and-description">
+<h2>Objectives and description<a class="headerlink" href="#Objectives-and-description" title="Permalink to this headline">¶</a></h2>
 <p>The objective of this assignment is to create a python program that computes the concentration of sulfate in time in the water in a tailings management facility (TMF) at a mine site.</p>
 <p>The goal is to describe the computational approach to the resolution of a typical “0D” problem. In the end, the goal is to understand how the computational approach corresponds to the resolution of an ODE. We will investigate that ODE and study its solutions. That will allow us to compare the accuracy of the numerical solution, because mathematics allowed us to know, in this particular case, the exact solution of a problem.</p>
 <p>This assignment is built so that the concepts of the accuracy of a solution are naturally introduced. In the end, you will realize that you will have implemented what is called the forward Euler approach.</p>
@@ -381,7 +381,7 @@ div.rendered_html tbody tr:hover {
 <h2>Identification of sulfate sources<a class="headerlink" href="#Identification-of-sulfate-sources" title="Permalink to this headline">¶</a></h2>
 <p>To compute the concentration of sulfate in the TMF water, we need to know where it is coming from and going to and use that knowledge to develop a conceptual model describing the fate of sulfate in our system. That conceptual model will be translated into a computational model.</p>
 <p>The figure below is a conceptual sketch of the main sources and losses of sulfate in the TMF water:</p>
-<p><img alt="image0" src="web_notebooks/figures/tmf_box.png" /></p>
+<p><img alt="image0" src="../_images/tmf_box.png" /></p>
 <ol class="arabic simple">
 <li>From the pit. To keep the pit dry, water is constantly pumped out of the pit and put into the TMF at a rate <span class="math notranslate nohighlight">\(Q_{\text{pit}}\)</span> (L/s of water). The pit water has a sulfate concentration of <span class="math notranslate nohighlight">\(c_{\text{pit}}\)</span> in mg/L.</li>
 <li>From the mill. The tailings are pumped into the TMF as a slurry of tailings particles (fine, sand-size ground rock) and water. Assume that the water from the mill enters the TMF at a rate of <span class="math notranslate nohighlight">\(Q_{\text{mill}}\ \)</span> (L/s of water), with a sulfate concentration of <span class="math notranslate nohighlight">\(c_{\text{mill}}\)</span> (mg/L).</li>
@@ -495,6 +495,7 @@ S_{\text{dis}} & = &  Q_{\text{dis}} \Delta t \\
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">numpy.testing</span> <span class="kn">import</span> <span class="n">assert_almost_equal</span>
+
 <span class="n">Q_pit</span> <span class="o">=</span> <span class="mi">30</span>
 <span class="n">Q_mill</span> <span class="o">=</span> <span class="mi">14</span>
 <span class="n">Q_dis</span> <span class="o">=</span> <span class="mi">44</span>
@@ -542,7 +543,7 @@ S_{\text{dis}} & = &  Q_{\text{dis}} \Delta t \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">V0</span><span class="p">,</span><span class="mf">8.1e9</span><span class="p">,</span><span class="n">decimal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span></span><span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">V0</span><span class="p">,</span> <span class="mf">8.1e9</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -592,7 +593,7 @@ S_{\text{dis}} & = &  Q_{\text{dis}} \Delta t \\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">m0</span><span class="p">,</span><span class="mf">7.533e11</span><span class="p">,</span><span class="n">decimal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span></span><span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">m0</span><span class="p">,</span> <span class="mf">7.533e11</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -632,7 +633,7 @@ M_{\text{pit}} = S_{\text{pit}}  c_{\text{pit}} = Q_{\text{pit}}  c_{\text{pit}}
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">S_pit</span><span class="p">,</span><span class="mi">129600000</span><span class="p">,</span><span class="n">decimal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span></span><span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">S_pit</span><span class="p">,</span> <span class="mi">129600000</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -664,8 +665,8 @@ M_{\text{pit}} = S_{\text{pit}}  c_{\text{pit}} = Q_{\text{pit}}  c_{\text{pit}}
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#assert that S_mill = 846720000</span>
-<span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">S_mill</span><span class="p">,</span><span class="mi">846720000</span><span class="p">,</span><span class="n">decimal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span></span><span class="c1"># assert that S_mill = 846720000</span>
+<span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">S_mill</span><span class="p">,</span> <span class="mi">846720000</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -701,7 +702,7 @@ M_{\text{dis}} = Q_{\text{dis}}  c_{\text{TMF}} \Delta t
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">S_dis</span><span class="p">,</span><span class="mi">353548800</span><span class="p">,</span><span class="n">decimal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span></span><span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">S_dis</span><span class="p">,</span> <span class="mi">353548800</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -739,8 +740,8 @@ M_{\text{pore}} = A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#ASSERT THAT S_PORE = 1235736000.0</span>
-<span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">S_pore</span><span class="p">,</span><span class="mi">1235736000</span><span class="p">,</span><span class="n">decimal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span></span><span class="c1"># ASSERT THAT S_PORE = 1235736000.0</span>
+<span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">S_pore</span><span class="p">,</span> <span class="mi">1235736000</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -769,7 +770,7 @@ M_{\text{pore}} = A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="mi">755158507200</span><span class="p">,</span><span class="n">decimal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span></span><span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span> <span class="mi">755158507200</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -798,8 +799,8 @@ M_{\text{pore}} = A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#assert that c1=93.2294453333</span>
-<span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span><span class="mf">93.2294453333</span><span class="p">,</span><span class="n">decimal</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span></span><span class="c1"># assert that c1=93.2294453333</span>
+<span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span> <span class="mf">93.2294453333</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -813,7 +814,7 @@ M_{\text{pore}} = A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">Tf</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1">#years</span>
+<span></span><span class="n">Tf</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># years</span>
 </pre></div>
 </div>
 </div>
@@ -832,7 +833,7 @@ M_{\text{pore}} = A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="mi">3651</span><span class="p">,</span><span class="n">decimal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span></span><span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">3651</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -845,14 +846,24 @@ M_{\text{pore}} = A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 <span class="c1"># Let us assign some arrays to describe our problem</span>
-<span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="c1"># represents the mass of sulfates (mg) at each time</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="c1"># represents the concentration of sultates (mg/L) at each time</span>
-<span class="n">Spit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="c1"># represents at each time, the amount of sulfates (in kg) brought by the pit</span>
-<span class="n">Smill</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="c1"># represents at each time, the amount of sulfates (in kg) brought by the mill</span>
-<span class="n">Sdis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="c1"># represents at each time, the amount of sulfates (in kg) discharged</span>
-<span class="n">Spore</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="c1"># represents at each time, the amount of sulfates (in kg) brought by the tailing</span>
-<span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="c1"># represents the time at each timestep</span>
-<span class="n">discharge</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="c1"># represents the cumulative discharge of sulfates (in kg)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>  <span class="c1"># represents the mass of sulfates (mg) at each time</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>  <span class="c1"># represents the concentration of sultates (mg/L) at each time</span>
+<span class="n">Spit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+    <span class="n">n</span><span class="p">,</span> <span class="nb">float</span>
+<span class="p">)</span>  <span class="c1"># represents at each time, the amount of sulfates (in kg) brought by the pit</span>
+<span class="n">Smill</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+    <span class="n">n</span><span class="p">,</span> <span class="nb">float</span>
+<span class="p">)</span>  <span class="c1"># represents at each time, the amount of sulfates (in kg) brought by the mill</span>
+<span class="n">Sdis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+    <span class="n">n</span><span class="p">,</span> <span class="nb">float</span>
+<span class="p">)</span>  <span class="c1"># represents at each time, the amount of sulfates (in kg) discharged</span>
+<span class="n">Spore</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+    <span class="n">n</span><span class="p">,</span> <span class="nb">float</span>
+<span class="p">)</span>  <span class="c1"># represents at each time, the amount of sulfates (in kg) brought by the tailing</span>
+<span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>  <span class="c1"># represents the time at each timestep</span>
+<span class="n">discharge</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+    <span class="n">n</span><span class="p">,</span> <span class="nb">float</span>
+<span class="p">)</span>  <span class="c1"># represents the cumulative discharge of sulfates (in kg)</span>
 </pre></div>
 </div>
 </div>
@@ -883,7 +894,7 @@ M_{\text{pore}} = A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="mf">454.46947737053875</span><span class="p">,</span><span class="n">decimal</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span></span><span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="mf">454.46947737053875</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -892,7 +903,7 @@ M_{\text{pore}} = A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">discharge</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="mf">4.584599422624083e+06</span><span class="p">,</span><span class="n">decimal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span></span><span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">discharge</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="mf">4.584599422624083e06</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -988,7 +999,6 @@ Q & = & \frac{Q_{\text{pit}}c_{\text{pit}} + Q_{\text{mill}}c_{\text{mill}}+ A_{
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-
 <span></span>
 </pre></div>
 </div>
