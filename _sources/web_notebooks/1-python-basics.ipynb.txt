@@ -1661,14 +1661,9 @@
  ],
  "metadata": {
   "jupytext": {
-   "metadata_filter": {
-    "cells": {
-     "additional": "all"
-    },
-    "notebook": {
-     "additional": "all"
-    }
-   },
+   "cell_metadata_filter": "all",
+   "formats": "ipynb",
+   "notebook_metadata_filter": "all",
    "text_representation": {
     "extension": ".py",
     "format_name": "percent",

@@ -2,16 +2,14 @@
 # ---
 # jupyter:
 #   jupytext:
-#     metadata_filter:
-#       cells:
-#         additional: all
-#       notebook:
-#         additional: all
+#     cell_metadata_filter: all
+#     formats: ''
+#     notebook_metadata_filter: all
 #     text_representation:
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.2'
-#       jupytext_version: 0.8.6
+#       jupytext_version: 1.0.0-dev
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -26,6 +24,8 @@
 #     nbconvert_exporter: python
 #     pygments_lexer: ipython3
 #     version: 3.6.5
+#   nbsphinx:
+#     execute: never
 #   toc:
 #     base_numbering: 1
 #     nav_menu: {}
@@ -39,463 +39,649 @@
 #     toc_section_display: true
 #     toc_window_display: true
 # ---
-# %% [markdown] {"lines_to_next_cell": 0, "toc": true}
+
+# %% [markdown] {"toc": "true"}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#Assignment" data-toc-modified-id="Assignment-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Assignment</a></span><ul class="toc-item"><li><span><a href="#Objectives-and-description**" data-toc-modified-id="Objectives-and-description**-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Objectives and description**</a></span></li><li><span><a href="#Problem-description-and-conceptual-model" data-toc-modified-id="Problem-description-and-conceptual-model-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Problem description and conceptual model</a></span></li><li><span><a href="#Identification-of-sulfate-sources" data-toc-modified-id="Identification-of-sulfate-sources-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Identification of sulfate sources</a></span><ul class="toc-item"><li><span><a href="#Parameters" data-toc-modified-id="Parameters-1.3.1"><span class="toc-item-num">1.3.1&nbsp;&nbsp;</span>Parameters</a></span></li></ul></li><li><span><a href="#Evolution-of-the-mass-of-water" data-toc-modified-id="Evolution-of-the-mass-of-water-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Evolution of the mass of water</a></span></li><li><span><a href="#Evolution-of-the-mass-of-sulfates" data-toc-modified-id="Evolution-of-the-mass-of-sulfates-1.5"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>Evolution of the mass of sulfates</a></span></li><li><span><a href="#Mass-balance" data-toc-modified-id="Mass-balance-1.6"><span class="toc-item-num">1.6&nbsp;&nbsp;</span>Mass balance</a></span><ul class="toc-item"><li><span><a href="#Associated-ODE" data-toc-modified-id="Associated-ODE-1.6.1"><span class="toc-item-num">1.6.1&nbsp;&nbsp;</span>Associated ODE</a></span></li><li><span><a href="#Influence-of-the-timestep" data-toc-modified-id="Influence-of-the-timestep-1.6.2"><span class="toc-item-num">1.6.2&nbsp;&nbsp;</span>Influence of the timestep</a></span></li></ul></li></ul></li></ul></div>
-# %% [markdown] {"lines_to_next_cell": 0}
-# # Assignment
-#
-# ## Objectives and description**
-#
-# The objective of this assignment is to create a python program that
-# computes the concentration of sulfate in time in the water in a tailings
-# management facility (TMF) at a mine site.
-#
-# The goal is to describe the computational approach to the resolution of a typical "0D" problem. In the end, the goal is to understand how the computational approach corresponds to the resolution of an ODE. We will investigate that ODE and study its solutions. That will allow us to compare the accuracy of the numerical solution, because mathematics allowed us to know, in this particular case, the exact solution of a problem.
-#
-# This assignment is built so that the concepts of the accuracy of a solution are naturally introduced. In the end, you will realize that you will have implemented what is called the forward Euler approach.
-#
-# ## Problem description and conceptual model
-#
-# Sulfate $SO_{4}^{2 -}$ is one of the “major” dissolved constituents in
-# most terrestrial waters (the others being sodium, calcium, magnesium,
-# bicarbonate and chloride). Sulfate is not poisonous, but much in the
-# same way that too much salt makes water undrinkable, too much sulfate
-# can be too and is thus an environmental concern.
-#
-# Furthermore, high sulfate concentrations are usually associated with acidic conditions (think about sulfuric acid producing sulfates). In acidic conditions, heavy metals (which are poisonous) might be released from rock dissolution, ... Therefore, monitoring and predicting the sulfate content in groundwater is an essential environmental concern.
-#
-# We will go back to the TMF problem, where we want to know and assess the sulfate concentration evolution through time.
-#
-# ## Identification of sulfate sources
-#
-# To compute the concentration of sulfate in the TMF water, we need to
-# know where it is coming from and going to and use that knowledge to
-# develop a conceptual model describing the fate of sulfate in our system. That conceptual model will be translated into a computational model.
-#
-# The figure below is a conceptual sketch of the main sources and losses
-# of sulfate in the TMF water:
-#
-# ![](figures/tmf_box.png)
-#
-# 1)  From the pit. To keep the pit dry, water is constantly pumped out of
-#     the pit and put into the TMF at a rate $Q_{\text{pit}}$
-#     (L/s of water). The pit water has a sulfate concentration of
-#     $c_{\text{pit}}$ in mg/L.
-#
-# 2)  From the mill. The tailings are pumped into the TMF as a slurry of
-#     tailings particles (fine, sand-size ground rock) and water. Assume
-#     that the water from the mill enters the TMF at a rate of
-#     $Q_{\text{mill}}\ $ (L/s of water), with a sulfate
-#     concentration of $c_{\text{mill}}$ (mg/L).
-#
-# 3)  Diffusing from the tailings porewater at the bottom of the TMF into
-#     the water column above. Sulfate dissolves from the tailings
-#     particles into the adjacent porewater by oxidation of the sulfide
-#     minerals in the particles. Because the ratio of rock to water is
-#     high in the tailings sediments at the bottom, the porewater sulfate
-#     concentration in the tailings, $c_{\text{pore}}$, is always
-#     higher than in the water in the TMF. Accordingly, sulfate tends to
-#     diffuse into the TMF water from the bottom porewater at a rate
-#     proportional to the difference in concentration between the
-#     porewater concentration and the concentration in the TMF,
-#     $c_{\text{TMF}}.$ That is, the flux of sulfate from the bottom can
-#     be written (a positive quantity when sulfate is entering into the
-#     TMF):
-#
-# $j_{\text{pore}} = k\left( c_{\text{pore}} - c_{\text{TMF}} \right)$
-#
-# where $j_{\text{pore}}\ mg/(s \cdot m^{2})$ is the flux rate of
-# sulfate per unit area of the bottom of the TMF and $k$ is the flux
-# coefficient with units of $L/(s \cdot m^{2})$ . To compute
-# $J_{\text{pore}}$, the total mass flux rate for the whole TMF, with
-# units of $\frac{\text{mg}}{s}$, we must multiply the rate per unit
-# area $j_{\text{area}}$ by the total area of the TMF bottom
-# $A_{\text{bottom}}\ $ in $m^{2}$:
-#
-# $J_{\text{pore}} = A_{\text{bottom}}{\times j}_{\text{pore}}$
-#
-# 4)  Leaving via the discharge ditch. Sulfate leaves the TMF with the
-#     water that is discharged at a rate $Q_{\text{discharge}}$ (L/s)
-#     from the TMF to the environment. SIMPLIFYING ASSUMPTION: if we
-#     assume that the water in the TMF is well mixed at all times, then
-#     the concentration in the TMF, $c_{\text{TMF}}$ is the same at all
-#     points in the TMF, and therefore the water leaving the TMF has that
-#     same concentration $c_{\text{TMF}}\ $.
-#
-# ### Parameters
-#
-# You will need these parameters for your
-# model
-#
-# | Symbol                   | Symbol Units                | Description                                                  |&nbsp; &nbsp; &nbsp; &nbsp; Value                   |
-# | ------------------------ | --------------------- | ------------------------------------------------------------ | ----------------------- |
-# | $c_{\text{pit}}$       | $mg/L$              | Concentration of sulfate in pit water (assume constant)      | $50$                  |
-# | $Q_{\text{pit}}$       | $L/s$           | Flow rate of water from the pit into TMF (assume constant)   | 30                   |
-# | $c_{\text{mill}}$      | $mg/L$              | Concentration of sulfate in mill water (assume constant)     | $700$                 |
-# | $Q_{\text{mill}}$      | $L/s$           | Flow rate of water from mill into TMF (assume constant)      | 14                   |
-# | $Q_{\text{discharge}}$ | $L/s$           | Flow rate of water from TMF to environment (assume constant) | 44                   |
-# | $c_{\text{pore}}$      | $mg/L$              | Concentration of sulfate in porewater at bottom of pond      | 2000                    |
-# | $k$                    | $L/(s \cdot m^{2})$ | Flux coefficient from porewater to water column              | $2.5 \times 10^{- 5}$ |
-# | $A_{\text{bottom}}$    | $m^{2}$             | Total area of TMF bottom                                     | $3 \times 10^{5}$     |
-# | $V_{\text{TMF}}$       | $L$             | Volume of water in TMF at start of simulation                | $8.1 \times 10^{6}$   |
-# | $c_{0}$                | $mg/L$              | Concentration of sulfate in TMF water at start of simulation | $93$                  |
-#
-#
-#
-# %% [markdown] {"lines_to_next_cell": 0}
-# ## Evolution of the mass of water
-#
-# First, we will check the evolution of the volume of water in the TMF. Let us denote by $V(t)$ the volume of water in the TMF at every time step.
-#
-# The flux from the pit and the mill are positive source terms for the volume of water, while the discharge is a negative source term (a sink term).
-#
-# Over a certain time $\Delta t$, the amount of water (in L) which is coming in/out the TMF are denoted $S_{\text{pit}}$, $S_{\text{mill}}$, $S_{\text{dis}}$ and are equal to
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Solving-Ordinary-Differential-Equations" data-toc-modified-id="Solving-Ordinary-Differential-Equations-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Solving Ordinary Differential Equations</a></span><ul class="toc-item"><li><span><a href="#Objectives" data-toc-modified-id="Objectives-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Objectives</a></span></li><li><span><a href="#Introduction" data-toc-modified-id="Introduction-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Introduction</a></span></li><li><span><a href="#Euler's-methods" data-toc-modified-id="Euler's-methods-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Euler's methods</a></span><ul class="toc-item"><li><span><a href="#From-the-mass-balance-to-the-ODE" data-toc-modified-id="From-the-mass-balance-to-the-ODE-1.3.1"><span class="toc-item-num">1.3.1&nbsp;&nbsp;</span>From the mass balance to the ODE</a></span></li><li><span><a href="#Analytical-Solution" data-toc-modified-id="Analytical-Solution-1.3.2"><span class="toc-item-num">1.3.2&nbsp;&nbsp;</span>Analytical Solution</a></span></li></ul></li><li><span><a href="#Integral-form-of-the-ODE" data-toc-modified-id="Integral-form-of-the-ODE-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Integral form of the ODE</a></span><ul class="toc-item"><li><span><a href="#Euler's-approach" data-toc-modified-id="Euler's-approach-1.4.1"><span class="toc-item-num">1.4.1&nbsp;&nbsp;</span>Euler's approach</a></span></li><li><span><a href="#Examples-of-application" data-toc-modified-id="Examples-of-application-1.4.2"><span class="toc-item-num">1.4.2&nbsp;&nbsp;</span>Examples of application</a></span></li><li><span><a href="#Runge-Kutta-methods" data-toc-modified-id="Runge-Kutta-methods-1.4.3"><span class="toc-item-num">1.4.3&nbsp;&nbsp;</span>Runge Kutta methods</a></span></li></ul></li></ul></li></ul></div>
+# %% [markdown]
+# # Solving Ordinary Differential Equations
+# %% [markdown]
+# ## Objectives
+# In this lecture, we will review the main computational techniques to solve a first order differential problem (initial value problem) of the type:
 #
 # \begin{equation}
 # \left\lbrace
 # \begin{array}{lll}
-# S_{\text{pit}} & = &  Q_{\text{pit}} \Delta t \\
-# S_{\text{mill}} & = &  Q_{\text{mill}} \Delta t \\
-# S_{\text{dis}} & = &  Q_{\text{dis}} \Delta t \\
+# \displaystyle{\frac{dy}{dt}} & = & f(y,t) \\
+# y(t_0) & = & y_0
 # \end{array}
 # \right.
 # \end{equation}
 #
-# Therefore, the volume $V$ of water in the TMF over the period [$t$;$t+\Delta t]$ is:
+# Specifically you will be able to:
+#
+# -   link the ODE to a physical problem
+#
+# -   develop different computational methods to solve the initial value problem
+#
+# -   understand the concept of stability and accuracy of a computation methods
+#
+# -   describe Euler forward and backward approaches
+#
+#
+# %% [markdown]
+# ## Introduction
+#
+# Ordinary differential equations (ODEs) arise in many physical
+# situations. For example, there is the second-order Newton’s Second Law of Mechanics $F=ma$ .
+#
+# In general, higher-order equations, such as Newton’s force equation, can
+# be rewritten as a system of first-order equations. So the generic
+# problem in ODEs is a set of N coupled first-order differential equations
+# of the form defined above.
+#
+# $$
+#   \frac{d{\bf y}}{dt} = f({\bf y},t)
+# $$
+#
+# where ${\bf y}$ is a vector of variables. As an example, the Newton's law of motion could be written as
+#
+# $$
+# M\frac{d^2 x}{dt^2} = F(x,t)
+# $$
+#
+# Which is a second order differential equation. But nothing can prevent us from describing the same problem through two first-order coupled ODEs:
+#
+# \begin{equation}
+# \left\lbrace
+# \begin{array}{lll}
+# \displaystyle{\frac{dx}{dt}} & = & v_x(x,t) \\
+# \displaystyle{m\frac{dv_x}{dt}} & = & F(x,t) \\
+# \end{array}
+# \right.
+# \end{equation}
+#
+# That means that we can limit our next discussions to the first order problems.
+# %% [markdown]
+# ## Euler's methods
+#
+# In engineering, conceptual models will describe how a certain quantity (mass, energy, position, ...) will evolve: it is about identifying which processes will affect that quantity, and translate them into a mathematical form.
+#
+# ### From the mass balance to the ODE
+# #### Source and sink terms
+#
+# For the sulfates TMF problem, we had identified 4 contributions to the sulfate concentration.
+#
+# 1. $M_{\text{pit}}$ is the mass of sulfates added over $\Delta t$ from the mill (mg).
+# 2. $M_{\text{mill}}$ is the mass of sulfates added over $\Delta t$ from the pit (mg).
+# 3. $M_{\text{pore}}$ is the mass of sulfates added over $\Delta t$ from that exchange term with the tailings porewater (mg)
+# 4. $M_{\text{discharge}}$ is the mass of sulfates removed over $\Delta t$ from the discharge flux (mg)
+#
+#
+# Therefore, if the mass of sulfates at a certain time $t_0$ is $m(t_0) = m_0$, the mass of sulfates at $t_0 + \Delta t$ is:
+# \begin{equation}
+# m(t_0 + \Delta t) = m(t_0) + M_{\text{pit}} + M_{\text{mill}} + M_{\text{pore}} - M_{\text{dis}}
+# \end{equation}
+#
+#
+# And we have identified these terms:
+#
+# \begin{equation}
+# \left\lbrace
+# \begin{array}{lll}
+# M_{\text{pit}} & = & Q_{\text{pit}}c_{\text{pit}} \Delta t\\
+# M_{\text{mill}} & = & Q_{\text{mill}}c_{\text{mill}} \Delta t\\
+# M_{\text{pore}} & = & kA_{\text{bottom}}(c_{\text{pore}} - c_{\text{TMF}}) \Delta t\\
+# M_{\text{discharge}} & = & Q_{\text{dis}}c_{\text{TMF}} \Delta t\\
+# \end{array}
+# \right.
+# \end{equation}
+#
+# So we can rewrite the previous equation as:
 #
 # \begin{equation}
 # \begin{array}{llll}
-# & V(t+\Delta t) & = &  V(t) + S_{\text{pit}} + S_{\text{mill}} - S_{\text{dis}} \\
-# \Longleftrightarrow & V(t+\Delta t) & = &  Q_{\text{pit}} \Delta t + Q_{\text{mill}} \Delta t - Q_{\text{dis}} \Delta t \\
-# \Longleftrightarrow & \frac{V(t+\Delta t)-V(t)}{\Delta t} & = &  Q_{\text{pit}}  + Q_{\text{mill}}  - Q_{\text{dis}}  \\
+# & m(t_0 + \Delta t) & = & m(t_0) + M_{\text{pit}} + M_{\text{mill}} + M_{\text{pore}} - M_{\text{dis}} \\
+# \Longleftrightarrow & m(t_0 + \Delta t) & = & m(t_0) + \left(Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \right)    -Q_{\text{dis}} c_{\text{TMF}}\right) \Delta t \\
+# \Longleftrightarrow & \frac{m(t_0 + \Delta t)-m(t_0)}{\Delta t} & = &  Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \right)    -Q_{\text{dis}} c_{\text{TMF}}  \\
 # \end{array}
 # \end{equation}
 #
-# How does the volume of water change with time?
-#
-#
-# %% {"lines_to_next_cell": 0}
-from numpy.testing import assert_almost_equal
-
-Q_pit = 30
-Q_mill = 14
-Q_dis = 44
-# %% {"deletable": false, "nbgrader": {"checksum": "ce2fa2dc080110310937d49e1616b156", "grade": true, "grade_id": "cell-a09bbce77de223da", "locked": false, "points": 1, "schema_version": 1, "solution": true}}
-# YOUR CODE HERE
-raise NotImplementedError()
-
-# %% [markdown] {"lines_to_next_cell": 0}
-# Considering the values given, we have:
-#
+# The link between concentration and mass of sulfates is the volume of water
 # \begin{equation}
-# \frac{V(t+\Delta t)-V(t)}{\Delta t} = 30 + 14 - 44 = 0 \Longleftrightarrow V(t) = V_0
+# c_{\text{TMF}}(t) = \frac{m(t)}{V(t)}
 # \end{equation}
 #
-# Indicating that the volume of water is constant through time!
+# But, since the volume of water is constant ($V_0$), we have:
+# \begin{equation}
+# c_{\text{TMF}}(t) = \frac{m(t)}{V_0}
+# \end{equation}
 #
-# Let's assigne a variable whose value is the volume of water in the TMF:
-# %% {"lines_to_next_cell": 0}
-V0 = 0
-#  Change the value of V0 to match the given data
-# %% {"deletable": false, "lines_to_next_cell": 2, "nbgrader": {"checksum": "61c0d80c72c243406544a3ecc38ce77a", "grade": false, "grade_id": "cell-113d07a78f5dd226", "locked": false, "schema_version": 1, "solution": true}}
-# YOUR CODE HERE
-raise NotImplementedError()
-
-
-# %% {"deletable": false, "editable": false, "nbgrader": {"checksum": "d9222a56f5fc34b98580b4540e34beec", "grade": true, "grade_id": "cell-ebe77652bfd42a8e", "locked": true, "points": 1, "schema_version": 1, "solution": false}}
-assert_almost_equal(V0, 8.1e9, decimal=1)
+# Therefore, if we divide the latter equation by $V_0$, we have:
+# \begin{equation}
+# \frac{c_{\text{TMF}}(t + \Delta t)-c_{\text{TMF}}(t)}{\Delta t} =  \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \right)    -Q_{\text{dis}} c_{\text{TMF}}}{V_0}
+# \end{equation}
+#
+#
+#
+# %% [markdown]
+# So, after each time step, we can compute the evolution of $c_{\text{TMF}}$. How should we choose the timestep?
+#
+#
+# 1. It is irrelevant
+# 2. It should be as small as possible
+# 3. The bigger the faster
+#
+#
+# %% [markdown]
+# The choice of the timestep matters. Look at the previous equation:
+#
+# \begin{equation}
+# \frac{\color{blue}{c_{\text{TMF}}}(t + \Delta t)-c_{\text{TMF}}(t)}{\Delta t} =  \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + A_{\text{bottom}} k \left( c_{\text{pore}} - {\color{red}{c_{\text{TMF}}}}  \right)    -Q_{\text{dis}} \color{red}{c_{\text{TMF}}}}{V_0}
+# \end{equation}
+#
+# To compute the solution $c_{\text{TMF}}(t+ \Delta t)$, we use the value of $c_{\text{TMF}}$. But, at what time? Intrinsically, at every time between $t$ and $ t + \Delta t$, the value of $c_{\text{TMF}}$ changes.
+#
+# So the timestep should be small!
+# %% [markdown]
+# #### ODE
+#
+# Going to the limit $\Delta t \rightarrow 0$ (i.e. $\Delta t= dt$, $c(t+\Delta t)-c(t)= dc$), the equation becomes:
+# \begin{equation}
+# \frac{dc_{\text{TMF}}}{dt} =  \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \right)    -Q_{\text{dis}} c_{\text{TMF}}}{V_0}
+# \end{equation}
+# which is a 1$^{st}$ order linear ODE.
+#
+# #### Asymptotic behavior
+#
+# Let us build a bit of physical sense is often a good idea. One should realize that this problem is bound to have a steady solution (a solution which does not evolve in time). This is not always true. But, in this case, at some point, the concentration in the TMF will be so that the sink term will exactly compensate the source terms.
+#
+# This happens when the derivative is zero!
+#
+# \begin{equation}
+# \begin{array}{lll}
+# & \frac{dc_{\text{TMF}}}{dt} & =  & 0  \\
+# \Longleftrightarrow & 0 & = &  \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \right)    -Q_{\text{dis}} c_{\text{TMF}}}{V_0} \\
+# \Longleftrightarrow & c_{\text{TMF}} & = & \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + kA c_{\text{pore}} }{Q_{\text{dis}}+kA} \equiv c_\infty
+# \end{array}
+# \end{equation}
+#
+# The asymptotic/final concentration (the steady-state concentration) $c_\infty$ corresponds to the final solution. 
+#
+# Can you try to guess which values $c_\infty$ could be?
+#
+#
+# %% [markdown]
+# Let us analyse this by investigating limit cases:
+#
+# 1. Very fast production from the porewater: $k \rightarrow \infty$
+# \begin{equation}
+# \begin{array}{lll}
+# c_\infty & = & \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + kA c_{\text{pore}} }{Q_{\text{dis}}+kA} \\
+#  & = & \frac{\color{blue}{Q_{\text{pit}}  c_{\text{pit}}} + \color{blue}{Q_{\text{mill}}  c_{\text{mill}}} + kA c_{\text{pore}} }{\color{blue}{Q_{\text{dis}}}+kA} \\
+#   & \approx & \frac{kA c_{\text{pore}} }{kA} \\
+#  & \approx & c_{\text{pore}} = 2000 \text{ mg/L}
+# \end{array}
+# \end{equation}
+#
+# 2. Very slow production from the porewater:  $k \rightarrow 0$
+# \begin{equation}
+# \begin{array}{lll}
+# c_\infty & = & \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + kA c_{\text{pore}} }{Q_{\text{dis}}+kA} \\
+#  & = & \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + \color{blue}{kA c_{\text{pore}}} }{Q_{\text{dis}}+\color{blue}{kA}} \\
+#   & \approx & \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}}}{Q_{\text{dis}}} \\
+#  & \approx & 256.82 \text{ mg/L}
+# \end{array}
+# \end{equation}
+#
+# Therefore, the asymptotic concentration should never be outside these two bounds!
 
 # %% [markdown]
-# ## Evolution of the mass of sulfates
+# ### Analytical Solution
 #
-# We have 4 main processes impacting the quantity of sulfates in the TMF. We will compute the evolution of this mass over time. First, initialize the required variable (initial mass, and the different input parameters).
+# The ODE can be rewritten in the following way:
 #
+# \begin{equation}
+# \frac{dc_{\text{TMF}}}{dt} + \lambda c_{\text{TMF}} = Q
+# \end{equation}
+# with
+# \begin{equation}
+# \left\lbrace
+# \begin{array}{lll}
+# Q & = & \frac{Q_{\text{pit}}c_{\text{pit}} + Q_{\text{mill}}c_{\text{mill}}+ kAc_{\text{pore}}}{V_0} \\
+# \lambda & = & \frac{Q_{\text{dis}}+kA}{V_0}
+# \end{array}
+# \right.
+# \end{equation}
 #
+# You can notice that
+# \begin{equation}
+# c_\infty = \frac{Q}{\lambda}
+# \end{equation}
 #
-
-# %% {"lines_to_next_cell": 2}
-c0 = 93  # initial concentration
+# The associated homogeneous problem is
+# \begin{equation}
+# \begin{array}{ll}
+# & \frac{dc_{\text{TMF}}}{dt} + \lambda c_{\text{TMF}} = 0 \\
+# \Longleftrightarrow & \frac{dc_{\text{TMF}}}{dt}   = -\lambda c_{\text{TMF}} \\
+# \end{array}
+# \end{equation}
+#
+# In other words, we are trying to find a function which is proportional to its opposite.
+#
+# Any idea?
+#
+# %% [markdown]
+# The solution of the homogeneous problem $c_H$ is
+# \begin{equation}
+# c_H(t) = A \mathrm{exp}(-\lambda t)
+# \end{equation}
+#
+# The solution to the particular problem should arise from our physical sense. We know that the solution should reach a steady-state, so a particular solution is a constant solution $c_p(t) = c$.
+#
+# By injecting that solution into the differential problem, we find:
+#
+# \begin{equation}
+# c_p(t) = c = \frac{Q}{\lambda} = c_\infty
+# \end{equation}
+#
+# which corresponds to our physical sense!
+#
+# So that the general solution to the ODE is:
+# \begin{equation}
+# c_{\text{TMF}}(t) = c_\infty + A \mathrm{exp}(-\lambda t)
+# \end{equation}
+#
+# The last thing to do is to find the value of A so that the initial concentration meets our given problem. Usually, initial means at $t=0$, but you can take any other value of time $t_0$, as long as you are consistent with that value later.
+#
+# We know that:
+# \begin{equation}
+# c(0) = c_0 (=93) \Longleftrightarrow c_\infty + A = c_0 \Longleftrightarrow A = c_0 - c_\infty
+# \end{equation}
+#
+# So the exact solution of the problem:
+# \begin{equation}
+# c_{\text{TMF}}(t) = c_\infty + \left( c_0 - c_\infty \right) \mathrm{exp}(-\lambda t)
+# \end{equation}
+#
+# So, what would happen if you arbitrarly chose $t_0$ to be something else than 0? For example, if you want $t_0$ to be the age of the universe, then, $c_{\text{TMF}}$ has to match 93 mg/L after 4.343 $\times$ 10$^{17}$seconds (13.772 billions of years!). That would give you a value A. As long as you stick to that value of A and to that initial $t_0$, the following solution will be the same. But computationnally, the difference between 13 billions of years and 13 billions + 1 year might be lost in rounding erros... So it's probably not the greatest idea!
+#
+# The fact that we know the exact solution to a problem allows us to assess the accuracy of a computational approach. Let us take a look at the solution!
+# %%
+# Parameters definition
+import numpy as np
+from matplotlib import pyplot as plt
 
 c_pit = 50
 c_pore = 2000
 c_mill = 700
-
+Q_pit = 30
+Q_mill = 14
+Q_dis = 44
+V0 = 8.1e9
+c0 = 93  # initial concentration
 k = 2.5e-5
 Area = 3e5
-
-
-# %% [markdown] {"lines_to_next_cell": 0}
-# What is the initial mass of sulfates? (in mg)
-# %% {"lines_to_next_cell": 0}
-m0 = 0
-# Change the value of m0 so that it corresponds to the initial mass (in mg) of sulfates in the TMF.
-# %% {"deletable": false, "nbgrader": {"checksum": "d2a8d9e0c449ec3a003bda0b28e9fc2c", "grade": false, "grade_id": "cell-2372ba7e97931ee6", "locked": false, "schema_version": 1, "solution": true}}
-# YOUR CODE HERE
-raise NotImplementedError()
-
-# %% {"deletable": false, "editable": false, "nbgrader": {"checksum": "8a757e5acd0e5a31549e469d03f15843", "grade": true, "grade_id": "cell-bf5d8ad9924f2552", "locked": true, "points": 1, "schema_version": 1, "solution": false}}
-assert_almost_equal(m0, 7.533e11, decimal=1)
-
-# %% [markdown] {"lines_to_next_cell": 0}
-# 1. Advective flux from the pit and the mill
 #
-# We have a source of sulfates from the pit. Over a certain time $\Delta t$, the volume of water coming from the pit is $S_{\text{pit}} = Q_{\text{pit}} \Delta t$. This volume of water has a sulfate concentration corresponding to the pit concentration. So, the total mass of sulfate from the pit which arrived in the pit over the same period, $M_{\text{pit}}$ is simply:
-# \begin{equation}
-# M_{\text{pit}} = S_{\text{pit}}  c_{\text{pit}} = Q_{\text{pit}}  c_{\text{pit}} \Delta t
-# \end{equation}
+# Eqn 13
 #
-# You can always check the units:
-# \begin{equation}
-# \overbrace{M_{\text{pit}}}^{mg} = \overbrace{Q_{\text{pit}}}^{L/s}  \, \overbrace{c_{\text{pit}}}^{mg/L} \, \overbrace{\Delta t}^{s}
-# \end{equation}
+c_inf = (Q_pit * c_pit + Q_mill * c_mill + Area * k * c_pore) / (Q_dis + Area * k)
+A = c0 - c_inf
+lam = (Area * k + Q_dis) / V0  # units are here in s^{-1}
 #
+# Eqn 15
 #
-# Compute the mass of sulfates after 1 day if the pit is the only source of sulfate. Create a variable S_pit corresponding to the mass (mg) of sulfates brought by the pit in one day.
-#
-#
-# %% {"lines_to_next_cell": 0}
-dt = 1  # day
-Seconds_in_a_day = 24 * 3600
-S_pit = 0
-# %% {"deletable": false, "nbgrader": {"checksum": "dc41bfa6d057d79ba795408282bd74a6", "grade": false, "grade_id": "cell-be9d32b64825de70", "locked": false, "schema_version": 1, "solution": true}}
-# YOUR CODE HERE
-raise NotImplementedError()
-
-# %% {"deletable": false, "editable": false, "nbgrader": {"checksum": "7921d15075b542ee6bfc3552405968a1", "grade": true, "grade_id": "cell-b0f765e9007b556b", "locked": true, "points": 1, "schema_version": 1, "solution": false}}
-assert_almost_equal(S_pit, 129600000, decimal=1)
-
-# %% [markdown] {"lines_to_next_cell": 0}
-# 2. Advective flux from the mill
-#
-# If we only consider the mill as a sulfate source, how will the mass of sulfates evolve in one day. Assign this value in variable named S_mill (in mg).
-#
-#
-# %% {"lines_to_next_cell": 0}
-S_mill = 0
-# %% {"deletable": false, "nbgrader": {"checksum": "304e34e7e76508399502176cea00e7cd", "grade": false, "grade_id": "cell-fc68eb0af7e61cfa", "locked": false, "schema_version": 1, "solution": true}}
-# YOUR CODE HERE
-raise NotImplementedError()
-
-# %% {"deletable": false, "editable": false, "nbgrader": {"checksum": "0fe72418d9dc6c56e7414077fbb5ba88", "grade": true, "grade_id": "cell-7584745de7a3187e", "locked": true, "points": 1, "schema_version": 1, "solution": false}}
-# assert that S_mill = 846720000
-assert_almost_equal(S_mill, 846720000, decimal=1)
-
-# %% [markdown] {"lines_to_next_cell": 0}
-# 3. Discharge flux from the TMF
-#
-# The same development can be performed for the discharge of water. The volume of water leaving the TMF over a certain period $\Delta t$ is $S_{\text{dis}} = Q_{\text{dis}} \Delta t$. The concentration of sulfates in this volume corresponds to the concentration of sulfates in the TMF $c_{\text{TMF}}$, so that we can write:
-#
-# \begin{equation}
-# M_{\text{dis}} = Q_{\text{dis}}  c_{\text{TMF}} \Delta t
-# \end{equation}
-#
-# How will the discharge change the mass of sulfates over one day? Create a variable called S_dis which stores that value (in mg).
-#
-# %% {"lines_to_next_cell": 0}
-S_dis = 0
-# %% {"deletable": false, "nbgrader": {"checksum": "93199e58de3c0eb91b10834355c95d9d", "grade": false, "grade_id": "cell-43706ee6c2fba2a1", "locked": false, "schema_version": 1, "solution": true}}
-# YOUR CODE HERE
-raise NotImplementedError()
-
-# %% {"deletable": false, "editable": false, "nbgrader": {"checksum": "508d95c7203c1141dcbb1aef7fae98b5", "grade": true, "grade_id": "cell-e29825a21bf3f2e8", "locked": true, "points": 1, "schema_version": 1, "solution": false}}
-assert_almost_equal(S_dis, 353548800, decimal=1)
-
-# %% [markdown] {"lines_to_next_cell": 0}
-# 4. First order mass transfer
-#
-# The mass flux was written as:
-# \begin{equation}
-# J_{\text{pore}} = \overbrace{A_{\text{bottom}}}^{m^2} \overbrace{k}^{L . s^{-1} . m^{-2}}  \left( \overbrace{c_{\text{pore}} - c_{\text{TMF}}}^{mg . L^{-1}} \right)
-# \end{equation}
-# which is in the units of mg/s. If this flux is constant over time, the added mass of sulfates over a certain time $\Delta t$ corresponds to the latter quantity multiplied by the the quantity $J_{\text{pore}}$ multiplied by $\Delta t$:
-#
-# \begin{equation}
-# M_{\text{pore}} = A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \right) \Delta t
-# \end{equation}
-#
-# How will this mass transfer impact the mass of sulfate? Create a variable S_pore which stores the value (in mg) of the sulfate brought by this first order mass transfer.
-#
-# %% {"lines_to_next_cell": 0}
-S_pore = 0
-# %% {"deletable": false, "nbgrader": {"checksum": "30c062c41a8a433f4749c58b92e3145b", "grade": false, "grade_id": "cell-9bff3ecfa902f301", "locked": false, "schema_version": 1, "solution": true}}
-# YOUR CODE HERE
-raise NotImplementedError()
-
-# %% {"deletable": false, "editable": false, "nbgrader": {"checksum": "e1de40d68e02708a0bd924015c8b27c8", "grade": true, "grade_id": "cell-c83065e1b82a3abe", "locked": true, "points": 1, "schema_version": 1, "solution": false}}
-# ASSERT THAT S_PORE = 1235736000.0
-assert_almost_equal(S_pore, 1235736000, decimal=1)
-
-# %% [markdown] {"lines_to_next_cell": 0}
-# Now, compute the total evolution of the mass of sulfates after one day, and print its value and how it has changed. Store that value (in mg) in a variable called m1.
-#
-# %% {"lines_to_next_cell": 0}
-m1 = 0
-# %% {"deletable": false, "nbgrader": {"checksum": "4a01f3031b515507b63df859ea11989c", "grade": false, "grade_id": "cell-6077ebff299ad1b0", "locked": false, "schema_version": 1, "solution": true}}
-# YOUR CODE HERE
-raise NotImplementedError()
-
-# %% {"deletable": false, "editable": false, "nbgrader": {"checksum": "d3b3555ded14083db7edb2c4e713bfae", "grade": true, "grade_id": "cell-7af99e25848e170f", "locked": true, "points": 1, "schema_version": 1, "solution": false}}
-assert_almost_equal(m1, 755158507200, decimal=1)
-
-# %% [markdown] {"lines_to_next_cell": 0}
-# This is the mass after 1 day (in mg). What is the concentration after one day? Store that value in a variable called c1 (in mg/L).
-# %% {"lines_to_next_cell": 0}
-c1 = 0
-# %% {"deletable": false, "nbgrader": {"checksum": "42ba143dd9f7d9c7b7303b5ef0deb59d", "grade": false, "grade_id": "cell-eed606a5f5b25f6f", "locked": false, "schema_version": 1, "solution": true}}
-# YOUR CODE HERE
-raise NotImplementedError()
-
-# %% {"deletable": false, "editable": false, "nbgrader": {"checksum": "559deac450d76b3c38e76c1b92b40061", "grade": true, "grade_id": "cell-bb3d1f8b92cdfc0c", "locked": true, "points": 1, "schema_version": 1, "solution": false}}
-# assert that c1=93.2294453333
-assert_almost_equal(c1, 93.2294453333, decimal=3)
-
-# %% [markdown] {"lines_to_next_cell": 0}
-# We can see that concentration has increased by only 0.2%.
-#
-# We have computed the evolution of the mass of sulfates in the TMF after one day. How would you do that after another day?
-#
-# We will use a loop to do that calculation, to compute the evolution of the concentration over a large period of time (10 years, for example), using daily timesteps again.
-#
-# At the end, we want to plot the evolution of the concentration, so we have to store its values in an array, whose size corresponds to the amount of timesteps required.
-#
-# Using daily timesteps, what size would that array need to be if we want to monitor the concentration for 10 years. That size is an integer called n.
-#
-#
-# %% {"lines_to_next_cell": 0}
-Tf = 10  # years
-# %% {"deletable": false, "nbgrader": {"checksum": "e88e4890c63b05d04aab6b9adcababfc", "grade": false, "grade_id": "cell-1fd7b979fdedb3f6", "locked": false, "schema_version": 1, "solution": true}}
-# YOUR CODE HERE
-raise NotImplementedError()
-
-# %% {"deletable": false, "editable": false, "nbgrader": {"checksum": "40d8d857ebea8b8af041edfbc806b79f", "grade": true, "grade_id": "cell-7a3c87c2eac1fad5", "locked": true, "points": 1, "schema_version": 1, "solution": false}}
-assert_almost_equal(n, 3651, decimal=1)
+Q = (Q_pit * c_pit + Q_mill * c_mill + Area * k * c_pore) / V0
+print(lam)
+print(Q)
 
 # %%
-import matplotlib.pyplot as plt
-import numpy as np
+# This is the routine to plot the exact solution for the concentration at every day
+dt = 1  # day
+Tf = 50  # years
+n = int(1 + 365 * Tf / dt)  # int() is to convert thhe result into an integer
+c_real = np.zeros(
+    n, float
+)  # represents the concentration of sultates (mg/L) at each time
+timeY = np.zeros(n, float)  # time in years
+c_real[0] = c0
+c_asymptotic = c_inf * np.ones(
+    n, float
+)  # this is an array of size n, whose values are all c_inf
 
-# Let us assign some arrays to describe our problem
-m = np.zeros(n, float)  # represents the mass of sulfates (mg) at each time
-c = np.zeros(n, float)  # represents the concentration of sultates (mg/L) at each time
-Spit = np.zeros(
-    n, float
-)  # represents at each time, the amount of sulfates (in kg) brought by the pit
-Smill = np.zeros(
-    n, float
-)  # represents at each time, the amount of sulfates (in kg) brought by the mill
-Sdis = np.zeros(
-    n, float
-)  # represents at each time, the amount of sulfates (in kg) discharged
-Spore = np.zeros(
-    n, float
-)  # represents at each time, the amount of sulfates (in kg) brought by the tailing
-time = np.zeros(n, float)  # represents the time at each timestep
-discharge = np.zeros(
-    n, float
-)  # represents the cumulative discharge of sulfates (in kg)
+#
+# Eq. 22
+#
+for i in range(n - 1):
+    timeY[i + 1] = (i + 1) * dt / 365
+    c_real[i + 1] = c_inf + (c0 - c_inf) * np.exp(-lam * (i + 1) * dt * 3600 * 24)
+
+fig, (ax1) = plt.subplots(1, 1, figsize=(8, 4))
+ax1.plot(timeY, c_real, label="Real Concentration")
+ax1.plot(timeY, c_asymptotic, label="Asymptotic value")
+ax1.set(xlabel="Time (years)", ylabel="Concentration (mg/L)")
+ax1.legend()
+
+print(
+    f"Asymptotic concentration is: {c_inf} mg/L,\n"
+    f"exact concentration after {Tf} years is {c_real[n-1]}"
+)
 
 # %% [markdown]
-# First, we initialize the initial mass and concentrations.
+# ## Integral form of the ODE
 #
-
-# %% {"lines_to_next_cell": 2}
-m[0] = m0
-c[0] = c0
-
-
-# %% [markdown]
-# Then, we need to compute these terms at every timesteps, by looping over the different times
-#
-
-# %% {"deletable": false, "lines_to_next_cell": 2, "nbgrader": {"checksum": "8ebe18f8759402c7c4a9bf985535a7b0", "grade": true, "grade_id": "cell-02c577db8f512061", "locked": false, "points": 5, "schema_version": 1, "solution": true}}
-# YOUR CODE HERE
-raise NotImplementedError()
-
-
-# %% {"deletable": false, "editable": false, "nbgrader": {"checksum": "b787e4bb171a06028d795ffca83a992f", "grade": true, "grade_id": "cell-b329fb3c5008055f", "locked": true, "points": 5, "schema_version": 1, "solution": false}}
-assert_almost_equal(c[n - 1], 454.46947737053875, decimal=0)
-
-# %% {"deletable": false, "editable": false, "nbgrader": {"checksum": "d30a2bf6faebd3689d6c059afebf7f74", "grade": true, "grade_id": "cell-e9da3dd3143069f1", "locked": true, "points": 0, "schema_version": 1, "solution": false}}
-assert_almost_equal(discharge[n - 1], 4.584599422624083e06, decimal=1)
-
-# %% [markdown]
-# The calculation is now performed, let us look at the results using matplotlib.
-# Design 3 vertically stacked plots
-# 1. The first should show the evolution of the concentration over time
-# 2. The second should show the relative importance of the different sources/sinks
-# 3. The third should show the cumulative discharge (in kg) of sulfates
-
-# %% {"deletable": false, "nbgrader": {"checksum": "658f539be87f5a2b14570bae69957f79", "grade": true, "grade_id": "cell-46d08bddb2fe7b38", "locked": false, "points": 5, "schema_version": 1, "solution": true}}
-# YOUR CODE HERE
-raise NotImplementedError()
-
-# %% [markdown] {"lines_to_next_cell": 0}
-#
-# ## Mass balance
-#
-# ### Associated ODE
-#
-# We can (and you will!) show that this problem can be described by a linear non-homogeneous 1st order ODE. We can (and you will) verify that the solution to this ODE is given by:
+# The general 1$^{st}$ order ODE is written in the form
 #
 # \begin{equation}
-# c_{\text{TMF}}(t) = \frac{Q}{\lambda} + A \mathrm{exp}(-\lambda t)
+# \frac{dy}{dt} = f(y,t) \Longleftrightarrow dy = f(y,t)dt
 # \end{equation}
 #
-# where
+# If the ODE is not separable (meaning the function $f(y,t)$ cannot be split into function $f(y,t)=Y(y)T(t)$, we cannot apply the variable separation method.
+#
+# We can therefore write:
+# \begin{equation}
+# \int dy = \int_{t_0}^{t_0+\Delta t} f(y,t)dt
+# \end{equation}
+#
+# which leads to
+#
+# \begin{equation}
+# y(t_0+\Delta t) =  y(t_0) + \int_{t_0}^{t_0+\Delta t} f(y,t)dt
+# \end{equation}
+#
+#
+#
+#
+#
+#
+#
+#
+
+# %%
+from IPython.display import Image
+
+Image(filename="figures/figinit.png")
+
+# %% [markdown]
+# ### Euler's approach
+#
+# The two Euler's methods are a way to compute this integral term. They both work on the approximation that the function $f(y,t)$ is constant over the timestep [$t$;$t+\Delta t$].
+#
+# #### Forward Euler
+#
+# The forward Euler approach consists in the following approximation:
+#
+# \begin{equation}
+# f(y,t) \approx f(y_0,t_0) \text{  between [$t_0$;$t_0+\Delta t$]}
+# \end{equation}
+#
+#
+
+# %%
+Image(filename="figures/figExplicitEuler.png")
+
+# %% [markdown]
+# This approximation allows us to write:
+#
+# \begin{equation}
+# \begin{array}{lll}
+# \int_{t_0}^{t_0 + \Delta t} f(y,t)dt & \approx & f(y_0,t_0) \int_{t_0}^{t_0 + \Delta t} dt \\
+# & \approx & f(y,t_0) \Delta t
+# \end{array}
+# \end{equation}
+#
+# The forward Euler method takes the solution at time $t_n$ and advances
+# it to time $t_{n+1}$ using the value of the derivative $f(y_n,t_n)$ at
+# time $t_n$
+#
+# $$y(t_0+\Delta t) = y(t_0) + \Delta t f(y(t_0),t_0)$$
+#
+# This is also referred to as the explicit approach, as the new value of function $y$ can be computed immediately (i.e. explicitly) from the previous expression.
+
+# %% [markdown]
+# #### Backward Euler
+#
+# The backward Euler method is very similar in principle but its application leads to very different results (forward approach is almost never used for stability issues, see below). The forward Euler approach consists in the following approximation:
+#
+# \begin{equation}
+# f(y,t) \approx f(y,t_0+\Delta t) \text{  between [$t_0$;$t_0+\Delta t$]}
+# \end{equation}
+#
+#
+
+# %%
+Image(filename="figures/figImplicitEuler.png")
+
+# %% [markdown]
+# This approximation allows us to write:
+#
+# \begin{equation}
+# \begin{array}{lll}
+# \int_{t_0}^{t_0 + \Delta t} f(y,t)dt & \approx & f(y,t_0+\Delta t) \int_{t_0}^{t_0 + \Delta t} dt \\
+# & \approx & f(y,t_0+\Delta t) \Delta t
+# \end{array}
+# \end{equation}
+#
+# Back in the initial ODE, this yields:
+# \begin{equation}
+# y(t_0+\Delta t) =  y(t_0) + f(y,t_0+\Delta t) \Delta t
+# \end{equation}
+#
+# Which is an equation which has to be solved. Depending on the form of the function $f$, this might be a nonlinear equation to solve. We will see later examples of methods to solve these problems (Newton method, for example).
+
+# %% [markdown]
+# ### Examples of application
+#
+# We have shown that the associated ODE to the sulate problem could be written as:
+#
+# \begin{equation}
+# \frac{dc_{\text{TMF}}}{dt} + \lambda c_{\text{TMF}} = Q
+# \end{equation}
+# with
 # \begin{equation}
 # \left\lbrace
-# \begin{array}{lll}
-# Q & = & \frac{Q_{\text{pit}}c_{\text{pit}} + Q_{\text{mill}}c_{\text{mill}}+ A_{\text{bottom}}kc_{\text{p}}}{V_0} \\
-# \lambda & = & \frac{A_{\text{bottom}}k+Q_{\text{dis}}}{V_0}
+# \begin{array}{lllll}
+# Q & = & \frac{Q_{\text{pit}}c_{\text{pit}} + Q_{\text{mill}}c_{\text{mill}}+ kAc_{\text{pore}}}{V_0} & \approx & 3.247 \times 10^{-6} mg . L^{-1} . s^{-1} \\
+# \lambda & = & \frac{Q_{\text{dis}}+kA}{V_0} & \approx & 6.358 \times 10^{-9} s^{-1}
 # \end{array}
 # \right.
 # \end{equation}
 #
-# Find the value of A so that the initial condition is satisfied.
+# The forward Euler's method yields:
+# \begin{equation}
+# c(t_0 + \Delta t) = c(t_0) +  \left( Q - \lambda c(t_0) \right) \Delta t
+# \end{equation}
 #
-# %
-# A = 0
-# Assign A to its real value so that the previous solution matches the initial ccondition of the problem
-# %% {"deletable": false, "editable": false, "lines_to_next_cell": 2, "nbgrader": {"checksum": "7919f4ae83f46e65df4357d06328d4cf", "grade": true, "grade_id": "cell-6f7dd8352a1c8c86", "locked": true, "points": 2, "schema_version": 1, "solution": false}}
-
-
-# %% {"deletable": false, "nbgrader": {"checksum": "609b0e16b5294c5fd70a7daf46fff2c1", "grade": false, "grade_id": "cell-0093877e19c5c0c6", "locked": false, "schema_version": 1, "solution": true}}
-# YOUR CODE HERE
-raise NotImplementedError()
-
-# %% [markdown] {"lines_to_next_cell": 2}
-# Again, we want a triple vertical plots (with time as x-axis).
-# 1. The first plot shows the computed solution vs the analytical solution
-# 2. The second plot shows the absolute error (computed_solution - real solution)
-# 3. The third plot shows the relative error (computed_solution-real_solution)/real_solution
+# While the backward Euler's method yields:
+# \begin{equation}
+# \begin{array}{llll}
+# & c(t_0 + \Delta t) & = &  c(t_0) + \Delta t (Q - \lambda c(t_0+\Delta t)) \\
+# \Longleftrightarrow & c(t_0 + \Delta t) \left( 1 + \lambda \Delta t \right) & = & c(t_0) + Q \Delta t \\
+# \Longleftrightarrow & c(t_0 + \Delta t)  & = & \displaystyle{\frac{c(t_0) + Q \Delta t}{1 + \lambda \Delta t}} \\
+# \end{array}
+# \end{equation}
 #
-# To do that, you need to compute the real solution and store it in an array. You also have to compute the error and relative error. The next cell should contain the analytical calculation of the real solution and every plot material.
+# So, let us compare these solutions to the analytical solution. We will therefore compute the two Euler approaches at each timestep and assess the error of the solution.
+#
+
+# %%
+# This is the routine to plot the exact solution for the concentration at every day
+dt = 1  # day
+Tf = 50  # years
+n = int(1 + 365 * Tf / dt)  # int() is to convert thhe result into an integer
+c_real = np.zeros(
+    n, float
+)  # represents the concentration of sultates (mg/L) at each time
+timeY = np.zeros(n, float)  # time in years
+c_real[0] = c0
+c_asymptotic = c_inf * np.ones(
+    n, float
+)  # this is an array of size n full, whose values are all c_inf
+Forward_Euler = np.zeros(n, float)
+Backward_Euler = np.zeros(n, float)
+err_Backward = np.zeros(n, float)
+err_Forward = np.zeros(n, float)
+Forward_Euler[0] = c0
+Backward_Euler[0] = c0
 
 
-# %% {"deletable": false, "nbgrader": {"checksum": "96bd347400fdf890fdf8ab2249265bbb", "grade": true, "grade_id": "cell-7566713fe04d3d02", "locked": false, "points": 5, "schema_version": 1, "solution": true}}
-# YOUR CODE HERE
-raise NotImplementedError()
+for i in range(n - 1):
+    timeY[i + 1] = (i + 1) * dt / 365
+    c_real[i + 1] = c_inf + (c0 - c_inf) * np.exp(-lam * (i + 1) * dt * 3600 * 24)
+    Forward_Euler[i + 1] = 0 #ADAPT THIS
+    Backward_Euler[i + 1] = # ADAPT THIS
+    err_Backward[i + 1] = (c_real[i + 1] - Backward_Euler[i + 1]) / c_real[i + 1]
+    err_Forward[i + 1] = (Forward_Euler[i + 1] - c_real[i + 1]) / c_real[i + 1]
+
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 8))
+ax1.plot(timeY, c_real, label="Real Concentration")
+ax1.plot(timeY, Forward_Euler, label="Concentration - Forward Euler")
+ax1.plot(timeY, Backward_Euler, label="Concentration - Backward Euler")
+ax1.set(xlabel="Time (years)", ylabel="Concentration (mg/L)")
+ax1.legend()
+
+ax2.plot(timeY, 100 * err_Backward, label="Error - backward Euler")
+ax2.plot(timeY, 100 * err_Forward, label="Error - forward Euler")
+ax2.set(xlabel="Time (years)", ylabel="Error (%)")
+ax2.legend()
+
 
 # %% [markdown]
-# ### Influence of the timestep
+# We can see that the two approaches are quite close to each other and to the analytical solution. This means that the approximation is good.
+# When you calculated the sulfates concentration after 1 day, you saw that it had increased from 93 to 93.23 mg/L, hence a relative increase of 0.2%. This yields that the approximation that $c_{\text{TMF}}$ is constant over a day is pretty good, hence a relatively small error!
 #
-# The error is arising from the timestepping approach we have used. During one timestep, we have computed the discharge flux and the source-term from the "pore" as if the concentration $c_{\text{TMF}}$ was constant through the timestep. This is actually not true. So, the bigger the timesteps, the bigger the error.
+# So, the bigger the timestep, the less accurate is the approximation. Let us check that!
+# We will set a timestep of 5 years and see the effect on the result and the error.
+
+# %%
+dt = 5 * 365  # day
+Tf = 50  # years
+n = int(1 + 365 * Tf / dt)  # int() is to convert thhe result into an integer
+
+timeY = np.linspace(0, Tf, n)  # this is a way to create an array of size n,
+# which starts at 0, ends at Tf and every elements
+# are evenly spaced
+c_real = np.zeros(
+    n, float
+)  # represents the concentration of sultates (mg/L) at each time
+# timeY             = np.zeros(n, float) # time in years
+c_real[0] = c0
+c_asymptotic = c_inf * np.ones(
+    n, float
+)  # this is an array of size n full, whose values are all c_inf
+Forward_Euler = np.zeros(n, float)
+Backward_Euler = np.zeros(n, float)
+err_Backward = np.zeros(n, float)
+err_Forward = np.zeros(n, float)
+Forward_Euler[0] = c0
+Backward_Euler[0] = c0
+
+
+for i in range(n - 1):
+    # timeY[i+1]          = (i+1)*dt/365
+    c_real[i + 1] = c_inf + (c0 - c_inf) * np.exp(-lam * timeY[i + 1] * 365 * 3600 * 24)
+    Forward_Euler[i + 1] = 0
+    Backward_Euler[i + 1] = 0
+    err_Backward[i + 1] = 0
+    err_Forward[i + 1] = 0
+
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 8))
+ax1.plot(timeY, c_real, label="Real Concentration")
+ax1.plot(timeY, Forward_Euler, label="Concentration - Forward Euler")
+ax1.plot(timeY, Backward_Euler, label="Concentration - Backward Euler")
+ax1.set(xlabel="Time (years)", ylabel="Concentration (mg/L)")
+ax1.legend()
+
+ax2.plot(timeY, 100 * err_Backward, label="Error - backward Euler")
+ax2.plot(timeY, 100 * err_Forward, label="Error - forkward Euler")
+ax2.set(xlabel="Time (years)", ylabel="Error (%)")
+ax2.legend()
+
+# %% [markdown]
+# This defines the accuracy of the algorithm. The accuracy decreases when the timestep increases!
 #
-# Try the same methods used above for different timesteps (0.1 day, 1 day, 10 days, 50 days) and compare each of these solutions to the real solution and comment on the error.
+# Basically, Euler's method states that here, for the first 5 years, the source term from the tailings porewater is at its maximum, and the discharge is at its minimum for the forward Euler's approach. We therefore have a very important overestimation of the source and underestimation of the sink, which yields an important overestimation of the error.
+#
+# Now, do the same with an even bigger timestep (25 years and see what is happening over a longer timescale, like 250 years).
 
-# %% {"deletable": false, "lines_to_next_cell": 2, "nbgrader": {"checksum": "6fdc73f03a2af6958fc0e64b44654f21", "grade": true, "grade_id": "cell-2fec890573e90a1b", "locked": false, "points": 5, "schema_version": 1, "solution": true}}
-# YOUR CODE HERE
-raise NotImplementedError()
+# %%
+### YOUR CODE HERE
 
+# %% [markdown]
+# This defines the concept of stability.
+#
+# We can show that Euler's backward method is unconditionnally stable (for every timestep), while Euler's forward (explicit) method has a restrictive timestep condition for stability.
+#
+# That is one of the reason why Euler's backward (implicit) method is usually preferred than the Euler's forward (explicit approach). However, this yields
+# 1. In most case (depending on $f(y,t)$), there is an equation to solve (often numerically) to find the value of $y(t+\Delta t)$
+# 2. Stability does not mean accuracy
+#
+# These methods are referred to as 1$^{st}$ order methods. The order of the method is linked to the Taylor approximation
+#
+# \begin{equation}
+# y(t+\Delta t) = y(t) + (\Delta t) y^\prime(t) +   \frac{1}{2}(\Delta t)^2 y^{\prime\prime}(t) +\cdots
+# \end{equation}
+#
+# So, as the function f is the derivative of $y$, the Euler's approach omits all the term but the 1$^{st}$ order: it is called a first order method (also we use $y = y_0 + \Delta t f$). We compute the evolution of the solution based on the first order approximation of $y$ (we assume a constant value for its derivative $f$).
+#
+# The truncation error corresponds to the omission of all the higher order terms:
+#
+# \begin{equation}
+# \text{Truncation error } = \frac{1}{2}(\Delta t)^2 y^{\prime\prime}(t) +\cdots
+# \end{equation}
+#
+# So, the intrinsic error we make with Euler's methods is proportional to $(\Delta t)^2$.  In words, we say that forward Euler is first order accurate with errors of second order. It is therefore clear that reducing the timestep reduces the errors.
+#
+#
 
-# %% [markdown] {"lines_to_next_cell": 2}
-# How would you change the method if the volume of water was not constant?
+# %% [markdown]
+# ### Runge Kutta methods
+#
+# In a lot of applications, Euler's implicit method is used. But in some cases, higher order and more accurate methods need to be used. They basically compute the integral
+#
+# $$
+# y(t_0+\Delta t) = y(t_0) + \int_{t_0}^{t_0+\Delta t} f(t,y) dt
+# $$
+#
+# with more accuracy (with a higher-order). These are commonly known as the Runge-Kutta methods (Euler's methods are a 1st order Runge-Kutta method). The idea of the Runge-Kutta schemes is to take advantage of derivative information at the times between $t_n$ and $t_{n+1}$ to increase the order of accuracy.
+#
+# For example, in the midpoint method, the derivative at the initial time
+# is used to approximate the derivative at the midpoint of the interval,
+# $f(y_n+\frac{1}{2}hf(y_n,t_n), t_n+\frac{1}{2}h)$. The derivative at the
+# midpoint is then used to advance the solution to the next step. The
+# method can be written in two *stages* $k_i$,
+#
+#
+# \begin{equation}
+#    \begin{array}{lll}
+#     k_1 & = &  \Delta t f(y(t),t)\\
+#     k_2 & =&  \Delta t \, f\left( y(t)+\frac{1}{2}k_1, t+\frac{1}{2}\Delta t \right)\ \\\
+#     y(t+\Delta t) & =&  y(t) + k_2
+#   \end{array}
+# \end{equation}
+#
+# The midpoint method is known as a 2-stage Runge-Kutta formula.
+#
+#
+#
+#
+#
 
+# %%
+Image(filename="figures/figMidpoint.png")
 
-# %% {"deletable": false, "lines_to_next_cell": 2, "nbgrader": {"checksum": "1f983f73c4c31f143a687045ffdb3818", "grade": true, "grade_id": "cell-1b62e4a53dbbbe2c", "locked": false, "points": 3, "schema_version": 1, "solution": true}}
-# YOUR CODE HERE
-raise NotImplementedError()
+# %% [markdown]
+# In general, an *explicit* 2-stage Runge-Kutta method can be written as,
+#
+# \begin{equation}
+#    \begin{array}{l}
+#     k_1 =  h f(y(t),t)\\
+#     k_2 = \Delta t f \left( y(t)+b_{21}k_1, t+a_2h \right)\ \ \  \\
+#     y(t+\Delta t) = y(t) + c_1k_1 +c_2k_2
+#   \end{array}
+# \end{equation}
+#
+# It is said explicit because the new solution only depends on the previous solution. The different coefficient can be determined by comparison with the 2$^{nd}$ order Taylor approximation.
 
-
-# %% {"lines_to_next_cell": 2}
+# %%
+Image(filename="figures/fig-Summary.png")

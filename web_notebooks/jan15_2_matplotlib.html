@@ -116,7 +116,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/web_notebooks/jan15_2_matplotlib.py.txt"
+  <a href="../_sources/web_notebooks/jan15_2_matplotlib.ipynb.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -408,7 +408,8 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">dataFrame</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-    <span class="s2">&quot;data/Kumpula-June-2016-w-metadata.txt&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">skip_blank_lines</span><span class="o">=</span><span class="bp">False</span>
+    <span class="s2">&quot;data/Kumpula-June-2016-w-metadata.txt&quot;</span><span class="p">,</span>
+    <span class="n">header</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">skip_blank_lines</span><span class="o">=</span><span class="bp">False</span>
 <span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">dataFrame</span><span class="o">.</span><span class="n">values</span>
 </pre></div>
@@ -453,7 +454,7 @@ div.rendered_html tbody tr:hover {
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">x</span> <span class="o">=</span> <span class="n">date</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">temp</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -469,10 +470,10 @@ you can find online.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s2">&quot;ro--&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Kumpula temperatures in June 2016&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Date&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Temperature [°F]&quot;</span><span class="p">)</span>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ro--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Kumpula temperatures in June 2016&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Temperature [°F]&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -518,7 +519,7 @@ online &lt;<a class="reference external" href="https://matplotlib.org/api/_as_ge
 <span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s2">&quot;ro--&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Kumpula temperatures in June 2016&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Date&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Temperature [°F]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Temperature [°F]&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -530,12 +531,12 @@ online &lt;<a class="reference external" href="https://matplotlib.org/api/_as_ge
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s2">&quot;ro--&quot;</span><span class="p">)</span>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ro--&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Kumpula temperatures in June 2016&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Date&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Temperature [°F]&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">20160604.0</span><span class="p">,</span> <span class="mf">68.0</span><span class="p">,</span> <span class="s2">&quot;High temperature in early June&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">20160601</span><span class="p">,</span> <span class="mi">20160615</span><span class="p">,</span> <span class="mf">55.0</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">20160601</span><span class="p">,</span> <span class="mi">20160615</span><span class="p">,</span> <span class="mf">55.0</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">]);</span>
 </pre></div>
 </div>
 </div>
@@ -550,11 +551,11 @@ online &lt;<a class="reference external" href="https://matplotlib.org/api/_as_ge
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Kumpula temperatures in June 2016&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Date&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Temperature [°F]&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">20160604.0</span><span class="p">,</span> <span class="mf">68.0</span><span class="p">,</span> <span class="s2">&quot;High temperature in early June&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">20160601</span><span class="p">,</span> <span class="mi">20160615</span><span class="p">,</span> <span class="mf">55.0</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Kumpula temperatures in June 2016&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Temperature [°F]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">20160604.0</span><span class="p">,</span> <span class="mf">68.0</span><span class="p">,</span> <span class="s1">&#39;High temperature in early June&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">20160601</span><span class="p">,</span> <span class="mi">20160615</span><span class="p">,</span> <span class="mf">55.0</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">]);</span>
 </pre></div>
 </div>
 </div>
@@ -575,7 +576,7 @@ online &lt;<a class="reference external" href="https://matplotlib.org/api/_as_ge
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Temperature [°F]&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">20160604.0</span><span class="p">,</span> <span class="mf">68.0</span><span class="p">,</span> <span class="s2">&quot;High temperature in early June&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">20160601</span><span class="p">,</span> <span class="mi">20160615</span><span class="p">,</span> <span class="mf">55.0</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;bar-plot.png&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;bar-plot.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -591,7 +592,7 @@ online &lt;<a class="reference external" href="https://matplotlib.org/api/_as_ge
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Temperature [°F]&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">20160604.0</span><span class="p">,</span> <span class="mf">68.0</span><span class="p">,</span> <span class="s2">&quot;High temperature in early June&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">20160601</span><span class="p">,</span> <span class="mi">20160615</span><span class="p">,</span> <span class="mf">55.0</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;bar-plot-hi-res.pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;bar-plot-hi-res.pdf&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

@@ -626,6 +626,7 @@
  ],
  "metadata": {
   "jupytext": {
+   "formats": "ipynb",
    "metadata_filter": {
     "cells": {
      "additional": "all"
