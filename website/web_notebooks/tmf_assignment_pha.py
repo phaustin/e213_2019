@@ -45,7 +45,7 @@
 # %% [markdown]
 # # Assignment
 #
-# ## Objectives and description**
+# ## Objectives and description
 #
 # The objective of this assignment is to create a python program that
 # computes the concentration of sulfate in time in the water in a tailings
