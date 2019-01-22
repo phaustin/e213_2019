@@ -37,14 +37,11 @@
 #     toc_section_display: true
 #     toc_window_display: true
 # ---
-
 # %% [markdown] {"toc": "true"}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"><li><span><a href="#Solving-Ordinary-Differential-Equations" data-toc-modified-id="Solving-Ordinary-Differential-Equations-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Solving Ordinary Differential Equations</a></span><ul class="toc-item"><li><span><a href="#Objectives" data-toc-modified-id="Objectives-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Objectives</a></span></li><li><span><a href="#Introduction" data-toc-modified-id="Introduction-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Introduction</a></span></li><li><span><a href="#Euler's-methods" data-toc-modified-id="Euler's-methods-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Euler's methods</a></span><ul class="toc-item"><li><span><a href="#From-the-mass-balance-to-the-ODE" data-toc-modified-id="From-the-mass-balance-to-the-ODE-1.3.1"><span class="toc-item-num">1.3.1&nbsp;&nbsp;</span>From the mass balance to the ODE</a></span></li><li><span><a href="#Analytical-Solution" data-toc-modified-id="Analytical-Solution-1.3.2"><span class="toc-item-num">1.3.2&nbsp;&nbsp;</span>Analytical Solution</a></span></li></ul></li><li><span><a href="#Integral-form-of-the-ODE" data-toc-modified-id="Integral-form-of-the-ODE-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Integral form of the ODE</a></span><ul class="toc-item"><li><span><a href="#Euler's-approach" data-toc-modified-id="Euler's-approach-1.4.1"><span class="toc-item-num">1.4.1&nbsp;&nbsp;</span>Euler's approach</a></span></li><li><span><a href="#Examples-of-application" data-toc-modified-id="Examples-of-application-1.4.2"><span class="toc-item-num">1.4.2&nbsp;&nbsp;</span>Examples of application</a></span></li><li><span><a href="#Runge-Kutta-methods" data-toc-modified-id="Runge-Kutta-methods-1.4.3"><span class="toc-item-num">1.4.3&nbsp;&nbsp;</span>Runge Kutta methods</a></span></li></ul></li></ul></li></ul></div>
-
 # %% [markdown]
 # # Solving Ordinary Differential Equations
-
 # %% [markdown]
 # ## Objectives
 # In this lecture, we will review the main computational techniques to solve a first order differential problem (initial value problem) of the type:
@@ -69,7 +66,6 @@
 # -   describe Euler forward and backward approaches
 #
 #
-
 # %% [markdown]
 # ## Introduction
 #
@@ -81,12 +77,12 @@
 # In general, higher-order equations, such as Newton’s force equation, can
 # be rewritten as a system of first-order equations. So the generic
 # problem in ODEs is a set of N coupled first-order differential equations
-# of the form defined above. 
+# of the form defined above.
 #
 # $$
 #   \frac{d{\bf y}}{dt} = f({\bf y},t)
-# $$ 
-#   
+# $$
+#
 # where ${\bf y}$ is a vector of
 # variables.
 #
@@ -110,7 +106,6 @@
 # That means that we can limit our next discussions to the first order problems.
 #
 #
-
 # %% [markdown]
 # ## Euler's methods
 #
@@ -130,7 +125,7 @@
 #
 # Therefore, if the mass of sulfates at a certain time $t_0$ $m(t)$ is $m(t_0) = m_0$, the mass of sulfates at $t+\Delta t$ is:
 # \begin{equation}
-# m(t_0 + \Delta t) = m(t_0) + M_{\text{pit}} + M_{\text{mill}} + M_{\text{pore}} - M_{\text{dis}} 
+# m(t_0 + \Delta t) = m(t_0) + M_{\text{pit}} + M_{\text{mill}} + M_{\text{pore}} - M_{\text{dis}}
 # \end{equation}
 #
 # And we have identified these terms:
@@ -173,7 +168,6 @@
 #
 #
 #
-
 # %% [markdown]
 # So, after each time step, we can compute the evolution of $c_{\text{TMF}}$. How should we choose the timestep?
 #
@@ -183,7 +177,6 @@
 # 3. The bigger the faster
 #
 #
-
 # %% [markdown]
 # The choice of the timestep matters. Look at the previous equation:
 #
@@ -191,10 +184,9 @@
 # \frac{\color{blue}{c_{\text{TMF}}}(t + \Delta t)-c_{\text{TMF}}(t)}{\Delta t} =  \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + A_{\text{bottom}} k \left( c_{\text{pore}} - {\color{red}{c_{\text{TMF}}}}  \right)    -Q_{\text{dis}} \color{red}{c_{\text{TMF}}}}{V_0}
 # \end{equation}
 #
-# To compute the solution $c_{\text{TMF}}(t+ \Delta t)$, we use the value of $c_{\text{TMF}}$. But, at what time? Intrinsically, at every time between $t$ and $ t + \Delta t$, the value of $c_{\text{TMF}}$ changes. 
+# To compute the solution $c_{\text{TMF}}(t+ \Delta t)$, we use the value of $c_{\text{TMF}}$. But, at what time? Intrinsically, at every time between $t$ and $ t + \Delta t$, the value of $c_{\text{TMF}}$ changes.
 #
-# So the timestep should be small! 
-
+# So the timestep should be small!
 # %% [markdown]
 # #### ODE
 #
@@ -202,13 +194,13 @@
 # \begin{equation}
 # \frac{dc_{\text{TMF}}}{dt} =  \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \right)    -Q_{\text{dis}} c_{\text{TMF}}}{V_0}
 # \end{equation}
-# which is a 1$^{st}$ order linear ODE. 
+# which is a 1$^{st}$ order linear ODE.
 #
 # #### Asymptotic behavior
 #
 # Let us build a bit of physical sense is often a good idea. One should realize that this problem is bound to have a steay solution. At some point, the concentration in the TMF will be so that the sink term will exactly compensate the source terms.
 #
-# This happens when the derivative is zero! 
+# This happens when the derivative is zero!
 #
 # \begin{equation}
 # \begin{array}{lll}
@@ -248,7 +240,6 @@
 #
 #
 #
-
 # %% [markdown]
 # ### Analytical Solution
 #
@@ -257,12 +248,12 @@
 # \begin{equation}
 # \frac{dc_{\text{TMF}}}{dt} + \lambda c_{\text{TMF}} = Q
 # \end{equation}
-# with 
+# with
 # \begin{equation}
 # \left\lbrace
 # \begin{array}{lll}
-# Q & = & \frac{Q_{\text{pit}}c_{\text{pit}} + Q_{\text{mill}}c_{\text{mill}}+ kAc_{\text{pore}}}{V_0} \\ 
-# \lambda & = & \frac{Q_{\text{dis}}+kA}{V_0} 
+# Q & = & \frac{Q_{\text{pit}}c_{\text{pit}} + Q_{\text{mill}}c_{\text{mill}}+ kAc_{\text{pore}}}{V_0} \\
+# \lambda & = & \frac{Q_{\text{dis}}+kA}{V_0}
 # \end{array}
 # \right.
 # \end{equation}
@@ -280,11 +271,10 @@
 # \end{array}
 # \end{equation}
 #
-# In other words, we are trying to find a function which is proportional to its opposite. 
+# In other words, we are trying to find a function which is proportional to its opposite.
 #
-# Any idea? 
+# Any idea?
 #
-
 # %% [markdown]
 # The solution of the homogeneous problem $c_H$ is
 # \begin{equation}
@@ -319,54 +309,62 @@
 # \end{equation}
 #
 # The fact that we know the exact solution to a problem allows us to assess the accuracy of a computational approach. Let us take a look at the solution!
-
 # %%
 # Parameters definition
-Q_pit       = 30
-Q_mill      = 14
-Q_dis       = 44
-V0          = 8.1e9
-c0          = 93  # initial concentration
-k           = 2.5e-5
-Area        = 3e5
+import numpy as np
+from matplotlib import pyplot as plt
+
+Q_pit = 30
+Q_mill = 14
+Q_dis = 44
+V0 = 8.1e9
+c0 = 93  # initial concentration
+k = 2.5e-5
+Area = 3e5
 #
 # Eqn 13
 #
-c_inf       = (Q_pit * c_pit + Q_mill * c_mill + Area * k * c_pore) / (Q_dis + Area * k)
-A           = c0 - c_inf
-lam         = (Area * k + Q_dis) / V0 #units are here in s^{-1}
+c_inf = (Q_pit * c_pit + Q_mill * c_mill + Area * k * c_pore) / (Q_dis + Area * k)
+A = c0 - c_inf
+lam = (Area * k + Q_dis) / V0  # units are here in s^{-1}
 #
 # Eqn 15
 #
-Q = (Q_pit * c_pit + Q_mill * c_mill + Area * k * c_pore)/V0
+Q = (Q_pit * c_pit + Q_mill * c_mill + Area * k * c_pore) / V0
 print(lam)
 print(Q)
 
 # %%
 # This is the routine to plot the exact solution for the concentration at every day
-dt           = 1  # day
-Tf           = 50 #years
-n            = int(1+365*Tf/dt) #int() is to convert thhe result into an integer
-c_real       = np.zeros(n, float) # represents the concentration of sultates (mg/L) at each time
-timeY        = np.zeros(n, float) # time in years
-c_real[0]    = c0
-c_asymptotic = c_inf*np.ones(n, float) #this is an array of size n full, whose values are all c_inf
+dt = 1  # day
+Tf = 50  # years
+n = int(1 + 365 * Tf / dt)  # int() is to convert thhe result into an integer
+c_real = np.zeros(
+    n, float
+)  # represents the concentration of sultates (mg/L) at each time
+timeY = np.zeros(n, float)  # time in years
+c_real[0] = c0
+c_asymptotic = c_inf * np.ones(
+    n, float
+)  # this is an array of size n full, whose values are all c_inf
 
 #
 # Eq. 22
 #
 for i in range(n - 1):
-    timeY[i+1]    = (i+1)*dt/365
-    c_real[i + 1] = c_inf + (c0 - c_inf) * np.exp(-lam * (i+1)*dt*3600*24)
+    timeY[i + 1] = (i + 1) * dt / 365
+    c_real[i + 1] = c_inf + (c0 - c_inf) * np.exp(-lam * (i + 1) * dt * 3600 * 24)
 
 fig, (ax1) = plt.subplots(1, 1, figsize=(8, 4))
 ax1.plot(timeY, c_real, label="Real Concentration")
 ax1.plot(timeY, c_asymptotic, label="Asymptotic value")
-ax1.set(xlabel = "Time (years)", ylabel = "Concentration (mg/L)")
+ax1.set(xlabel="Time (years)", ylabel="Concentration (mg/L)")
 ax1.legend()
 
-print(f"Asymptotic concentration is: {c_inf} mg/L,\n"
-      f"exact concentration after {Tf} years is {c_real[n-1]}")
+print(
+    f"Asymptotic concentration is: {c_inf} mg/L,\n"
+    f"exact concentration after {Tf} years is {c_real[n-1]}"
+)
 
 # %% [markdown]
 # ## Integral form of the ODE
@@ -392,7 +390,7 @@ print(f"Asymptotic concentration is: {c_inf} mg/L,\n"
 #
 # ### Euler's approach
 #
-# Euler's methods are a way to compute this integral term. They both work on the approximation that the function $f(y,t)$ is constant over the timestep [$t$;$t+\Delta t$]. 
+# Euler's methods are a way to compute this integral term. They both work on the approximation that the function $f(y,t)$ is constant over the timestep [$t$;$t+\Delta t$].
 #
 # The forward Euler approach consists in the following approximation:
 #
@@ -401,19 +399,19 @@ print(f"Asymptotic concentration is: {c_inf} mg/L,\n"
 # \end{equation}
 #
 # This approximation allows us to write:
-#  
+#
 # \begin{equation}
 # \begin{array}{lll}
 # \int_{t_0}^{t_0 + \Delta t} f(y,t)dt & \approx & f(y_0,t_0) \int_{t_0}^{t_0 + \Delta t} dt \\
-# & \approx & f(y,t_0) \Delta t 
+# & \approx & f(y,t_0) \Delta t
 # \end{array}
 # \end{equation}
 #
 # The forward Euler method takes the solution at time $t_n$ and advances
 # it to time $t_{n+1}$ using the value of the derivative $f(y_n,t_n)$ at
-# time $t_n$ 
+# time $t_n$
 #
-# $$y(t_0+\Delta t) = y(t_0) + \Delta t f(y(t_0),t_0)$$ 
+# $$y(t_0+\Delta t) = y(t_0) + \Delta t f(y(t_0),t_0)$$
 #
 # This is also referred to as the explicit approach, as the new value of function $y$ can be computed immediately from the previous expression.
 #
@@ -426,6 +424,7 @@ print(f"Asymptotic concentration is: {c_inf} mg/L,\n"
 
 # %%
 from IPython.display import Image
+
 Image(filename="images/euler.png")
 
 # %% [markdown]
@@ -436,11 +435,11 @@ Image(filename="images/euler.png")
 # \end{equation}
 #
 # This approximation allows us to write:
-#  
+#
 # \begin{equation}
 # \begin{array}{lll}
 # \int_{t_0}^{t_0 + \Delta t} f(y,t)dt & \approx & f(y,t_0+\Delta t) \int_{t_0}^{t_0 + \Delta t} dt \\
-# & \approx & f(y,t_0+\Delta t) \Delta t 
+# & \approx & f(y,t_0+\Delta t) \Delta t
 # \end{array}
 # \end{equation}
 #
@@ -459,11 +458,11 @@ Image(filename="images/euler.png")
 # \begin{equation}
 # \frac{dc_{\text{TMF}}}{dt} + \lambda c_{\text{TMF}} = Q
 # \end{equation}
-# with 
+# with
 # \begin{equation}
 # \left\lbrace
 # \begin{array}{lllll}
-# Q & = & \frac{Q_{\text{pit}}c_{\text{pit}} + Q_{\text{mill}}c_{\text{mill}}+ kAc_{\text{pore}}}{V_0} & \approx & 3.247 \times 10^{-6} mg . L^{-1} . s^{-1} \\ 
+# Q & = & \frac{Q_{\text{pit}}c_{\text{pit}} + Q_{\text{mill}}c_{\text{mill}}+ kAc_{\text{pore}}}{V_0} & \approx & 3.247 \times 10^{-6} mg . L^{-1} . s^{-1} \\
 # \lambda & = & \frac{Q_{\text{dis}}+kA}{V_0} & \approx & 6.358 \times 10^{-9} s^{-1}
 # \end{array}
 # \right.
@@ -488,87 +487,103 @@ Image(filename="images/euler.png")
 
 # %%
 # This is the routine to plot the exact solution for the concentration at every day
-dt                = 1  # day
-Tf                = 50 #years
-n                 = int(1+365*Tf/dt) #int() is to convert thhe result into an integer
-c_real            = np.zeros(n, float) # represents the concentration of sultates (mg/L) at each time
-timeY             = np.zeros(n, float) # time in years
-c_real[0]         = c0
-c_asymptotic      = c_inf*np.ones(n, float) #this is an array of size n full, whose values are all c_inf
-Forward_Euler     = np.zeros(n,float)
-Backward_Euler    = np.zeros(n,float)
-err_Backward      = np.zeros(n,float)
-err_Forward       = np.zeros(n,float)
-Forward_Euler[0]  = c0
+dt = 1  # day
+Tf = 50  # years
+n = int(1 + 365 * Tf / dt)  # int() is to convert thhe result into an integer
+c_real = np.zeros(
+    n, float
+)  # represents the concentration of sultates (mg/L) at each time
+timeY = np.zeros(n, float)  # time in years
+c_real[0] = c0
+c_asymptotic = c_inf * np.ones(
+    n, float
+)  # this is an array of size n full, whose values are all c_inf
+Forward_Euler = np.zeros(n, float)
+Backward_Euler = np.zeros(n, float)
+err_Backward = np.zeros(n, float)
+err_Forward = np.zeros(n, float)
+Forward_Euler[0] = c0
 Backward_Euler[0] = c0
 
 
 for i in range(n - 1):
-    timeY[i+1]          = (i+1)*dt/365
-    c_real[i + 1]       = c_inf + (c0 - c_inf) * np.exp(-lam * (i+1)*dt*3600*24)
-    Forward_Euler[i+1]  = Forward_Euler[i] + (Q-lam*Forward_Euler[i])*dt*3600*24
-    Backward_Euler[i+1] = (Backward_Euler[i] + Q*dt*3600*24)/(1+lam*dt*3600*24)
-    err_Backward[i+1]   = (c_real[i+1]-Backward_Euler[i+1])/c_real[i+1]
-    err_Forward[i+1]    = (Forward_Euler[i+1]-c_real[i+1])/c_real[i+1]
-    
-fig, (ax1,ax2) = plt.subplots(2, 1, figsize=(8, 8))
+    timeY[i + 1] = (i + 1) * dt / 365
+    c_real[i + 1] = c_inf + (c0 - c_inf) * np.exp(-lam * (i + 1) * dt * 3600 * 24)
+    Forward_Euler[i + 1] = (
+        Forward_Euler[i] + (Q - lam * Forward_Euler[i]) * dt * 3600 * 24
+    )
+    Backward_Euler[i + 1] = (Backward_Euler[i] + Q * dt * 3600 * 24) / (
+        1 + lam * dt * 3600 * 24
+    )
+    err_Backward[i + 1] = (c_real[i + 1] - Backward_Euler[i + 1]) / c_real[i + 1]
+    err_Forward[i + 1] = (Forward_Euler[i + 1] - c_real[i + 1]) / c_real[i + 1]
+
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 8))
 ax1.plot(timeY, c_real, label="Real Concentration")
 ax1.plot(timeY, Forward_Euler, label="Concentration - Forward Euler")
 ax1.plot(timeY, Backward_Euler, label="Concentration - Backward Euler")
-ax1.set(xlabel = "Time (years)", ylabel = "Concentration (mg/L)")
+ax1.set(xlabel="Time (years)", ylabel="Concentration (mg/L)")
 ax1.legend()
 
-ax2.plot(timeY, 100*err_Backward, label="Error - backward Euler")
-ax2.plot(timeY, 100*err_Forward, label="Error - forkward Euler")
-ax2.set(xlabel = "Time (years)", ylabel = "Error (%)")
+ax2.plot(timeY, 100 * err_Backward, label="Error - backward Euler")
+ax2.plot(timeY, 100 * err_Forward, label="Error - forkward Euler")
+ax2.set(xlabel="Time (years)", ylabel="Error (%)")
 ax2.legend()
 
 
 # %% [markdown]
-# We can see that the two approaches are quite close to each other. This means that the approximation is good. 
+# We can see that the two approaches are quite close to each other. This means that the approximation is good.
 # When you  calculated after 1 day the mass of sulfates, you saw that it had increased from 93 to 93.23 mg/L, hence a relative increase of 0.2%. This yields that the approximation that $c$ is constant over a day is pretty good, hence a relatively small error!
 #
 # So, the bigger the timestep, the less accurate is the approximation. Let us check that!
 # We will set a timestep of 5 years and see the effect on the result.
 
 # %%
-dt                = 5*365  # day
-Tf                = 50 #years
-n                 = int(1+365*Tf/dt) #int() is to convert thhe result into an integer
+dt = 5 * 365  # day
+Tf = 50  # years
+n = int(1 + 365 * Tf / dt)  # int() is to convert thhe result into an integer
 
-timeY             = np.linspace(0,Tf,n)   # this is a way to create an array of size n, 
-                                          # which starts at 0, ends at Tf and every elements
-                                          # are evenly spaced
-c_real            = np.zeros(n, float) # represents the concentration of sultates (mg/L) at each time
-#timeY             = np.zeros(n, float) # time in years
-c_real[0]         = c0
-c_asymptotic      = c_inf*np.ones(n, float) #this is an array of size n full, whose values are all c_inf
-Forward_Euler     = np.zeros(n,float)
-Backward_Euler    = np.zeros(n,float)
-err_Backward      = np.zeros(n,float)
-err_Forward       = np.zeros(n,float)
-Forward_Euler[0]  = c0
+timeY = np.linspace(0, Tf, n)  # this is a way to create an array of size n,
+# which starts at 0, ends at Tf and every elements
+# are evenly spaced
+c_real = np.zeros(
+    n, float
+)  # represents the concentration of sultates (mg/L) at each time
+# timeY             = np.zeros(n, float) # time in years
+c_real[0] = c0
+c_asymptotic = c_inf * np.ones(
+    n, float
+)  # this is an array of size n full, whose values are all c_inf
+Forward_Euler = np.zeros(n, float)
+Backward_Euler = np.zeros(n, float)
+err_Backward = np.zeros(n, float)
+err_Forward = np.zeros(n, float)
+Forward_Euler[0] = c0
 Backward_Euler[0] = c0
 
 
 for i in range(n - 1):
-    #timeY[i+1]          = (i+1)*dt/365
-    c_real[i + 1]       = c_inf + (c0 - c_inf) * np.exp(-lam * timeY[i+1]*365*3600*24)
-    Forward_Euler[i+1]  = Forward_Euler[i] + (Q-lam*Forward_Euler[i])*dt*3600*24
-    Backward_Euler[i+1] = (Backward_Euler[i] + Q*dt*3600*24)/(1+lam*dt*3600*24)
-    err_Backward[i+1]   = (c_real[i+1]-Backward_Euler[i+1])/c_real[i+1]
-    err_Forward[i+1]    = (Forward_Euler[i+1]-c_real[i+1])/c_real[i+1]
-       
-fig, (ax1,ax2) = plt.subplots(2, 1, figsize=(8, 8))
+    # timeY[i+1]          = (i+1)*dt/365
+    c_real[i + 1] = c_inf + (c0 - c_inf) * np.exp(-lam * timeY[i + 1] * 365 * 3600 * 24)
+    Forward_Euler[i + 1] = (
+        Forward_Euler[i] + (Q - lam * Forward_Euler[i]) * dt * 3600 * 24
+    )
+    Backward_Euler[i + 1] = (Backward_Euler[i] + Q * dt * 3600 * 24) / (
+        1 + lam * dt * 3600 * 24
+    )
+    err_Backward[i + 1] = (c_real[i + 1] - Backward_Euler[i + 1]) / c_real[i + 1]
+    err_Forward[i + 1] = (Forward_Euler[i + 1] - c_real[i + 1]) / c_real[i + 1]
+
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 8))
 ax1.plot(timeY, c_real, label="Real Concentration")
 ax1.plot(timeY, Forward_Euler, label="Concentration - Forward Euler")
 ax1.plot(timeY, Backward_Euler, label="Concentration - Backward Euler")
-ax1.set(xlabel = "Time (years)", ylabel = "Concentration (mg/L)")
+ax1.set(xlabel="Time (years)", ylabel="Concentration (mg/L)")
 ax1.legend()
 
-ax2.plot(timeY, 100*err_Backward, label="Error - backward Euler")
-ax2.plot(timeY, 100*err_Forward, label="Error - forkward Euler")
-ax2.set(xlabel = "Time (years)", ylabel = "Error (%)")
+ax2.plot(timeY, 100 * err_Backward, label="Error - backward Euler")
+ax2.plot(timeY, 100 * err_Forward, label="Error - forkward Euler")
+ax2.set(xlabel="Time (years)", ylabel="Error (%)")
 ax2.legend()
 
 # %% [markdown]
@@ -579,47 +594,55 @@ ax2.legend()
 # Now, do the same with an even bigger timestep (25 years and see what is happening over a longer timescale).
 
 # %%
-dt                = 25*365  # day
-Tf                = 250 #years
-n                 = int(1+365*Tf/dt) #int() is to convert thhe result into an integer
+dt = 25 * 365  # day
+Tf = 250  # years
+n = int(1 + 365 * Tf / dt)  # int() is to convert thhe result into an integer
 
-timeY             = np.linspace(0,Tf,n)   # this is a way to create an array of size n, 
-                                          # which starts at 0, ends at Tf and every elements
-                                          # are evenly spaced
-c_real            = np.zeros(n, float) # represents the concentration of sultates (mg/L) at each time
-#timeY             = np.zeros(n, float) # time in years
-c_real[0]         = c0
-c_asymptotic      = c_inf*np.ones(n, float) #this is an array of size n full, whose values are all c_inf
-Forward_Euler     = np.zeros(n,float)
-Backward_Euler    = np.zeros(n,float)
-err_Backward      = np.zeros(n,float)
-err_Forward       = np.zeros(n,float)
-Forward_Euler[0]  = c0
+timeY = np.linspace(0, Tf, n)  # this is a way to create an array of size n,
+# which starts at 0, ends at Tf and every elements
+# are evenly spaced
+c_real = np.zeros(
+    n, float
+)  # represents the concentration of sultates (mg/L) at each time
+# timeY             = np.zeros(n, float) # time in years
+c_real[0] = c0
+c_asymptotic = c_inf * np.ones(
+    n, float
+)  # this is an array of size n full, whose values are all c_inf
+Forward_Euler = np.zeros(n, float)
+Backward_Euler = np.zeros(n, float)
+err_Backward = np.zeros(n, float)
+err_Forward = np.zeros(n, float)
+Forward_Euler[0] = c0
 Backward_Euler[0] = c0
 
 
 for i in range(n - 1):
-    #timeY[i+1]          = (i+1)*dt/365
-    c_real[i + 1]       = c_inf + (c0 - c_inf) * np.exp(-lam * timeY[i+1]*365*3600*24)
-    Forward_Euler[i+1]  = Forward_Euler[i] + (Q-lam*Forward_Euler[i])*dt*3600*24
-    Backward_Euler[i+1] = (Backward_Euler[i] + Q*dt*3600*24)/(1+lam*dt*3600*24)
-    err_Backward[i+1]   = (c_real[i+1]-Backward_Euler[i+1])/c_real[i+1]
-    err_Forward[i+1]    = (Forward_Euler[i+1]-c_real[i+1])/c_real[i+1]
-       
-fig, (ax1,ax2) = plt.subplots(2, 1, figsize=(8, 8))
+    # timeY[i+1]          = (i+1)*dt/365
+    c_real[i + 1] = c_inf + (c0 - c_inf) * np.exp(-lam * timeY[i + 1] * 365 * 3600 * 24)
+    Forward_Euler[i + 1] = (
+        Forward_Euler[i] + (Q - lam * Forward_Euler[i]) * dt * 3600 * 24
+    )
+    Backward_Euler[i + 1] = (Backward_Euler[i] + Q * dt * 3600 * 24) / (
+        1 + lam * dt * 3600 * 24
+    )
+    err_Backward[i + 1] = (c_real[i + 1] - Backward_Euler[i + 1]) / c_real[i + 1]
+    err_Forward[i + 1] = (Forward_Euler[i + 1] - c_real[i + 1]) / c_real[i + 1]
+
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 8))
 ax1.plot(timeY, c_real, label="Real Concentration")
 ax1.plot(timeY, Forward_Euler, label="Concentration - Forward Euler")
 ax1.plot(timeY, Backward_Euler, label="Concentration - Backward Euler")
-ax1.set(xlabel = "Time (years)", ylabel = "Concentration (mg/L)")
+ax1.set(xlabel="Time (years)", ylabel="Concentration (mg/L)")
 ax1.legend()
 
 ax2.plot(timeY, c_real, label="Real Concentration")
 ax2.plot(timeY, Backward_Euler, label="Concentration - Backward Euler")
-ax2.set(xlabel = "Time (years)", ylabel = "Concentration (mg/L)")
+ax2.set(xlabel="Time (years)", ylabel="Concentration (mg/L)")
 ax2.legend()
 
 # %% [markdown]
-# This defines the concept of stability. 
+# This defines the concept of stability.
 #
 # We can show that Euler's backward method is unconditionnally stable (for every timestep), while Euler's forward (explicit) method has a restrictive timestep condition for stability.
 #
@@ -673,7 +696,7 @@ ax2.legend()
 #
 # The midpoint method is known as a 2-stage Runge-Kutta formula.
 #
-# In general, an *explicit* 2-stage Runge-Kutta method can be written as, 
+# In general, an *explicit* 2-stage Runge-Kutta method can be written as,
 #
 # \begin{equation}
 #    \begin{array}{l}
@@ -687,6 +710,3 @@ ax2.legend()
 #
 
 # %%
-
-
-
