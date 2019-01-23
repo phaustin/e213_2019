@@ -27,7 +27,6 @@ Week 2  Jan 8/Jan 10
 
 * `Day 2 post-class slides with answers <https://www.dropbox.com/s/pmrvb2grhaiwuwa/Lect1_answers.pdf?dl=0>`_
 
-
 Week 3  Jan 15/Jan 17
 =====================
 
@@ -41,7 +40,7 @@ Week 3  Jan 15/Jan 17
 
   - TMF demo notebook:  `compute_tmf_volume_html`_
 
-  - Assignment intro: <https://www.dropbox.com/s/kcbfw289286toqc/Lect1801.pdf?dl=0>`_
+  - `TMF Assignment intro: <https://www.dropbox.com/s/kcbfw289286toqc/Lect1801.pdf?dl=0>`_
 
   - TMF assignment notebook: `tmf_assignment_pha_html`_  
 
