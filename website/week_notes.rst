@@ -46,6 +46,14 @@ Week 3  Jan 15/Jan 17
   - TMF assignment notebook: `tmf_assignment_pha_html`_  
 
 * Solution posted: `1-python-basics_solution <http://clouds.eoas.ubc.ca/~phil/Downloads/e213_solutions/1-python-basics_solution.html>`_
-    
-  - Good reference on plotting with matplotlib is
+
+Week 4  Jan 22/Jan 24
+=====================
+
+- Jan. 22 Euler Approximation `Lec5_Euler_html`_
+
+General notes
+=============
+  
+- Good reference on plotting with matplotlib is
     `D. J. Pine Chapter 5: Plotting with matplotlib <https://clouds.eos.ubc.ca/~phil/djpine_python/chap5/chap5_plot.html>`_

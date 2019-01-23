@@ -44,6 +44,12 @@ extensions = [
     "nbsphinx",
 ]
 
+mathjax_config = {
+    "TeX": {
+        "equationNumbers": {"autoNumber": "AMS", "useLabelIds": True},
+        "extensions": ["color.js"],
+    }
+}
 
 nbsphinx_custom_formats = {".py": lambda s: jupytext.reads(s, ".py")}
 
