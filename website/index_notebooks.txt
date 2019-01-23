@@ -16,3 +16,6 @@
 .. _tmf_assignment_pha_ipynb: notebooks/tmf_assignment_pha.ipynb
 .. _tmf_assignment_pha_html: web_notebooks/tmf_assignment_pha.ipynb
 .. _tmf_assignment_pha_py: https://github.com/phaustin/eosc213_students/blob/master/python/tmf_assignment_pha.py
+.. _Lec5_Euler_ipynb: notebooks/Lec5_Euler.ipynb
+.. _Lec5_Euler_html: web_notebooks/Lec5_Euler.ipynb
+.. _Lec5_Euler_py: https://github.com/phaustin/eosc213_students/blob/master/python/Lec5_Euler.py

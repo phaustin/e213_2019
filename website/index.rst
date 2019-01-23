@@ -27,7 +27,9 @@ ________________
    Cheat sheet <cheat_sheet>
 
    Notebook index <notebook_index>
-   
+
+   <web_notebooks/Lec5_Euler_debug.ipynb>
+              
 
 Index
 _____
