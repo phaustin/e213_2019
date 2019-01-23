@@ -13,7 +13,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/language_data.js"></script>
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}, "extensions": ["color.js"]}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
@@ -60,6 +60,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#week-1-jan-3">1.1. Week 1  Jan 3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#week-2-jan-8-jan-10">1.2. Week 2  Jan 8/Jan 10</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#week-3-jan-15-jan-17">1.3. Week 3  Jan 15/Jan 17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#week-4-jan-22-jan-24">1.4. Week 4  Jan 22/Jan 24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#general-notes">1.5. General notes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="solutions.html">2. Assignment solutions</a><ul>
@@ -101,6 +103,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#week-1-jan-3">1.1. Week 1  Jan 3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#week-2-jan-8-jan-10">1.2. Week 2  Jan 8/Jan 10</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#week-3-jan-15-jan-17">1.3. Week 3  Jan 15/Jan 17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#week-4-jan-22-jan-24">1.4. Week 4  Jan 22/Jan 24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#general-notes">1.5. General notes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="solutions.html">2. Assignment solutions</a></li>
@@ -159,6 +163,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#week-1-jan-3">1.1. Week 1  Jan 3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#week-2-jan-8-jan-10">1.2. Week 2  Jan 8/Jan 10</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#week-3-jan-15-jan-17">1.3. Week 3  Jan 15/Jan 17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#week-4-jan-22-jan-24">1.4. Week 4  Jan 22/Jan 24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#general-notes">1.5. General notes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="solutions.html">2. Assignment solutions</a></li>
@@ -186,6 +192,7 @@
 <li><a class="reference internal" href="week2_class.html"><span class="doc">Week 2 classroom notes</span></a></li>
 <li>Python basics notebook: <a class="reference internal" href="web_notebooks/1-python-basics.html"><span class="doc">1-python-basics_html</span></a></li>
 <li><a class="reference external" href="https://www.dropbox.com/s/4ye71utxzozbusl/Lect1.pdf?dl=0">Day 2 post-class slides</a></li>
+<li><a class="reference external" href="https://www.dropbox.com/s/pmrvb2grhaiwuwa/Lect1_answers.pdf?dl=0">Day 2 post-class slides with answers</a></li>
 </ul>
 </div>
 <div class="section" id="week-3-jan-15-jan-17">
@@ -196,13 +203,26 @@
 <li>First matplotlib notebook <a class="reference internal" href="web_notebooks/jan15_2_matplotlib.html"><span class="doc">jan15_2_matplotlib_html</span></a></li>
 <li>Second numpy notebook: <a class="reference internal" href="web_notebooks/jan15_3-processing-data-using-numpy.html"><span class="doc">jan15_3-processing-data-using-numpy_html</span></a></li>
 <li>TMF demo notebook:  <a class="reference internal" href="web_notebooks/compute_tmf_volume.html"><span class="doc">compute_tmf_volume_html</span></a></li>
+<li><a class="reference external" href="https://www.dropbox.com/s/kcbfw289286toqc/Lect1801.pdf?dl=0">TMF Assignment intro:</a></li>
 <li>TMF assignment notebook: <a class="reference internal" href="web_notebooks/tmf_assignment_pha.html"><span class="doc">tmf_assignment_pha_html</span></a></li>
 </ul>
 </li>
-<li>Solution posted: <a class="reference external" href="http://clouds.eoas.ubc.ca/~phil/Downloads/e213_solutions/1-python-basics_solution.html">1-python-basics_solution</a><ul>
-<li>Good reference on plotting with matplotlib is
-<a class="reference external" href="https://clouds.eos.ubc.ca/~phil/djpine_python/chap5/chap5_plot.html">D. J. Pine Chapter 5: Plotting with matplotlib</a></li>
+<li>Solution posted: <a class="reference external" href="http://clouds.eoas.ubc.ca/~phil/Downloads/e213_solutions/1-python-basics_solution.html">1-python-basics_solution</a></li>
 </ul>
+</div>
+<div class="section" id="week-4-jan-22-jan-24">
+<h2>1.4. Week 4  Jan 22/Jan 24<a class="headerlink" href="#week-4-jan-22-jan-24" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Jan. 22 Euler Approximation <a class="reference internal" href="web_notebooks/Lec5_Euler.html"><span class="doc">Lec5_Euler_html</span></a></li>
+</ul>
+</div>
+<div class="section" id="general-notes">
+<h2>1.5. General notes<a class="headerlink" href="#general-notes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>Good reference on plotting with matplotlib is</dt>
+<dd><a class="reference external" href="https://clouds.eos.ubc.ca/~phil/djpine_python/chap5/chap5_plot.html">D. J. Pine Chapter 5: Plotting with matplotlib</a></dd>
+</dl>
 </li>
 </ul>
 </div>

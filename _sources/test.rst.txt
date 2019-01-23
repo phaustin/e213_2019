@@ -27,6 +27,7 @@ Week 2  Jan 8/Jan 10
 
 * `Day 2 post-class slides with answers <https://www.dropbox.com/s/pmrvb2grhaiwuwa/Lect1_answers.pdf?dl=0>`_
 
+
 Week 3  Jan 15/Jan 17
 =====================
 
@@ -40,19 +41,11 @@ Week 3  Jan 15/Jan 17
 
   - TMF demo notebook:  `compute_tmf_volume_html`_
 
-  - `TMF Assignment intro: <https://www.dropbox.com/s/kcbfw289286toqc/Lect1801.pdf?dl=0>`_
+  - Assignment intro: <https://www.dropbox.com/s/kcbfw289286toqc/Lect1801.pdf?dl=0>`_
 
   - TMF assignment notebook: `tmf_assignment_pha_html`_  
 
 * Solution posted: `1-python-basics_solution <http://clouds.eoas.ubc.ca/~phil/Downloads/e213_solutions/1-python-basics_solution.html>`_
-
-Week 4  Jan 22/Jan 24
-=====================
-
-- Jan. 22 Euler Approximation `Lec5_Euler_html`_
-
-General notes
-=============
-  
-- Good reference on plotting with matplotlib is
+    
+  - Good reference on plotting with matplotlib is
     `D. J. Pine Chapter 5: Plotting with matplotlib <https://clouds.eos.ubc.ca/~phil/djpine_python/chap5/chap5_plot.html>`_

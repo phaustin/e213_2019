@@ -231,6 +231,7 @@
     "Let us analyse this by investigating limit cases:\n",
     "\n",
     "1. Very fast production from the porewater: $k \\rightarrow \\infty$\n",
+    "\n",
     "\\begin{equation}\n",
     "\\begin{array}{lll}\n",
     "c_\\infty & = & \\frac{Q_{\\text{pit}}  c_{\\text{pit}} + Q_{\\text{mill}}  c_{\\text{mill}} + kA c_{\\text{pore}} }{Q_{\\text{dis}}+kA} \\\\\n",
@@ -241,6 +242,7 @@
     "\\end{equation}\n",
     "\n",
     "2. Very slow production from the porewater:  $k \\rightarrow 0$\n",
+    "\n",
     "\\begin{equation}\n",
     "\\begin{array}{lll}\n",
     "c_\\infty & = & \\frac{Q_{\\text{pit}}  c_{\\text{pit}} + Q_{\\text{mill}}  c_{\\text{mill}} + kA c_{\\text{pore}} }{Q_{\\text{dis}}+kA} \\\\\n",
@@ -1002,7 +1004,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.6.5"
+   "version": "3.6.7"
   },
   "nbsphinx": {
    "execute": "never"
