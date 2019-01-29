@@ -51,6 +51,12 @@ Week 4  Jan 22/Jan 24
 
 - Jan. 22 Euler Approximation `Lec5_Euler_html`_
 
+Week 5  Jan 29/Jan 31
+=====================
+
+- Here are the instructions for seeing your
+  :ref:`assignment_handbacks`
+  
 General notes
 =============
   
