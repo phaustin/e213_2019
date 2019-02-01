@@ -57,6 +57,9 @@ Week 5  Jan 29/Jan 31
 
 - Jan. 29 Clicker Questions `<https://www.dropbox.com/s/334mjilxvm1wx3a/Euler_ClickerQ.pdf?dl=0>`_
 
+- Here are the instructions for seeing your
+  :ref:`assignment_handbacks`
+
 
 General notes
 =============
