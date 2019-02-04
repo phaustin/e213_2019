@@ -1,0 +1,188 @@
+%!PS-Adobe-1.0
+%%Title: INPUTS
+%%Creator: nenscript v1.13++ (US version) 24-November-1992
+%%For: roger
+%%CreationDate: Fri Oct 10 11:55:55 1997
+%%DocumentFonts: Courier Courier-Bold 
+%%Pages: (atend)
+%%EndComments
+/newcodes	% foreign character encodings
+[
+160/space 161/exclamdown 162/cent 163/sterling 164/currency
+165/yen 166/brokenbar 167/section  168/dieresis 169/copyright
+170/ordfeminine 171/guillemotleft 172/logicalnot 173/hyphen 174/registered
+175/macron 176/degree 177/plusminus 178/twosuperior 179/threesuperior
+180/acute 181/mu 182/paragraph  183/periodcentered 184/cedilla
+185/onesuperior 186/ordmasculine 187/guillemotright 188/onequarter
+189/onehalf 190/threequarters 191/questiondown 192/Agrave 193/Aacute
+194/Acircumflex 195/Atilde 196/Adieresis 197/Aring 198/AE 199/Ccedilla
+200/Egrave 201/Eacute 202/Ecircumflex 203/Edieresis 204/Igrave  205/Iacute
+206/Icircumflex 207/Idieresis 208/Eth 209/Ntilde 210/Ograve 211/Oacute
+212/Ocircumflex 213/Otilde  214/Odieresis 215/multiply 216/Oslash
+217/Ugrave 218/Uacute 219/Ucircumflex 220/Udieresis 221/Yacute 222/Thorn
+223/germandbls 224/agrave 225/aacute 226/acircumflex 227/atilde
+228/adieresis 229/aring 230/ae 231/ccedilla  232/egrave 233/eacute
+234/ecircumflex 235/edieresis 236/igrave 237/iacute 238/icircumflex
+239/idieresis 240/eth 241/ntilde 242/ograve 243/oacute 244/ocircumflex
+245/otilde 246/odieresis 247/divide 248/oslash 249/ugrave  250/uacute
+251/ucircumflex 252/udieresis 253/yacute 254/thorn 255/ydieresis
+] def
+
+/reencdict 12 dict def
+
+
+
+    % change fonts using ISO Latin1 characters
+/ChgFnt		% size psname natname  =>  font
+{
+    dup FontDirectory exch known	% is re-encoded name known?
+    { exch pop }			% yes, get rid of long name
+    { dup 3 1 roll ReEncode } ifelse	% no, re-encode it
+    findfont exch scalefont setfont
+} def
+
+/ReEncode	%
+{
+    reencdict begin
+	/newname exch def
+	/basename exch def
+	/basedict basename findfont def
+	/newfont basedict maxlength dict def
+	basedict
+	{ exch dup /FID ne
+	    { dup /Encoding eq
+		{ exch dup length array copy newfont 3 1 roll put }
+		{ exch newfont 3 1 roll put } ifelse
+	    }
+	    { pop pop } ifelse
+	} forall
+	newfont /FontName newname put
+	newcodes aload pop newcodes length 2 idiv
+	{ newfont /Encoding get 3 1 roll put } repeat
+	newname newfont definefont pop
+    end
+} def
+
+1 100 div dup scale
+/#copies 1 def
+90 rotate 0 -61200 translate
+/BodyF { 700 /Courier /Courier-Latin1 ChgFnt } def
+/CW BodyF ( ) stringwidth pop def
+/Titlef {  1000 /Courier-Bold /Courier-Bold-Latin1 ChgFnt } def
+/K         { -2 CW mul add exch moveto (+) show } def
+/L         { CW mul add exch moveto show } def
+/T         { exch moveto show } def
+/M         { CW mul 0 rmoveto } def
+/Centre    { dup stringwidth pop 2 div neg 0 rmoveto } def
+/StartPage { /SavedPage save def
+  0 setgray Titlef 3600 57700 moveto show 8 M (Fri Oct 10 11:55:55 1997) show 8 M show
+  BodyF 0 setgray } def
+/EndPage   {showpage SavedPage restore } def
+%%EndProlog
+%%Page: 1 1
+(1) (INPUTS) StartPage
+(Flowss input files: Read the comments in the subroutine inputs to see what data) 56300 3600 T
+(is required. Below is a sample input file set.) 55530 3600 T
+(flowss.con:) 53990 3600 T
+(=========================================================) 53220 3600 T
+(10 10 ) 52450 3600 T
+(500 1.9  1.e-6) 51680 3600 T
+(test.out) 50910 3600 T
+(dx10x10.in) 50140 3600 T
+(h10x10.out) 49370 3600 T
+(ind10x10.in) 48600 3600 T
+(h10x10.in) 47830 3600 T
+(q10x10.in) 47060 3600 T
+(h10x10.grd) 46290 3600 T
+(lt10x10.in) 45520 3600 T
+(=========================================================) 44750 3600 T
+(dx10x10.in: first the dx's, then the dy's. dy's must ) 42440 3600 T
+(start on a new line. Any number of data on each line) 41670 3600 T
+(=========================================================) 40900 3600 T
+(1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0) 40130 3600 T
+(1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0) 39360 3600 T
+(=========================================================) 38590 3600 T
+(ind10x10.in: one integer for each gridblock. 1= const head) 36280 3600 T
+(node, 0 = free node and -1= dummy node \(outside problem domain\),) 35510 3600 T
+(treated like an impermeable block) 34740 3600 T
+(=========================================================) 33970 3600 T
+(1 1 1 1 1  ) 33200 3600 T
+(1 1 1 1 1  ) 32430 3600 T
+(0 0 0 0 0) 31660 3600 T
+(0 0 0 0 0) 30890 3600 T
+(0 0 0 0 0) 30120 3600 T
+(0 0 0 0 0) 29350 3600 T
+(0 0 0 0 0) 28580 3600 T
+(0 0 0 0 0) 27810 3600 T
+(0 0 0 0 0) 27040 3600 T
+(0 0 0 0 0) 26270 3600 T
+(0 0 0 0 0) 25500 3600 T
+(0 0 0 0 0) 24730 3600 T
+(0 0 0 0 0) 23960 3600 T
+(0 0 0 0 0) 23190 3600 T
+(0 0 0 0 0) 22420 3600 T
+(0 0 0 0 0) 21650 3600 T
+(0 0 0 0 0) 20880 3600 T
+(0 0 0 0 0) 20110 3600 T
+(1 1 1 1 1  ) 19340 3600 T
+(1 1 1 1 1  ) 18570 3600 T
+(=========================================================) 17800 3600 T
+(h10x10.in: guess for head in each block. At constant head nodes,) 15490 3600 T
+(the constant value.) 14720 3600 T
+(=========================================================) 13950 3600 T
+(1.0 1.0 1.0 1.0 1.0  ) 13180 3600 T
+(1.0 1.0 1.0 1.0 1.0  ) 12410 3600 T
+(0.0 0.0 0.0 0.0 0.0) 11640 3600 T
+(0.0 0.0 0.0 0.0 0.0) 10870 3600 T
+(0.0 0.0 0.0 0.0 0.0) 10100 3600 T
+(0.0 0.0 0.0 0.0 0.0) 9330 3600 T
+(0.0 0.0 0.0 0.0 0.0) 8560 3600 T
+(0.0 0.0 0.0 0.0 0.0) 7790 3600 T
+(0.0 0.0 0.0 0.0 0.0) 7020 3600 T
+(0.0 0.0 0.0 0.0 0.0) 6250 3600 T
+(0.0 0.0 0.0 0.0 0.0) 5480 3600 T
+(0.0 0.0 0.0 0.0 0.0) 4710 3600 T
+(0.0 0.0 0.0 0.0 0.0) 3940 3600 T
+(0.0 0.0 0.0 0.0 0.0) 3170 3600 T
+(0.0 0.0 0.0 0.0 0.0) 56300 41950 T
+(0.0 0.0 0.0 0.0 0.0) 55530 41950 T
+(0.0 0.0 0.0 0.0 0.0) 54760 41950 T
+(0.0 0.0 0.0 0.0 0.0) 53990 41950 T
+(0.0 0.0 0.0 0.0 0.0  ) 53220 41950 T
+(0.0 0.0 0.0 0.0 0.0  ) 52450 41950 T
+(0.0 0.0 0.0 0.0 0.0  ) 51680 41950 T
+(0.0 0.0 0.0 0.0 0.0  ) 50910 41950 T
+(0.0 0.0 0.0 0.0 0.0) 50140 41950 T
+(0.0 0.0 0.0 0.0 0.0) 49370 41950 T
+(0.0 0.0 0.0 0.0 0.0) 48600 41950 T
+(0.0 0.0 0.0 0.0 0.0) 47830 41950 T
+(0.0 0.0 0.0 0.0 0.0) 47060 41950 T
+(0.0 0.0 0.0 0.0 0.0) 46290 41950 T
+(0.0 0.0 0.0 0.0 0.0) 45520 41950 T
+(0.0 0.0 0.0 0.0 0.0) 44750 41950 T
+(0.0 0.0 0.0 0.0 0.0) 43980 41950 T
+(0.0 0.0 0.0 0.0 0.0) 43210 41950 T
+(0.0 0.0 0.0 0.0 0.0) 42440 41950 T
+(0.0 0.0 0.0 0.0 0.0) 41670 41950 T
+(0.0 0.0 0.0 0.0 0.0) 40900 41950 T
+(0.0 0.0 0.0 0.0 0.0) 40130 41950 T
+(0.0 0.0 0.0 0.0 0.0) 39360 41950 T
+(0.0 0.0 0.0 0.0 0.0) 38590 41950 T
+(0.0 0.0 0.0 0.0 0.0  ) 37820 41950 T
+(0.0 0.0 0.0 0.0 0.0  ) 37050 41950 T
+(=========================================================) 36280 41950 T
+(lt10x10.in: log_10\(transmissivity\) at each gridblock) 33200 41950 T
+(=========================================================) 32430 41950 T
+(-2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0) 31660 41950 T
+(-2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0) 30890 41950 T
+(-2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0) 30120 41950 T
+(-2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0) 29350 41950 T
+(-2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0) 28580 41950 T
+(-2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0) 27810 41950 T
+(-2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0) 27040 41950 T
+(-2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0) 26270 41950 T
+(-2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0) 25500 41950 T
+(-2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0) 24730 41950 T
+EndPage
+%%Trailer
+%%Pages: 1
