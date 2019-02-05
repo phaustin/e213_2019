@@ -185,23 +185,9 @@
     "\\frac{\\color{blue}{c_{\\text{TMF}}}(t + \\Delta t)-c_{\\text{TMF}}(t)}{\\Delta t} =  \\frac{Q_{\\text{pit}}  c_{\\text{pit}} + Q_{\\text{mill}}  c_{\\text{mill}} + A_{\\text{bottom}} k \\left( c_{\\text{pore}} - {\\color{red}{c_{\\text{TMF}}}}  \\right)    -Q_{\\text{dis}} \\color{red}{c_{\\text{TMF}}}}{V_0}\n",
     "\\end{equation}\n",
     "\n",
-    "To compute the solution $c_{\\text{TMF}}(t+ \\Delta t)$, we use the value of $c_{\\text{TMF}}$. But, at what time? Intrinsically, at every time between $t$ and $t + \\Delta t$, the value of $c_{\\text{TMF}}$ changes.\n",
+    "To compute the solution $c_{\\text{TMF}}(t+ \\Delta t)$, we use the value of $c_{\\text{TMF}}$. But, at what time? Intrinsically, at every time between $t$ and $ t + \\Delta t$, the value of $c_{\\text{TMF}}$ changes.\n",
     "\n",
     "So the timestep should be small!"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "\\begin{equation}\n",
-    "\\begin{array}{lll}\n",
-    "c_\\infty & = & \\frac{Q_{\\text{pit}}  c_{\\text{pit}} + Q_{\\text{mill}}  c_{\\text{mill}} + kA c_{\\text{pore}} }{Q_{\\text{dis}}+kA} \\\\\n",
-    "& = & \\frac{\\color{blue}{Q_{\\text{pit}}  c_{\\text{pit}}} + \\color{blue}{Q_{\\text{mill}}  c_{\\text{mill}}} + kA c_{\\text{pore}} }{\\color{blue}{Q_{\\text{dis}}}+kA} \\\\\n",
-    "& \\approx & \\frac{kA c_{\\text{pore}} }{kA} \\\\\n",
-    "& \\approx & c_{\\text{pore}} = 2000 \\text{ mg/L}\n",
-    "\\end{array}\n",
-    "\\end{equation}"
    ]
   },
   {
@@ -245,7 +231,6 @@
     "Let us analyse this by investigating limit cases:\n",
     "\n",
     "1. Very fast production from the porewater: $k \\rightarrow \\infty$\n",
-    "\n",
     "\\begin{equation}\n",
     "\\begin{array}{lll}\n",
     "c_\\infty & = & \\frac{Q_{\\text{pit}}  c_{\\text{pit}} + Q_{\\text{mill}}  c_{\\text{mill}} + kA c_{\\text{pore}} }{Q_{\\text{dis}}+kA} \\\\\n",
@@ -256,7 +241,6 @@
     "\\end{equation}\n",
     "\n",
     "2. Very slow production from the porewater:  $k \\rightarrow 0$\n",
-    "\n",
     "\\begin{equation}\n",
     "\\begin{array}{lll}\n",
     "c_\\infty & = & \\frac{Q_{\\text{pit}}  c_{\\text{pit}} + Q_{\\text{mill}}  c_{\\text{mill}} + kA c_{\\text{pore}} }{Q_{\\text{dis}}+kA} \\\\\n",
@@ -995,14 +979,6 @@
   "jupytext": {
    "cell_metadata_filter": "all",
    "formats": "",
-   "metadata_filter": {
-    "cells": {
-     "additional": "all"
-    },
-    "notebook": {
-     "additional": "all"
-    }
-   },
    "notebook_metadata_filter": "all",
    "text_representation": {
     "extension": ".py",
@@ -1026,7 +1002,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.7.1"
+   "version": "3.6.5"
   },
   "nbsphinx": {
    "execute": "never"

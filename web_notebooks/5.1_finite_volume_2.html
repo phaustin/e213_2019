@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>One dimensional steady-state finite-volume approximation &#8212; E213</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}, "extensions": ["color.js"]}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          Home</a>
+        <span class="navbar-text navbar-version pull-left"><b>2019Jan01</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-1-jan-3">1.1. Week 1  Jan 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-2-jan-8-jan-10">1.2. Week 2  Jan 8/Jan 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-3-jan-15-jan-17">1.3. Week 3  Jan 15/Jan 17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">1.4. Week 4  Jan 22/Jan 24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">1.5. Week 5  Jan 29/Jan 31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">1.6. Week 6  Feb 05/Feb 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.7. General notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../solutions.html#week-2">2.1. Week 2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#math">3.1. Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#python">3.2. Python</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#python-introductory-texts">4.1. Python Introductory Texts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#moving-from-matlab-to-python">4.2. Moving from matlab to python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#cocalc">4.3. Cocalc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-shell-commands">5.1. Useful shell commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-git-commands">5.2. Useful git commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-debugger-commands">5.3. Useful debugger commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/web_notebooks/5.1_finite_volume_2.ipynb.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <h1><p>Table of Contents</p>
+</h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;One dimensional steady-state finite-volume approximation</p>
+<ul class="toc-item"><li><p>1.1&nbsp;&nbsp;Problem</p>
+<ul class="toc-item"><li><p>1.1.1&nbsp;&nbsp;Boundary-value problem (BVP)</p>
+</li></ul></li><li><p>1.2&nbsp;&nbsp;Number of equations = number of unknowns.</p>
+</li></ul></li><li><p>2&nbsp;&nbsp;Gridblock conservation equation</p>
+<ul class="toc-item"><li><p>2.1&nbsp;&nbsp;One - dimensional flux</p>
+</li><li><p>2.2&nbsp;&nbsp;Your turn</p>
+</li><li><p>2.3&nbsp;&nbsp;Your turn</p>
+</li><li><p>2.4&nbsp;&nbsp;Gridblock with two neighbours</p>
+<ul class="toc-item"><li><p>2.4.1&nbsp;&nbsp;Mass in gridblock</p>
+</li><li><p>2.4.2&nbsp;&nbsp;Fluxes</p>
+</li></ul></li><li><p>2.5&nbsp;&nbsp;Your turn</p>
+</li><li><p>2.6&nbsp;&nbsp;Approach to generate an equation for each gridblock in the mesh</p>
+</li><li><p>2.7&nbsp;&nbsp;Example</p>
+<ul class="toc-item"><li><p>2.7.1&nbsp;&nbsp;Gridblock 2:</p>
+</li></ul></li><li><p>2.8&nbsp;&nbsp;Your turn</p>
+<ul class="toc-item"><li><p>2.8.1&nbsp;&nbsp;Gridblock 3:</p>
+</li><li><p>2.8.2&nbsp;&nbsp;Gridblock 4:</p>
+</li></ul></li></ul></li><li><p>3&nbsp;&nbsp;Boundary gridblocks</p>
+<ul class="toc-item"><li><p>3.1&nbsp;&nbsp;Boundary conditions</p>
+<ul class="toc-item"><li><p>3.1.1&nbsp;&nbsp;Prescribed concentration boundary condition</p>
+</li><li><p>3.1.2&nbsp;&nbsp;Number of equations = number of unknowns?</p>
+</li></ul></li></ul></li><li><p>4&nbsp;&nbsp;Reflection</p>
+</li><li><p>5&nbsp;&nbsp;Next steps</p>
+</li></ul></div><div class="section" id="One-dimensional-steady-state-finite-volume-approximation">
+<h1>One dimensional steady-state finite-volume approximation<a class="headerlink" href="#One-dimensional-steady-state-finite-volume-approximation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Problem">
+<h2>Problem<a class="headerlink" href="#Problem" title="Permalink to this headline">¶</a></h2>
+<p>Recall that our problem is to compute the steady-state sulfate concentration profile with depth in the top two meters of tailings at the bottom of the TMF under the assumptions that:</p>
+<ul class="simple">
+<li>the TMF pond has a large surface area, and we are computing the profile in the middle of the TMF away from the edge.</li>
+<li>the concentration in the water in the TMF pond does not change in time and is fixed at <span class="math notranslate nohighlight">\(c=93~mg/L\)</span></li>
+<li>the concentration at <span class="math notranslate nohighlight">\(2~m\)</span> depth in the sediments does not change in time and is fixed at <span class="math notranslate nohighlight">\(c=2000~mg/L\)</span></li>
+<li>sulfate is not produced in the top <span class="math notranslate nohighlight">\(2~m\)</span> of the tailings.</li>
+<li>sulfate moves by diffusion only.</li>
+</ul>
+<p>We are going to compute a discrete approximation using a set of gridblocks aligned in the vertical direction. We will compute the concentration of sulfate at the center of each gridblock. Then we can interpolate between points to give us an approximate value at any point in the vertical direction.</p>
+<div class="section" id="Boundary-value-problem-(BVP)">
+<h3>Boundary-value problem (BVP)<a class="headerlink" href="#Boundary-value-problem-(BVP)" title="Permalink to this headline">¶</a></h3>
+<p>Can we even solve this problem? Our diffusion problem is an example of a class of problems called <strong>boundary value problems</strong> where the goal is to determine the value of the dependent variable (here, concentration) inside the problem domain when we know the dependent variable or its derivative(s) on the boundary of the domain. We’ll revisit this later when we relate the discrete approximation to a partial differential equation.</p>
+</div>
+</div>
+<div class="section" id="Number-of-equations-=-number-of-unknowns.">
+<h2>Number of equations = number of unknowns.<a class="headerlink" href="#Number-of-equations-=-number-of-unknowns." title="Permalink to this headline">¶</a></h2>
+<p>Common sense tell us that if our grid contains <span class="math notranslate nohighlight">\(n\)</span> unknown values of concentration, one at the center of each gridblock (sometimes called nodes, or gridpoints), then we need <span class="math notranslate nohighlight">\(n\)</span> equations to uniquely determine those <span class="math notranslate nohighlight">\(n\)</span> unknown values. How? You probably guessed, it must have something to do with conservation principles.</p>
+<p>We will number each gridblock and each concentration in the grid: <span class="math notranslate nohighlight">\(c_1\)</span> will be the concentration at the node in gridblock 1, <span class="math notranslate nohighlight">\(c_2\)</span>, will be the concentration at the node in gridblock 2, <span class="math notranslate nohighlight">\(\ldots\)</span>, <span class="math notranslate nohighlight">\(c_n\)</span> will be the concentration at the node in gridblock n.</p>
+</div>
+</div>
+<div class="section" id="Gridblock-conservation-equation">
+<h1>Gridblock conservation equation<a class="headerlink" href="#Gridblock-conservation-equation" title="Permalink to this headline">¶</a></h1>
+<p>We start by considering a single gridblock of size <span class="math notranslate nohighlight">\(\Delta x\)</span>, <span class="math notranslate nohighlight">\(\Delta y\)</span> and <span class="math notranslate nohighlight">\(\Delta z\)</span></p>
+<div class="section" id="One---dimensional-flux">
+<h2>One - dimensional flux<a class="headerlink" href="#One---dimensional-flux" title="Permalink to this headline">¶</a></h2>
+<p>Let’s consider the case where mass (like sulfate) is moving into and out of the gridblock on the “E” and “W” faces only as shown below:</p>
+<p>Let’s define <span class="math notranslate nohighlight">\(J_{E}~\left[M\over T\right]\)</span> as the total mass flux on the “E” side and <span class="math notranslate nohighlight">\(J_{W}~\left[M\over T\right]\)</span> as the total mass flux on the “W” side. Let <span class="math notranslate nohighlight">\(m_C(t)~\left[M\right]\)</span> be the mass inside the gridblock “C” at time <span class="math notranslate nohighlight">\(t\)</span> (<strong>remember, our convention is that fluxes are positive for flux into the volume</strong>).</p>
+</div>
+<div class="section" id="Your-turn">
+<h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
+<p>Write in words the meaning of the following equation</p>
+<p><span class="math">\begin{align}
+\Delta m_C = m_C(t+\Delta t) - m_C(t) & = (J_E+J_W)\Delta t \label{1dcons}\\
+\end{align}</span></p>
+<p>Your answer here</p>
+</div>
+<div class="section" id="Your-turn">
+<h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
+<p>What is the equation if the mass in the gridblock is not changing in time?</p>
+<p>Your answer here</p>
+<p>In words, if the mass in the gridblock is not changing in time, them the <strong>net</strong> rate at which mass is flowing into the gridblock must equal zero.</p>
+</div>
+<div class="section" id="Gridblock-with-two-neighbours">
+<h2>Gridblock with two neighbours<a class="headerlink" href="#Gridblock-with-two-neighbours" title="Permalink to this headline">¶</a></h2>
+<p>Now let’s look a small section of a 1-D grid, where gridblock “C” is connected to gridblock “E” and “W” as shown here</p>
+<div class="section" id="Mass-in-gridblock">
+<h3>Mass in gridblock<a class="headerlink" href="#Mass-in-gridblock" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><span class="math notranslate nohighlight">\(m_W\)</span> is the mass in gridblock W (“West”)</li>
+<li><span class="math notranslate nohighlight">\(m_C\)</span> is the mass in gridblock C (“Center”)</li>
+<li><span class="math notranslate nohighlight">\(m_E\)</span> is the mass in gridblock E (“East”)</li>
+</ul>
+</div>
+<div class="section" id="Fluxes">
+<h3>Fluxes<a class="headerlink" href="#Fluxes" title="Permalink to this headline">¶</a></h3>
+<p>Define fluxes: * <span class="math notranslate nohighlight">\(J_{WC}~\left[M\over T\right]\)</span> as the total mass flux between the W and C gridblocks (positive if mass is entering C). * <span class="math notranslate nohighlight">\(J_{EC}~\left[M\over T\right]\)</span> as the total mass flux between the E and C gridblock (positive if mass is entering C).</p>
+<p>The mass conservation statement for gridblock C over time period <span class="math notranslate nohighlight">\(\Delta t\)</span> is then</p>
+<p><span class="math">\begin{align*}
+m_C(t+\Delta t) - m_C(t) & = \left(J_{EC}+J_{WC}\right)\Delta t \\
+\end{align*}</span></p>
+</div>
+</div>
+<div class="section" id="Your-turn">
+<h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
+<p>Write the <strong>steady-state</strong> mass conservation equation for gridblock C. How does this compare to the equation for the three tanks?</p>
+<p>Your answer here</p>
+</div>
+<div class="section" id="Approach-to-generate-an-equation-for-each-gridblock-in-the-mesh">
+<h2>Approach to generate an equation for each gridblock in the mesh<a class="headerlink" href="#Approach-to-generate-an-equation-for-each-gridblock-in-the-mesh" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Write a discrete approximation for mass conservation for gridblock C. This equation is the fundamental stencil.</li>
+<li>Apply this stencil to each gridblock in the grid to generate a unique equation for each gridblock in the grid.</li>
+</ol>
+<p>For n gridblocks, we can generate n equations.</p>
+</div>
+<div class="section" id="Example">
+<h2>Example<a class="headerlink" href="#Example" title="Permalink to this headline">¶</a></h2>
+<p>Consider a grid with 5 gridblocks. From your answer above, the steady-state 1-d finite volume equation for gridblock C is <span class="math notranslate nohighlight">\(J_{WC}+J_{EC}=0\)</span>.</p>
+<p>We can apply the stencil to the interior gridblocks of our 5 - gridblock example. Let’s start with gridblock 2. We align the stencil so that C corresponds to gridblock 2:</p>
+<p>You see then that in the stencil equation <span class="math notranslate nohighlight">\(J_{WC}+J_{EC}=0\)</span>, we replace C with 2, W with 1 and E with 3, so we have: #### Gridblock 2:</p>
+<p><span class="math">\begin{align}
+J_{12} + J_{32} = 0\\
+\end{align}</span></p>
+</div>
+<div class="section" id="Your-turn">
+<h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
+<p>Replace the steady-state finite volume stencil equation for gridblock C with the correct equation for gridblock 3, and gridblock 4.</p>
+<div class="section" id="Gridblock-3:">
+<h3>Gridblock 3:<a class="headerlink" href="#Gridblock-3:" title="Permalink to this headline">¶</a></h3>
+<p>Change the following stencil equation to the correct equation for gridblock 3.</p>
+<div class="math notranslate nohighlight">
+\[J_{WC}+J_{EC} =0\]</div>
+</div>
+<div class="section" id="Gridblock-4:">
+<h3>Gridblock 4:<a class="headerlink" href="#Gridblock-4:" title="Permalink to this headline">¶</a></h3>
+<p>Change the following stencil equation to the correct equation for gridblock 4.</p>
+<div class="math notranslate nohighlight">
+\[J_{WC}+J_{EC} =0\]</div>
+</div>
+</div>
+</div>
+<div class="section" id="Boundary-gridblocks">
+<h1>Boundary gridblocks<a class="headerlink" href="#Boundary-gridblocks" title="Permalink to this headline">¶</a></h1>
+<p>We now have generated one equation for the interior gridblocks 2, 3 and 4. But for a grid with 5 gridblocks don’t we need 5 equations? What about the boundary gridblocks 1 and 5?</p>
+<div class="section" id="Boundary-conditions">
+<h2>Boundary conditions<a class="headerlink" href="#Boundary-conditions" title="Permalink to this headline">¶</a></h2>
+<p>There are two types of boundary conditions associated with diffusion problems: 1. The concentration is known at the boundary. This is called a prescribed concentration boundary condition. 2. The flux is known at the boundary. This is called a prescribed flux boundary.</p>
+<p>We’ll deal with prescribed concentration boundary conditions here, and revisit prescribed flux later.</p>
+<div class="section" id="Prescribed-concentration-boundary-condition">
+<h3>Prescribed concentration boundary condition<a class="headerlink" href="#Prescribed-concentration-boundary-condition" title="Permalink to this headline">¶</a></h3>
+<p>Say we know the concentration at the two boundaries. Since gridblocks 1 and 5 lie on the boundary, the concentrations in those gridblocks have to be the same as the boundary condition concentrations.</p>
+<p>That is, the concentrations in gridblocks 1, and 5 are known.</p>
+</div>
+<div class="section" id="Number-of-equations-=-number-of-unknowns?">
+<h3>Number of equations = number of unknowns?<a class="headerlink" href="#Number-of-equations-=-number-of-unknowns?" title="Permalink to this headline">¶</a></h3>
+<p>How many equations do we have? How many unknowns?</p>
+</div>
+</div>
+</div>
+<div class="section" id="Reflection">
+<h1>Reflection<a class="headerlink" href="#Reflection" title="Permalink to this headline">¶</a></h1>
+<p>What have you learned? What have you struggled with? Some thoughts below. Reflect on anything else you have learned or struggled with and write it here. * we can write a finite-volume expression for the instantaneous change in mass in a gridblock * we developed a stencil for 1-d steady-state finite volume * we used the stencil to develop one equation for each interior gridblock in the grid * we used specified concentration boundary conditions to determine the concentrations in the boundary
+gridblocks * we have not yet learned how to use specified flux boundary conditions * our equations for interior gridblocks are in terms of fluxes, <span class="math notranslate nohighlight">\(J\)</span>, not concentrations.</p>
+</div>
+<div class="section" id="Next-steps">
+<h1>Next steps<a class="headerlink" href="#Next-steps" title="Permalink to this headline">¶</a></h1>
+<p>We will next use the principles of diffusion to replace fluxes such as <span class="math notranslate nohighlight">\(J_{12}\)</span> with expressions in terms of concentrations in gridblocks. To do that, we need to look at Fick’s law of diffusion, which we will do next.</p>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2019, Philip Austin.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

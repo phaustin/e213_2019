@@ -60,7 +60,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-3-jan-15-jan-17">1.3. Week 3  Jan 15/Jan 17</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">1.4. Week 4  Jan 22/Jan 24</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">1.5. Week 5  Jan 29/Jan 31</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.6. General notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">1.6. Week 6  Feb 05/Feb 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.7. General notes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a><ul>
@@ -119,7 +120,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/web_notebooks/Lec5_Euler.py.txt"
+  <a href="../_sources/web_notebooks/Lec5_Euler.ipynb.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -462,15 +463,8 @@ c_{\text{TMF}}(t) = \frac{m(t)}{V_0}
 <p><span class="math">\begin{equation}
 \frac{\color{blue}{c_{\text{TMF}}}(t + \Delta t)-c_{\text{TMF}}(t)}{\Delta t} =  \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + A_{\text{bottom}} k \left( c_{\text{pore}} - {\color{red}{c_{\text{TMF}}}}  \right)    -Q_{\text{dis}} \color{red}{c_{\text{TMF}}}}{V_0}
 \end{equation}</span></p>
-<p>To compute the solution <span class="math notranslate nohighlight">\(c_{\text{TMF}}(t+ \Delta t)\)</span>, we use the value of <span class="math notranslate nohighlight">\(c_{\text{TMF}}\)</span>. But, at what time? Intrinsically, at every time between <span class="math notranslate nohighlight">\(t\)</span> and <span class="math notranslate nohighlight">\(t + \Delta t\)</span>, the value of <span class="math notranslate nohighlight">\(c_{\text{TMF}}\)</span> changes.</p>
+<p>To compute the solution <span class="math notranslate nohighlight">\(c_{\text{TMF}}(t+ \Delta t)\)</span>, we use the value of <span class="math notranslate nohighlight">\(c_{\text{TMF}}\)</span>. But, at what time? Intrinsically, at every time between <span class="math notranslate nohighlight">\(t\)</span> and $ t + <span class="math">\Delta `t$, the value of :math:`c_{\text{TMF}}</span> changes.</p>
 <p>So the timestep should be small!</p>
-<p><span class="math">\begin{equation}
-\begin{array}{lll}
-c_\infty & = & \frac{\color{blue}{Q_{\text{pit}}  c_{\text{pit}}} + \color{blue}{Q_{\text{mill}}  c_{\text{mill}}} + kA c_{\text{pore}} }{\color{blue}{Q_{\text{dis}}}+kA} \\
-& \approx & \frac{kA c_{\text{pore}} }{kA} \\
-& \approx & c_{\text{pore}} = 2000 \text{ mg/L}
-\end{array}
-\end{equation}</span></p>
 </div>
 <div class="section" id="ODE">
 <h4>ODE<a class="headerlink" href="#ODE" title="Permalink to this headline">¶</a></h4>
@@ -485,35 +479,43 @@ c_\infty & = & \frac{\color{blue}{Q_{\text{pit}}  c_{\text{pit}}} + \color{blue}
 <p><span class="math">\begin{equation}
 \begin{array}{lll}
 & \frac{dc_{\text{TMF}}}{dt} & =  & 0  \\
-\Longleftrightarrow & 0 & = &  \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} +
-A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \right)    -Q_{\text{dis}} c_{\text{TMF}}}{V_0} \\
-\Longleftrightarrow & c_{\text{TMF}} & = & \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} +
-kA c_{\text{pore}} }{Q_{\text{dis}}+kA} \equiv c_\infty
+\Longleftrightarrow & 0 & = &  \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \right)    -Q_{\text{dis}} c_{\text{TMF}}}{V_0} \\
+\Longleftrightarrow & c_{\text{TMF}} & = & \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + kA c_{\text{pore}} }{Q_{\text{dis}}+kA} \equiv c_\infty
 \end{array}
 \end{equation}</span></p>
 <p>The asymptotic/final concentration (the steady-state concentration) <span class="math notranslate nohighlight">\(c_\infty\)</span> corresponds to the final solution.</p>
 <p>Can you try to guess which values <span class="math notranslate nohighlight">\(c_\infty\)</span> could be?</p>
 <p>Let us analyse this by investigating limit cases:</p>
-<ol class="arabic simple">
-<li>Very fast production from the porewater: <span class="math notranslate nohighlight">\(k \rightarrow \infty\)</span></li>
+<ol class="arabic">
+<li><p class="first">Very fast production from the porewater: <span class="math notranslate nohighlight">\(k \rightarrow \infty\)</span> :nbsphinx-math:<a href="#id1"><span class="problematic" id="id2">`</span></a>begin{equation}
+begin{array}{lll}
+<a href="#id9"><span class="problematic" id="id10">c_</span></a>infty &amp; = &amp; frac{Q_{text{pit}}  c_{text{pit}} + Q_{text{mill}}  c_{text{mill}} + kA c_{text{pore}} }{Q_{text{dis}}+kA} \</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>&amp; = &amp; frac{color{blue}{Q_{text{pit}}  c_{text{pit}}} + color{blue}{Q_{text{mill}}  c_{text{mill}}} + kA c_{text{pore}} }{color{blue}{Q_{text{dis}}}+kA} \</dt>
+<dd><p class="first last">&amp; approx &amp; frac{kA c_{text{pore}} }{kA} \</p>
+</dd>
+</dl>
+<p>&amp; approx &amp; c_{text{pore}} = 2000 text{ mg/L}</p>
+</div></blockquote>
+<p>end{array}
+end{equation}`</p>
+</li>
+<li><p class="first">Very slow production from the porewater: <span class="math notranslate nohighlight">\(k \rightarrow 0\)</span> :nbsphinx-math:<a href="#id3"><span class="problematic" id="id4">`</span></a>begin{equation}
+begin{array}{lll}
+<a href="#id11"><span class="problematic" id="id12">c_</span></a>infty &amp; = &amp; frac{Q_{text{pit}}  c_{text{pit}} + Q_{text{mill}}  c_{text{mill}} + kA c_{text{pore}} }{Q_{text{dis}}+kA} \</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>&amp; = &amp; frac{Q_{text{pit}}  c_{text{pit}} + Q_{text{mill}}  c_{text{mill}} + color{blue}{kA c_{text{pore}}} }{Q_{text{dis}}+color{blue}{kA}} \</dt>
+<dd><p class="first last">&amp; approx &amp; frac{Q_{text{pit}}  c_{text{pit}} + Q_{text{mill}}  c_{text{mill}}}{Q_{text{dis}}} \</p>
+</dd>
+</dl>
+<p>&amp; approx &amp; 256.82 text{ mg/L}</p>
+</div></blockquote>
+<p>end{array}
+end{equation}`</p>
+</li>
 </ol>
-<p><span class="math">\begin{equation}
-\begin{array}{lll}
-c_\infty & = & \frac{\color{blue}{Q_{\text{pit}}  c_{\text{pit}}} + \color{blue}{Q_{\text{mill}}  c_{\text{mill}}} + kA c_{\text{pore}} }{\color{blue}{Q_{\text{dis}}}+kA} \\
-& \approx & \frac{kA c_{\text{pore}} }{kA} \\
-& \approx & c_{\text{pore}} = 2000 \text{ mg/L}
-\end{array}
-\end{equation}</span></p>
-<ol class="arabic simple" start="2">
-<li>Very slow production from the porewater: <span class="math notranslate nohighlight">\(k \rightarrow 0\)</span></li>
-</ol>
-<p><span class="math">\begin{equation}
-\begin{array}{lll}
-c_\infty & = &  \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + \color{blue}{kA c_{\text{pore}}} }{Q_{\text{dis}}+\color{blue}{kA}} \\
-& \approx & \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}}}{Q_{\text{dis}}} \\
-& \approx & 256.82 \text{ mg/L}
-\end{array}
-\end{equation}</span></p>
 <p>Therefore, the asymptotic concentration should never be outside these two bounds!</p>
 </div>
 </div>
@@ -563,8 +565,8 @@ c_{\text{TMF}}(t) = c_\infty + \left( c_0 - c_\infty \right) \mathrm{exp}(-\lamb
 <p>So, what would happen if you arbitrarly chose <span class="math notranslate nohighlight">\(t_0\)</span> to be something else than 0? For example, if you want <span class="math notranslate nohighlight">\(t_0\)</span> to be the age of the universe, then, <span class="math notranslate nohighlight">\(c_{\text{TMF}}\)</span> has to match 93 mg/L after 4.343 <span class="math notranslate nohighlight">\(\times\)</span> 10<span class="math notranslate nohighlight">\(^{17}\)</span>seconds (13.772 billions of years!). That would give you a value A. As long as you stick to that value of A and to that initial <span class="math notranslate nohighlight">\(t_0\)</span>, the following solution will be the same. But computationnally, the difference between 13 billions of years
 and 13 billions + 1 year might be lost in rounding erros… So it’s probably not the greatest idea!</p>
 <p>The fact that we know the exact solution to a problem allows us to assess the accuracy of a computational approach. Let us take a look at the solution!</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -597,8 +599,17 @@ and 13 billions + 1 year might be lost in rounding erros… So it’s probably n
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+6.358024691358025e-09
+3.2469135802469134e-06
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -635,6 +646,22 @@ and 13 billions + 1 year might be lost in rounding erros… So it’s probably n
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Asymptotic concentration is: 510.6796116504854 mg/L,
+exact concentration after 50 years is 510.6611233781182
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_Lec5_Euler_12_1.png" src="../_images/web_notebooks_Lec5_Euler_12_1.png" />
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="Integral-form-of-the-ODE">
@@ -651,7 +678,25 @@ and 13 billions + 1 year might be lost in rounding erros… So it’s probably n
 <p><span class="math">\begin{equation}
 y(t_0+\Delta t) =  y(t_0) + \int_{t_0}^{t_0+\Delta t} f(y,t)dt
 \end{equation}</span></p>
-<p><img alt="image0" src="../_images/fig-Summary.png" /></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;figures/figinit.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_Lec5_Euler_14_0.png" src="../_images/web_notebooks_Lec5_Euler_14_0.png" />
+</div>
+</div>
 <div class="section" id="Euler’s-approach">
 <h3>Euler’s approach<a class="headerlink" href="#Euler’s-approach" title="Permalink to this headline">¶</a></h3>
 <p>The two Euler’s methods are a way to compute this integral term. They both work on the approximation that the function <span class="math notranslate nohighlight">\(f(y,t)\)</span> is constant over the timestep [<span class="math notranslate nohighlight">\(t\)</span>;<span class="math notranslate nohighlight">\(t+\Delta t\)</span>].</p>
@@ -661,7 +706,23 @@ y(t_0+\Delta t) =  y(t_0) + \int_{t_0}^{t_0+\Delta t} f(y,t)dt
 <p><span class="math">\begin{equation}
 f(y,t) \approx f(y_0,t_0) \text{  between [$t_0$;$t_0+\Delta t$]}
 \end{equation}</span></p>
-<p><img alt="image0" src="../_images/fig-Summary.png" /></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;figures/figExplicitEuler.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_Lec5_Euler_16_0.png" src="../_images/web_notebooks_Lec5_Euler_16_0.png" />
+</div>
+</div>
 <p>This approximation allows us to write:</p>
 <p><span class="math">\begin{equation}
 \begin{array}{lll}
@@ -680,7 +741,23 @@ f(y,t) \approx f(y_0,t_0) \text{  between [$t_0$;$t_0+\Delta t$]}
 <p><span class="math">\begin{equation}
 f(y,t) \approx f(y,t_0+\Delta t) \text{  between [$t_0$;$t_0+\Delta t$]}
 \end{equation}</span></p>
-<p><img alt="image0" src="../_images/fig-Summary.png" /></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;figures/figImplicitEuler.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_Lec5_Euler_19_0.png" src="../_images/web_notebooks_Lec5_Euler_19_0.png" />
+</div>
+</div>
 <p>This approximation allows us to write:</p>
 <p><span class="math">\begin{equation}
 \begin{array}{lll}
@@ -718,8 +795,8 @@ c(t_0 + \Delta t) = c(t_0) +  \left( Q - \lambda c(t_0) \right) \Delta t
 \end{array}
 \end{equation}</span></p>
 <p>So, let us compare these solutions to the analytical solution. We will therefore compute the two Euler approaches at each timestep and assess the error of the solution.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -746,8 +823,8 @@ c(t_0 + \Delta t) = c(t_0) +  \left( Q - \lambda c(t_0) \right) \Delta t
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
     <span class="n">timeY</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">/</span> <span class="mi">365</span>
     <span class="n">c_real</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_inf</span> <span class="o">+</span> <span class="p">(</span><span class="n">c0</span> <span class="o">-</span> <span class="n">c_inf</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lam</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">*</span> <span class="mi">3600</span> <span class="o">*</span> <span class="mi">24</span><span class="p">)</span>
-    <span class="n">Forward_Euler</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># ADAPT THIS</span>
-    <span class="n">Backward_Euler</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># =  ADAPT THIS</span>
+    <span class="n">Forward_Euler</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#ADAPT THIS</span>
+    <span class="n">Backward_Euler</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="c1"># ADAPT THIS</span>
     <span class="n">err_Backward</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">c_real</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">Backward_Euler</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">c_real</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
     <span class="n">err_Forward</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Forward_Euler</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">c_real</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">c_real</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
 
@@ -765,10 +842,26 @@ c(t_0 + \Delta t) = c(t_0) +  \left( Q - \lambda c(t_0) \right) \Delta t
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;matplotlib.legend.Legend at 0x7f1d93db0a90&gt;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_Lec5_Euler_22_1.png" src="../_images/web_notebooks_Lec5_Euler_22_1.png" />
+</div>
+</div>
 <p>We can see that the two approaches are quite close to each other and to the analytical solution. This means that the approximation is good. When you calculated the sulfates concentration after 1 day, you saw that it had increased from 93 to 93.23 mg/L, hence a relative increase of 0.2%. This yields that the approximation that <span class="math notranslate nohighlight">\(c_{\text{TMF}}\)</span> is constant over a day is pretty good, hence a relatively small error!</p>
 <p>So, the bigger the timestep, the less accurate is the approximation. Let us check that! We will set a timestep of 5 years and see the effect on the result and the error.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -817,16 +910,48 @@ c(t_0 + \Delta t) = c(t_0) +  \left( Q - \lambda c(t_0) \right) \Delta t
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;matplotlib.legend.Legend at 0x7f1d93a3cac8&gt;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_Lec5_Euler_24_1.png" src="../_images/web_notebooks_Lec5_Euler_24_1.png" />
+</div>
+</div>
 <p>This defines the accuracy of the algorithm. The accuracy decreases when the timestep increases!</p>
 <p>Basically, Euler’s method states that here, for the first 5 years, the source term from the tailings porewater is at its maximum, and the discharge is at its minimum for the forward Euler’s approach. We therefore have a very important overestimation of the source and underestimation of the sink, which yields an important overestimation of the error.</p>
 <p>Now, do the same with an even bigger timestep (25 years and see what is happening over a longer timescale, like 250 years).</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1">### YOUR CODE HERE</span>
 </pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;matplotlib.legend.Legend at 0x7f1d93c073c8&gt;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_Lec5_Euler_26_1.png" src="../_images/web_notebooks_Lec5_Euler_26_1.png" />
 </div>
 </div>
 <p>This defines the concept of stability.</p>
@@ -850,25 +975,70 @@ y(t+\Delta t) = y(t) + (\Delta t) y^\prime(t) +   \frac{1}{2}(\Delta t)^2 y^{\pr
 \[y(t_0+\Delta t) = y(t_0) + \int_{t_0}^{t_0+\Delta t} f(t,y) dt\]</div>
 <p>with more accuracy (with a higher-order). These are commonly known as the Runge-Kutta methods (Euler’s methods are a 1st order Runge-Kutta method). The idea of the Runge-Kutta schemes is to take advantage of derivative information at the times between <span class="math notranslate nohighlight">\(t_n\)</span> and <span class="math notranslate nohighlight">\(t_{n+1}\)</span> to increase the order of accuracy.</p>
 <p>For example, in the midpoint method, the derivative at the initial time is used to approximate the derivative at the midpoint of the interval, <span class="math notranslate nohighlight">\(f(y_n+\frac{1}{2}hf(y_n,t_n), t_n+\frac{1}{2}h)\)</span>. The derivative at the midpoint is then used to advance the solution to the next step. The method can be written in two <em>stages</em> <span class="math notranslate nohighlight">\(k_i\)</span>,</p>
-<p><span class="math">\begin{equation}
-\begin{array}{lll}
-k_1 & = &  \Delta t f(y(t),t)\\
-k_2 & =&  \Delta t \, f\left( y(t)+\frac{1}{2}k_1, t+\frac{1}{2}\Delta t \right)\ \\\
-y(t+\Delta t) & =&  y(t) + k_2
-\end{array}
-\end{equation}</span></p>
+<dl class="docutils">
+<dt>:nbsphinx-math:<a href="#id5"><span class="problematic" id="id6">`</span></a>begin{equation}</dt>
+<dd><blockquote class="first">
+<div><dl class="docutils">
+<dt>begin{array}{lll}</dt>
+<dd>k_1 &amp; = &amp;  Delta t f(y(t),t)\
+k_2 &amp; =&amp;  Delta t , fleft( y(t)+frac{1}{2}k_1, t+frac{1}{2}Delta t right)\y(t+Delta t) &amp; =&amp;  y(t) + k_2</dd>
+</dl>
+</div></blockquote>
+<p class="last">end{array}</p>
+</dd>
+</dl>
+<p>end{equation}`</p>
 <p>The midpoint method is known as a 2-stage Runge-Kutta formula.</p>
-<p><img alt="image0" src="../_images/fig-Summary.png" /></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;figures/figMidpoint.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_Lec5_Euler_29_0.png" src="../_images/web_notebooks_Lec5_Euler_29_0.png" />
+</div>
+</div>
 <p>In general, an <em>explicit</em> 2-stage Runge-Kutta method can be written as,</p>
-<p><span class="math">\begin{equation}
-\begin{array}{l}
-k_1 =  h f(y(t),t)\\
-k_2 = \Delta t f \left( y(t)+b_{21}k_1, t+a_2h \right)\ \ \  \\
-y(t+\Delta t) = y(t) + c_1k_1 +c_2k_2
-\end{array}
-\end{equation}</span></p>
+<dl class="docutils">
+<dt>:nbsphinx-math:<a href="#id7"><span class="problematic" id="id8">`</span></a>begin{equation}</dt>
+<dd><blockquote class="first">
+<div><dl class="docutils">
+<dt>begin{array}{l}</dt>
+<dd>k_1 =  h f(y(t),t)\
+k_2 = Delta t f left( y(t)+b_{21}k_1, t+a_2h right) \
+y(t+Delta t) = y(t) + c_1k_1 +c_2k_2</dd>
+</dl>
+</div></blockquote>
+<p class="last">end{array}</p>
+</dd>
+</dl>
+<p>end{equation}`</p>
 <p>It is said explicit because the new solution only depends on the previous solution. The different coefficient can be determined by comparison with the 2<span class="math notranslate nohighlight">\(^{nd}\)</span> order Taylor approximation.</p>
-<p><img alt="image0" src="../_images/fig-Summary.png" /></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;figures/fig-Summary.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_Lec5_Euler_31_0.png" src="../_images/web_notebooks_Lec5_Euler_31_0.png" />
+</div>
+</div>
 </div>
 </div>
 </div>

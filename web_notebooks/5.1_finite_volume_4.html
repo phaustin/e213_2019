@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>One dimensional steady-state finite-volume approximation &#8212; E213</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}, "extensions": ["color.js"]}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          Home</a>
+        <span class="navbar-text navbar-version pull-left"><b>2019Jan01</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-1-jan-3">1.1. Week 1  Jan 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-2-jan-8-jan-10">1.2. Week 2  Jan 8/Jan 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-3-jan-15-jan-17">1.3. Week 3  Jan 15/Jan 17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">1.4. Week 4  Jan 22/Jan 24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">1.5. Week 5  Jan 29/Jan 31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">1.6. Week 6  Feb 05/Feb 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.7. General notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../solutions.html#week-2">2.1. Week 2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#math">3.1. Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#python">3.2. Python</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#python-introductory-texts">4.1. Python Introductory Texts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#moving-from-matlab-to-python">4.2. Moving from matlab to python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#cocalc">4.3. Cocalc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-shell-commands">5.1. Useful shell commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-git-commands">5.2. Useful git commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-debugger-commands">5.3. Useful debugger commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/web_notebooks/5.1_finite_volume_4.ipynb.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 7ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<h1><p>Table of Contents</p>
+</h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;One dimensional steady-state finite-volume approximation</p>
+<ul class="toc-item"><li><p>1.1&nbsp;&nbsp;Summary to this point</p>
+</li><li><p>1.2&nbsp;&nbsp;Fick’s law of diffusion</p>
+</li><li><p>1.3&nbsp;&nbsp;Your turn</p>
+</li><li><p>1.4&nbsp;&nbsp;Your turn</p>
+</li><li><p>1.5&nbsp;&nbsp;Your turn</p>
+</li><li><p>1.6&nbsp;&nbsp;Your turn</p>
+</li><li><p>1.7&nbsp;&nbsp;Fick’s law of diffusion of solutes in porous media</p>
+</li><li><p>1.8&nbsp;&nbsp;Your turn</p>
+<ul class="toc-item"><li><p>1.8.1&nbsp;&nbsp;Aside: Gradients in 3 dimensions</p>
+</li></ul></li><li><p>1.9&nbsp;&nbsp;Gridblock fluxes in terms of concentrations</p>
+<ul class="toc-item"><li><p>1.9.1&nbsp;&nbsp;1 Total fluxes as specific fluxes</p>
+</li></ul></li><li><p>1.10&nbsp;&nbsp;Your turn</p>
+</li><li><p>1.11&nbsp;&nbsp;Your turn</p>
+<ul class="toc-item"><li><p>1.11.1&nbsp;&nbsp;2 Specific fluxes in terms of Fick’s law</p>
+</li><li><p>1.11.2&nbsp;&nbsp;3 Discrete approximation for Fick’s law</p>
+</li><li><p>1.11.3&nbsp;&nbsp;What is a reasonable way to do this?</p>
+</li><li><p>1.11.4&nbsp;&nbsp;gridblock 4:</p>
+</li><li><p>1.11.5&nbsp;&nbsp;Boundary value problem checklist</p>
+</li></ul></li></ul></li><li><p>2&nbsp;&nbsp;Context</p>
+</li><li><p>3&nbsp;&nbsp;Link to the TMF problem</p>
+</li><li><p>4&nbsp;&nbsp;General idea between</p>
+</li><li><p>5&nbsp;&nbsp;Continuity equation</p>
+<ul class="toc-item"><li><p>5.1&nbsp;&nbsp;The continuity equation</p>
+</li><li><p>5.2&nbsp;&nbsp;Physical interpretation of the divergence</p>
+</li></ul></li></ul></div><div class="section" id="One-dimensional-steady-state-finite-volume-approximation">
+<h1>One dimensional steady-state finite-volume approximation<a class="headerlink" href="#One-dimensional-steady-state-finite-volume-approximation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Summary-to-this-point">
+<h2>Summary to this point<a class="headerlink" href="#Summary-to-this-point" title="Permalink to this headline">¶</a></h2>
+<p>We have developed a 1-D stencil for a gridblock C to generate an steady-state equation for each interior gridblock: <span class="math">\begin{align*}
+\left(J_{EC}+J_{WC}\right) &= 0 \\
+\end{align*}</span></p>
+<p>where the gridblocks are sized <span class="math notranslate nohighlight">\(\Delta x\)</span>, <span class="math notranslate nohighlight">\(\Delta y\)</span>, <span class="math notranslate nohighlight">\(\Delta z\)</span></p>
+<p>We use the stencil to generate the equations for a simple 5 - gridblock example:</p>
+<p>We generated the following equations:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Gridblock</th>
+<th class="head">Equation</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td><div class="first last math notranslate nohighlight">
+\[c_1 = 2000\]</div>
+</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td><div class="first last math notranslate nohighlight">
+\[\left(J_{12}+J_{32}\right) = 0\]</div>
+</td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td><div class="first last math notranslate nohighlight">
+\[\left(J_{23}+J_{43}\right) = 0\]</div>
+</td>
+</tr>
+<tr class="row-odd"><td>4</td>
+<td><div class="first last math notranslate nohighlight">
+\[\left(J_{34}+J_{54}\right) = 0\]</div>
+</td>
+</tr>
+<tr class="row-even"><td>5</td>
+<td><div class="first last math notranslate nohighlight">
+\[c_5 = 93\]</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Recall, the equations for gridblock 1 and 5 came from the boundary conditions.</p>
+<p><strong>Next</strong>: we need to represent the fluxes such as <span class="math notranslate nohighlight">\(J_{12}\)</span> in terms of the dependent variable of interest - concentration. We do that with Fick’s law of diffusion.</p>
+</div>
+<div class="section" id="Fick’s-law-of-diffusion">
+<h2>Fick’s law of diffusion<a class="headerlink" href="#Fick’s-law-of-diffusion" title="Permalink to this headline">¶</a></h2>
+<p><strong>Concept</strong>: solutes (dissolved substances) move from areas of high concentration to areas of low concentration. (Why?)</p>
+<p>Intuition: * rate of diffusion is proportional to gradient in concentration * mass flows from high concentrations towards lower concentrations</p>
+<div class="math notranslate nohighlight">
+\[flux \propto {dc\over dx}~\left[{M/L^3 \over L}\right]\]</div>
+<p><strong>Fick’s law</strong> (the x component)</p>
+<p><span class="math">\begin{align*}
+j_x = - D {\partial c\over \partial x}\\
+\end{align*}</span></p>
+<p>where * <span class="math notranslate nohighlight">\(j_x~\left[{M\over L^2 T}\right]\)</span> is the x-component of the <strong>specific mass flux</strong>, * <span class="math notranslate nohighlight">\(D\)</span> is the <strong>diffusion coefficient</strong> and * <span class="math notranslate nohighlight">\(\partial c\over \partial x\)</span> is the x-component of the gradient in concentration.</p>
+</div>
+<div class="section" id="Your-turn">
+<h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
+<p>Why the minus sign in Fick’s law?</p>
+<p>Your answer here</p>
+</div>
+<div class="section" id="Your-turn">
+<h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
+<p>What are the dimensions of the diffusion coefficient?</p>
+<p>Your answer here</p>
+</div>
+<div class="section" id="Your-turn">
+<h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
+<p>What is the magnitude (value) of the concentration gradient?</p>
+<p>Your answer here</p>
+</div>
+<div class="section" id="Your-turn">
+<h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>What is the direction of the concentration gradient?</li>
+<li>What is the direction in which solutes are diffusing?</li>
+</ol>
+<p>Your answers here.</p>
+</div>
+<div class="section" id="Fick’s-law-of-diffusion-of-solutes-in-porous-media">
+<h2>Fick’s law of diffusion of solutes in porous media<a class="headerlink" href="#Fick’s-law-of-diffusion-of-solutes-in-porous-media" title="Permalink to this headline">¶</a></h2>
+<p>We have to modify Fick’s law slightly to apply porous media. We need to introduce <strong>porosity</strong> to account for the fact that diffusion only occurs in the pore space.</p>
+<p><span class="math">\begin{align*}
+j_x = - D {\partial (c\theta) \over \partial x}\\
+\end{align*}</span></p>
+<p>where * <span class="math notranslate nohighlight">\(\theta ~\left[{\cdot}\right]\)</span> is the <strong>porosity</strong> (dimensionless)</p>
+</div>
+<div class="section" id="Your-turn">
+<h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
+<p>Now let’s compute the flux. Consider the same problem as above, where the diffusion coefficient is <span class="math notranslate nohighlight">\(D=10^{-10}~m^2/s\)</span>, and the porosity is <span class="math notranslate nohighlight">\(\theta = 0.3\)</span>.</p>
+<p>If the area perpendicular to this flux direction is <span class="math notranslate nohighlight">\(4\times10^4~m^2\)</span> (the area of the bottom of a modest tailings pond), how much mass is transported by diffusion in one day?</p>
+<p>Recall, that the specific flux <span class="math notranslate nohighlight">\(j\)</span> is the mass flux of solute per unit area per unit time and that <span class="math notranslate nohighlight">\(J=jA\)</span>, where <span class="math notranslate nohighlight">\(A\)</span> is the area normal to (perpendicular to) the component of flux.</p>
+<p>Your answer here.</p>
+<div class="section" id="Aside:-Gradients-in-3-dimensions">
+<h3>Aside: Gradients in 3 dimensions<a class="headerlink" href="#Aside:-Gradients-in-3-dimensions" title="Permalink to this headline">¶</a></h3>
+<p>The gradient is a vector that points in the direction that a function is <em>increasing</em>. In cartesian coordinates, it has <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span> and <span class="math notranslate nohighlight">\(z\)</span> components. The diffuse flux is a gradient that points in the direction that concentration is <em>decreasing</em>. Hence the minus sign in Fick’s law. So the diffusive flux is also a vector: <span class="math">\begin{align*}
+j_x &= - D {\partial (c\theta) \over \partial x}\\
+j_y &= - D {\partial (c\theta)\over \partial y}\\
+j_z &= - D {\partial (c\theta)\over \partial z}\\
+\end{align*}</span></p>
+<p>We’ve switched to partial derivatives only to indicate that the concentration is a function of several independent variables (<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, and <span class="math notranslate nohighlight">\(z\)</span>). We’ll be pretty loose with our partials and non-partials (impartials??!), but it is almost always clear from the context what is meant.</p>
+</div>
+</div>
+<div class="section" id="Gridblock-fluxes-in-terms-of-concentrations">
+<h2>Gridblock fluxes in terms of concentrations<a class="headerlink" href="#Gridblock-fluxes-in-terms-of-concentrations" title="Permalink to this headline">¶</a></h2>
+<p>We’ll do this in three steps: 1. We’ll write the total fluxes in terms of specific fluxes. 2. We’ll write specific fluxes in terms of Fick’s law. 3. We’ll introduce a discrete approximation for Fick’s law.</p>
+<div class="section" id="1-Total-fluxes-as-specific-fluxes">
+<h3>1 Total fluxes as specific fluxes<a class="headerlink" href="#1-Total-fluxes-as-specific-fluxes" title="Permalink to this headline">¶</a></h3>
+<p>Let’s look at our stencil equation:</p>
+<div class="math notranslate nohighlight">
+\[J_{WC}+J_{EC} =0\]</div>
+<p>First, let’s express the total fluxes in terms of specific fluxes:</p>
+<div class="math notranslate nohighlight">
+\[J_{WC}=j_{WC}A\]</div>
+</div>
+</div>
+<div class="section" id="Your-turn">
+<h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
+<p>What is the correct value of the area <span class="math notranslate nohighlight">\(A\)</span> to write <span class="math notranslate nohighlight">\(J_{WC}\)</span> in terms of <span class="math notranslate nohighlight">\(j_{WC}\)</span> for this example?</p>
+<p>Your answer here:</p>
+<p>$A= $</p>
+</div>
+<div class="section" id="Your-turn">
+<h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
+<p>What is the correct value of the area <span class="math notranslate nohighlight">\(A\)</span> to write <span class="math notranslate nohighlight">\(J_{WC}\)</span> in terms of <span class="math notranslate nohighlight">\(j_{WC}\)</span> for the general case above?</p>
+<p>Your answer here: $ A = $</p>
+<p>(remember to write <span class="math notranslate nohighlight">\(\Delta\)</span> use <code class="docutils literal notranslate"><span class="pre">$\Delta$</span></code> - or don’t bother with math type.</p>
+<div class="section" id="2-Specific-fluxes-in-terms-of-Fick’s-law">
+<h3>2 Specific fluxes in terms of Fick’s law<a class="headerlink" href="#2-Specific-fluxes-in-terms-of-Fick’s-law" title="Permalink to this headline">¶</a></h3>
+<p>For a gridblock C oriented as below, what is the appropriate component of Fick’s law?</p>
+<p>Choose one of (erase the two that are incorrect): <span class="math">\begin{align*}
+j_x &= - D {\partial (c\theta) \over \partial x}\\
+j_y &= - D {\partial (c\theta)\over \partial y}\\
+j_z &= - D {\partial (c\theta)\over \partial z}\\
+\end{align*}</span></p>
+</div>
+<div class="section" id="3-Discrete-approximation-for-Fick’s-law">
+<h3>3 Discrete approximation for Fick’s law<a class="headerlink" href="#3-Discrete-approximation-for-Fick’s-law" title="Permalink to this headline">¶</a></h3>
+<p>We need a way to approximate specific fluxes such as <span class="math notranslate nohighlight">\(j_x = - D {\partial (c\theta) \over \partial x}\)</span> in terms of concentrations at nodal values in the centre of gridblocks as shown below.</p>
+</div>
+<div class="section" id="What-is-a-reasonable-way-to-do-this?">
+<h3>What is a reasonable way to do this?<a class="headerlink" href="#What-is-a-reasonable-way-to-do-this?" title="Permalink to this headline">¶</a></h3>
+<p>Describe in words how you would approach this.</p>
+</div>
+<div class="section" id="gridblock-4:">
+<h3>gridblock 4:<a class="headerlink" href="#gridblock-4:" title="Permalink to this headline">¶</a></h3>
+<p>Change this stencil to the correct equation for gridblock 4.</p>
+<div class="math notranslate nohighlight">
+\[J_{WC}+J_{EC} =0\]</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Boundary-value-problem-checklist">
+<h3>Boundary value problem checklist<a class="headerlink" href="#Boundary-value-problem-checklist" title="Permalink to this headline">¶</a></h3>
+<p>To solve a boundary value problem requires: 1. knowledge of the equations that govern the dependent variable. 2. specification of the problem domain. 3. specification of properties of the problem domain. 4. the value of the dependent variable or its derivatives on the boundary.</p>
+<p>Let’s go through the checklist for our problem. 1. we have not developed these yet, but we are going to use conservation of mass and an expression for diffusion to develop the equations that govern concentration.</p>
+<p>Why go to the trouble with the fancy math? Couple of reasons: * it is the most succinct and unambiguous way to state a physical principle. In that sense, mathematics is a language with a grammar and rules that allow one to make precise statements. We use the <em>language</em> of mathematics to write <em>literature</em>: precise descriptions of physical systems . * once we have a mathematical description, we can use the grammar rules of mathematics and manipulate the expressions to, for example, simplify
+them, or use calculus to derive solutions to our expressions.</p>
+</div>
+</div>
+</div>
+<div class="section" id="Context">
+<h1>Context<a class="headerlink" href="#Context" title="Permalink to this headline">¶</a></h1>
+<p>So far we have solved 0 dimensional problems:</p>
+<ul class="simple">
+<li>we have considered the mass of water to be given by one value</li>
+<li>we have considered that the concentration of sulfates was given by one value and that this value was the same at any point in the TMF.</li>
+</ul>
+<p>In reality, the concentration of sulfates is not necessarily the same everywhere, and the spatial distribution or evolution of the contaminant is important to know.</p>
+<p>Consider a factory releasing a contaminant: this contaminant will be transported in space and time.</p>
+<ul class="simple">
+<li>if the factory releases this contaminant in a river, it will follow the river current</li>
+<li>if it is released in the atmosphere, it will follow windspeed</li>
+<li>if is is released in the groundwater, it will follow the groundwater flow</li>
+</ul>
+<p>But the windspeed, the river current, the groundwater flow are not the same everywhere (they are not uniform). If we want to be able to predict where the contaminant goes, we need to understand which processes are responsible for its movement.</p>
+<p>In a 3 dimensional space, the concentration can be different at every point in space. But also, the concentration at each point in space can evolve in time. In general, the concentration will be described by a function <span class="math notranslate nohighlight">\(c(x,y,z,t)\)</span> which represents the concentration at each point of coordinates <span class="math notranslate nohighlight">\((x,y,z)\)</span> for each time <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<p>When we have developped Euler’s approaches, we have divided into small intervals. We are going to do the same with space. This is called <strong>discretization</strong>. It is the idea of splitting a variable who can take any value on a real axis into subdomains where this variable is supposed to be constant.</p>
+<p>Without a discretization, we would have to solve a problem for each possible <span class="math notranslate nohighlight">\((x,y,z)\)</span>, which would be impossible.</p>
+</div>
+<div class="section" id="Link-to-the-TMF-problem">
+<h1>Link to the TMF problem<a class="headerlink" href="#Link-to-the-TMF-problem" title="Permalink to this headline">¶</a></h1>
+<p>To introduce this spatial behaviour, let us go back to the TMF problem. The conceptual model could be expressed like this:</p>
+<p>This “spatial” view of the method we have applied corresponds precisely to the finite volume - difference method we will use. In our problem, we were only interested in one “point” in space, the TMF. This “point” representation of this TMF actually arises from a discretization of space.</p>
+<p>We have computed the evolution the mass/concentration of sulfates in that “point” by computing the fluxes which were going in and out of this “point”.</p>
+<p>What if the amount of sulfates in the pit/mill was not “infinite” (constant in all time)? Well, that would mean that <span class="math notranslate nohighlight">\(c_{\text{pit}}\)</span> would decrease during time, and the flux incoming from the pit would decrease as well. If that is the case, we now need to add another equation to compute the evolution of the concentration in the pit, and also a formulation which links the flux between the pit/mill towards the TMF.</p>
+<p>That is the central idea for the resolution of any transient (not steady) problem including spatial variation. The evolution of the concentration at each point of interest during a certain time is computed by</p>
+<ul class="simple">
+<li>summing all the fluxes going in - all the fluxes going out</li>
+<li>considering these fluxes are constant in time during that period of time ( // Euler’s method).</li>
+</ul>
+<p>So what we need, is to be able to compute these fluxes.</p>
+<p>Watch out, in physics, flux is usually defined as the amount (of matter, energy, …) which goes through a surface per unit of time. A mass flux is described in kg/m<span class="math notranslate nohighlight">\(^2\)</span>/s. Above, we have described a “flux” in mg/s. In the following, flux <span class="math notranslate nohighlight">\(\phi\)</span> will be denoted in units of Mass per unit of surface per unit of time.</p>
+</div>
+<div class="section" id="General-idea-between">
+<h1>General idea between<a class="headerlink" href="#General-idea-between" title="Permalink to this headline">¶</a></h1>
+<p>If we focus on the central volume here, it might exchange fluxes <span class="math notranslate nohighlight">\(\phi\)</span> with its neighbouring volumes. In a 2D space, central volume <span class="math notranslate nohighlight">\(i\)</span> has 4 neighbours: North-East-South-West, with whom it can exchange matter (or energy, …).</p>
+<p>So, if we know the mass-flux between volume <span class="math notranslate nohighlight">\(i\)</span> and volume North, <span class="math notranslate nohighlight">\(\phi_{i\rightarrow \text{North}}\)</span>, that means that the mass in volume <span class="math notranslate nohighlight">\(i\)</span> is evolving by the amount:</p>
+<p><span class="math">\begin{equation}
+\frac{dM}{dt} = \sum_j \phi_{j\rightarrow i} S_{ij}
+\end{equation}</span></p>
+<p>where <span class="math notranslate nohighlight">\(j\)</span> represents the set of every neighbour (here North, East, South, West). In 1D, there are 2 neighbours, in 3D, there are 6 neighbours.</p>
+<p>Where S is the surface (in m<span class="math notranslate nohighlight">\(^2\)</span>) of the interface between volumes i and North. So, to compute the evolution of mass in volume <span class="math notranslate nohighlight">\(i\)</span>, we only need to find the values of the different fluxes.</p>
+<p>The idea behind the space discretization is that, in each “volume”, the concentration is uniform and has only one value. That also means that, on every surface separating two volumes, the fluxes are uniform.</p>
+</div>
+<div class="section" id="Continuity-equation">
+<h1>Continuity equation<a class="headerlink" href="#Continuity-equation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="The-continuity-equation">
+<h2>The continuity equation<a class="headerlink" href="#The-continuity-equation" title="Permalink to this headline">¶</a></h2>
+<p>Multiplying both ends by the volume of water <span class="math notranslate nohighlight">\(V_0\)</span> yields:</p>
+<p>So, if the concentration is uniform in the volume <span class="math notranslate nohighlight">\(V\)</span>, that means that the mass can be obtained by:</p>
+<p><span class="math">\begin{equation}
+M = \int_V c dV = c \int_V dV = cV
+\end{equation}</span></p>
+<p>The evolution of the mass arises from the different fluxes</p>
+<p><span class="math">\begin{equation}
+\frac{\Delta M}{\Delta t} = \sum_j \phi_{j\rightarrow i} S_{ij} = -R
+\end{equation}</span></p>
+<p>The rate of matter evolution <span class="math notranslate nohighlight">\(R\)</span> (mg/s) through any surface is usually given by the integral of the flux over the surface: <span class="math">\begin{equation}
+R = \oint_S \overrightarrow{\phi}d\overrightarrow{S}
+\end{equation}</span></p>
+<p>where <span class="math notranslate nohighlight">\(d\overrightarrow{S}\)</span> represents the unit normal vector oriented towards the outside of the closed surface. So, <span class="math notranslate nohighlight">\(R\)</span> is positive when matters is going out ot the volume. This surface integral can be decomposed, in our cases, as the sum over the 4 straight lines delimiting our volume. And, since the flux is uniform through these straight lines, this integral becomes straightforward to compute:</p>
+<p>:nbsphinx-math:<a href="#id7"><span class="problematic" id="id8">`</span></a>begin{equation}
+begin{array}{lll}
+R &amp; = &amp; displaystyle{ oint_S overrightarrow{phi}doverrightarrow{S}} \</p>
+<blockquote>
+<div>&amp; = &amp; int_{S_{textrm{North}}} phi_{textrm{North}} dS + int_{S_{textrm{East}}} phi_{textrm{East}} dS + … \
+&amp; = &amp; phi_{textrm{North}} int_{S_{textrm{North}}}  dS + phi_{textrm{East}} int_{S_{textrm{East}}}  dS + … \
+&amp; = &amp; phi_{textrm{North}}S_{textrm{North}} + phi_{textrm{East}}S_{textrm{East}} + phi_{textrm{South}}S_{textrm{South}} + phi_{textrm{West}}S_{textrm{West}}   \
+&amp; = &amp; sum_j phi_{irightarrow j} S_{ij}</div></blockquote>
+<p>end{array}
+end{equation}`</p>
+<p>But there is a math theorem (Green-Ostrogradski) which also states that</p>
+<p>The rate of matter evolution <span class="math notranslate nohighlight">\(R\)</span> (mg/s) through any surface is usually given by the integral of the flux over the surface: <span class="math">\begin{equation}
+\oint_{S(V)} \overrightarrow{\phi}d\overrightarrow{S} = \int_V \mathrm{div} \overrightarrow{\phi}
+\end{equation}</span></p>
+<p>This is the “divergence” theorem. The divergence operator is defined as:</p>
+<p><span class="math">\begin{equation}
+\mathrm{div} \overrightarrow{\phi} = \overrightarrow{\nabla} \cdot \overrightarrow{\phi}
+\end{equation}</span></p>
+<p>So, combining the different equation together, we get</p>
+<p>:nbsphinx-math:<a href="#id9"><span class="problematic" id="id10">`</span></a>begin{equation}
+begin{array}{llll}</p>
+<blockquote>
+<div>&amp; frac{dm}{dt} &amp; = &amp; sum_j phi_{jrightarrow i} S_{ij} \</div></blockquote>
+<p>Longleftrightarrow &amp; displaystyle{frac{d}{dt} int_V c dV} &amp; = &amp; displaystyle{ - oint_S overrightarrow{phi}doverrightarrow{S}} \
+Longleftrightarrow &amp; displaystyle{frac{d}{dt} int_V c dV} &amp; = &amp; displaystyle{ - int_V mathrm{div} overrightarrow{phi} dV}
+end{array}
+end{equation}`</p>
+<p>And, since the integral over the same volume <span class="math notranslate nohighlight">\(V\)</span> has to be equal on both sides, that means that what is inside the integrals have to be equal, which gives the divergence equation:</p>
+<p><span class="math">\begin{equation}
+\frac{dc}{dt} + \mathrm{div} \overrightarrow{\phi} = 0
+\end{equation}</span></p>
+<p>This is known as the <strong>continuity equation</strong>, which is used in many areas of physics (quantum mechanics, fluid mechanics, energy, mass balance, …).</p>
+</div>
+<div class="section" id="Physical-interpretation-of-the-divergence">
+<h2>Physical interpretation of the divergence<a class="headerlink" href="#Physical-interpretation-of-the-divergence" title="Permalink to this headline">¶</a></h2>
+<p>The divergence theorem states that, for any given volume, the integral of the flux (mg/m:math:<cite>^2</cite>/s) over the surface which defines that volume (mg/s) corresponds to the integral over the volume of the “divergence” of the flux. <span class="math">\begin{equation}
+\oint_{S(V)} \overrightarrow{\phi}d\overrightarrow{S} = \int_V \mathrm{div} \overrightarrow{\phi}
+\end{equation}</span></p>
+<p>Remember Maxwell’s law of electromagnetism? If you look at a magnet, the lines describing the magnetic field always goes from the north to the south “pole”. And over one line, the value of the magnetic field <span class="math notranslate nohighlight">\(B\)</span> (in Tesla), is constant.</p>
+<p>That means that, if you define a volume <span class="math notranslate nohighlight">\(V\)</span> whatsoever, delimited by a closed surface <span class="math notranslate nohighlight">\(S(V)\)</span>, everything that is coming in, is going to come out. Maxwell’s law for that is</p>
+<p><span class="math">\begin{equation}
+\mathrm{div} \overrightarrow{B} = 0
+\end{equation}</span></p>
+<p>This is not the case for the electric field.</p>
+<p>In this case, the presence of one electric charge will generate electric field lines. So if you take any volume, whose incorporates that electric charge, the integral of the flux will be positive (for a positive charge). Maxwell’s law states, with <span class="math notranslate nohighlight">\(\rho\)</span> being the charge density:</p>
+<p><span class="math">\begin{equation}
+\mathrm{div} \overrightarrow{E} = \frac{\rho}{\epsilon_0}
+\end{equation}</span></p>
+<p>Here in our case, the divergence of a vector field <span class="math notranslate nohighlight">\(\rightarrow{q}\)</span> will basically indicate: <span class="math">\begin{equation}
+\mathrm{q} \propto \textrm{What goes out} - \textrm{What goes in}
+\end{equation}</span></p>
+<p>So, the continuity equation:</p>
+<p><span class="math">\begin{equation}
+\frac{dc}{dt} = - \mathrm{div} \overrightarrow{\phi} \propto \textrm{What goes in} - \textrm{What goes out}
+\end{equation}</span></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2019, Philip Austin.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
