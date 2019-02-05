@@ -60,7 +60,21 @@ Week 5  Jan 29/Jan 31
 - Here are the instructions for seeing your
   :ref:`assignment_handbacks`
 
+Week 6  Feb 05/Feb 07
+=====================
 
+- Feb. 05 lecture
+
+  - `5.1_finite_volume_1_html`_
+       
+  - `5.1_finite_volume_2_html`_
+
+  - `5.1_finite_volume_3_html`_
+
+  - `5.1_finite_volume_4_html`_
+    
+  - `6_finite_volume_4_html`_
+    
 General notes
 =============
   
