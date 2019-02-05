@@ -8,7 +8,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.2'
-#       jupytext_version: 1.0.0-dev
+#       jupytext_version: 1.0.0-rc1
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -22,7 +22,7 @@
 #     name: python
 #     nbconvert_exporter: python
 #     pygments_lexer: ipython3
-#     version: 3.6.7
+#     version: 3.6.8
 #   toc:
 #     base_numbering: 1
 #     nav_menu: {}
@@ -41,6 +41,7 @@
 # <div class="toc"><ul class="toc-item"><li><span><a href="#Introduction-to-finite-volume-methods" data-toc-modified-id="Introduction-to-finite-volume-methods-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Introduction to finite-volume methods</a></span><ul class="toc-item"><li><span><a href="#Context" data-toc-modified-id="Context-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Context</a></span></li><li><span><a href="#Link-to-the-TMF-problem" data-toc-modified-id="Link-to-the-TMF-problem-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Link to the TMF problem</a></span></li><li><span><a href="#General-idea-between" data-toc-modified-id="General-idea-between-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>General idea between</a></span></li><li><span><a href="#Continuity-equation" data-toc-modified-id="Continuity-equation-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Continuity equation</a></span><ul class="toc-item"><li><span><a href="#The-continuity-equation" data-toc-modified-id="The-continuity-equation-1.4.1"><span class="toc-item-num">1.4.1&nbsp;&nbsp;</span>The continuity equation</a></span></li><li><span><a href="#Physical-interpretation-of-the-divergence" data-toc-modified-id="Physical-interpretation-of-the-divergence-1.4.2"><span class="toc-item-num">1.4.2&nbsp;&nbsp;</span>Physical interpretation of the divergence</a></span></li></ul></li></ul></li></ul></div>
 # %% [markdown]
 # # Introduction to finite-volume methods
+# Conservation and continuity
 #
 # ## Context
 #
