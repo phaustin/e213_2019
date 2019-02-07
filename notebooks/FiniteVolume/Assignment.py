@@ -2,16 +2,13 @@
 # jupyter:
 #   celltoolbar: Create Assignment
 #   jupytext:
-#     metadata_filter:
-#       cells:
-#         additional: all
-#       notebook:
-#         additional: all
+#     cell_metadata_filter: all
+#     notebook_metadata_filter: all
 #     text_representation:
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.2'
-#       jupytext_version: 0.8.6
+#       jupytext_version: 1.0.0-rc2
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -27,9 +24,8 @@
 #     pygments_lexer: ipython3
 #     version: 3.6.5
 # ---
-
 # %% [markdown] {"nbgrader": {"grade": false, "grade_id": "cell-46d188f356ba20fd", "locked": true, "schema_version": 1, "solution": false}}
-# ## Assignment on the one-dimensional steady-state finite-volume approximation 
+# ## Assignment on the one-dimensional steady-state finite-volume approximation
 # We just developed the fundamental stencil for 1-D steady-state diffusion in terms of concentrations in gridblocks as:
 #
 # ### 1-D steady - state diffusion stencil (aligned in the x direction)
@@ -49,7 +45,7 @@
 # c_{\mathrm{right}} = \text{Specified value for the right side of the domain}
 # \end{equation}
 #
-# ### Translation into a computational problem 
+# ### Translation into a computational problem
 #
 # We have seen that this stencil can be applied to any grid block and this lead to a system of $n$ equations, where $n$ is the number of gridblocks. These equations can be written in a matrix form
 #
@@ -113,11 +109,11 @@
 # ### Building these matrixes
 #
 # In the cell below, we have defined a function which builds the matrix A and the vector b. A lot of comments are given. We strongly advise you to make the link between the code and the previous equation. We don't need you to be able to write this alone, or by memory, but to be able to understand these lines and adapt them.
-
 # %% {"nbgrader": {"grade": false, "grade_id": "cell-1a2af915a90d524e", "locked": true, "schema_version": 1, "solution": false}}
 import matplotlib.pyplot as plt
 import numpy as np
 from numpy.testing import assert_almost_equal
+
 
 # %% {"nbgrader": {"grade": false, "grade_id": "cell-07bfc86663956631", "locked": true, "schema_version": 1, "solution": false}}
 def Build_1D_Matrix(c_left, c_right, n, D, Width, poro):
@@ -136,48 +132,48 @@ def Build_1D_Matrix(c_left, c_right, n, D, Width, poro):
     ----------
     """
     # The name of this function is Build_1D_Matrix. We have to know its name to use it!
-    # In this function, we will use the values of every parameters which are given to the function 
+    # In this function, we will use the values of every parameters which are given to the function
     # ( c_left, c_right, n ,..): we have to use the same names and not overwrite these!
-    A = np.zeros((n,n))  # This is the initialization of the square matrix "A". 
+    A = np.zeros((n, n))  # This is the initialization of the square matrix "A".
     # it is a n*n matrix which we initially fill with 0
     b = np.zeros(n)
     # b is the 1D array representing the RHS
-    dx = Width/(n-1)
+    dx = Width / (n - 1)
     # for a 10m width with 1 meter between cels, we need 11 cells
     # so, dx, which is the length between the cells, would be 1m (10/(11-1))
-    dy = dz = dx # here it is assumed that all grid cells are cubes
-    coef = poro*D/dx*dy*dz
+    dy = dz = dx  # here it is assumed that all grid cells are cubes
+    coef = poro * D / dx * dy * dz
     # this coefficient is the one which appears in front of every term in the conservation equation
-    
-    # Now we are going to put the coefficients in the matrix A and in vector b. 
+
+    # Now we are going to put the coefficients in the matrix A and in vector b.
     # So we are going to loop over every equation, each of them being described by one line of the matrix A
-    for i in range(n):  
-        if i == 0:  
+    for i in range(n):
+        if i == 0:
             # The first line represents the left boundary condition
             # the "index" i representing the left-value is 0
             # The equation for the left gridblock is:  1 * c[0] = c_left.
-            # So, in the matrix form, the coefficicent associated with c[0] in line 0 is 1. 
+            # So, in the matrix form, the coefficicent associated with c[0] in line 0 is 1.
             A[i][i] = 1
             # while the RHS associated to that is bc_left
-            b[i] = c_left            
-        elif i == n-1:
+            b[i] = c_left
+        elif i == n - 1:
             # Same for the right side. the equation there is c[n-1] = c_right
             A[i][i] = 1
-            b[i] = c_right            
+            b[i] = c_right
         else:
             # For every other node, we have to write the long equation.
             East = coef
             West = coef
             # In the future, these might not be precisely the same, so we define one for East and one for West.
-            A[i][i] = East+West
-            A[i][i+1] = - East
-            A[i][i-1] = - West
+            A[i][i] = East + West
+            A[i][i + 1] = -East
+            A[i][i - 1] = -West
             # As we indexed the unknowns from left to right, the unknow corresponding
             # to the concentration in the gridblock right to the i-th gridblock is the i+1 unknown
-            
+
             # And, as there is nothing in the RHS in the equation above, the right hand side should be zero.
             # But, as it was initialized as 0, there is no need to be b[i] = 0 (it is alreay done !)
-            
+
             # We could have written things like this below, this would be precisely the same:
             # A[i][i] = 2*coef
             # A[i][i+1] = - coef
@@ -187,50 +183,51 @@ def Build_1D_Matrix(c_left, c_right, n, D, Width, poro):
     # Basically, when you call that function, specifying all the arguments, the function will give back these
     # two arrays, so that you can work with them.
 
-# %% {"lines_to_next_cell": 2, "nbgrader": {"grade": false, "grade_id": "cell-e5cda80cdf50fd9f", "locked": true, "schema_version": 1, "solution": false}}
+
+# %% {"nbgrader": {"grade": false, "grade_id": "cell-e5cda80cdf50fd9f", "locked": true, "schema_version": 1, "solution": false}}
 # Here is an example of how to initialize and use the function.
 c_left = 1  # This is the left boundary condition
 c_right = 0  # This is the right boundary condition
-n = 51 # This is the amount of cells
-Diff = 2e-9 # This is the diffusion coefficicent
-Width = 2 # This is the width
+n = 51  # This is the amount of cells
+Diff = 2e-9  # This is the diffusion coefficicent
+Width = 2  # This is the width
 poro = 0.4  # This is the porosity
 
-x = np.linspace(0,Width,n) # this defines the array of x-values
+x = np.linspace(0, Width, n)  # this defines the array of x-values
 
 ### here is the crucial part. We are going to call the function we created
 ### and provide it with our defined parameters
 A, b = Build_1D_Matrix(c_left, c_right, n, Diff, Width, poro)
 ### So here, A and b will be defined by the function, which returns A and b (you can use different name here if you want)
-### ex: if you write, x,y = Build_1D_Matrix( ... ), 
-### basically, it says that x = the first returned value of the function (A), 
+### ex: if you write, x,y = Build_1D_Matrix( ... ),
+### basically, it says that x = the first returned value of the function (A),
 ### and y = the second value returned by the function (b). But here you can use whatever variable names you want.
 
 # Basically we have set up our system of equation A c = b. Now we only need to solve it.
 # There are numerical methods dedicated to that (we will study them in more depth later), but now, let's just use them
 # Numpy has a set of linear algebra functions, one of which is "solve", which we use like this:
 
-c = np.linalg.solve(A,b)
+c = np.linalg.solve(A, b)
 # this basically computes the solution of problem Ac = b and puts the values of the solution in an array c.
 
-#Here is the plot of the result. You can see that on the left, c = 1, while on the right, c = 0 and observe a linear decrease.
+# Here is the plot of the result. You can see that on the left, c = 1, while on the right, c = 0 and observe a linear decrease.
 plt.plot(x, c, label="Concentration")
 plt.xlabel("x-axis (m)")
-plt.ylabel("Concentration (mg/L)");
+plt.ylabel("Concentration (mg/L)")
 
 
 # %% {"nbgrader": {"grade": false, "grade_id": "cell-af89681fee310329", "locked": true, "schema_version": 1, "solution": false}}
 # Don't forget that you can always get help to  know what a function does,
 help(Build_1D_Matrix)
 
-# %% [markdown] {"lines_to_next_cell": 2, "nbgrader": {"grade": false, "grade_id": "cell-a53c3902d8a1627d", "locked": true, "schema_version": 1, "solution": false}}
+# %% [markdown] {"nbgrader": {"grade": false, "grade_id": "cell-a53c3902d8a1627d", "locked": true, "schema_version": 1, "solution": false}}
 # # Assignment
 #
-# ## Taking into account a source term 
+# ## Taking into account a source term
 #
 # So far, our diffusion problem is simple: solute (like sulfate) is diffusing from the high concentration side to the low concentration side. But it is also possible that chemical reactions could be occurring to produce or consume sulfate within the problem domain. We now want to account for this so-called source of mass in our discrete approximation.
 #
-# Our assignment consists of three parts. 
+# Our assignment consists of three parts.
 #
 # 1. We want you to develop the correct 1-D steady-state discrete approximation stencil (W-C-E) in terms of concentrations for the situation where mass is being created within the domain by, for example, a chemical reaction.
 # 2. We want you to modify the code to simulate diffusion with a so-called source term.
@@ -238,9 +235,9 @@ help(Build_1D_Matrix)
 #
 # ### Production rates
 #
-# For this problem, we will assume that in the zones where sulfate is being produced, the rate of production is given on a per mass of sediment basis. That is, for each kg of sediment, we assume that $xx~mg$ of sulfate is generated each second; or that the source is $q=xxx~mg/kg\cdot s$, (in words, the source is xxx mg of mass being produced for every kg of sediment every second). Assume that the bulk density of the porous sediment is $\rho_{bulk}=2000~kg/m^3$.  That is, the mass of sediments in $1~m^3$ of porous media is $2000~kg$. 
+# For this problem, we will assume that in the zones where sulfate is being produced, the rate of production is given on a per mass of sediment basis. That is, for each kg of sediment, we assume that $xx~mg$ of sulfate is generated each second; or that the source is $q=xxx~mg/kg\cdot s$, (in words, the source is xxx mg of mass being produced for every kg of sediment every second). Assume that the bulk density of the porous sediment is $\rho_{bulk}=2000~kg/m^3$.  That is, the mass of sediments in $1~m^3$ of porous media is $2000~kg$.
 #
-# **Problem**: how much mass is produced every second in a gridblock of volume $v=5~m^3$? 
+# **Problem**: how much mass is produced every second in a gridblock of volume $v=5~m^3$?
 #
 # **Note** a negative rate indicates that mass is being consumed (for instance, sulfate could be consumed by sulfate-reducing bacteria).
 #
@@ -254,7 +251,8 @@ help(Build_1D_Matrix)
 # We define a source as an array of n elements, who are all zeros.
 Q = np.zeros(n)
 # we assign every index between 0.5 and 1 meter (between 13-25) to the source
-Q[13:25] = 5e-9 #mg/m3/s
+Q[13:25] = 5e-9  # mg/m3/s
+
 
 # %% [markdown]
 # ## 1. Add the source term to the discrete approximation
@@ -276,12 +274,12 @@ Q[13:25] = 5e-9 #mg/m3/s
 # &\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x} \right) (\Delta y) (\Delta z) = 0 \\
 # \end{align}
 #
-# We want you to write the equivalent stencil for the case where there is a source of mass $q ~ mg/(kg\cdot s)$. 
+# We want you to write the equivalent stencil for the case where there is a source of mass $q ~ mg/(kg\cdot s)$.
 #
 #
 #
 #
-#    
+#
 
 # %% [markdown]
 # <div class="alert alert-info" >
@@ -293,9 +291,9 @@ Q[13:25] = 5e-9 #mg/m3/s
 # \begin{align}
 # J_{EC}+J_{WC} = 0\\
 # \end{align}
-#  
-#  
-#  
+#
+#
+#
 #
 # Replace the 1-D steady-state W-C-E stencil below with the appropriate 1-D steady-state W-C-E stencil with a source of mass per unit mass of sediment:
 #
@@ -315,11 +313,11 @@ Q[13:25] = 5e-9 #mg/m3/s
 #
 # Don't forget you are defining a function, so it should start like:
 # def NAME_OF_THE_FUNCTION(ARGUMENT1,ARGUMENT2,...):
-#    
+#
 
 # %% {"nbgrader": {"grade": true, "grade_id": "cell-e86f37143ab10e5e", "locked": false, "points": 3, "schema_version": 1, "solution": true}}
 ### BEGIN SOLUTION
-def Build_1D_Matrix_Source(bc_left, bc_right, n, D, Width, poro,Q):
+def Build_1D_Matrix_Source(bc_left, bc_right, n, D, Width, poro, Q):
     """
     Constructs a coefficient matrix A and an array b related to the problem Ac = b.
     Parameters:
@@ -334,38 +332,41 @@ def Build_1D_Matrix_Source(bc_left, bc_right, n, D, Width, poro,Q):
     discretized 1D diffusion problem Ax = b
     ----------
     """
-    A = np.zeros((n,n))  
+    A = np.zeros((n, n))
     b = np.zeros(n)
-    dx = Width/(n-1)
-    dy = dz = dx # here it is assumed that all grid cells are cubes
-    coef = poro*D/dx*dy*dz
-    for i in range(n):  
-        if i == 0:   
+    dx = Width / (n - 1)
+    dy = dz = dx  # here it is assumed that all grid cells are cubes
+    coef = poro * D / dx * dy * dz
+    for i in range(n):
+        if i == 0:
             A[i][i] = 1
-            b[i] = bc_left            
-        elif i == n-1:
+            b[i] = bc_left
+        elif i == n - 1:
             A[i][i] = 1
-            b[i] = bc_right            
+            b[i] = bc_right
         else:
             East = coef
             West = coef
-            b[i] = Q[i]*dx*dy*dz
-            A[i][i] = East+West
-            A[i][i+1] = - East
-            A[i][i-1] = - West        
+            b[i] = Q[i] * dx * dy * dz
+            A[i][i] = East + West
+            A[i][i + 1] = -East
+            A[i][i - 1] = -West
     return A, b
+
+
 ### END SOLUTION
+
 
 # %% {"nbgrader": {"grade": false, "grade_id": "cell-f2206762911ff82a", "locked": true, "schema_version": 1, "solution": false}}
 # This is the same cell than before, the only difference lies in the name of the function
 c_left = 1  # This is the left boundary condition
 c_right = 0  # This is the right boundary condition
-n = 51 # This is the amount of cells
-Diff = 2e-9 # This is the diffusion coefficicent
-Width = 2 # This is the width
+n = 51  # This is the amount of cells
+Diff = 2e-9  # This is the diffusion coefficicent
+Width = 2  # This is the width
 poro = 0.4  # This is the porosity
 
-x = np.linspace(0,Width,n) 
+x = np.linspace(0, Width, n)
 
 # %% [markdown]
 # In the next cell, we want you to write something like
@@ -377,21 +378,21 @@ x = np.linspace(0,Width,n)
 
 # %% {"nbgrader": {"grade": true, "grade_id": "cell-e0c78cf9798b7561", "locked": false, "points": 2, "schema_version": 1, "solution": true}}
 ### BEGIN SOLUTION
-A,b = Build_1D_Matrix_Source(c_left, c_right, n, Diff, Width, poro, Q)
+A, b = Build_1D_Matrix_Source(c_left, c_right, n, Diff, Width, poro, Q)
 ### END SOLUTION
 
 # %% {"nbgrader": {"grade": false, "grade_id": "cell-1cf19cc79bfee627", "locked": true, "schema_version": 1, "solution": false}}
-c = np.linalg.solve(A,b)
+c = np.linalg.solve(A, b)
 plt.plot(x, c, label="Concentration")
 plt.xlabel("x-axis (m)")
-plt.ylabel("Concentration (mg/L)");
+plt.ylabel("Concentration (mg/L)")
 
 # %% {"nbgrader": {"grade": true, "grade_id": "cell-d5c00e7cec0aec53", "locked": true, "points": 2, "schema_version": 1, "solution": false}}
 ### BEGIN HIDDEN TEST
-assert_almost_equal(c[15],1.804,decimal=2)
+assert_almost_equal(c[15], 1.804, decimal=2)
 ### END HIDDEN TEST
 
-# %% [markdown]
+# %% [markdown] {"nbgrader": {"grade": false, "grade_id": "cell-093a5b343f44647f", "locked": true, "schema_version": 1, "solution": false}}
 # ##  3. Discrete approximation in 2 dimensions
 #
 #
@@ -399,7 +400,7 @@ assert_almost_equal(c[15],1.804,decimal=2)
 # \begin{align}
 # J_{EC}+J_{WC}+J_{NC}+J_{SC} = 0\\
 # \end{align}
-# where now our stencil is in the shape of a cross `+`, with North, South, East and West, and Centre. 
+# where now our stencil is in the shape of a cross `+`, with North, South, East and West, and Centre.
 #
 # Adapt the 1-D, E-W equation to two dimensions
 # \begin{align}
@@ -408,7 +409,9 @@ assert_almost_equal(c[15],1.804,decimal=2)
 #
 # in 2D. Use  N to denote North, and S to denote South.
 #
-# (if you can't deal with math type, write is as understandably as possible!). 
+# <img src="figures/nsewc_stencil.png">
+#
+# (if you can't deal with math type, write is as understandably as possible!).
 
 # %% [markdown] {"nbgrader": {"grade": true, "grade_id": "cell-be938d69dbb5cf8b", "locked": false, "points": 3, "schema_version": 1, "solution": true}}
 # <div class="alert alert-info" >
