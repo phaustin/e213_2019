@@ -8,7 +8,7 @@
    },
    "source": [
     "<h1>Table of Contents<span class=\"tocSkip\"></span></h1>\n",
-    "<div class=\"toc\"><ul class=\"toc-item\"><li><span><a href=\"#One-dimensional-steady-state-finite-volume-approximation\" data-toc-modified-id=\"One-dimensional-steady-state-finite-volume-approximation-1\"><span class=\"toc-item-num\">1&nbsp;&nbsp;</span>One dimensional steady-state finite-volume approximation</a></span><ul class=\"toc-item\"><li><span><a href=\"#Summary-to-this-point\" data-toc-modified-id=\"Summary-to-this-point-1.1\"><span class=\"toc-item-num\">1.1&nbsp;&nbsp;</span>Summary to this point</a></span></li><li><span><a href=\"#Fick's-law-of-diffusion\" data-toc-modified-id=\"Fick's-law-of-diffusion-1.2\"><span class=\"toc-item-num\">1.2&nbsp;&nbsp;</span>Fick's law of diffusion</a></span></li><li><span><a href=\"#Your-turn\" data-toc-modified-id=\"Your-turn-1.3\"><span class=\"toc-item-num\">1.3&nbsp;&nbsp;</span>Your turn</a></span></li><li><span><a href=\"#Your-turn\" data-toc-modified-id=\"Your-turn-1.4\"><span class=\"toc-item-num\">1.4&nbsp;&nbsp;</span>Your turn</a></span></li><li><span><a href=\"#Your-turn\" data-toc-modified-id=\"Your-turn-1.5\"><span class=\"toc-item-num\">1.5&nbsp;&nbsp;</span>Your turn</a></span></li><li><span><a href=\"#Your-turn\" data-toc-modified-id=\"Your-turn-1.6\"><span class=\"toc-item-num\">1.6&nbsp;&nbsp;</span>Your turn</a></span></li><li><span><a href=\"#Fick's-law-of-diffusion-of-solutes-in-porous-media\" data-toc-modified-id=\"Fick's-law-of-diffusion-of-solutes-in-porous-media-1.7\"><span class=\"toc-item-num\">1.7&nbsp;&nbsp;</span>Fick's law of diffusion of solutes in porous media</a></span></li><li><span><a href=\"#Your-turn\" data-toc-modified-id=\"Your-turn-1.8\"><span class=\"toc-item-num\">1.8&nbsp;&nbsp;</span>Your turn</a></span><ul class=\"toc-item\"><li><span><a href=\"#Aside:-Gradients-in-3-dimensions\" data-toc-modified-id=\"Aside:-Gradients-in-3-dimensions-1.8.1\"><span class=\"toc-item-num\">1.8.1&nbsp;&nbsp;</span>Aside: Gradients in 3 dimensions</a></span></li></ul></li><li><span><a href=\"#Gridblock-fluxes-in-terms-of-concentrations\" data-toc-modified-id=\"Gridblock-fluxes-in-terms-of-concentrations-1.9\"><span class=\"toc-item-num\">1.9&nbsp;&nbsp;</span>Gridblock fluxes in terms of concentrations</a></span><ul class=\"toc-item\"><li><span><a href=\"#1-Total-fluxes-as-specific-fluxes\" data-toc-modified-id=\"1-Total-fluxes-as-specific-fluxes-1.9.1\"><span class=\"toc-item-num\">1.9.1&nbsp;&nbsp;</span>1 Total fluxes as specific fluxes</a></span></li></ul></li><li><span><a href=\"#Your-turn\" data-toc-modified-id=\"Your-turn-1.10\"><span class=\"toc-item-num\">1.10&nbsp;&nbsp;</span>Your turn</a></span></li><li><span><a href=\"#Your-turn\" data-toc-modified-id=\"Your-turn-1.11\"><span class=\"toc-item-num\">1.11&nbsp;&nbsp;</span>Your turn</a></span><ul class=\"toc-item\"><li><span><a href=\"#2-Specific-fluxes-in-terms-of-Fick's-law\" data-toc-modified-id=\"2-Specific-fluxes-in-terms-of-Fick's-law-1.11.1\"><span class=\"toc-item-num\">1.11.1&nbsp;&nbsp;</span>2 Specific fluxes in terms of Fick's law</a></span></li><li><span><a href=\"#3-Discrete-approximation-for-Fick's-law\" data-toc-modified-id=\"3-Discrete-approximation-for-Fick's-law-1.11.2\"><span class=\"toc-item-num\">1.11.2&nbsp;&nbsp;</span>3 Discrete approximation for Fick's law</a></span></li><li><span><a href=\"#What-is-a-reasonable-way-to-do-this?\" data-toc-modified-id=\"What-is-a-reasonable-way-to-do-this?-1.11.3\"><span class=\"toc-item-num\">1.11.3&nbsp;&nbsp;</span>What is a reasonable way to do this?</a></span></li><li><span><a href=\"#gridblock-4:\" data-toc-modified-id=\"gridblock-4:-1.11.4\"><span class=\"toc-item-num\">1.11.4&nbsp;&nbsp;</span>gridblock 4:</a></span></li><li><span><a href=\"#Boundary-value-problem-checklist\" data-toc-modified-id=\"Boundary-value-problem-checklist-1.11.5\"><span class=\"toc-item-num\">1.11.5&nbsp;&nbsp;</span>Boundary value problem checklist</a></span></li></ul></li></ul></li><li><span><a href=\"#Context\" data-toc-modified-id=\"Context-2\"><span class=\"toc-item-num\">2&nbsp;&nbsp;</span>Context</a></span></li><li><span><a href=\"#Link-to-the-TMF-problem\" data-toc-modified-id=\"Link-to-the-TMF-problem-3\"><span class=\"toc-item-num\">3&nbsp;&nbsp;</span>Link to the TMF problem</a></span></li><li><span><a href=\"#General-idea-between\" data-toc-modified-id=\"General-idea-between-4\"><span class=\"toc-item-num\">4&nbsp;&nbsp;</span>General idea between</a></span></li><li><span><a href=\"#Continuity-equation\" data-toc-modified-id=\"Continuity-equation-5\"><span class=\"toc-item-num\">5&nbsp;&nbsp;</span>Continuity equation</a></span><ul class=\"toc-item\"><li><span><a href=\"#The-continuity-equation\" data-toc-modified-id=\"The-continuity-equation-5.1\"><span class=\"toc-item-num\">5.1&nbsp;&nbsp;</span>The continuity equation</a></span></li><li><span><a href=\"#Physical-interpretation-of-the-divergence\" data-toc-modified-id=\"Physical-interpretation-of-the-divergence-5.2\"><span class=\"toc-item-num\">5.2&nbsp;&nbsp;</span>Physical interpretation of the divergence</a></span></li></ul></li></ul></div>"
+    "<div class=\"toc\"><ul class=\"toc-item\"><li><span><a href=\"#Putting-it-all-together\" data-toc-modified-id=\"Putting-it-all-together-1\"><span class=\"toc-item-num\">1&nbsp;&nbsp;</span>Putting it all together</a></span><ul class=\"toc-item\"><li><span><a href=\"#1-D-steady---state-diffusion-stencil-(aligned-in-the-x-direction)\" data-toc-modified-id=\"1-D-steady---state-diffusion-stencil-(aligned-in-the-x-direction)-1.1\"><span class=\"toc-item-num\">1.1&nbsp;&nbsp;</span>1-D steady - state diffusion stencil (aligned in the x direction)</a></span></li></ul></li><li><span><a href=\"#5---gridblock-example\" data-toc-modified-id=\"5---gridblock-example-2\"><span class=\"toc-item-num\">2&nbsp;&nbsp;</span>5 - gridblock example</a></span><ul class=\"toc-item\"><li><ul class=\"toc-item\"><li><span><a href=\"#Gridblock-1\" data-toc-modified-id=\"Gridblock-1-2.0.1\"><span class=\"toc-item-num\">2.0.1&nbsp;&nbsp;</span>Gridblock 1</a></span></li><li><span><a href=\"#Gridblock-2\" data-toc-modified-id=\"Gridblock-2-2.0.2\"><span class=\"toc-item-num\">2.0.2&nbsp;&nbsp;</span>Gridblock 2</a></span></li><li><span><a href=\"#Gridblock-3\" data-toc-modified-id=\"Gridblock-3-2.0.3\"><span class=\"toc-item-num\">2.0.3&nbsp;&nbsp;</span>Gridblock 3</a></span></li><li><span><a href=\"#Gridblock-4\" data-toc-modified-id=\"Gridblock-4-2.0.4\"><span class=\"toc-item-num\">2.0.4&nbsp;&nbsp;</span>Gridblock 4</a></span></li><li><span><a href=\"#Gridblock-5\" data-toc-modified-id=\"Gridblock-5-2.0.5\"><span class=\"toc-item-num\">2.0.5&nbsp;&nbsp;</span>Gridblock 5</a></span></li><li><span><a href=\"#Collecting-all-equations\" data-toc-modified-id=\"Collecting-all-equations-2.0.6\"><span class=\"toc-item-num\">2.0.6&nbsp;&nbsp;</span>Collecting all equations</a></span></li></ul></li><li><span><a href=\"#Simplify\" data-toc-modified-id=\"Simplify-2.1\"><span class=\"toc-item-num\">2.1&nbsp;&nbsp;</span>Simplify</a></span></li><li><span><a href=\"#Equations-for-unknown-concentrations\" data-toc-modified-id=\"Equations-for-unknown-concentrations-2.2\"><span class=\"toc-item-num\">2.2&nbsp;&nbsp;</span>Equations for unknown concentrations</a></span></li></ul></li><li><span><a href=\"#Solve-the-system-of-equations\" data-toc-modified-id=\"Solve-the-system-of-equations-3\"><span class=\"toc-item-num\">3&nbsp;&nbsp;</span>Solve the system of equations</a></span><ul class=\"toc-item\"><li><ul class=\"toc-item\"><li><span><a href=\"#Your-answer-here:\" data-toc-modified-id=\"Your-answer-here:-3.0.1\"><span class=\"toc-item-num\">3.0.1&nbsp;&nbsp;</span>Your answer here:</a></span></li><li><span><a href=\"#Your-turn\" data-toc-modified-id=\"Your-turn-3.0.2\"><span class=\"toc-item-num\">3.0.2&nbsp;&nbsp;</span>Your turn</a></span></li><li><span><a href=\"#Your-turn\" data-toc-modified-id=\"Your-turn-3.0.3\"><span class=\"toc-item-num\">3.0.3&nbsp;&nbsp;</span>Your turn</a></span></li></ul></li></ul></li><li><span><a href=\"#Summary\" data-toc-modified-id=\"Summary-4\"><span class=\"toc-item-num\">4&nbsp;&nbsp;</span>Summary</a></span><ul class=\"toc-item\"><li><ul class=\"toc-item\"><li><span><a href=\"#Your-turn\" data-toc-modified-id=\"Your-turn-4.0.1\"><span class=\"toc-item-num\">4.0.1&nbsp;&nbsp;</span>Your turn</a></span></li><li><span><a href=\"#Boundary-value-problem-checklist\" data-toc-modified-id=\"Boundary-value-problem-checklist-4.0.2\"><span class=\"toc-item-num\">4.0.2&nbsp;&nbsp;</span>Boundary value problem checklist</a></span></li></ul></li></ul></li><li><span><a href=\"#Context\" data-toc-modified-id=\"Context-5\"><span class=\"toc-item-num\">5&nbsp;&nbsp;</span>Context</a></span></li><li><span><a href=\"#Link-to-the-TMF-problem\" data-toc-modified-id=\"Link-to-the-TMF-problem-6\"><span class=\"toc-item-num\">6&nbsp;&nbsp;</span>Link to the TMF problem</a></span></li><li><span><a href=\"#General-idea-between\" data-toc-modified-id=\"General-idea-between-7\"><span class=\"toc-item-num\">7&nbsp;&nbsp;</span>General idea between</a></span></li><li><span><a href=\"#Continuity-equation\" data-toc-modified-id=\"Continuity-equation-8\"><span class=\"toc-item-num\">8&nbsp;&nbsp;</span>Continuity equation</a></span><ul class=\"toc-item\"><li><span><a href=\"#The-continuity-equation\" data-toc-modified-id=\"The-continuity-equation-8.1\"><span class=\"toc-item-num\">8.1&nbsp;&nbsp;</span>The continuity equation</a></span></li><li><span><a href=\"#Physical-interpretation-of-the-divergence\" data-toc-modified-id=\"Physical-interpretation-of-the-divergence-8.2\"><span class=\"toc-item-num\">8.2&nbsp;&nbsp;</span>Physical interpretation of the divergence</a></span></li></ul></li></ul></div>"
    ]
   },
   {
@@ -17,76 +17,150 @@
     "lines_to_next_cell": 0
    },
    "source": [
-    "## One dimensional steady-state finite-volume approximation\n",
+    "<div class=\"alert alert-warning\">\n",
     "\n",
-    "### Summary to this point\n",
+    "## Putting it all together\n",
     "\n",
-    "We have developed a 1-D stencil for a gridblock C to generate an steady-state equation for each interior gridblock:\n",
-    "\\begin{align*}\n",
-    "\\left(J_{EC}+J_{WC}\\right) &= 0 \\\\\n",
-    "\\end{align*}\n",
+    "Recall our approach:\n",
+    "1. Write a discrete approximation for mass conservation for gridblock C. This equation is the fundamental stencil.\n",
+    "2. Apply this stencil to each gridblock in the grid to generate a unique equation for each gridblock in the grid.\n",
+    "\n",
+    "For n gridblocks, we can generate n equations.\n",
+    "</div>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "\n",
+    "We just developed the fundamental stencil for 1-D steady-state diffusion in terms of concentrations in gridblocks as:\n",
+    "\n",
+    "### 1-D steady - state diffusion stencil (aligned in the x direction)\n",
+    "\n",
+    "\\begin{align}\n",
+    "&\\left(D\\theta {c_E - c_C \\over \\Delta x} +   D\\theta {c_W - c_C \\over \\Delta x}   \\right) (\\Delta y) (\\Delta z) = 0 \\label{eq651}\\\\\n",
+    "\\end{align}\n",
+    "\n",
+    "It is convenient to rearrange the stencil and collect terms that multiply $c_E$, $c_C$ and $c_W$:\n",
+    "\n",
+    "\\begin{align}\n",
+    "&\\left(D\\theta {\\Delta y \\Delta z \\over \\Delta x}\\right) c_E - \\left(2 D\\theta {\\Delta y \\Delta z \\over \\Delta x}\\right) c_C + \\left(D\\theta {\\Delta y \\Delta z \\over \\Delta x}\\right) c_W  = 0 \\label{eq652}\\\\\n",
+    "\\end{align}\n",
+    "\n",
+    "If each gridblock is the same size, and porosity and the diffusion coefficient are everywhere the same (spatially homogeneous) then the stencil simplifies to:\n",
+    "\n",
+    "\\begin{align}\n",
+    "& c_E -  2   c_C +  c_W  = 0 \\label{eq653}\\\\\n",
+    "\\end{align}\n",
     "\n",
     "\n",
-    "![](figures/finite_volume_1d_uniform_noxyz.png)\n",
-    "\n",
-    "where the gridblocks are sized $\\Delta x$, $\\Delta y$, $\\Delta z$\n",
-    "\n",
-    "![](figures/xyz_single_block.png)\n",
-    "\n",
-    "We use the stencil to generate the equations for a simple 5 - gridblock example:\n",
     "\n",
     "\n",
-    "![](figures/5node-const-c-bc.png)\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "## 5 - gridblock example\n",
     "\n",
-    "We generated the following equations:\n",
+    "Let's write the equations for the 5-gridblock example from before, now in terms of concentrations.\n",
     "\n",
-    " | Gridblock  | Equation      |\n",
+    "<img src=\"figures/5node-const-c-bc.png\" style=\"height: 200px;\" >\n",
+    "\n",
+    "The total length of the domain is $2~m$ in the $x$ direction, each gridblock is the same size and porosity and diffusion coefficient are spatially homogeneous:\n",
+    "* $\\Delta x=0.5 m$\n",
+    "* $\\Delta y=0.3 m$\n",
+    "* $\\Delta z=0.5 m$\n",
+    "* $D=2\\times 10^{-10}~m^2/s$\n",
+    "* $\\theta = 0.25$\n",
+    "\n",
+    "Note that the *nodes* of gridblock 1 and 5 are located on the boundary.\n",
+    "\n",
+    "#### Gridblock 1\n",
+    "\n",
+    "The node is on the boundary where the concentration is prescribed, so the equation is simply\n",
+    "\n",
+    "\\begin{align}\n",
+    "c_1&= 2000 \\label{eq654}\\\\\n",
+    "\\end{align}\n",
+    "\n",
+    "#### Gridblock 2\n",
+    "\n",
+    "<img src=\"figures/block2_eq.png\" style=\"height: 110px;\" >\n",
+    "\n",
+    "Because each gridblock is the same size and $D$ and $\\theta$ are spatially homogeneous, we can use the stencil in its simplest form \\ref{eq653} and the equation for gridblock 2 becomes:\n",
+    "\n",
+    "\n",
+    "\\begin{align}\n",
+    "c_1 -2c_2 + c_3 &= 0 \\label{eq655}\\\\\n",
+    "\\end{align}\n",
+    "\n",
+    "\n",
+    "#### Gridblock 3\n",
+    "\n",
+    "<img src=\"figures/block3_eq.png\" style=\"height: 110px;\" >\n",
+    "\n",
+    "The equation for gridblock 3:\n",
+    "\n",
+    "\\begin{align}\n",
+    "c_2 -2c_3 + c_4 &= 0 \\label{eq656}\\\\\n",
+    "\\end{align}\n",
+    "\n",
+    "#### Gridblock 4\n",
+    "\n",
+    "<img src=\"figures/block4_eq.png\" style=\"height: 110px;\" >\n",
+    "\n",
+    "The equation for gridblock 4:\n",
+    "\n",
+    "\n",
+    "\\begin{align}\n",
+    "c_3 -2c_4 + c_5  &= 0 \\label{eq657}\\\\\n",
+    "\\end{align}\n",
+    "\n",
+    "#### Gridblock 5\n",
+    "\n",
+    "The node is on the boundary where the concentration is prescribed, so the equation is simply\n",
+    "\n",
+    "\\begin{align}\n",
+    "c_5&= 93 \\label{eq658}\\\\\n",
+    "\\end{align}\n",
+    "\n",
+    "#### Collecting all equations\n",
+    "\n",
+    "\n",
+    "\n",
+    "\n",
+    "  | Gridblock  | Equation      |\n",
     "  |:----------:|:--------------:|\n",
     "  | 1  | $$c_1 = 2000$$|\n",
-    "  | 2  | $$\\left(J_{12}+J_{32}\\right) = 0$$|\n",
-    "  | 3  | $$\\left(J_{23}+J_{43}\\right) = 0$$|\n",
-    "  | 4  | $$\\left(J_{34}+J_{54}\\right) = 0$$|\n",
-    " | 5  | $$c_5 = 93$$|\n",
+    "  | 2  | $$c_1 -2c_2 + c_3 = 0$$|\n",
+    "  | 3  | $$c_2 -2c_3 + c_4 = 0$$|\n",
+    "  | 4  | $$c_3 -2c_4 + c_5  = 0 $$|\n",
+    "  | 5  | $$c_5 = 93$$|\n",
     "\n",
-    " Recall, the equations for gridblock 1 and 5 came from the boundary conditions.\n",
+    "### Simplify\n",
     "\n",
-    " **Next**: we need to represent the fluxes such as $J_{12}$ in terms of the dependent variable of interest - concentration. We do that with Fick's law of diffusion."
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "### Fick's law of diffusion\n",
+    "We can use the equation for gridblock 1 to simplify the equation for gridblock 2 by substituting the known value of $c_1$ into equation 2:\n",
     "\n",
-    "**Concept**: solutes (dissolved substances) move from areas of high concentration to areas of low concentration. (Why?)\n",
+    "$2000 -2c_2 + c_3 = 0$ or, bringing the known value to the right hand side,\n",
     "\n",
-    "![](figures/diffusing.png)\n",
+    "\\begin{align}\n",
+    "-2c_2 + c_3 &= -2000 \\label{eq659}\\\\\n",
+    "\\end{align}\n",
     "\n",
-    "Intuition:\n",
-    "* rate of diffusion is proportional to gradient in concentration\n",
-    "* mass flows from high concentrations towards lower concentrations\n",
+    "Similarly for equation 4,\n",
     "\n",
     "\n",
-    "$$ flux \\propto {dc\\over dx}~\\left[{M/L^3 \\over L}\\right]$$\n",
-    "\n",
-    "***Fick's law*** (the x component)\n",
-    "\n",
-    "\\begin{align*}\n",
-    "j_x = - D {\\partial c\\over \\partial x}\\\\\n",
-    "\\end{align*}\n",
-    "\n",
-    "where\n",
-    "* $j_x~\\left[{M\\over L^2 T}\\right]$ is the x-component of the **specific mass flux**,\n",
-    "* $D$ is the **diffusion coefficient** and\n",
-    "* $\\partial c\\over \\partial x$ is the x-component of the gradient in concentration.\n",
-    "\n",
-    "\n",
-    "### Your turn\n",
-    "\n",
-    "Why the minus sign in Fick's law?\n",
+    "\\begin{align}\n",
+    "c_3 -2c_4&= -93 \\label{eq6510}\\\\\n",
+    "\\end{align}\n",
     "\n"
    ]
   },
@@ -96,39 +170,16 @@
     "lines_to_next_cell": 0
    },
    "source": [
-    "Your answer here"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "### Your turn\n",
-    "What are the dimensions of the diffusion coefficient?"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "Your answer here"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "### Your turn\n",
+    "### Equations for unknown concentrations\n",
     "\n",
-    "What is the magnitude (value) of the concentration gradient?\n",
+    "Finally collecting all the equations for the unknown concentrations  $c_2$, $c_3$, $c_4$ together:\n",
     "\n",
-    "![](figures/diff_example_1d.png)"
+    "\n",
+    "  | Gridblock  | Equation      |\n",
+    "  |:----------:|:--------------:|\n",
+    "  | 2  | $$-2c_2 + c_3 =-2000$$|\n",
+    "  | 3  | $$c_2 + c_4 -2c_3= 0$$|\n",
+    "  | 4  | $$c_3 -2c_4 = -93 $$|\n"
    ]
   },
   {
@@ -137,7 +188,9 @@
     "lines_to_next_cell": 0
    },
    "source": [
-    "Your answer here"
+    "## Solve the system of equations\n",
+    "\n",
+    "Solve the equations and plot the concentration versus $x$.\n"
    ]
   },
   {
@@ -146,10 +199,11 @@
     "lines_to_next_cell": 0
    },
    "source": [
-    "### Your turn\n",
+    "<div class=\"alert alert-info\">\n",
     "\n",
-    "1. What is the direction of the concentration gradient?\n",
-    "2. What is the direction in which solutes are diffusing?"
+    "#### Your answer here:\n",
+    "\n",
+    "</div>"
    ]
   },
   {
@@ -158,7 +212,15 @@
     "lines_to_next_cell": 0
    },
    "source": [
-    "Your answers here."
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "#### Your turn\n",
+    "\n",
+    "The approximation for $j_{EC}$ is given above in equation \\ref{eq5148}.\n",
+    "\n",
+    "Write the corresponding discrete approximation for $j_{WC}$ in terms of $D\\theta$, $c_W$, $c_C$ and $\\Delta x$, $\\Delta y$, and $\\Delta z$.\n",
+    "\n",
+    "</div>"
    ]
   },
   {
@@ -167,214 +229,46 @@
     "lines_to_next_cell": 0
    },
    "source": [
+    "<div class=\"alert alert-info\">\n",
     "\n",
-    "### Fick's law of diffusion of solutes in porous media\n",
+    "#### Your turn\n",
+    "\\begin{align}\n",
+    "j_{WC} &\\approx {????} \\label{eq5148}\\\\\n",
+    "\\end{align}\n",
     "\n",
-    "We have to modify Fick's law slightly to apply porous media. We need to introduce **porosity** to account for the fact that diffusion only occurs in the pore space.\n",
+    "1. Is the sign of the flux $j_{WC}$ computed using your expression positive for flux entering gridblock C?\n",
+    "2. Give an example.\n",
+    "\n",
+    "</div>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "## Summary\n",
+    "\n",
+    "Bringing it all together, the 1-D steady-state diffusion stencil\n",
     "\n",
     "\\begin{align*}\n",
-    "j_x = - D {\\partial (c\\theta) \\over \\partial x}\\\\\n",
+    "&\\left(j_{EC}+j_{WC}\\right) (\\Delta y) (\\Delta z) = 0 \\\\\n",
     "\\end{align*}\n",
     "\n",
-    "where\n",
-    "* $\\theta ~\\left[{\\cdot}\\right]$ is the  **porosity** (dimensionless)\n",
+    "becomes (replace $j_{WC}$ in the expression below with your expression from above):\n",
     "\n",
-    "\n"
+    "#### Your turn\n",
+    "\\begin{align}\n",
+    "&\\left(D\\theta {c_E - c_C \\over \\Delta x} +   j_{WC}   \\right) (\\Delta y) (\\Delta z) = 0 \\label{eq5144}\\\\\n",
+    "\\end{align}\n",
+    "\n",
+    "\n",
+    "\n",
+    "Consider a three gridblocks W, C, E, where $c_W=28~mg/L$, $c_C=20~mg/L$ and $c_E= 15 mg/L$, the diffusion coeffient is $D=2\\times 10^{-10}~m^2/s$, and the porosity is $\\theta = 0.25$. Write the python code to compute:\n",
+    "1. $j_{EC}$ and $j_{WC}$\n",
+    "2. $J_{EC}$ and $J_{WC}$"
    ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "### Your turn\n",
-    "\n",
-    "Now let's compute the flux. Consider the same problem as above, where the diffusion coefficient is $D=10^{-10}~m^2/s$, and the porosity is $\\theta = 0.3$.\n",
-    "\n",
-    "If the area perpendicular to this flux direction is $4\\times10^4~m^2$ (the area of the bottom of a modest tailings pond), how much mass is transported by diffusion in one day?\n",
-    "![](figures/diff_example_1d.png)\n",
-    "\n",
-    "Recall, that the specific flux $j$ is the mass flux of solute per unit area per unit time and that $J=jA$, where $A$ is the area normal to (perpendicular to) the component of flux.\n",
-    "\n",
-    "![](figures/flux_normal-area.png)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "Your answer here."
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "#### Aside: Gradients in 3 dimensions\n",
-    "\n",
-    "The gradient is a vector that points in the direction that a function is *increasing*. In cartesian coordinates, it has $x$, $y$ and $z$ components. The diffuse flux is a gradient that points in the direction that concentration is *decreasing*. Hence the minus sign in Fick's law. So the diffusive flux is also a vector:\n",
-    "\\begin{align*}\n",
-    "j_x &= - D {\\partial (c\\theta) \\over \\partial x}\\\\\n",
-    "j_y &= - D {\\partial (c\\theta)\\over \\partial y}\\\\\n",
-    "j_z &= - D {\\partial (c\\theta)\\over \\partial z}\\\\\n",
-    "\\end{align*}\n",
-    "\n",
-    "We've switched to partial derivatives only to indicate that the concentration is a function of several independent variables ($x$, $y$, and $z$). We'll be pretty loose with our partials and non-partials (impartials??!), but it is almost always clear from the context what is meant.\n",
-    "\n",
-    "\n"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "### Gridblock fluxes in terms of concentrations\n",
-    "\n",
-    "We'll do this in three steps:\n",
-    "1. We'll write the total fluxes in terms of specific fluxes.\n",
-    "2. We'll write specific fluxes in terms of Fick's law.\n",
-    "3. We'll introduce a discrete approximation for Fick's law.\n",
-    "\n",
-    "####  1 Total fluxes as specific fluxes\n",
-    "\n",
-    "Let's look at our stencil equation:\n",
-    "$$\n",
-    "J_{WC}+J_{EC} =0\n",
-    "$$\n",
-    "\n",
-    "First, let's express the total fluxes in terms of specific fluxes:\n",
-    "\n",
-    "$$J_{WC}=j_{WC}A$$\n",
-    "\n",
-    "### Your turn\n",
-    "\n",
-    "![](figures/jwc-numbers.png)\n",
-    "\n",
-    "What is the correct value of the area $A$ to write $J_{WC}$ in terms of $j_{WC}$ for this example?\n"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "Your answer here:\n",
-    "\n",
-    "$A=   $"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "### Your turn\n",
-    "\n",
-    "\n",
-    "![](figures/jwc-general.png)\n",
-    "\n",
-    "What is the correct value of the area $A$ to write $J_{WC}$ in terms of $j_{WC}$ for the general case above?\n"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "Your answer here:\n",
-    "$ A = $\n",
-    "\n",
-    "(remember to write $\\Delta$ use `$\\Delta$` - or don't bother with math type."
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "#### 2 Specific fluxes in terms of Fick's law\n",
-    "\n",
-    "For a gridblock C oriented as below, what is the appropriate component of Fick's law?\n",
-    "\n",
-    "![](figures/jwc-general.png)\n",
-    "\n",
-    "Choose one of (erase the two that are incorrect):\n",
-    "\\begin{align*}\n",
-    "j_x &= - D {\\partial (c\\theta) \\over \\partial x}\\\\\n",
-    "j_y &= - D {\\partial (c\\theta)\\over \\partial y}\\\\\n",
-    "j_z &= - D {\\partial (c\\theta)\\over \\partial z}\\\\\n",
-    "\\end{align*}\n",
-    "\n",
-    "\n"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "#### 3 Discrete approximation for Fick's law\n",
-    "\n",
-    "We need a way to approximate specific fluxes such as $j_x = - D {\\partial (c\\theta) \\over \\partial x}$ in terms of concentrations at nodal values in the centre of gridblocks as shown below.\n",
-    "\n",
-    "![](figures/1d_stencil_w_nodes.png)\n",
-    "\n",
-    "#### What is a reasonable way to do this?"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "Describe in words how you would approach this."
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "#### gridblock 4:\n",
-    "![](figures/block4_eq.png)\n",
-    "\n",
-    "Change this stencil to the correct equation for gridblock 4.\n",
-    "$$\n",
-    "J_{WC}+J_{EC} =0\n",
-    "$$\n"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "![](figures/finite_volume_1d_uniform_vert.png)\n"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "outputs": [],
-   "source": []
   },
   {
    "cell_type": "markdown",
@@ -439,7 +333,7 @@
     "\n",
     "When we have developped Euler's approaches, we have divided into small intervals. We are going to do the same with space. This is called **discretization**. It is the idea of splitting a variable who can take any value on a real axis into subdomains where this variable is supposed to be constant.\n",
     "\n",
-    "![](figures/figDisc.png)\n",
+    "<img src=\"figures/figDisc.png\">\n",
     "\n",
     "Without a discretization, we would have to solve a problem for each possible $(x,y,z)$, which would be impossible.\n"
    ]
@@ -453,7 +347,7 @@
     "## Link to the TMF problem\n",
     "\n",
     "To introduce this spatial behaviour, let us go back to the TMF problem. The conceptual model could be expressed like this:\n",
-    "![](figures/figTMF.png)\n",
+    "<img src=\"figures/figTMF.png\" alt=\"drawing\" width =\"400\">\n",
     "\n",
     "This \"spatial\" view of the method we have applied corresponds precisely to the finite volume - difference method we will use. In our problem, we were only interested in one \"point\" in space, the TMF. This \"point\" representation of this TMF actually arises from a discretization of space.\n",
     "\n",
@@ -480,7 +374,7 @@
     "## General idea between\n",
     "If we focus on the central volume here, it might exchange fluxes $\\phi$ with its neighbouring volumes. In a 2D space, central volume $i$ has 4 neighbours: North-East-South-West, with whom it can exchange matter (or energy, ...).\n",
     "\n",
-    "![](figures/figFV.png)\n",
+    "<img src=\"figures/figFV.png\" alt=\"drawing\" width=\"400\">\n",
     "\n",
     "\n",
     "\n",
@@ -585,7 +479,7 @@
     "\n",
     "Remember Maxwell's law of electromagnetism? If you look at a magnet, the lines describing the magnetic field always goes from the north to the south \"pole\". And over one line,  the value of the magnetic field $B$ (in Tesla), is constant.\n",
     "\n",
-    "![](figures/B.png)\n",
+    "<img src=\"figures/B.png\">\n",
     "\n",
     "That means that, if you define a volume $V$ whatsoever, delimited by a closed surface $S(V)$, everything that is coming in, is going to come out. Maxwell's law  for that is\n",
     "\n",
@@ -595,7 +489,7 @@
     "\n",
     "This is not the case for the electric field.\n",
     "\n",
-    "![](figures/E.png)\n",
+    "<img src=\"figures/E.png\">\n",
     "\n",
     "In this case, the presence of one electric charge will generate electric field lines. So if you take any volume, whose incorporates that electric charge, the integral of the flux will be positive (for a positive charge). Maxwell's law states, with $\\rho$ being the charge density:\n",
     "\n",
@@ -650,6 +544,10 @@
     "\n",
     "\n",
     "\n",
+    "\n",
+    "\n",
+    "\n",
+    "\n",
     "\n"
    ]
   },
@@ -661,8 +559,7 @@
    "source": []
   }
  ],
-  "metadata": {
-      "nbsphinx":{"execute":"never"},
+ "metadata": {
   "jupytext": {
    "cell_metadata_filter": "all",
    "formats": "",
@@ -685,6 +582,9 @@
    "pygments_lexer": "ipython3",
    "version": "3.6.8"
   },
+  "nbsphinx": {
+   "execute": "never"
+  },
   "toc": {
    "base_numbering": 1,
    "nav_menu": {},
@@ -694,12 +594,7 @@
    "title_cell": "Table of Contents",
    "title_sidebar": "Contents",
    "toc_cell": true,
-   "toc_position": {
-    "height": "calc(100% - 180px)",
-    "left": "10px",
-    "top": "150px",
-    "width": "165px"
-   },
+   "toc_position": {},
    "toc_section_display": true,
    "toc_window_display": true
   }

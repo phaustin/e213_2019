@@ -661,8 +661,7 @@
    "source": []
   }
  ],
-  "metadata": {
-      "nbsphinx":{"execute":"never"},
+ "metadata": {
   "jupytext": {
    "cell_metadata_filter": "all",
    "formats": "",
