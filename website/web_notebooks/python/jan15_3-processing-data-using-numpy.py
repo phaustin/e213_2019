@@ -3,13 +3,13 @@
 # jupyter:
 #   jupytext:
 #     cell_metadata_filter: all
-#     formats: 'ipynb,py:percent'
+#     formats: ipynb
 #     notebook_metadata_filter: all
 #     text_representation:
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.2'
-#       jupytext_version: 1.0.0-dev
+#       jupytext_version: 1.0.0-rc2
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -39,6 +39,7 @@
 #     toc_section_display: true
 #     toc_window_display: true
 # ---
+
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"><li><span><a href="#Processing-data-with-NumPy" data-toc-modified-id="Processing-data-with-NumPy-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Processing data with NumPy</a></span><ul class="toc-item"><li><span><a href="#Calculating-with-NumPy-arrays" data-toc-modified-id="Calculating-with-NumPy-arrays-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Calculating with NumPy arrays</a></span><ul class="toc-item"><li><span><a href="#Creating-arrays" data-toc-modified-id="Creating-arrays-1.1.1"><span class="toc-item-num">1.1.1&nbsp;&nbsp;</span>Creating arrays</a></span></li><li><span><a href="#Calcuating-values-using-other-arrays" data-toc-modified-id="Calcuating-values-using-other-arrays-1.1.2"><span class="toc-item-num">1.1.2&nbsp;&nbsp;</span>Calcuating values using other arrays</a></span></li></ul></li><li><span><a href="#Filtering-data" data-toc-modified-id="Filtering-data-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Filtering data</a></span><ul class="toc-item"><li><span><a href="#Using-data-masks" data-toc-modified-id="Using-data-masks-1.2.1"><span class="toc-item-num">1.2.1&nbsp;&nbsp;</span>Using data masks</a></span></li></ul></li><li><span><a href="#Removing-missing/bad-data" data-toc-modified-id="Removing-missing/bad-data-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Removing missing/bad data</a></span></li><li><span><a href="#Rounding-and-finding-unique-values" data-toc-modified-id="Rounding-and-finding-unique-values-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Rounding and finding unique values</a></span><ul class="toc-item"><li><span><a href="#Finding-unique-values" data-toc-modified-id="Finding-unique-values-1.4.1"><span class="toc-item-num">1.4.1&nbsp;&nbsp;</span>Finding unique values</a></span></li></ul></li><li><span><a href="#Saving-our-data-to-a-file" data-toc-modified-id="Saving-our-data-to-a-file-1.5"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>Saving our data to a file</a></span><ul class="toc-item"><li><span><a href="#Re-creating-our-2D-data-array" data-toc-modified-id="Re-creating-our-2D-data-array-1.5.1"><span class="toc-item-num">1.5.1&nbsp;&nbsp;</span>Re-creating our 2D data array</a></span></li><li><span><a href="#Saving-our-data" data-toc-modified-id="Saving-our-data-1.5.2"><span class="toc-item-num">1.5.2&nbsp;&nbsp;</span>Saving our data</a></span></li></ul></li></ul></li></ul></div>

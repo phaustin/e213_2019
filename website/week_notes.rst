@@ -60,21 +60,27 @@ Week 5  Jan 29/Jan 31
 - Here are the instructions for seeing your
   :ref:`assignment_handbacks`
 
+- `5.1_finite_volume_1_html`_
+       
+- `5.1_finite_volume_2_html`_
+
+- `5.1_finite_volume_3_html`_
+
+       
 Week 6  Feb 05/Feb 07
 =====================
 
-- Feb. 05 lecture
+- `6_finite_volume_4_html`_
 
-  - `5.1_finite_volume_1_html`_
-       
-  - `5.1_finite_volume_2_html`_
+- `6_finite_volume_5_html`_
 
-  - `5.1_finite_volume_3_html`_
+- `6_finite_volume_6_html`_
 
-  - `5.1_finite_volume_4_html`_
-    
-  - `6_finite_volume_4_html`_
-    
+- `Quiz 1 answer key <http://clouds.eoas.ubc.ca/~phil/Downloads/e213_solutions/Quiz1_answers.pdf>`_
+  
+- Due Tuesday noon: `week6_assign_html`_
+  
+
 General notes
 =============
   

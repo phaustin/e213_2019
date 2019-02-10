@@ -3,13 +3,13 @@
 # jupyter:
 #   jupytext:
 #     cell_metadata_filter: all
-#     formats: py:percent
+#     formats: ''
 #     notebook_metadata_filter: all
 #     text_representation:
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.2'
-#       jupytext_version: 1.0.0-dev
+#       jupytext_version: 1.0.0-rc2
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -23,7 +23,7 @@
 #     name: python
 #     nbconvert_exporter: python
 #     pygments_lexer: ipython3
-#     version: 3.6.7
+#     version: 3.6.5
 #   nbsphinx:
 #     execute: never
 #   toc:
@@ -39,6 +39,7 @@
 #     toc_section_display: true
 #     toc_window_display: true
 # ---
+
 # %% [markdown] {"toc": "true"}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"><li><span><a href="#Solving-Ordinary-Differential-Equations" data-toc-modified-id="Solving-Ordinary-Differential-Equations-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Solving Ordinary Differential Equations</a></span><ul class="toc-item"><li><span><a href="#Objectives" data-toc-modified-id="Objectives-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Objectives</a></span></li><li><span><a href="#Introduction" data-toc-modified-id="Introduction-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Introduction</a></span></li><li><span><a href="#Euler's-methods" data-toc-modified-id="Euler's-methods-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Euler's methods</a></span><ul class="toc-item"><li><span><a href="#From-the-mass-balance-to-the-ODE" data-toc-modified-id="From-the-mass-balance-to-the-ODE-1.3.1"><span class="toc-item-num">1.3.1&nbsp;&nbsp;</span>From the mass balance to the ODE</a></span></li><li><span><a href="#Analytical-Solution" data-toc-modified-id="Analytical-Solution-1.3.2"><span class="toc-item-num">1.3.2&nbsp;&nbsp;</span>Analytical Solution</a></span></li></ul></li><li><span><a href="#Integral-form-of-the-ODE" data-toc-modified-id="Integral-form-of-the-ODE-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Integral form of the ODE</a></span><ul class="toc-item"><li><span><a href="#Euler's-approach" data-toc-modified-id="Euler's-approach-1.4.1"><span class="toc-item-num">1.4.1&nbsp;&nbsp;</span>Euler's approach</a></span></li><li><span><a href="#Examples-of-application" data-toc-modified-id="Examples-of-application-1.4.2"><span class="toc-item-num">1.4.2&nbsp;&nbsp;</span>Examples of application</a></span></li><li><span><a href="#Runge-Kutta-methods" data-toc-modified-id="Runge-Kutta-methods-1.4.3"><span class="toc-item-num">1.4.3&nbsp;&nbsp;</span>Runge Kutta methods</a></span></li></ul></li></ul></li></ul></div>
@@ -179,17 +180,9 @@
 # \frac{\color{blue}{c_{\text{TMF}}}(t + \Delta t)-c_{\text{TMF}}(t)}{\Delta t} =  \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + A_{\text{bottom}} k \left( c_{\text{pore}} - {\color{red}{c_{\text{TMF}}}}  \right)    -Q_{\text{dis}} \color{red}{c_{\text{TMF}}}}{V_0}
 # \end{equation}
 #
-# To compute the solution $c_{\text{TMF}}(t+ \Delta t)$, we use the value of $c_{\text{TMF}}$. But, at what time? Intrinsically, at every time between $t$ and $t + \Delta t$, the value of $c_{\text{TMF}}$ changes.
+# To compute the solution $c_{\text{TMF}}(t+ \Delta t)$, we use the value of $c_{\text{TMF}}$. But, at what time? Intrinsically, at every time between $t$ and $ t + \Delta t$, the value of $c_{\text{TMF}}$ changes.
 #
 # So the timestep should be small!
-# %% [markdown]
-# \begin{equation}
-# \begin{array}{lll}
-# c_\infty & = & \frac{\color{blue}{Q_{\text{pit}}  c_{\text{pit}}} + \color{blue}{Q_{\text{mill}}  c_{\text{mill}}} + kA c_{\text{pore}} }{\color{blue}{Q_{\text{dis}}}+kA} \\
-# & \approx & \frac{kA c_{\text{pore}} }{kA} \\
-# & \approx & c_{\text{pore}} = 2000 \text{ mg/L}
-# \end{array}
-# \end{equation}
 # %% [markdown]
 # #### ODE
 #
@@ -208,14 +201,12 @@
 # \begin{equation}
 # \begin{array}{lll}
 # & \frac{dc_{\text{TMF}}}{dt} & =  & 0  \\
-# \Longleftrightarrow & 0 & = &  \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} +
-# A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \right)    -Q_{\text{dis}} c_{\text{TMF}}}{V_0} \\
-# \Longleftrightarrow & c_{\text{TMF}} & = & \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} +
-# kA c_{\text{pore}} }{Q_{\text{dis}}+kA} \equiv c_\infty
+# \Longleftrightarrow & 0 & = &  \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + A_{\text{bottom}} k \left( c_{\text{pore}} - c_{\text{TMF}}  \right)    -Q_{\text{dis}} c_{\text{TMF}}}{V_0} \\
+# \Longleftrightarrow & c_{\text{TMF}} & = & \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + kA c_{\text{pore}} }{Q_{\text{dis}}+kA} \equiv c_\infty
 # \end{array}
 # \end{equation}
 #
-# The asymptotic/final concentration (the steady-state concentration) $c_\infty$ corresponds to the final solution.
+# The asymptotic/final concentration (the steady-state concentration) $c_\infty$ corresponds to the final solution. 
 #
 # Can you try to guess which values $c_\infty$ could be?
 #
@@ -224,26 +215,27 @@
 # Let us analyse this by investigating limit cases:
 #
 # 1. Very fast production from the porewater: $k \rightarrow \infty$
-#
 # \begin{equation}
 # \begin{array}{lll}
-# c_\infty & = & \frac{\color{blue}{Q_{\text{pit}}  c_{\text{pit}}} + \color{blue}{Q_{\text{mill}}  c_{\text{mill}}} + kA c_{\text{pore}} }{\color{blue}{Q_{\text{dis}}}+kA} \\
-# & \approx & \frac{kA c_{\text{pore}} }{kA} \\
-# & \approx & c_{\text{pore}} = 2000 \text{ mg/L}
+# c_\infty & = & \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + kA c_{\text{pore}} }{Q_{\text{dis}}+kA} \\
+#  & = & \frac{\color{blue}{Q_{\text{pit}}  c_{\text{pit}}} + \color{blue}{Q_{\text{mill}}  c_{\text{mill}}} + kA c_{\text{pore}} }{\color{blue}{Q_{\text{dis}}}+kA} \\
+#   & \approx & \frac{kA c_{\text{pore}} }{kA} \\
+#  & \approx & c_{\text{pore}} = 2000 \text{ mg/L}
 # \end{array}
 # \end{equation}
 #
 # 2. Very slow production from the porewater:  $k \rightarrow 0$
-#
 # \begin{equation}
 # \begin{array}{lll}
-# c_\infty & = &  \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + \color{blue}{kA c_{\text{pore}}} }{Q_{\text{dis}}+\color{blue}{kA}} \\
-# & \approx & \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}}}{Q_{\text{dis}}} \\
-# & \approx & 256.82 \text{ mg/L}
+# c_\infty & = & \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + kA c_{\text{pore}} }{Q_{\text{dis}}+kA} \\
+#  & = & \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}} + \color{blue}{kA c_{\text{pore}}} }{Q_{\text{dis}}+\color{blue}{kA}} \\
+#   & \approx & \frac{Q_{\text{pit}}  c_{\text{pit}} + Q_{\text{mill}}  c_{\text{mill}}}{Q_{\text{dis}}} \\
+#  & \approx & 256.82 \text{ mg/L}
 # \end{array}
 # \end{equation}
 #
 # Therefore, the asymptotic concentration should never be outside these two bounds!
+
 # %% [markdown]
 # ### Analytical Solution
 #
@@ -405,8 +397,10 @@ print(
 #
 #
 
-# %% [markdown] {"trusted": true}
-# ![](figures/figinit.png)
+# %%
+from IPython.display import Image
+
+Image(filename="figures/figinit.png")
 
 # %% [markdown]
 # ### Euler's approach
@@ -423,8 +417,8 @@ print(
 #
 #
 
-# %% [markdown] {"trusted": true}
-# ![](figures/figExplicitEuler.png)
+# %%
+Image(filename="figures/figExplicitEuler.png")
 
 # %% [markdown]
 # This approximation allows us to write:
@@ -455,8 +449,8 @@ print(
 #
 #
 
-# %% [markdown] {"trusted": true}
-# ![](figures/figImplicitEuler.png)
+# %%
+Image(filename="figures/figImplicitEuler.png")
 
 # %% [markdown]
 # This approximation allows us to write:
@@ -534,8 +528,8 @@ Backward_Euler[0] = c0
 for i in range(n - 1):
     timeY[i + 1] = (i + 1) * dt / 365
     c_real[i + 1] = c_inf + (c0 - c_inf) * np.exp(-lam * (i + 1) * dt * 3600 * 24)
-    Forward_Euler[i + 1] = 0  # ADAPT THIS
-    Backward_Euler[i + 1]  # =  ADAPT THIS
+    Forward_Euler[i + 1] = 0 #ADAPT THIS
+    Backward_Euler[i + 1] = # ADAPT THIS
     err_Backward[i + 1] = (c_real[i + 1] - Backward_Euler[i + 1]) / c_real[i + 1]
     err_Forward[i + 1] = (Forward_Euler[i + 1] - c_real[i + 1]) / c_real[i + 1]
 
@@ -659,11 +653,11 @@ ax2.legend()
 #
 #
 # \begin{equation}
-# \begin{array}{lll}
-# k_1 & = &  \Delta t f(y(t),t)\\
-# k_2 & =&  \Delta t \, f\left( y(t)+\frac{1}{2}k_1, t+\frac{1}{2}\Delta t \right)\ \\\
-# y(t+\Delta t) & =&  y(t) + k_2
-# \end{array}
+#    \begin{array}{lll}
+#     k_1 & = &  \Delta t f(y(t),t)\\
+#     k_2 & =&  \Delta t \, f\left( y(t)+\frac{1}{2}k_1, t+\frac{1}{2}\Delta t \right)\ \\\
+#     y(t+\Delta t) & =&  y(t) + k_2
+#   \end{array}
 # \end{equation}
 #
 # The midpoint method is known as a 2-stage Runge-Kutta formula.
@@ -673,21 +667,21 @@ ax2.legend()
 #
 #
 
-# %% [markdown] {"trusted": true}
-# ![](figures/figMidpoint.png)
+# %%
+Image(filename="figures/figMidpoint.png")
 
 # %% [markdown]
 # In general, an *explicit* 2-stage Runge-Kutta method can be written as,
 #
 # \begin{equation}
-# \begin{array}{l}
-# k_1 =  h f(y(t),t)\\
-# k_2 = \Delta t f \left( y(t)+b_{21}k_1, t+a_2h \right)\ \ \  \\
-# y(t+\Delta t) = y(t) + c_1k_1 +c_2k_2
-# \end{array}
+#    \begin{array}{l}
+#     k_1 =  h f(y(t),t)\\
+#     k_2 = \Delta t f \left( y(t)+b_{21}k_1, t+a_2h \right)\ \ \  \\
+#     y(t+\Delta t) = y(t) + c_1k_1 +c_2k_2
+#   \end{array}
 # \end{equation}
 #
 # It is said explicit because the new solution only depends on the previous solution. The different coefficient can be determined by comparison with the 2$^{nd}$ order Taylor approximation.
 
-# %% [markdown] {"trusted": true}
-# ![](figures/fig-Summary.png)
+# %%
+Image(filename="figures/fig-Summary.png")

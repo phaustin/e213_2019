@@ -3,13 +3,13 @@
 # jupyter:
 #   jupytext:
 #     cell_metadata_filter: all
-#     formats: 'ipynb,py:percent'
+#     formats: ipynb
 #     notebook_metadata_filter: all
 #     text_representation:
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.2'
-#       jupytext_version: 1.0.0-dev
+#       jupytext_version: 1.0.0-rc2
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -39,13 +39,14 @@
 #     toc_section_display: true
 #     toc_window_display: true
 # ---
+
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"><li><span><a href="#Assignment" data-toc-modified-id="Assignment-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Assignment</a></span><ul class="toc-item"><li><span><a href="#Objectives-and-description**" data-toc-modified-id="Objectives-and-description**-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Objectives and description**</a></span></li><li><span><a href="#Problem-description-and-conceptual-model" data-toc-modified-id="Problem-description-and-conceptual-model-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Problem description and conceptual model</a></span></li><li><span><a href="#Identification-of-sulfate-sources" data-toc-modified-id="Identification-of-sulfate-sources-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Identification of sulfate sources</a></span><ul class="toc-item"><li><span><a href="#Parameters" data-toc-modified-id="Parameters-1.3.1"><span class="toc-item-num">1.3.1&nbsp;&nbsp;</span>Parameters</a></span></li></ul></li><li><span><a href="#Evolution-of-the-mass-of-water" data-toc-modified-id="Evolution-of-the-mass-of-water-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Evolution of the mass of water</a></span></li><li><span><a href="#Evolution-of-the-mass-of-sulfates" data-toc-modified-id="Evolution-of-the-mass-of-sulfates-1.5"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>Evolution of the mass of sulfates</a></span></li><li><span><a href="#Mass-balance" data-toc-modified-id="Mass-balance-1.6"><span class="toc-item-num">1.6&nbsp;&nbsp;</span>Mass balance</a></span><ul class="toc-item"><li><span><a href="#Associated-ODE" data-toc-modified-id="Associated-ODE-1.6.1"><span class="toc-item-num">1.6.1&nbsp;&nbsp;</span>Associated ODE</a></span></li><li><span><a href="#Influence-of-the-timestep" data-toc-modified-id="Influence-of-the-timestep-1.6.2"><span class="toc-item-num">1.6.2&nbsp;&nbsp;</span>Influence of the timestep</a></span></li></ul></li></ul></li></ul></div>
 # %% [markdown]
 # # Assignment
 #
-# ## Objectives and description
+# ## Objectives and description**
 #
 # The objective of this assignment is to create a python program that
 # computes the concentration of sulfate in time in the water in a tailings

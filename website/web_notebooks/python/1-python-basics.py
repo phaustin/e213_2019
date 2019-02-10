@@ -2,13 +2,13 @@
 # jupyter:
 #   jupytext:
 #     cell_metadata_filter: all
-#     formats: ipynb,py:percent
+#     formats: ipynb
 #     notebook_metadata_filter: all
 #     text_representation:
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.2'
-#       jupytext_version: 1.0.0-dev
+#       jupytext_version: 1.0.0-rc2
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -46,15 +46,16 @@
 #     toc_section_display: true
 #     toc_window_display: true
 # ---
+
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"><li><span><a href="#Variables" data-toc-modified-id="Variables-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Variables</a></span></li><li><span><a href="#Naming-Variables" data-toc-modified-id="Naming-Variables-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Naming Variables</a></span></li><li><span><a href="#Data-Types" data-toc-modified-id="Data-Types-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Data Types</a></span></li><li><span><a href="#Strings" data-toc-modified-id="Strings-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Strings</a></span></li><li><span><a href="#Comparison-&amp;-Logic" data-toc-modified-id="Comparison-&amp;-Logic-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Comparison &amp; Logic</a></span></li><li><span><a href="#Conditionals" data-toc-modified-id="Conditionals-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Conditionals</a></span></li><li><span><a href="#Data-Types---Recap" data-toc-modified-id="Data-Types---Recap-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>Data Types - Recap</a></span></li><li><span><a href="#Exercise-1.1" data-toc-modified-id="Exercise-1.1-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>Exercise 1.1</a></span><ul class="toc-item"><li><ul class="toc-item"><li><span><a href="#Bonus-exercises" data-toc-modified-id="Bonus-exercises-8.0.1"><span class="toc-item-num">8.0.1&nbsp;&nbsp;</span>Bonus exercises</a></span></li></ul></li></ul></li><li><span><a href="#Functions" data-toc-modified-id="Functions-9"><span class="toc-item-num">9&nbsp;&nbsp;</span>Functions</a></span></li><li><span><a href="#Built-In-Functions" data-toc-modified-id="Built-In-Functions-10"><span class="toc-item-num">10&nbsp;&nbsp;</span>Built-In Functions</a></span></li><li><span><a href="#Defining-Functions" data-toc-modified-id="Defining-Functions-11"><span class="toc-item-num">11&nbsp;&nbsp;</span>Defining Functions</a></span></li><li><span><a href="#Exercise-1.2" data-toc-modified-id="Exercise-1.2-12"><span class="toc-item-num">12&nbsp;&nbsp;</span>Exercise 1.2</a></span><ul class="toc-item"><li><ul class="toc-item"><li><span><a href="#Bonus-exercises" data-toc-modified-id="Bonus-exercises-12.0.1"><span class="toc-item-num">12.0.1&nbsp;&nbsp;</span>Bonus exercises</a></span></li></ul></li></ul></li><li><span><a href="#Methods" data-toc-modified-id="Methods-13"><span class="toc-item-num">13&nbsp;&nbsp;</span>Methods</a></span></li><li><span><a href="#Lists" data-toc-modified-id="Lists-14"><span class="toc-item-num">14&nbsp;&nbsp;</span>Lists</a></span><ul class="toc-item"><li><span><a href="#Slices" data-toc-modified-id="Slices-14.1"><span class="toc-item-num">14.1&nbsp;&nbsp;</span>Slices</a></span></li><li><span><a href="#Modifying-a-List" data-toc-modified-id="Modifying-a-List-14.2"><span class="toc-item-num">14.2&nbsp;&nbsp;</span>Modifying a List</a></span></li></ul></li><li><span><a href="#Loops" data-toc-modified-id="Loops-15"><span class="toc-item-num">15&nbsp;&nbsp;</span>Loops</a></span></li><li><span><a href="#Exercise-1.3" data-toc-modified-id="Exercise-1.3-16"><span class="toc-item-num">16&nbsp;&nbsp;</span>Exercise 1.3</a></span><ul class="toc-item"><li><ul class="toc-item"><li><span><a href="#Bonus-exercises" data-toc-modified-id="Bonus-exercises-16.0.1"><span class="toc-item-num">16.0.1&nbsp;&nbsp;</span>Bonus exercises</a></span></li></ul></li></ul></li><li><span><a href="#Dictionaries" data-toc-modified-id="Dictionaries-17"><span class="toc-item-num">17&nbsp;&nbsp;</span>Dictionaries</a></span></li><li><span><a href="#Exercise-1.4" data-toc-modified-id="Exercise-1.4-18"><span class="toc-item-num">18&nbsp;&nbsp;</span>Exercise 1.4</a></span><ul class="toc-item"><li><ul class="toc-item"><li><span><a href="#Bonus-exercises" data-toc-modified-id="Bonus-exercises-18.0.1"><span class="toc-item-num">18.0.1&nbsp;&nbsp;</span>Bonus exercises</a></span></li></ul></li></ul></li></ul></div>
-# %% [markdown]
-# This notebook is adapted from [Jennifer Walker's Python Basics](https://github.com/jenfly/eoas-python/blob/master/1-python-basics.ipynb) original
+
 # %% [markdown]
 # # Variables
 #
 # Use `=` to **assign** a value to a variable.
+
 # %%
 x = 5
 
@@ -584,7 +585,7 @@ len(planets)
 # - Note that Python indexes start with 0 instead of 1.
 
 # %% [markdown]
-# ![](figures/list_index.png)
+# ![](img/list_index.png)
 
 # %%
 planets[0]
@@ -628,7 +629,7 @@ planets[3]
 # Multiple elements in a list can be selected via **slicing**.
 
 # %% [markdown]
-# ![](figures/list_index.png)
+# ![](img/list_index.png)
 
 # %%
 planets[1:3]

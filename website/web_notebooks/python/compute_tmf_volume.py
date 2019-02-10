@@ -2,13 +2,13 @@
 # jupyter:
 #   jupytext:
 #     cell_metadata_filter: all
-#     formats: 'ipynb,py:percent'
+#     formats: ipynb
 #     notebook_metadata_filter: all
 #     text_representation:
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.2'
-#       jupytext_version: 1.0.0-dev
+#       jupytext_version: 1.0.0-rc2
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -38,6 +38,7 @@
 #     toc_section_display: true
 #     toc_window_display: true
 # ---
+
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"><li><span><a href="#Introduction-to-computational-methods" data-toc-modified-id="Introduction-to-computational-methods-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Introduction to computational methods</a></span><ul class="toc-item"><li><span><a href="#Data-file" data-toc-modified-id="Data-file-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Data file</a></span></li><li><span><a href="#Algorithm" data-toc-modified-id="Algorithm-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Algorithm</a></span></li><li><span><a href="#Python-code" data-toc-modified-id="Python-code-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Python code</a></span></li><li><span><a href="#Python-modules/libraries" data-toc-modified-id="Python-modules/libraries-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Python modules/libraries</a></span></li><li><span><a href="#convert-flow-to-a-numpy-array" data-toc-modified-id="convert-flow-to-a-numpy-array-1.5"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>convert flow to a numpy array</a></span></li></ul></li></ul></div>

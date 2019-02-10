@@ -3,13 +3,13 @@
 # jupyter:
 #   jupytext:
 #     cell_metadata_filter: all
-#     formats: 'ipynb,py:percent'
+#     formats: ipynb
 #     notebook_metadata_filter: all
 #     text_representation:
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.2'
-#       jupytext_version: 1.0.0-dev
+#       jupytext_version: 1.0.0-rc2
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -39,6 +39,7 @@
 #     toc_section_display: true
 #     toc_window_display: true
 # ---
+
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"><li><span><a href="#Plotting-with-Matplotlib" data-toc-modified-id="Plotting-with-Matplotlib-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Plotting with Matplotlib</a></span><ul class="toc-item"><li><span><a href="#This-assignment" data-toc-modified-id="This-assignment-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>This assignment</a></span></li><li><span><a href="#Our-dataset" data-toc-modified-id="Our-dataset-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Our dataset</a></span></li><li><span><a href="#Getting-started" data-toc-modified-id="Getting-started-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Getting started</a></span><ul class="toc-item"><li><span><a href="#Loading-the-data-with-pandas" data-toc-modified-id="Loading-the-data-with-pandas-1.3.1"><span class="toc-item-num">1.3.1&nbsp;&nbsp;</span>Loading the data with pandas</a></span></li></ul></li><li><span><a href="#Our-first-plot" data-toc-modified-id="Our-first-plot-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Our first plot</a></span></li><li><span><a href="#Basic-plot-formatting" data-toc-modified-id="Basic-plot-formatting-1.5"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>Basic plot formatting</a></span><ul class="toc-item"><li><span><a href="#Embiggening*-the-plot" data-toc-modified-id="Embiggening*-the-plot-1.5.1"><span class="toc-item-num">1.5.1&nbsp;&nbsp;</span>Embiggening* the plot</a></span></li><li><span><a href="#Adding-text-labels-to-a-plot" data-toc-modified-id="Adding-text-labels-to-a-plot-1.5.2"><span class="toc-item-num">1.5.2&nbsp;&nbsp;</span>Adding text labels to a plot</a></span></li><li><span><a href="#Changing-the-axis-ranges" data-toc-modified-id="Changing-the-axis-ranges-1.5.3"><span class="toc-item-num">1.5.3&nbsp;&nbsp;</span>Changing the axis ranges</a></span></li><li><span><a href="#repeat-with-clipped-axes" data-toc-modified-id="repeat-with-clipped-axes-1.5.4"><span class="toc-item-num">1.5.4&nbsp;&nbsp;</span>repeat with clipped axes</a></span></li></ul></li><li><span><a href="#Bar-plots-in-Matplotlib" data-toc-modified-id="Bar-plots-in-Matplotlib-1.6"><span class="toc-item-num">1.6&nbsp;&nbsp;</span>Bar plots in Matplotlib</a></span></li><li><span><a href="#Saving-your-plots-as-image-files" data-toc-modified-id="Saving-your-plots-as-image-files-1.7"><span class="toc-item-num">1.7&nbsp;&nbsp;</span>Saving your plots as image files</a></span></li><li><span><a href="#Task-1:-Plotting-like-the-&quot;pros&quot;" data-toc-modified-id="Task-1:-Plotting-like-the-&quot;pros&quot;-1.8"><span class="toc-item-num">1.8&nbsp;&nbsp;</span>Task 1: Plotting like the "pros"</a></span></li><li><span><a href="#Task-2:-Plotting-only-part-of-a-dataset" data-toc-modified-id="Task-2:-Plotting-only-part-of-a-dataset-1.9"><span class="toc-item-num">1.9&nbsp;&nbsp;</span>Task 2: Plotting only part of a dataset</a></span></li></ul></li></ul></div>
@@ -55,6 +56,7 @@
 #
 # There are two tasks at the bottom of the notebook which you should complete and
 # upload as usual.
+
 # %% [markdown]
 # ## Our dataset
 #

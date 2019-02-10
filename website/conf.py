@@ -51,7 +51,12 @@ mathjax_config = {
     }
 }
 
-nbsphinx_custom_formats = {".py": lambda s: jupytext.reads(s, ".py")}
+# nbsphinx_custom_formats = {".py": lambda s: jupytext.reads(s, ".py")}
+
+nbsphinx_execute_arguments = [
+    "--InlineBackend.figure_formats={'svg','pdf','png'}",
+    "--InlineBackend.rc={'figure.dpi': 96}",
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -98,7 +103,7 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 
-exclude_patterns = ["conf.py", "scripts", "_build", "**.ipynb_checkpoints"]
+exclude_patterns = ["conf.py", "scripts", "_build", "**.ipynb_checkpoints", "**.py"]
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.

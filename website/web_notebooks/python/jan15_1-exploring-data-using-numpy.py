@@ -3,13 +3,13 @@
 # jupyter:
 #   jupytext:
 #     cell_metadata_filter: all
-#     formats: 'ipynb,py:percent'
+#     formats: ipynb
 #     notebook_metadata_filter: all
 #     text_representation:
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.2'
-#       jupytext_version: 1.0.0-dev
+#       jupytext_version: 1.0.0-rc2
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -43,6 +43,7 @@
 #     toc_section_display: true
 #     toc_window_display: true
 # ---
+
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"><li><span><a href="#Exploring-data-using-NumPy" data-toc-modified-id="Exploring-data-using-NumPy-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Exploring data using NumPy</a></span></li><li><span><a href="#What-is-NumPy?" data-toc-modified-id="What-is-NumPy?-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>What is NumPy?</a></span></li><li><span><a href="#Reading-a-data-file-with-pandas" data-toc-modified-id="Reading-a-data-file-with-pandas-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Reading a data file with pandas</a></span><ul class="toc-item"><li><span><a href="#Importing-NumPy-and-pandas" data-toc-modified-id="Importing-NumPy-and-pandas-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Importing NumPy and pandas</a></span></li><li><span><a href="#Reading-data" data-toc-modified-id="Reading-data-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Reading data</a></span></li><li><span><a href="#Reading-a-data-file" data-toc-modified-id="Reading-a-data-file-3.3"><span class="toc-item-num">3.3&nbsp;&nbsp;</span>Reading a data file</a></span></li><li><span><a href="#Converting-to-a-numpy-ndarray" data-toc-modified-id="Converting-to-a-numpy-ndarray-3.4"><span class="toc-item-num">3.4&nbsp;&nbsp;</span>Converting to a numpy ndarray</a></span></li></ul></li><li><span><a href="#Exploring-our-dataset" data-toc-modified-id="Exploring-our-dataset-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Exploring our dataset</a></span><ul class="toc-item"><li><span><a href="#Checking-the-array-data-type" data-toc-modified-id="Checking-the-array-data-type-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Checking the array data type</a></span></li><li><span><a href="#Checking-the-data-array-type" data-toc-modified-id="Checking-the-data-array-type-4.2"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>Checking the data array type</a></span></li><li><span><a href="#Checking-the-size-of-the-dataset" data-toc-modified-id="Checking-the-size-of-the-dataset-4.3"><span class="toc-item-num">4.3&nbsp;&nbsp;</span>Checking the size of the dataset</a></span></li></ul></li><li><span><a href="#Working-with-our-data---Index-slicing" data-toc-modified-id="Working-with-our-data---Index-slicing-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Working with our data - Index slicing</a></span><ul class="toc-item"><li><span><a href="#Subsetting-a-set-of-rows-in-an-array" data-toc-modified-id="Subsetting-a-set-of-rows-in-an-array-5.1"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>Subsetting a set of rows in an array</a></span><ul class="toc-item"><li><span><a href="#Differences-from-matlab" data-toc-modified-id="Differences-from-matlab-5.1.1"><span class="toc-item-num">5.1.1&nbsp;&nbsp;</span>Differences from matlab</a></span></li></ul></li><li><span><a href="#Slicing-our-data-into-columns" data-toc-modified-id="Slicing-our-data-into-columns-5.2"><span class="toc-item-num">5.2&nbsp;&nbsp;</span>Slicing our data into columns</a></span></li><li><span><a href="#Checking-the-data-in-memory" data-toc-modified-id="Checking-the-data-in-memory-5.3"><span class="toc-item-num">5.3&nbsp;&nbsp;</span>Checking the data in memory</a></span></li></ul></li><li><span><a href="#Basic-data-calculations-in-NumPy" data-toc-modified-id="Basic-data-calculations-in-NumPy-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Basic data calculations in NumPy</a></span><ul class="toc-item"><li><ul class="toc-item"><li><span><a href="#Data-type-conversions" data-toc-modified-id="Data-type-conversions-6.0.1"><span class="toc-item-num">6.0.1&nbsp;&nbsp;</span>Data type conversions</a></span></li></ul></li></ul></li></ul></div>
@@ -321,7 +322,6 @@ raise NotImplementedError()
 
 # %% {"deletable": false, "editable": false, "nbgrader": {"checksum": "139becefcdbacb3e90022117e1e369e6", "grade": true, "grade_id": "cell-2228c250f4ae5124", "locked": true, "points": 2, "schema_version": 1, "solution": false}}
 
-
 # %% [markdown]
 # How about the maximum maximum temperature? Remember that you've read
 # the daily climatological maximum from column 2 above.  Save the maximum
@@ -332,7 +332,6 @@ raise NotImplementedError()
 raise NotImplementedError()
 
 # %% {"deletable": false, "editable": false, "nbgrader": {"checksum": "fa61a0331a955bffa4a1001fa405a468", "grade": true, "grade_id": "cell-d02f83d1a2eb8333", "locked": true, "points": 2, "schema_version": 1, "solution": false}}
-
 
 # %% [markdown]
 # ### Data type conversions
