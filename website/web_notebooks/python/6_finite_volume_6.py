@@ -1,6 +1,5 @@
 # ---
 # jupyter:
-#   celltoolbar: Create Assignment
 #   jupytext:
 #     cell_metadata_filter: all
 #     notebook_metadata_filter: all
@@ -8,23 +7,15 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.2'
-#       jupytext_version: 1.0.0-rc2
+#       jupytext_version: 1.0.0-rc3
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
 #     name: python3
-#   language_info:
-#     codemirror_mode:
-#       name: ipython
-#       version: 3
-#     file_extension: .py
-#     mimetype: text/x-python
-#     name: python
-#     nbconvert_exporter: python
-#     pygments_lexer: ipython3
-#     version: 3.6.5
 # ---
-
+# %% [markdown] {"toc": true}
+# <h1>Table of Contents<span class="tocSkip"></span></h1>
+# <div class="toc"><ul class="toc-item"><li><ul class="toc-item"><li><span><a href="#Computation-of-the-one-dimensional-steady-state-finite-volume-approximation" data-toc-modified-id="Computation-of-the-one-dimensional-steady-state-finite-volume-approximation-0.1"><span class="toc-item-num">0.1&nbsp;&nbsp;</span>Computation of the one-dimensional steady-state finite-volume approximation</a></span><ul class="toc-item"><li><span><a href="#1-D-steady---state-diffusion-stencil-(aligned-in-the-x-direction)" data-toc-modified-id="1-D-steady---state-diffusion-stencil-(aligned-in-the-x-direction)-0.1.1"><span class="toc-item-num">0.1.1&nbsp;&nbsp;</span>1-D steady - state diffusion stencil (aligned in the x direction)</a></span></li><li><span><a href="#Translation-into-a-computational-problem" data-toc-modified-id="Translation-into-a-computational-problem-0.1.2"><span class="toc-item-num">0.1.2&nbsp;&nbsp;</span>Translation into a computational problem</a></span></li><li><span><a href="#Building-these-matrixes" data-toc-modified-id="Building-these-matrixes-0.1.3"><span class="toc-item-num">0.1.3&nbsp;&nbsp;</span>Building these matrixes</a></span></li></ul></li></ul></li><li><span><a href="#Assignment" data-toc-modified-id="Assignment-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Assignment</a></span><ul class="toc-item"><li><span><a href="#Taking-into-account-a-source-term" data-toc-modified-id="Taking-into-account-a-source-term-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Taking into account a source term</a></span><ul class="toc-item"><li><span><a href="#Production-rates" data-toc-modified-id="Production-rates-1.1.1"><span class="toc-item-num">1.1.1&nbsp;&nbsp;</span>Production rates</a></span></li></ul></li><li><span><a href="#1.-Add-the-source-term-to-the-discrete-approximation" data-toc-modified-id="1.-Add-the-source-term-to-the-discrete-approximation-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>1. Add the source term to the discrete approximation</a></span></li></ul></li></ul></div>
 # %% [markdown]
 # ## Computation of the one-dimensional steady-state finite-volume approximation
 # We just developed the fundamental stencil for 1-D steady-state diffusion in terms of concentrations in gridblocks as:
@@ -110,14 +101,13 @@
 # ### Building these matrixes
 #
 # In the cell below, we have defined a function which builds the matrix A and the vector b. A lot of comments are given. We strongly advise you to make the link between the code and the previous equation. We don't need you to be able to write this alone, or by memory, but to be able to understand these lines and adapt them.
-
 # %%
 import matplotlib.pyplot as plt
 import numpy as np
-from numpy.testing import assert_almost_equal
-
 
 # %%
+
+
 def Build_1D_Matrix(c_left, c_right, n, D, Width, poro):
     """
     Constructs a coefficient matrix A and an array b related to the problem Ac = b.

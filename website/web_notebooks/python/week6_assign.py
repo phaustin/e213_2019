@@ -2,52 +2,21 @@
 # jupyter:
 #   jupytext:
 #     cell_metadata_filter: all
-#     formats: ipynb
 #     notebook_metadata_filter: all
 #     text_representation:
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.2'
-#       jupytext_version: 1.0.0-rc2
+#       jupytext_version: 1.0.0-rc3
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
 #     name: python3
-#   language_info:
-#     codemirror_mode:
-#       name: ipython
-#       version: 3
-#     file_extension: .py
-#     mimetype: text/x-python
-#     name: python
-#     nbconvert_exporter: python
-#     pygments_lexer: ipython3
-#     version: 3.6.8
-#   nbsphinx:
-#     execute: never
-#   toc:
-#     base_numbering: 1
-#     nav_menu: {}
-#     number_sections: true
-#     sideBar: true
-#     skip_h1_title: false
-#     title_cell: Table of Contents
-#     title_sidebar: Contents
-#     toc_cell: true
-#     toc_position:
-#       height: calc(100% - 180px)
-#       left: 10px
-#       top: 150px
-#       width: 165px
-#     toc_section_display: true
-#     toc_window_display: true
 # ---
-
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"><li><span><a href="#Week-6-assignment:-Introduction" data-toc-modified-id="Week-6-assignment:-Introduction-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Week 6 assignment: Introduction</a></span><ul class="toc-item"><li><span><a href="#1-D-steady---state-diffusion-stencil-(aligned-in-the-x-direction)" data-toc-modified-id="1-D-steady---state-diffusion-stencil-(aligned-in-the-x-direction)-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>1-D steady - state diffusion stencil (aligned in the x direction)</a></span></li><li><span><a href="#Translation-into-a-computational-problem" data-toc-modified-id="Translation-into-a-computational-problem-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Translation into a computational problem</a></span></li><li><span><a href="#Building-these-matrixes" data-toc-modified-id="Building-these-matrixes-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Building these matrixes</a></span></li></ul></li><li><span><a href="#Assignment" data-toc-modified-id="Assignment-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Assignment</a></span><ul class="toc-item"><li><span><a href="#Taking-into-account-a-source-term" data-toc-modified-id="Taking-into-account-a-source-term-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Taking into account a source term</a></span><ul class="toc-item"><li><span><a href="#Production-rates" data-toc-modified-id="Production-rates-2.1.1"><span class="toc-item-num">2.1.1&nbsp;&nbsp;</span>Production rates</a></span></li></ul></li><li><span><a href="#Add-the-source-term-to-the-discrete-approximation" data-toc-modified-id="Add-the-source-term-to-the-discrete-approximation-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Add the source term to the discrete approximation</a></span><ul class="toc-item"><li><span><a href="#Question1:-Modify-the-code" data-toc-modified-id="Question1:-Modify-the-code-2.2.1"><span class="toc-item-num">2.2.1&nbsp;&nbsp;</span>Question1: Modify the code</a></span></li><li><span><a href="#Question-2:-Build-the-Matrix" data-toc-modified-id="Question-2:-Build-the-Matrix-2.2.2"><span class="toc-item-num">2.2.2&nbsp;&nbsp;</span>Question 2: Build the Matrix</a></span></li><li><span><a href="#Hidden-test:--check-your-concentration-value" data-toc-modified-id="Hidden-test:--check-your-concentration-value-2.2.3"><span class="toc-item-num">2.2.3&nbsp;&nbsp;</span>Hidden test:  check your concentration value</a></span></li></ul></li><li><span><a href="#Discrete-approximation-in-2-dimensions" data-toc-modified-id="Discrete-approximation-in-2-dimensions-2.3"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>Discrete approximation in 2 dimensions</a></span><ul class="toc-item"><li><span><a href="#Question-3:-Write-a-2-D-steady-state-stencil" data-toc-modified-id="Question-3:-Write-a-2-D-steady-state-stencil-2.3.1"><span class="toc-item-num">2.3.1&nbsp;&nbsp;</span>Question 3: Write a 2-D steady-state stencil</a></span></li></ul></li></ul></li></ul></div>
-
-# %% [markdown] {"deletable": false, "editable": false, "nbgrader": {"checksum": "a50f204a32712bda947cc01c64a1d31e", "grade": false, "grade_id": "cell-46d188f356ba20fd", "locked": true, "schema_version": 1, "solution": false}}
+# %% [markdown]
 # # Week 6 assignment: Introduction
 #
 # **The one-dimensional steady-state finite-volume approximation**
@@ -135,41 +104,41 @@
 # ## Building these matrixes
 #
 # In the cell below, we have defined a function which builds the matrix A and the vector b. A lot of comments are given. We strongly advise you to make the link between the code and the previous equation. We don't need you to be able to write this alone, or by memory, but to be able to understand these lines and adapt them.
-# %% {"deletable": false, "editable": false, "nbgrader": {"checksum": "6595297a1838aff6ac082f9a8d637f49", "grade": false, "grade_id": "cell-1a2af915a90d524e", "locked": true, "schema_version": 1, "solution": false}}
+# %%
 import matplotlib.pyplot as plt
 import numpy as np
-from numpy.testing import assert_almost_equal
+
+# %%
 
 
-# %% {"deletable": false, "editable": false, "nbgrader": {"checksum": "e1fbd7733ea6ae7677744c63fe357702", "grade": false, "grade_id": "cell-07bfc86663956631", "locked": true, "schema_version": 1, "solution": false}}
 def build_1d_matrix(c_left, c_right, n, D, width, poro):
     """
     Constructs a coefficient matrix A and an array b related to the problem Ac = b.
-    
+
     Parameters
     ----------
-    
+
     c_left: float
          left boundary condition for concentration [mg/L]
     c_right: float
          right boundary conditions for concentration [mg/L]
-    n:  int 
+    n:  int
        number of cells/gridblocks [-]
-    D:  float 
+    D:  float
         value of the diffusion coefficient (supposed the same everywhere) [m2/s]
-    width float: 
+    width float:
        total physical width of the domain [m]
     poro: float
        porosity value, supposed the same everywhere [-]
-       
+
     Returns
     -------
-    
+
     A, b: tuple
-       A: 2-d np.float array 
+       A: 2-d np.float array
        b: 1-d np.float vector
-       
-       These solve the  
+
+       These solve the
        discretized 1D diffusion problem Ax = b
     """
     # The name of this function is build_1d_matrix. We have to know its name to use it!
@@ -225,7 +194,7 @@ def build_1d_matrix(c_left, c_right, n, D, width, poro):
     # two arrays, so that you can work with them.
 
 
-# %% {"deletable": false, "editable": false, "nbgrader": {"checksum": "293012b417175e01bbd17b6375f3de41", "grade": false, "grade_id": "cell-e5cda80cdf50fd9f", "locked": true, "schema_version": 1, "solution": false}}
+# %%
 # Here is an example of how to initialize and use the function.
 c_left = 1  # This is the left boundary condition
 c_right = 0  # This is the right boundary condition
@@ -257,11 +226,11 @@ plt.xlabel("x-axis (m)")
 plt.ylabel("Concentration (mg/L)")
 
 
-# %% {"deletable": false, "editable": false, "nbgrader": {"checksum": "6230e9a665139651f8e0e236a0aca7ff", "grade": false, "grade_id": "cell-af89681fee310329", "locked": true, "schema_version": 1, "solution": false}}
+# %%
 # Don't forget that you can always get help to  know what a function does,
 help(build_1d_matrix)
 
-# %% [markdown] {"deletable": false, "editable": false, "nbgrader": {"checksum": "a22068246b573ff78351f1369f74b662", "grade": false, "grade_id": "cell-a53c3902d8a1627d", "locked": true, "schema_version": 1, "solution": false}}
+# %% [markdown]
 # # Assignment
 #
 # ## Taking into account a source term
@@ -288,13 +257,13 @@ help(build_1d_matrix)
 #
 
 
-# %% {"deletable": false, "editable": false, "nbgrader": {"checksum": "764dd8c5d1272605d3ab999b2e3623b3", "grade": false, "grade_id": "cell-981f7956591b2baa", "locked": true, "schema_version": 1, "solution": false}}
+# %%
 # We define a source as an array of n elements, who are all zeros.
 Q = np.zeros(n)
 # we assign every index between 0.5 and 1 meter (between 13-25) to the source
 Q[13:25] = 5e-9  # mg/L/s
 
-# %% [markdown] {"deletable": false, "editable": false, "nbgrader": {"checksum": "40c8d5e1375f2a128050a41b669513b9", "grade": false, "grade_id": "cell-75502cef6bc37bb7", "locked": true, "schema_version": 1, "solution": false}}
+# %% [markdown]
 # ## Add the source term to the discrete approximation
 #
 #
@@ -321,7 +290,7 @@ Q[13:25] = 5e-9  # mg/L/s
 #
 #
 
-# %% [markdown] {"deletable": false, "editable": false, "nbgrader": {"checksum": "750ef1d65b613f9622c67b50566049b1", "grade": false, "grade_id": "cell-bda2bafc34fa60b4", "locked": true, "schema_version": 1, "solution": false}}
+# %% [markdown]
 # **Enter your answer below**
 #
 # Replace the 1-D steady-state fundamental equation below with the appropriate 1-D steady-state fundamental equation with a source term:
@@ -340,7 +309,7 @@ Q[13:25] = 5e-9  # mg/L/s
 # &\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x} \right) (\Delta y) (\Delta z) = 0 \\
 # \end{align}
 
-# %% [markdown] {"deletable": false, "editable": false, "nbgrader": {"checksum": "4ba0e49b2d7c31b583cf835f0e7eed98", "grade": false, "grade_id": "cell-5bc76f89cffff051", "locked": true, "schema_version": 1, "solution": false}}
+# %% [markdown]
 #
 # ### Question1: Modify the code
 #
@@ -355,7 +324,7 @@ Q[13:25] = 5e-9  # mg/L/s
 raise NotImplementedError()
 
 
-# %% {"deletable": false, "editable": false, "nbgrader": {"checksum": "fd336f4b6dd20af200e1cfeb1ba1a722", "grade": false, "grade_id": "cell-f2206762911ff82a", "locked": true, "schema_version": 1, "solution": false}}
+# %%
 # This is the same cell than before, the only difference lies in the name of the function
 c_left = 1  # This is the left boundary condition
 c_right = 0  # This is the right boundary condition
@@ -366,7 +335,7 @@ poro = 0.4  # This is the porosity
 
 x = np.linspace(0, width, n)
 
-# %% [markdown] {"deletable": false, "editable": false, "nbgrader": {"checksum": "d2ca592966e8cef9a446ba59a1b6f1e9", "grade": false, "grade_id": "cell-c53fecb12d6035a8", "locked": true, "schema_version": 1, "solution": false}}
+# %% [markdown]
 # ### Question 2: Build the Matrix
 #
 # In the next cell, we want you to write something like
@@ -380,18 +349,18 @@ x = np.linspace(0, width, n)
 # YOUR CODE HERE
 raise NotImplementedError()
 
-# %% {"deletable": false, "editable": false, "nbgrader": {"checksum": "12bc58b59237ada6c6f7e56c9248d730", "grade": false, "grade_id": "cell-1cf19cc79bfee627", "locked": true, "schema_version": 1, "solution": false}}
+# %%
 c = np.linalg.solve(A, b)
 plt.plot(x, c, label="Concentration")
 plt.xlabel("x-axis (m)")
 plt.ylabel("Concentration (mg/L)")
 
-# %% [markdown] {"deletable": false, "editable": false, "nbgrader": {"checksum": "97770887b88209bc62514882a16902de", "grade": false, "grade_id": "cell-de10e169f92450de", "locked": true, "schema_version": 1, "solution": false}}
+# %% [markdown]
 # ### Hidden test:  check your concentration value
 
-# %% {"deletable": false, "editable": false, "nbgrader": {"checksum": "6b36f8a77074c24abf1066160a425cfb", "grade": true, "grade_id": "cell-c4958903bc886687", "locked": true, "points": 2, "schema_version": 1, "solution": false}}
+# %%
 
-# %% [markdown] {"deletable": false, "editable": false, "nbgrader": {"checksum": "1ff4669106c7ab0a5f527aa49d8c79e8", "grade": false, "grade_id": "cell-093a5b343f44647f", "locked": true, "schema_version": 1, "solution": false}}
+# %% [markdown]
 # ## Discrete approximation in 2 dimensions
 #
 #
@@ -412,7 +381,7 @@ plt.ylabel("Concentration (mg/L)")
 #
 # (if you can't deal with math type, write is as understandably as possible!).
 
-# %% [markdown] {"deletable": false, "editable": false, "nbgrader": {"checksum": "36c01e386012bbea239855cd49d4fb54", "grade": false, "grade_id": "cell-d0a57d65b95205ad", "locked": true, "schema_version": 1, "solution": false}}
+# %% [markdown]
 # ### Question 3: Write a 2-D steady-state stencil
 
 # %% [markdown] {"deletable": false, "nbgrader": {"checksum": "4b852de5c3becd51f444b14eadf48624", "grade": true, "grade_id": "cell-469ef51e843ca52b", "locked": false, "points": 3, "schema_version": 1, "solution": true}}

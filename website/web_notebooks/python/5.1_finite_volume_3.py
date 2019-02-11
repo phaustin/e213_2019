@@ -8,39 +8,12 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.2'
-#       jupytext_version: 1.0.0-rc2
+#       jupytext_version: 1.0.0-rc3
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
 #     name: python3
-#   language_info:
-#     codemirror_mode:
-#       name: ipython
-#       version: 3
-#     file_extension: .py
-#     mimetype: text/x-python
-#     name: python
-#     nbconvert_exporter: python
-#     pygments_lexer: ipython3
-#     version: 3.6.8
-#   toc:
-#     base_numbering: 1
-#     nav_menu: {}
-#     number_sections: true
-#     sideBar: true
-#     skip_h1_title: false
-#     title_cell: Table of Contents
-#     title_sidebar: Contents
-#     toc_cell: true
-#     toc_position:
-#       height: calc(100% - 180px)
-#       left: 10px
-#       top: 150px
-#       width: 305.526px
-#     toc_section_display: true
-#     toc_window_display: true
 # ---
-
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"><li><span><a href="#One-dimensional-steady-state-finite-volume-approximation" data-toc-modified-id="One-dimensional-steady-state-finite-volume-approximation-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>One dimensional steady-state finite-volume approximation</a></span><ul class="toc-item"><li><span><a href="#Summary-to-this-point" data-toc-modified-id="Summary-to-this-point-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Summary to this point</a></span></li><li><span><a href="#Fick's-law-of-diffusion" data-toc-modified-id="Fick's-law-of-diffusion-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Fick's law of diffusion</a></span></li><li><span><a href="#Your-turn" data-toc-modified-id="Your-turn-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Your turn</a></span></li><li><span><a href="#Your-turn" data-toc-modified-id="Your-turn-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Your turn</a></span></li><li><span><a href="#Your-turn" data-toc-modified-id="Your-turn-1.5"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>Your turn</a></span></li><li><span><a href="#Your-turn" data-toc-modified-id="Your-turn-1.6"><span class="toc-item-num">1.6&nbsp;&nbsp;</span>Your turn</a></span></li><li><span><a href="#Fick's-law-of-diffusion-of-solutes-in-porous-media" data-toc-modified-id="Fick's-law-of-diffusion-of-solutes-in-porous-media-1.7"><span class="toc-item-num">1.7&nbsp;&nbsp;</span>Fick's law of diffusion of solutes in porous media</a></span></li><li><span><a href="#Your-turn" data-toc-modified-id="Your-turn-1.8"><span class="toc-item-num">1.8&nbsp;&nbsp;</span>Your turn</a></span><ul class="toc-item"><li><span><a href="#Aside:-Gradients-in-3-dimensions" data-toc-modified-id="Aside:-Gradients-in-3-dimensions-1.8.1"><span class="toc-item-num">1.8.1&nbsp;&nbsp;</span>Aside: Gradients in 3 dimensions</a></span></li></ul></li><li><span><a href="#Gridblock-fluxes-in-terms-of-concentrations" data-toc-modified-id="Gridblock-fluxes-in-terms-of-concentrations-1.9"><span class="toc-item-num">1.9&nbsp;&nbsp;</span>Gridblock fluxes in terms of concentrations</a></span><ul class="toc-item"><li><span><a href="#1-Total-fluxes-as-specific-fluxes" data-toc-modified-id="1-Total-fluxes-as-specific-fluxes-1.9.1"><span class="toc-item-num">1.9.1&nbsp;&nbsp;</span>1 Total fluxes as specific fluxes</a></span></li></ul></li><li><span><a href="#Your-turn" data-toc-modified-id="Your-turn-1.10"><span class="toc-item-num">1.10&nbsp;&nbsp;</span>Your turn</a></span></li><li><span><a href="#Your-turn" data-toc-modified-id="Your-turn-1.11"><span class="toc-item-num">1.11&nbsp;&nbsp;</span>Your turn</a></span><ul class="toc-item"><li><span><a href="#2-Specific-fluxes-in-terms-of-Fick's-law" data-toc-modified-id="2-Specific-fluxes-in-terms-of-Fick's-law-1.11.1"><span class="toc-item-num">1.11.1&nbsp;&nbsp;</span>2 Specific fluxes in terms of Fick's law</a></span></li><li><span><a href="#3-Discrete-approximation-for-Fick's-law" data-toc-modified-id="3-Discrete-approximation-for-Fick's-law-1.11.2"><span class="toc-item-num">1.11.2&nbsp;&nbsp;</span>3 Discrete approximation for Fick's law</a></span></li><li><span><a href="#What-is-a-reasonable-way-to-do-this?" data-toc-modified-id="What-is-a-reasonable-way-to-do-this?-1.11.3"><span class="toc-item-num">1.11.3&nbsp;&nbsp;</span>What is a reasonable way to do this?</a></span></li></ul></li><li><span><a href="#Putting-it-all-together" data-toc-modified-id="Putting-it-all-together-1.12"><span class="toc-item-num">1.12&nbsp;&nbsp;</span>Putting it all together</a></span></li><li><span><a href="#Reflection" data-toc-modified-id="Reflection-1.13"><span class="toc-item-num">1.13&nbsp;&nbsp;</span>Reflection</a></span></li></ul></li></ul></div>
@@ -55,16 +28,16 @@
 # \end{align*}
 #
 #
-# <img src="figures/finite_volume_1d_uniform_noxyz.png" style="width: 190px;" >
+# ![](figures/finite_volume_1d_uniform_noxyz.png)
 #
 # where the gridblocks are sized $\Delta x$, $\Delta y$, $\Delta z$
 #
-# <img src="figures/xyz_single_block.png" style="width: 132px;" >
+# ![](figures/xyz_single_block.png)
 #
 # We use the stencil to generate the equations for a simple 5 - gridblock example:
 #
 #
-# <img src="figures/5node-const-c-bc.png" style="height: 110px;" >
+# ![](figures/5node-const-c-bc.png)
 #
 # We generated the following equations:
 #
@@ -84,7 +57,7 @@
 #
 # **Concept**: solutes (dissolved substances) move from areas of high concentration to areas of low concentration. (Why?)
 #
-# <img src="figures/diffusing.png" style="height: 110px;" >
+# ![](figures/diffusing.png)
 #
 # Intuition:
 # * rate of diffusion is proportional to gradient in concentration
@@ -126,7 +99,7 @@
 #
 # What is the magnitude (value) of the concentration gradient?
 #
-# <img src="figures/diff_example_1d.png" style="width: 212px;" >
+# ![](figures/diff_example_1d.png)
 # %% [markdown]
 # <div class="alert alert-info">
 # Your answer here
@@ -161,11 +134,11 @@
 # Now let's compute the flux. Consider the same problem as above, where the diffusion coefficient is $D=10^{-10}~m^2/s$, and the porosity is $\theta = 0.3$.
 #
 # If the area perpendicular to this flux direction is $4\times10^4~m^2$ (the area of the bottom of a modest tailings pond), how much mass is transported by diffusion in one day?
-# <img src="figures/diff_example_1d.png" style="width: 106px;" >
+# ![](figures/diff_example_1d.png)
 #
 # Recall, that the specific flux $j$ is the mass flux of solute per unit area per unit time and that $J=jA$, where $A$ is the area normal to (perpendicular to) the component of flux.
 #
-# <img src="figures/flux_normal-area.png" style="width: 100px;" >
+# ![](figures/flux_normal-area.png)
 #
 # You can use the python cell below to compute the answer.
 # %%
@@ -207,7 +180,7 @@
 #
 # ### Your turn
 #
-# <img src="figures/jwc-numbers.png" style="width: 200px;" >
+# ![](figures/jwc-numbers.png)
 #
 # What is the correct value of the area $A$ to write $J_{WC}$ in terms of $j_{WC}$ for this example?
 #
@@ -222,7 +195,7 @@
 # ### Your turn
 #
 #
-# <img src="figures/jwc-general.png" style="width: 200px;" >
+# ![](figures/jwc-general.png)
 #
 # What is the correct value of the area $A$ to write $J_{WC}$ in terms of $j_{WC}$ for the general case above?
 #
@@ -242,7 +215,7 @@
 #
 # For a gridblock C oriented as below, what is the appropriate component of Fick's law?
 #
-# <img src="figures/jwc-general.png" style="width: 200px;" >
+# ![](figures/jwc-general.png)
 #
 # Choose one of (erase the two that are incorrect):
 # \begin{align}
@@ -258,7 +231,7 @@
 #
 # We need a way to approximate specific fluxes such as $j_x = - D\theta {\partial c \over \partial x}$ in terms of concentrations at nodal values in the centre of gridblocks as shown below.
 #
-# <img src="figures/1d_stencil_w_nodes.png" style="width: 200px;" >
+# ![](figures/1d_stencil_w_nodes.png)
 #
 # #### What is a reasonable way to do this?
 # %% [markdown]
