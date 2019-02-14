@@ -40,3 +40,9 @@
 .. _week6_assign_ipynb: notebooks_hold/notebooks/week6_assign.ipynb
 .. _week6_assign_html: web_notebooks/week6_assign.ipynb
 .. _week6_assign_py: https://github.com/phaustin/eosc213_students/blob/master/python/week6_assign.py
+.. _7_finite_volume_6_ipynb: notebooks/7_finite_volume_6.ipynb
+.. _7_finite_volume_6_html: web_notebooks/7_finite_volume_6.ipynb
+.. _7_finite_volume_6_py: https://github.com/phaustin/eosc213_students/blob/master/python/7_finite_volume_6.py
+.. _7_pdes_1_ipynb: notebooks/7_pdes_1.ipynb
+.. _7_pdes_1_html: web_notebooks/7_pdes_1.ipynb
+.. _7_pdes_1_py: https://github.com/phaustin/eosc213_students/blob/master/python/7_pdes_1.py
