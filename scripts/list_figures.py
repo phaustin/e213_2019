@@ -101,7 +101,7 @@ extra_figs = dir_figs - doc_figs
 print(f"\n\nfound {len(doc_figs)} figures in notebooks")
 print(f"found {len(dir_figs)} figures in in folders")
 
-dryrun = True
+dryrun = False
 if dryrun:
     if len(extra_figs) > 0:
         print(f"\n\ngoing to delete {pprint.pformat(extra_figs)}")
