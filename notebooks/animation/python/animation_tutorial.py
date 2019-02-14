@@ -13,6 +13,7 @@
 #     language: python
 #     name: python3
 # ---
+
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"><li><span><a href="#Animation-tutorial" data-toc-modified-id="Animation-tutorial-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Animation tutorial</a></span><ul class="toc-item"><li><span><a href="#Creating-the-Animation" data-toc-modified-id="Creating-the-Animation-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Creating the Animation</a></span></li><li><span><a href="#Displaying-the-Animation" data-toc-modified-id="Displaying-the-Animation-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Displaying the Animation</a></span></li><li><span><a href="#Setting-interactive-Javascript-widgets-as-the-default-HTML-representation-of-Animation-objects" data-toc-modified-id="Setting-interactive-Javascript-widgets-as-the-default-HTML-representation-of-Animation-objects-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Setting interactive Javascript widgets as the default HTML representation of Animation objects</a></span></li><li><span><a href="#Additional-Resources" data-toc-modified-id="Additional-Resources-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Additional Resources</a></span></li></ul></li></ul></div>
