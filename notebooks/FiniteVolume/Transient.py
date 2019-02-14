@@ -7,7 +7,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.2'
-#       jupytext_version: 0.8.6
+#       jupytext_version: 1.0.0-rc4
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -56,13 +56,13 @@ def Build_1D_Inhomo_Matrix_Source(bc_left, bc_right, n, D, Width, poro, Q):
     """
     Matrix = np.zeros((n, n))
     RHS = np.zeros(n)
-    dx = Width/(n-1)
-    coef = poro/dx/dx
+    dx = Width / (n - 1)
+    coef = poro / dx / dx
     for i in range(n):
         if i == 0:
             RHS[i] = bc_left
             Matrix[i][i] = 1
-        elif i == n-1:
+        elif i == n - 1:
             RHS[i] = bc_right
             Matrix[i, i] = 1
         else:
@@ -85,13 +85,13 @@ n = 50
 Diff = 2e-9
 D = Diff * np.ones(n)
 Q = np.zeros(n)
-Q[int(n/4):int(n/2)] = 5e-9 #mg/L/s
-Width = 2 
+Q[int(n / 4) : int(n / 2)] = 5e-9  # mg/L/s
+Width = 2
 poro = 0.4
 nTstp = 200
-dt = 1.e7
-    
-c_init = np.zeros((nTstp,n))
+dt = 1.0e7
+
+c_init = np.zeros((nTstp, n))
 
 
 # %% [markdown]
@@ -148,26 +148,27 @@ def calc_conc(
     A, b = Build_1D_Inhomo_Matrix_Source(c_left, c_right, n, D, Width, poro, Q)
 
     c = c_init
-    Abis = np.zeros((n,n))
+    Abis = np.zeros((n, n))
     Bbis = np.zeros(n)
-    for t in range(nTstp-1):        
+    for t in range(nTstp - 1):
         for i in range(n):
-            Abis[i][i] = 0 #poro/dt
-            Bbis[i] = 0 #c[t][i]*poro/dt
+            Abis[i][i] = 0  # poro/dt
+            Bbis[i] = 0  # c[t][i]*poro/dt
         Aa = A + Abis
         bb = b + Bbis
-        cnew = np.linalg.solve(Aa,bb)
-        c[t+1][:]=cnew
-    return x,c
+        cnew = np.linalg.solve(Aa, bb)
+        c[t + 1][:] = cnew
+    return x, c
 
-x,c = calc_conc(**init_dict)
 
-plt.plot(x,c_final, label="Asymptotic concentration")
+x, c = calc_conc(**init_dict)
+
+plt.plot(x, c_final, label="Asymptotic concentration")
 plt.plot(x, c[0][:], label="Initial concentration")
 plt.plot(x, c[10][:], label="Concentration after 10 timestep")
 plt.plot(x, c[30][:], label="Concentration after 30 timesteps")
 plt.plot(x, c[60][:], label="Concentration after 60 timesteps")
-plt.plot(x, c[nTstp-1][:], label="Concentration after 100 timesteps")
+plt.plot(x, c[nTstp - 1][:], label="Concentration after 100 timesteps")
 plt.xlabel("x-axis (m)")
 plt.ylabel("Concentration (mg/L)")
 plt.legend()
@@ -179,7 +180,7 @@ def make_animation(init_dict):
     x, c = calc_conc(**init_dict)
     fig, ax = plt.subplots()
     ax.set_xlim((0, 2.0))
-    ax.set_ylim((0, 1.5))
+    ax.set_ylim((0, 2.0))
     nsteps, nvals = c.shape
     for index in range(nsteps):
         line = ax.plot(x, c[index, :], "r-", lw=2)
