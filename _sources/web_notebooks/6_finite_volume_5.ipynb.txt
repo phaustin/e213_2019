@@ -190,7 +190,7 @@
    "source": [
     "## Solve the system of equations\n",
     "\n",
-    "Solve the equations and plot the concentration versus $x$.\n"
+    "Solve the equations by hand and plot the concentration versus $x$.\n"
    ]
   },
   {
@@ -201,354 +201,22 @@
    "source": [
     "<div class=\"alert alert-info\">\n",
     "\n",
-    "#### Your answer here:\n",
+    "#### Your answer here: \n",
     "\n",
     "</div>"
    ]
   },
   {
    "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
+   "metadata": {},
    "source": [
-    "<div class=\"alert alert-info\">\n",
+    "<div class=\"alert alert-warning\">\n",
     "\n",
-    "#### Your turn\n",
+    "## Plot it!\n",
     "\n",
-    "The approximation for $j_{EC}$ is given above in equation \\ref{eq5148}.\n",
-    "\n",
-    "Write the corresponding discrete approximation for $j_{WC}$ in terms of $D\\theta$, $c_W$, $c_C$ and $\\Delta x$, $\\Delta y$, and $\\Delta z$.\n",
+    "Complete the python code below - replace `c[1]` to `c[3]` with your answers below, and then write the python code to plot the results. See the TMF notebook for an example.\n",
     "\n",
     "</div>"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "<div class=\"alert alert-info\">\n",
-    "\n",
-    "#### Your turn\n",
-    "\\begin{align}\n",
-    "j_{WC} &\\approx {????} \\label{eq5148}\\\\\n",
-    "\\end{align}\n",
-    "\n",
-    "1. Is the sign of the flux $j_{WC}$ computed using your expression positive for flux entering gridblock C?\n",
-    "2. Give an example.\n",
-    "\n",
-    "</div>"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "## Summary\n",
-    "\n",
-    "Bringing it all together, the 1-D steady-state diffusion stencil\n",
-    "\n",
-    "\\begin{align*}\n",
-    "&\\left(j_{EC}+j_{WC}\\right) (\\Delta y) (\\Delta z) = 0 \\\\\n",
-    "\\end{align*}\n",
-    "\n",
-    "becomes (replace $j_{WC}$ in the expression below with your expression from above):\n",
-    "\n",
-    "#### Your turn\n",
-    "\\begin{align}\n",
-    "&\\left(D\\theta {c_E - c_C \\over \\Delta x} +   j_{WC}   \\right) (\\Delta y) (\\Delta z) = 0 \\label{eq5144}\\\\\n",
-    "\\end{align}\n",
-    "\n",
-    "\n",
-    "\n",
-    "Consider a three gridblocks W, C, E, where $c_W=28~mg/L$, $c_C=20~mg/L$ and $c_E= 15 mg/L$, the diffusion coeffient is $D=2\\times 10^{-10}~m^2/s$, and the porosity is $\\theta = 0.25$. Write the python code to compute:\n",
-    "1. $j_{EC}$ and $j_{WC}$\n",
-    "2. $J_{EC}$ and $J_{WC}$"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "\n",
-    "#### Boundary value problem checklist\n",
-    "To solve a boundary value problem requires:\n",
-    "1. knowledge of the equations that govern the dependent variable.\n",
-    "2. specification of the problem domain.\n",
-    "3. specification of properties of the problem domain.\n",
-    "4. the value of the dependent variable or its derivatives on the boundary.\n",
-    "\n",
-    "Let's go through the checklist for our problem.\n",
-    "1. we have not developed these yet, but we are going to use conservation of mass and an expression for diffusion to develop the equations that govern concentration.\n",
-    "\n",
-    "\n",
-    "\n"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "Why go to the trouble with the fancy math? Couple of reasons:\n",
-    "* it is the most succinct and unambiguous way to state a physical principle. In that sense, mathematics is a  language with a grammar and rules that allow one to make precise statements. We use the *language* of mathematics to write\n",
-    "*literature*: precise descriptions of physical systems .\n",
-    "* once we have a mathematical description, we can use the grammar rules of mathematics and manipulate the expressions to, for example, simplify them, or use calculus to derive solutions to our expressions.\n",
-    "\n"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "\n",
-    "\n",
-    "## Context\n",
-    "\n",
-    "So far we have solved 0 dimensional problems:\n",
-    "\n",
-    "- we have considered the mass of water to be given by one value\n",
-    "- we have considered that the concentration of sulfates was given by one value and that this value was the same at any point in the TMF.\n",
-    "\n",
-    "In reality, the concentration of sulfates is not necessarily the same everywhere, and the spatial distribution or evolution of the contaminant is important to know.\n",
-    "\n",
-    "Consider a factory releasing a contaminant: this contaminant will be transported in space and time.\n",
-    "\n",
-    "- if the factory releases this contaminant in a river, it will follow the river current\n",
-    "- if it is released in the atmosphere, it will follow windspeed\n",
-    "- if is is released in the groundwater, it will follow the groundwater flow\n",
-    "\n",
-    "But the windspeed, the river current, the groundwater flow are not the same everywhere (they are not uniform). If we want to be able to predict where the contaminant goes, we need to understand which processes are responsible for its movement.\n",
-    "\n",
-    "In a 3 dimensional space, the concentration can be different at every point in space. But also, the concentration at each point in space can evolve in time. In general, the concentration will be described by a function $c(x,y,z,t)$ which represents the concentration at each point of coordinates $(x,y,z)$ for each time $t$.\n",
-    "\n",
-    "When we have developped Euler's approaches, we have divided into small intervals. We are going to do the same with space. This is called **discretization**. It is the idea of splitting a variable who can take any value on a real axis into subdomains where this variable is supposed to be constant.\n",
-    "\n",
-    "<img src=\"figures/figDisc.png\">\n",
-    "\n",
-    "Without a discretization, we would have to solve a problem for each possible $(x,y,z)$, which would be impossible.\n"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "## Link to the TMF problem\n",
-    "\n",
-    "To introduce this spatial behaviour, let us go back to the TMF problem. The conceptual model could be expressed like this:\n",
-    "<img src=\"figures/figTMF.png\" alt=\"drawing\" width =\"400\">\n",
-    "\n",
-    "This \"spatial\" view of the method we have applied corresponds precisely to the finite volume - difference method we will use. In our problem, we were only interested in one \"point\" in space, the TMF. This \"point\" representation of this TMF actually arises from a discretization of space.\n",
-    "\n",
-    "We have computed the evolution the mass/concentration of sulfates in that \"point\" by computing the fluxes which were going in and out of this \"point\".\n",
-    "\n",
-    "What if the amount of sulfates in the pit/mill was not \"infinite\" (constant in all time)? Well, that would mean that $c_{\\text{pit}}$ would decrease during time, and the flux incoming from the pit would decrease as well. If that is the case, we now need to add another equation to compute the evolution of the concentration in the pit, and also a formulation which links the flux between the pit/mill towards the TMF.\n",
-    "\n",
-    "That is the central idea for the resolution of any transient (not steady) problem including spatial variation. The evolution of the concentration at each point of interest during a certain time is computed by\n",
-    "\n",
-    "- summing all the fluxes going in - all the fluxes going out\n",
-    "- considering these fluxes are constant in time during that period of time ( // Euler's method).\n",
-    "\n",
-    "So what we need, is to be able to compute these fluxes.\n",
-    "\n",
-    "Watch out, in physics, flux is usually defined as the amount (of matter, energy, ...) which goes through a surface per unit of time. A mass flux is described in kg/m$^2$/s. Above, we have described a \"flux\" in mg/s. In the following, flux $\\phi$ will be denoted in units of Mass per unit of surface per unit of time."
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "## General idea between\n",
-    "If we focus on the central volume here, it might exchange fluxes $\\phi$ with its neighbouring volumes. In a 2D space, central volume $i$ has 4 neighbours: North-East-South-West, with whom it can exchange matter (or energy, ...).\n",
-    "\n",
-    "<img src=\"figures/figFV.png\" alt=\"drawing\" width=\"400\">\n",
-    "\n",
-    "\n",
-    "\n",
-    "So, if we know the mass-flux between volume $i$ and volume North, $\\phi_{i\\rightarrow \\text{North}}$, that means that the mass in volume $i$ is evolving by the amount:\n",
-    "\n",
-    "\\begin{equation}\n",
-    "\\frac{dM}{dt} = \\sum_j \\phi_{j\\rightarrow i} S_{ij}\n",
-    "\\end{equation}\n",
-    "\n",
-    "where $j$ represents the set of every neighbour (here North, East, South, West). In 1D, there are 2 neighbours, in 3D, there are 6 neighbours.\n",
-    "\n",
-    "Where S is the surface (in m$^2$) of the interface between volumes i and North. So, to compute the evolution of mass in volume $i$, we only need to find the values of the different fluxes.\n",
-    "\n",
-    "The idea behind the space discretization is that, in each \"volume\", the concentration is uniform and has only one value. That also means that, on every surface separating two volumes, the fluxes are uniform."
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "## Continuity equation\n",
-    "\n",
-    "### The continuity equation\n",
-    "\n",
-    "Multiplying both ends by the volume of water $V_0$ yields:\n",
-    "\n",
-    "So, if the concentration is uniform in the volume $V$, that means that the mass can be obtained by:\n",
-    "\n",
-    "\\begin{equation}\n",
-    "M = \\int_V c dV = c \\int_V dV = cV\n",
-    "\\end{equation}\n",
-    "\n",
-    "The evolution of the mass arises from the different fluxes\n",
-    "\n",
-    "\\begin{equation}\n",
-    "\\frac{\\Delta M}{\\Delta t} = \\sum_j \\phi_{j\\rightarrow i} S_{ij} = -R\n",
-    "\\end{equation}\n",
-    "\n",
-    "The rate of matter evolution $R$ (mg/s) through any surface is usually given by the integral of the flux over the surface:\n",
-    "\\begin{equation}\n",
-    "R = \\oint_S \\overrightarrow{\\phi}d\\overrightarrow{S}\n",
-    "\\end{equation}\n",
-    "\n",
-    "where $d\\overrightarrow{S}$ represents the unit normal vector oriented towards the outside of the closed surface. So, $R$ is positive when matters is going out ot the volume. This surface integral can be decomposed, in our cases, as the sum over the 4 straight lines delimiting our volume. And, since the flux is uniform through these straight lines, this integral becomes straightforward to compute:\n",
-    "\n",
-    "\\begin{equation}\n",
-    "\\begin{array}{lll}\n",
-    "R & = & \\displaystyle{ \\oint_S \\overrightarrow{\\phi}d\\overrightarrow{S}} \\\\\n",
-    "  & = & \\int_{S_{\\textrm{North}}} \\phi_{\\textrm{North}} dS + \\int_{S_{\\textrm{East}}} \\phi_{\\textrm{East}} dS + ... \\\\\n",
-    "  & = & \\phi_{\\textrm{North}} \\int_{S_{\\textrm{North}}}  dS + \\phi_{\\textrm{East}} \\int_{S_{\\textrm{East}}}  dS + ... \\\\\n",
-    "  & = & \\phi_{\\textrm{North}}S_{\\textrm{North}} + \\phi_{\\textrm{East}}S_{\\textrm{East}} + \\phi_{\\textrm{South}}S_{\\textrm{South}} + \\phi_{\\textrm{West}}S_{\\textrm{West}}   \\\\\n",
-    "  & = & \\sum_j \\phi_{i\\rightarrow j} S_{ij}\n",
-    "\\end{array}\n",
-    "\\end{equation}\n",
-    "\n",
-    "But there is a math theorem (Green-Ostrogradski) which also states that\n",
-    "\n",
-    "The rate of matter evolution $R$ (mg/s) through any surface is usually given by the integral of the flux over the surface:\n",
-    "\\begin{equation}\n",
-    "\\oint_{S(V)} \\overrightarrow{\\phi}d\\overrightarrow{S} = \\int_V \\mathrm{div} \\overrightarrow{\\phi}\n",
-    "\\end{equation}\n",
-    "\n",
-    "This is the \"divergence\" theorem. The divergence operator is defined as:\n",
-    "\n",
-    "\\begin{equation}\n",
-    "\\mathrm{div} \\overrightarrow{\\phi} = \\overrightarrow{\\nabla} \\cdot \\overrightarrow{\\phi}\n",
-    "\\end{equation}\n",
-    "\n",
-    "So, combining the different equation together, we get\n",
-    "\n",
-    "\\begin{equation}\n",
-    "\\begin{array}{llll}\n",
-    " & \\frac{dm}{dt} & = & \\sum_j \\phi_{j\\rightarrow i} S_{ij} \\\\\n",
-    "\\Longleftrightarrow & \\displaystyle{\\frac{d}{dt} \\int_V c dV} & = & \\displaystyle{ - \\oint_S \\overrightarrow{\\phi}d\\overrightarrow{S}} \\\\\n",
-    "\\Longleftrightarrow & \\displaystyle{\\frac{d}{dt} \\int_V c dV} & = & \\displaystyle{ - \\int_V \\mathrm{div} \\overrightarrow{\\phi} dV}\n",
-    "\\end{array}\n",
-    "\\end{equation}\n",
-    "\n",
-    "And, since the integral over the same volume $V$ has to be equal on both sides, that means that what is inside the integrals have to be equal, which gives the divergence equation:\n",
-    "\n",
-    "\\begin{equation}\n",
-    "\\frac{dc}{dt} + \\mathrm{div} \\overrightarrow{\\phi} = 0\n",
-    "\\end{equation}\n",
-    "\n",
-    "This is known as the **continuity equation**, which is used in many areas of physics (quantum mechanics, fluid mechanics, energy, mass balance, ...)."
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "source": [
-    "### Physical interpretation of the divergence\n",
-    "\n",
-    "The divergence theorem states that, for any given volume, the integral of the flux (mg/m$^2$/s) over the surface which defines that volume (mg/s) corresponds to the integral over the volume of the \"divergence\" of the flux.\n",
-    "\\begin{equation}\n",
-    "\\oint_{S(V)} \\overrightarrow{\\phi}d\\overrightarrow{S} = \\int_V \\mathrm{div} \\overrightarrow{\\phi}\n",
-    "\\end{equation}\n",
-    "\n",
-    "Remember Maxwell's law of electromagnetism? If you look at a magnet, the lines describing the magnetic field always goes from the north to the south \"pole\". And over one line,  the value of the magnetic field $B$ (in Tesla), is constant.\n",
-    "\n",
-    "<img src=\"figures/B.png\">\n",
-    "\n",
-    "That means that, if you define a volume $V$ whatsoever, delimited by a closed surface $S(V)$, everything that is coming in, is going to come out. Maxwell's law  for that is\n",
-    "\n",
-    "\\begin{equation}\n",
-    "\\mathrm{div} \\overrightarrow{B} = 0\n",
-    "\\end{equation}\n",
-    "\n",
-    "This is not the case for the electric field.\n",
-    "\n",
-    "<img src=\"figures/E.png\">\n",
-    "\n",
-    "In this case, the presence of one electric charge will generate electric field lines. So if you take any volume, whose incorporates that electric charge, the integral of the flux will be positive (for a positive charge). Maxwell's law states, with $\\rho$ being the charge density:\n",
-    "\n",
-    "\\begin{equation}\n",
-    "\\mathrm{div} \\overrightarrow{E} = \\frac{\\rho}{\\epsilon_0}\n",
-    "\\end{equation}\n",
-    "\n",
-    "Here in our case, the divergence of a vector field $\\rightarrow{q}$ will basically indicate:\n",
-    "\\begin{equation}\n",
-    "\\mathrm{q} \\propto \\textrm{What goes out} - \\textrm{What goes in}\n",
-    "\\end{equation}\n",
-    "\n",
-    "So, the continuity equation:\n",
-    "\n",
-    "\\begin{equation}\n",
-    "\\frac{dc}{dt} = - \\mathrm{div} \\overrightarrow{\\phi} \\propto \\textrm{What goes in} - \\textrm{What goes out}\n",
-    "\\end{equation}\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n"
    ]
   },
   {
@@ -556,14 +224,38 @@
    "execution_count": null,
    "metadata": {},
    "outputs": [],
-   "source": []
+   "source": [
+    "import numpy as np\n",
+    "# set up the plot\n",
+    "\n",
+    "c=np.zeros(5,float)\n",
+    "x=np.zeros(5, float)\n",
+    "c[0] = 2000  # lower boundary condition\n",
+    "c[1] = 2000  # replace with the correct value\n",
+    "c[2] = 2000  # replace with the correct value\n",
+    "c[3] = 93    # replace with the correct value\n",
+    "c[4] = 93    # upper boundary condition\n",
+    "x[0] = 0.0\n",
+    "x[1] = 0.5\n",
+    "x[2] = 1.0\n",
+    "x[3] = 1.5\n",
+    "x[4] = 2.0\n",
+    "\n",
+    "# use matplotlib to produce plot of concentration vs x (see TMF notebook for an example)"
+   ]
   }
  ],
  "metadata": {
   "jupytext": {
    "cell_metadata_filter": "all",
    "formats": "",
-   "notebook_metadata_filter": "all"
+   "notebook_metadata_filter": "all",
+   "text_representation": {
+    "extension": ".py",
+    "format_name": "percent",
+    "format_version": "1.2",
+    "jupytext_version": "1.0.0-rc1"
+   }
   },
   "kernelspec": {
    "display_name": "Python 3",
@@ -580,10 +272,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.6.8"
-  },
-  "nbsphinx": {
-   "execute": "never"
+   "version": "3.6.5"
   },
   "toc": {
    "base_numbering": 1,

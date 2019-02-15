@@ -429,12 +429,10 @@ div.rendered_html tbody tr:hover {
 <li>Take limits as the size of the volume element and the time period of consideration shrink to infinitesimal size.</li>
 <li>Recognize limits as derivatives. Where the independent variable (eg concentration) is a function of more than one dependent variable (typically 3 space dimensions <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span> and <span class="math notranslate nohighlight">\(z\)</span>, and <span class="math notranslate nohighlight">\(t\)</span>), the derivatives are partial.</li>
 </ol>
-<p><a class="reference internal" href="../_images/shrink_to_infinitesimal.png"><img alt="pic01" src="../_images/shrink_to_infinitesimal.png" style="width: 35.0%;" /></a></p>
 <div class="section" id="2-d-transient-mass---balance-statement">
 <h2>2-d transient mass - balance statement<a class="headerlink" href="#2-d-transient-mass---balance-statement" title="Permalink to this headline">¶</a></h2>
 <p>We’ll do this in 2-d.&nbsp;From that we can easily go to either 3-d or 1-d.</p>
 <p>We’ll consider the transient case, where mass is changing in time in the volume. Let’s consider the simple 2-d stencil, where the gridblock is of size <span class="math notranslate nohighlight">\(\Delta x\)</span>, <span class="math notranslate nohighlight">\(\Delta y\)</span>, <span class="math notranslate nohighlight">\(\Delta z\)</span> (where <span class="math notranslate nohighlight">\(\Delta z\)</span> is into the page in the figure below).</p>
-<p><a class="reference internal" href="../_images/nsewc_stencil.png"><img alt="pic02" src="../_images/nsewc_stencil.png" style="width: 20.0%;" /></a></p>
 <p>Recall from notebook <code class="docutils literal notranslate"><span class="pre">5.1_finite_volume_2.ipynb</span></code> A transient conservation statement is * <strong>the change of the quanity in the volume over a time :math:`Delta t` = the net flux of the quantity into the volume over the time period :math:`Delta t`</strong>.</p>
 <p>To make things more concrete, let’s consider the case where the conserved quantity is mass <span class="math notranslate nohighlight">\(m\)</span>, such as sulfate.</p>
 <p>In one dimension, the transient conservation expression is (from <code class="docutils literal notranslate"><span class="pre">5.1_finite_volume_2.ipynb</span></code>):</p>
@@ -451,7 +449,6 @@ div.rendered_html tbody tr:hover {
 <p>The next step is to re-express the fluxes in the discrete approximation such as <span class="math notranslate nohighlight">\(j_{EC}\)</span> in terms of components of a flux vector that varies continuously with location (here in 2-d) <span class="math notranslate nohighlight">\(\vec{j}= \left\{j_x, j_y\right\}\)</span> - the “true” flux that is approximated at gridblock edges by <span class="math notranslate nohighlight">\(j_{EC}\)</span>, etc. The only “trick” here is to be careful of the sign conventions.</p>
 <p>In contrast to our finite volume convention where fluxes such as <span class="math notranslate nohighlight">\(j_{EC}\)</span> are <strong>positive</strong> for flux <strong>into the volume</strong>, in math, a vector component is <strong>positive</strong> if the vector is pointing in the direction in which the <strong>coordinate direction corresponding to that component is increasing</strong>.</p>
 <p>We’ll demonstrate this for the <span class="math notranslate nohighlight">\(x\)</span> direction here. Consider gridblock C where the left (W) face is located at <span class="math notranslate nohighlight">\(x\)</span> and the right (E) face is located a position <span class="math notranslate nohighlight">\(x+\Delta x\)</span>. First, recognize that both <span class="math notranslate nohighlight">\(j_{WC}\)</span> and <span class="math notranslate nohighlight">\(j_{EC}\)</span> are <span class="math notranslate nohighlight">\(x\)</span> flux components.</p>
-<p><a class="reference internal" href="../_images/cv_x_dx.png"><img alt="pic03" src="../_images/cv_x_dx.png" style="width: 25.0%;" /></a></p>
 <p>Here is the correspondence:</p>
 <ul class="simple">
 <li><span class="math notranslate nohighlight">\(j_{WC}\)</span> corresponds to <span class="math notranslate nohighlight">\(j_x(x,y,z)\)</span> because when <span class="math notranslate nohighlight">\(j_x\)</span> is positive, flux enters C, just like <span class="math notranslate nohighlight">\(j_{WC}\)</span></li>
@@ -515,7 +512,7 @@ over time periods, with a differential equation, we can think of fluxes in and o
 <h2>Divergence of a vector<a class="headerlink" href="#Divergence-of-a-vector" title="Permalink to this headline">¶</a></h2>
 <p>The <strong>divergence</strong> of a flux vector <span class="math notranslate nohighlight">\(\vec{j}=(j_x, j_y, j_z)\)</span> is a <strong>number</strong>, defined as <span class="math">\begin{align}
 \text{divergence of }\vec{j} &= {{\partial j_x\over \partial x}+{\partial j_y\over \partial y}+{\partial j_z\over \partial z}}  \label{7pde8}\\
-\end{align}</span> In pictures, the divergence is the rate per unit volume at which a flux is spreading <strong>out</strong> from a point. In the picture below, the lines indicate flux directions. On the left, flux is diverging from the point, so at that point it is <strong>positive</strong>. On the right, flux is converging to a point, so the divergence is <strong>negative</strong>. <a class="reference internal" href="../_images/E.png"><img alt="pic04" src="../_images/E.png" style="width: 50.0%;" /></a></p>
+\end{align}</span> In pictures, the divergence is the rate per unit volume at which a flux is spreading <strong>out</strong> from a point. In the picture below, the lines indicate flux directions. On the left, flux is diverging from the point, so at that point it is <strong>positive</strong>. On the right, flux is converging to a point, so the divergence is <strong>negative</strong>.</p>
 </div>
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
@@ -635,7 +632,6 @@ m_C =c (\Delta x)(\Delta y)(\Delta z) \\
 <div class="section" id="Domain">
 <h2>Domain<a class="headerlink" href="#Domain" title="Permalink to this headline">¶</a></h2>
 <p>The figure below shows the domain: the 1-D vertical profile under the middle of the pond:</p>
-<p><a class="reference internal" href="../_images/tailings_diffusion.png"><img alt="pic05" src="../_images/tailings_diffusion.png" style="width: 35.0%;" /></a></p>
 <p>Let’s put the origin <span class="math notranslate nohighlight">\(z=0\)</span> at 2 m depth, so that the pond-sediment interface is at <span class="math notranslate nohighlight">\(z=2~m\)</span>. We could also put the origin at the top and set <span class="math notranslate nohighlight">\(z=2~m\)</span> at 2 m into the sediments.</p>
 </div>
 <div class="section" id="Properties-of-the-problem-domain">
@@ -668,9 +664,9 @@ c(z) &= az + b\\
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span># YOUR CODE HERE
-raise NotImplementedError()
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># YOUR CODE HERE</span>
+<span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -678,9 +674,8 @@ raise NotImplementedError()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span># We test your a and b values here
-
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># We test your a and b values here</span>
 
 </pre></div>
 </div>
@@ -707,11 +702,11 @@ raise NotImplementedError()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span># your answer here
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># your answer here</span>
 
-# YOUR CODE HERE
-raise NotImplementedError()
+<span class="c1"># YOUR CODE HERE</span>
+<span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -719,9 +714,8 @@ raise NotImplementedError()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span># Hidden test here
-
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Hidden test here</span>
 
 </pre></div>
 </div>

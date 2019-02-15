@@ -100,10 +100,10 @@
     "\n",
     "For our 1-d problem, with the fluxes aligned with the $x$ direction, we have something that looks like \n",
     "\n",
-    "![pic02](figures/single_block_flux.png){width=\"20%\"}\n",
+    "<img src=\"figures/single_block_flux.png\" alt=\"pic02\" width=\"20%\" >\n",
     "\n",
     "The fluxes $j_{EC}$ and $j_{WC}$ enter at the **boundary** of  gridblock C - between EC and WC:\n",
-    "![pic03](figures/finite_volume_1d_uniform.png){width=\"20%\"}\n",
+    "<img src=\"figures/finite_volume_1d_uniform.png\" alt=\"pic03\" width=\"20%\" >\n",
     "\n",
     "It is therefore best to conceive of the fluxes as being located at the **boundary** between gridblocks.\n",
     "\n",
@@ -113,13 +113,13 @@
     "* we place the edge of the gridblock on the boundary if the boundary is a prescribed flux boundary; \n",
     "* we place the node on the boundary if it is a prescribed concentration boundary. \n",
     "\n",
-    "![pic04](figures/bc_location.png){width=\"40%\"}\n",
+    "<img src=\"figures/bc_location.png\" alt=\"pic04\" width=\"40%\" >\n",
     "\n",
     "#### Example \n",
     "\n",
     "Consider our simple 5-node example. In the physical system to be modeled, a flux of $j=0.37\\times 10^{-8}~mg/(s\\cdot m^2)$ of sulfate is entering from the left of the domain and the concentration is prescribed (fixed) at $c=9 ~mg/L$ on the right boundary:\n",
     "\n",
-    "![pic05](figures/ex_bc_location.png){width=\"50%\"}\n",
+    "<img src=\"figures/ex_bc_location.png\" alt=\"pic05\" width=\"50%\" >\n",
     "\n",
     "\n",
     "\n",
@@ -211,7 +211,7 @@
     "\\end{align}\n",
     "\n",
     "\n",
-    "![pic05](figures/2d_flux.png){width=\"20%\"}\n"
+    "<img src=\"figures/2d_flux.png\" alt=\"pic05\" width=\"20%\" >\n"
    ]
   },
   {
@@ -258,7 +258,7 @@
     "\n",
     "Let's write the equations for the 5-gridblock example from before, now with a flux boundary condition as shown (note $x$ and $y$ coordinate directions are as indicated,with $z$ into the page).\n",
     "\n",
-    "![pic06](figures/5node-flux-bc.png){width=\"50%\"}\n",
+    "<img src=\"figures/5node-flux-bc.png\" alt=\"pic06\" width=\"50%\" >\n",
     "\n",
     "The total length of the domain is $2~m$ in the $x$ direction, each gridblock is the same size and porosity and diffusion coefficient are spatially homogeneous:\n",
     "* $\\Delta x=2/4.5 = 0.44~ m$\n",
@@ -405,6 +405,7 @@
    "metadata": {
     "deletable": false,
     "editable": false,
+    "lines_to_next_cell": 2,
     "nbgrader": {
      "checksum": "c5e54a54db9da62a985f0c61d84190ca",
      "grade": true,
@@ -417,8 +418,7 @@
    },
    "outputs": [],
    "source": [
-    "# 3. We check your c[0] for cell 1 here\n",
-    "\n"
+    "# 3. We check your c[0] for cell 1 here\n"
    ]
   },
   {
@@ -427,7 +427,6 @@
    "metadata": {
     "deletable": false,
     "editable": false,
-    "lines_to_next_cell": 2,
     "nbgrader": {
      "checksum": "8a172c5987eb7c601b7b9373f0cc57c5",
      "grade": true,
@@ -440,21 +439,54 @@
    },
    "outputs": [],
    "source": [
-    "# 4. We check your value for the flux between grid blocks 4 and 5 (c[3] and c[4])"
+    "# 4. We check your value for the flux between grid blocks 4 and 5 (c[3] and c[4])\n"
    ]
   }
  ],
-    "metadata": {
-        "nbsphinx":{"execute":"never"},
+ "metadata": {
   "jupytext": {
    "cell_metadata_filter": "all",
    "formats": "ipynb",
-   "notebook_metadata_filter": "all"
+   "notebook_metadata_filter": "all",
+   "text_representation": {
+    "extension": ".py",
+    "format_name": "percent",
+    "format_version": "1.2",
+    "jupytext_version": "1.0.0-rc3"
+   }
   },
   "kernelspec": {
    "display_name": "Python 3",
    "language": "python",
    "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.8"
+  },
+  "nbsphinx": {
+   "execute": "never"
+  },
+  "toc": {
+   "base_numbering": 1,
+   "nav_menu": {},
+   "number_sections": true,
+   "sideBar": true,
+   "skip_h1_title": false,
+   "title_cell": "Table of Contents",
+   "title_sidebar": "Contents",
+   "toc_cell": true,
+   "toc_position": {},
+   "toc_section_display": true,
+   "toc_window_display": true
   }
  },
  "nbformat": 4,

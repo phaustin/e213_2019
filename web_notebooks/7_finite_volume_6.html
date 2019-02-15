@@ -413,19 +413,16 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Location-of-flux-boundary-condition">
 <h3>Location of flux boundary condition<a class="headerlink" href="#Location-of-flux-boundary-condition" title="Permalink to this headline">¶</a></h3>
 <p>For our 1-d problem, with the fluxes aligned with the <span class="math notranslate nohighlight">\(x\)</span> direction, we have something that looks like</p>
-<p><a class="reference internal" href="../_images/single_block_flux.png"><img alt="pic02" src="../_images/single_block_flux.png" style="width: 20.0%;" /></a></p>
-<p>The fluxes <span class="math notranslate nohighlight">\(j_{EC}\)</span> and <span class="math notranslate nohighlight">\(j_{WC}\)</span> enter at the <strong>boundary</strong> of gridblock C - between EC and WC: <a class="reference internal" href="web_notebooks/figures/finite_volume_1d_uniform.png"><img alt="pic03" src="web_notebooks/figures/finite_volume_1d_uniform.png" style="width: 20.0%;" /></a></p>
+<p>The fluxes <span class="math notranslate nohighlight">\(j_{EC}\)</span> and <span class="math notranslate nohighlight">\(j_{WC}\)</span> enter at the <strong>boundary</strong> of gridblock C - between EC and WC:</p>
 <p>It is therefore best to conceive of the fluxes as being located at the <strong>boundary</strong> between gridblocks.</p>
 </div>
 <div class="section" id="Implications-for-grid-and-boundary-condition-locations">
 <h3>Implications for grid and boundary condition locations<a class="headerlink" href="#Implications-for-grid-and-boundary-condition-locations" title="Permalink to this headline">¶</a></h3>
 <p>When we are modeling a physical system: * we place the edge of the gridblock on the boundary if the boundary is a prescribed flux boundary; * we place the node on the boundary if it is a prescribed concentration boundary.</p>
-<p><a class="reference internal" href="web_notebooks/figures/bc_location.png"><img alt="pic04" src="web_notebooks/figures/bc_location.png" style="width: 40.0%;" /></a></p>
 </div>
 <div class="section" id="Example">
 <h3>Example<a class="headerlink" href="#Example" title="Permalink to this headline">¶</a></h3>
 <p>Consider our simple 5-node example. In the physical system to be modeled, a flux of <span class="math notranslate nohighlight">\(j=0.37\times 10^{-8}~mg/(s\cdot m^2)\)</span> of sulfate is entering from the left of the domain and the concentration is prescribed (fixed) at <span class="math notranslate nohighlight">\(c=9 ~mg/L\)</span> on the right boundary:</p>
-<p><a class="reference internal" href="web_notebooks/figures/2d_flux.png"><img alt="pic05" src="web_notebooks/figures/2d_flux.png" style="width: 20.0%;" /></a></p>
 </div>
 <div class="section" id="Prescribed-flux-boundary-condition-in-a-discrete-approximation">
 <h3>Prescribed flux boundary condition in a discrete approximation<a class="headerlink" href="#Prescribed-flux-boundary-condition-in-a-discrete-approximation" title="Permalink to this headline">¶</a></h3>
@@ -471,7 +468,6 @@ div.rendered_html tbody tr:hover {
 &\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z)
 +\left(D\theta {c_N - c_C \over \Delta y} +   D\theta {c_S - c_C \over \Delta y}   \right) (\Delta x) (\Delta z)= 0 \label{eq7611}\\
 \end{align}</span></p>
-<p><a class="reference internal" href="web_notebooks/figures/2d_flux.png"><img alt="pic05" src="web_notebooks/figures/2d_flux.png" style="width: 20.0%;" /></a></p>
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
 <p>Modify each of the three equations below for the situation where there is no flux to or from gridblocks N and S:</p>
@@ -494,7 +490,6 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Gridblock-example---flux-boundary-conditions">
 <h1>Gridblock example - flux boundary conditions<a class="headerlink" href="#Gridblock-example---flux-boundary-conditions" title="Permalink to this headline">¶</a></h1>
 <p>Let’s write the equations for the 5-gridblock example from before, now with a flux boundary condition as shown (note <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> coordinate directions are as indicated,with <span class="math notranslate nohighlight">\(z\)</span> into the page).</p>
-<p><a class="reference internal" href="web_notebooks/figures/5node-flux-bc.png"><img alt="pic06" src="web_notebooks/figures/5node-flux-bc.png" style="width: 50.0%;" /></a></p>
 <p>The total length of the domain is <span class="math notranslate nohighlight">\(2~m\)</span> in the <span class="math notranslate nohighlight">\(x\)</span> direction, each gridblock is the same size and porosity and diffusion coefficient are spatially homogeneous: * <span class="math notranslate nohighlight">\(\Delta x=2/4.5 = 0.44~ m\)</span> * <span class="math notranslate nohighlight">\(\Delta y=0.3~m\)</span> * <span class="math notranslate nohighlight">\(\Delta z=0.5~m\)</span> * <span class="math notranslate nohighlight">\(D=2\times 10^{-10}~m^2/s\)</span> * <span class="math notranslate nohighlight">\(\theta = 0.25\)</span></p>
 <p>Note that the <em>edge</em> of gridblock 1 is on the physical boundary whereas the node of gridblock 5 is on the physical boundary. Accordingly, there are 4.5 gridblocks across the 2-m domain, so each gridblock is 0.44 m in the x direction.</p>
 <div class="section" id="Your-turn">
@@ -509,9 +504,9 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span># YOUR CODE HERE
-raise NotImplementedError()
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># YOUR CODE HERE</span>
+<span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -532,28 +527,28 @@ raise NotImplementedError()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span># 2b. solve the equations you just wrote down for the concentration c in steadcy state
-#
-# Our solution in this cell follows the same pattern as the week6_assign.  That is,
-# we defined a function called build_1d_matrix_source that produce a 5x5 matrix A
-# and a 5x1 vector b, such that the 5 cell concentrations c can be found with the
-# following python code
-#
-# A,b = build_1d_matrix_source(...)
-# c = np.linalg.solve(A, b)
-#
-# You can also show your hand calculations here.  If you do it by hand
-# leave the concentrations in a list named c, so we can check the values
-# like this
-#
-# c=[c1,c2,c3,c4,c5]
-#
-# we will check your c[0]=c1 value against ours in a test below.
-#
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 2b. solve the equations you just wrote down for the concentration c in steadcy state</span>
+<span class="c1">#</span>
+<span class="c1"># Our solution in this cell follows the same pattern as the week6_assign.  That is,</span>
+<span class="c1"># we defined a function called build_1d_matrix_source that produce a 5x5 matrix A</span>
+<span class="c1"># and a 5x1 vector b, such that the 5 cell concentrations c can be found with the</span>
+<span class="c1"># following python code</span>
+<span class="c1">#</span>
+<span class="c1"># A,b = build_1d_matrix_source(...)</span>
+<span class="c1"># c = np.linalg.solve(A, b)</span>
+<span class="c1">#</span>
+<span class="c1"># You can also show your hand calculations here.  If you do it by hand</span>
+<span class="c1"># leave the concentrations in a list named c, so we can check the values</span>
+<span class="c1"># like this</span>
+<span class="c1">#</span>
+<span class="c1"># c=[c1,c2,c3,c4,c5]</span>
+<span class="c1">#</span>
+<span class="c1"># we will check your c[0]=c1 value against ours in a test below.</span>
+<span class="c1">#</span>
 
-# YOUR CODE HERE
-raise NotImplementedError()
+<span class="c1"># YOUR CODE HERE</span>
+<span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -561,12 +556,12 @@ raise NotImplementedError()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span># In this cell show that for you value of the c vector, you do in fact get:
-# A@c=b  (either by hand or with python code in this cell)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># In this cell show that for you value of the c vector, you do in fact get:</span>
+<span class="c1"># A@c=b  (either by hand or with python code in this cell)</span>
 
-# YOUR CODE HERE
-raise NotImplementedError()
+<span class="c1"># YOUR CODE HERE</span>
+<span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -574,9 +569,8 @@ raise NotImplementedError()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span># 3. We check your c[0] for cell 1 here
-
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 3. We check your c[0] for cell 1 here</span>
 
 </pre></div>
 </div>
@@ -585,8 +579,9 @@ raise NotImplementedError()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span># 4. We check your value for the flux between grid blocks 4 and 5 (c[3] and c[4])
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 4. We check your value for the flux between grid blocks 4 and 5 (c[3] and c[4])</span>
+
 </pre></div>
 </div>
 </div>

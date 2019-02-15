@@ -220,7 +220,8 @@
    ]
   }
  ],
- "metadata": {
+    "metadata": {
+   "nbsphinx":{"execute":"never"},      
   "jupytext": {
    "cell_metadata_filter": "all",
    "formats": "",
@@ -252,12 +253,7 @@
    "title_cell": "Table of Contents",
    "title_sidebar": "Contents",
    "toc_cell": true,
-   "toc_position": {
-    "height": "calc(100% - 180px)",
-    "left": "10px",
-    "top": "150px",
-    "width": "358.523px"
-   },
+   "toc_position": {},
    "toc_section_display": true,
    "toc_window_display": true
   }
