@@ -21,11 +21,11 @@
     "week 6": [
         "6_finite_volume_4",
         "6_finite_volume_5",
-        "6_finite_volume_6",
         "week6_assign"
     ],
     "week 7": [
         "7_finite_volume_6",
-        "7_pdes_1"
+        "7_finite_volume_7",
+        "7_Finite_Volume_Transient"
     ]
 }
