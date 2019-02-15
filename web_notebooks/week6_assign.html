@@ -625,7 +625,8 @@ J_{EC}+J_{WC} = 0\\
 &\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x} \right) (\Delta y) (\Delta z) = 0 \\
 \end{align}</span></p>
 <p>We want you to write the equivalent stencil for the case where there is a source of mass <span class="math notranslate nohighlight">\(q ~ mg/(kg\cdot s)\)</span>.</p>
-<p><strong>Enter your answer below</strong></p>
+<div class="admonition note">
+<p class="admonition-title"><strong>Enter your answer below</strong></p>
 <p>Replace the 1-D steady-state fundamental equation below with the appropriate 1-D steady-state fundamental equation with a source term: <span class="math">\begin{align}
 J_{EC}+J_{WC} = 0\\
 \end{align}</span></p>
@@ -633,6 +634,7 @@ J_{EC}+J_{WC} = 0\\
 <p><span class="math">\begin{align}
 &\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x} \right) (\Delta y) (\Delta z) = 0 \\
 \end{align}</span></p>
+</div>
 <div class="section" id="Question1:-Modify-the-code">
 <h3>Question1: Modify the code<a class="headerlink" href="#Question1:-Modify-the-code" title="Permalink to this headline">¶</a></h3>
 <p>What we want is for you to modify the function which we have given you to incorporate the source term Q and compute the concentration. Therefore, we want you to copy and paste the function above, change its name.</p>
@@ -700,7 +702,10 @@ J_{EC}+J_{WC} = 0\\
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<span></span><span class="c1">### BEGIN HIDDEN TEST</span>
+<span class="kn">from</span> <span class="nn">numpy.testing</span> <span class="kn">import</span> <span class="n">assert_almost_equal</span>
+<span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="mf">1.8</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1">### END HIDDEN TEST</span>
 </pre></div>
 </div>
 </div>
@@ -715,7 +720,6 @@ J_{EC}+J_{WC}+J_{NC}+J_{SC} = 0\\
 &\left(D\theta \frac{c_E - c_C}{\Delta x} +   D\theta \frac{c_W - c_C}{\Delta x}   \right) (\Delta y) (\Delta z) = 0 \\
 \end{align}</span></p>
 <p>in 2D. Use N to denote North, and S to denote South.</p>
-<p><img alt="image0" src="../_images/nsewc_stencil.png" /></p>
 <p>(if you can’t deal with math type, write is as understandably as possible!).</p>
 <div class="section" id="Question-3:-Write-a-2-D-steady-state-stencil">
 <h3>Question 3: Write a 2-D steady-state stencil<a class="headerlink" href="#Question-3:-Write-a-2-D-steady-state-stencil" title="Permalink to this headline">¶</a></h3>

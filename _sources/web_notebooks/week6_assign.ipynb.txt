@@ -418,7 +418,7 @@
     "deletable": false,
     "editable": false,
     "nbgrader": {
-     "checksum": "750ef1d65b613f9622c67b50566049b1",
+     "checksum": "a4e6864b172d20bc0fce2797ed23f92d",
      "grade": false,
      "grade_id": "cell-bda2bafc34fa60b4",
      "locked": true,
@@ -427,6 +427,9 @@
     }
    },
    "source": [
+    "<div class=\"alert alert-info\" >\n",
+    "\n",
+    "\n",
     "**Enter your answer below**\n",
     "\n",
     "Replace the 1-D steady-state fundamental equation below with the appropriate 1-D steady-state fundamental equation with a source term:\n",
@@ -443,7 +446,9 @@
     "\n",
     "\\begin{align}\n",
     "&\\left(D\\theta {c_E - c_C \\over \\Delta x} +   D\\theta {c_W - c_C \\over \\Delta x} \\right) (\\Delta y) (\\Delta z) = 0 \\\\\n",
-    "\\end{align}"
+    "\\end{align}\n",
+    "\n",
+    "</div>"
    ]
   },
   {
@@ -613,7 +618,7 @@
     "deletable": false,
     "editable": false,
     "nbgrader": {
-     "checksum": "6b36f8a77074c24abf1066160a425cfb",
+     "checksum": "4275d8d6fb76a58a8e5d1ad5fa4f9f9b",
      "grade": true,
      "grade_id": "cell-c4958903bc886687",
      "locked": true,
@@ -623,7 +628,12 @@
     }
    },
    "outputs": [],
-   "source": []
+   "source": [
+    "### BEGIN HIDDEN TEST\n",
+    "from numpy.testing import assert_almost_equal\n",
+    "assert_almost_equal(c[15], 1.8, decimal=2)\n",
+    "### END HIDDEN TEST"
+   ]
   },
   {
    "cell_type": "markdown",
@@ -631,7 +641,7 @@
     "deletable": false,
     "editable": false,
     "nbgrader": {
-     "checksum": "1ff4669106c7ab0a5f527aa49d8c79e8",
+     "checksum": "f181810cab31a1962ed9b8ded86fdc25",
      "grade": false,
      "grade_id": "cell-093a5b343f44647f",
      "locked": true,
@@ -656,7 +666,7 @@
     "\n",
     "in 2D. Use  N to denote North, and S to denote South.\n",
     "\n",
-    "![](./figures/nsewc_stencil.png)\n",
+    "<img src=\"figures/nsewc_stencil.png\" width=\"25%\">\n",
     "\n",
     "(if you can't deal with math type, write is as understandably as possible!)."
    ]
