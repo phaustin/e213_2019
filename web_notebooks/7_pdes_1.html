@@ -61,7 +61,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">1.4. Week 4  Jan 22/Jan 24</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">1.5. Week 5  Jan 29/Jan 31</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">1.6. Week 6  Feb 05/Feb 07</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.7. General notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-7-feb-05-feb-07">1.7. Week 7  Feb 05/Feb 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.8. General notes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a><ul>
@@ -428,7 +429,7 @@ div.rendered_html tbody tr:hover {
 <li>Take limits as the size of the volume element and the time period of consideration shrink to infinitesimal size.</li>
 <li>Recognize limits as derivatives. Where the independent variable (eg concentration) is a function of more than one dependent variable (typically 3 space dimensions <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span> and <span class="math notranslate nohighlight">\(z\)</span>, and <span class="math notranslate nohighlight">\(t\)</span>), the derivatives are partial.</li>
 </ol>
-<p><a class="reference internal" href="web_notebooks/figures/shrink_to_infinitesimal.png"><img alt="pic01" src="web_notebooks/figures/shrink_to_infinitesimal.png" style="width: 35.0%;" /></a></p>
+<p><a class="reference internal" href="../_images/shrink_to_infinitesimal.png"><img alt="pic01" src="../_images/shrink_to_infinitesimal.png" style="width: 35.0%;" /></a></p>
 <div class="section" id="2-d-transient-mass---balance-statement">
 <h2>2-d transient mass - balance statement<a class="headerlink" href="#2-d-transient-mass---balance-statement" title="Permalink to this headline">¶</a></h2>
 <p>We’ll do this in 2-d.&nbsp;From that we can easily go to either 3-d or 1-d.</p>
@@ -450,7 +451,7 @@ div.rendered_html tbody tr:hover {
 <p>The next step is to re-express the fluxes in the discrete approximation such as <span class="math notranslate nohighlight">\(j_{EC}\)</span> in terms of components of a flux vector that varies continuously with location (here in 2-d) <span class="math notranslate nohighlight">\(\vec{j}= \left\{j_x, j_y\right\}\)</span> - the “true” flux that is approximated at gridblock edges by <span class="math notranslate nohighlight">\(j_{EC}\)</span>, etc. The only “trick” here is to be careful of the sign conventions.</p>
 <p>In contrast to our finite volume convention where fluxes such as <span class="math notranslate nohighlight">\(j_{EC}\)</span> are <strong>positive</strong> for flux <strong>into the volume</strong>, in math, a vector component is <strong>positive</strong> if the vector is pointing in the direction in which the <strong>coordinate direction corresponding to that component is increasing</strong>.</p>
 <p>We’ll demonstrate this for the <span class="math notranslate nohighlight">\(x\)</span> direction here. Consider gridblock C where the left (W) face is located at <span class="math notranslate nohighlight">\(x\)</span> and the right (E) face is located a position <span class="math notranslate nohighlight">\(x+\Delta x\)</span>. First, recognize that both <span class="math notranslate nohighlight">\(j_{WC}\)</span> and <span class="math notranslate nohighlight">\(j_{EC}\)</span> are <span class="math notranslate nohighlight">\(x\)</span> flux components.</p>
-<p><a class="reference internal" href="web_notebooks/figures/cv_x_dx.png"><img alt="pic03" src="web_notebooks/figures/cv_x_dx.png" style="width: 25.0%;" /></a></p>
+<p><a class="reference internal" href="../_images/cv_x_dx.png"><img alt="pic03" src="../_images/cv_x_dx.png" style="width: 25.0%;" /></a></p>
 <p>Here is the correspondence:</p>
 <ul class="simple">
 <li><span class="math notranslate nohighlight">\(j_{WC}\)</span> corresponds to <span class="math notranslate nohighlight">\(j_x(x,y,z)\)</span> because when <span class="math notranslate nohighlight">\(j_x\)</span> is positive, flux enters C, just like <span class="math notranslate nohighlight">\(j_{WC}\)</span></li>

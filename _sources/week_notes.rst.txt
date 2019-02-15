@@ -79,8 +79,15 @@ Week 6  Feb 05/Feb 07
 - `Quiz 1 answer key <http://clouds.eoas.ubc.ca/~phil/Downloads/e213_solutions/Quiz1_answers.pdf>`_
   
 - Due Tuesday noon: `week6_assign_html`_
-  
 
+Week 7  Feb 05/Feb 07
+=====================
+
+- `7_finite_volume_6_html`_
+
+- `7_pdes_1_html`_
+
+  
 General notes
 =============
   
