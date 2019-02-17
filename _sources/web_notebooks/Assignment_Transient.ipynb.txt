@@ -548,7 +548,7 @@
     "deletable": false,
     "editable": false,
     "nbgrader": {
-     "checksum": "c3367fbbeef6e56d406668564145d22b",
+     "checksum": "a49f72af411ce3dcdff3e79c4a8edb14",
      "grade": true,
      "grade_id": "cell-e3dd3d495d9a1bd8",
      "locked": true,
@@ -559,7 +559,7 @@
    },
    "outputs": [],
    "source": [
-    "Hidden test for a cell concentration (our choice of cell)"
+    "# Hidden test for a cell concentration (our choice of cell)"
    ]
   },
   {
@@ -612,7 +612,7 @@
     "deletable": false,
     "editable": false,
     "nbgrader": {
-     "checksum": "f6ce0c33e4bf49624a051f986a7e79d4",
+     "checksum": "b3f27d2e979d2a19da24eaded5887467",
      "grade": true,
      "grade_id": "cell-fecfbea162708f5a",
      "locked": true,
@@ -623,7 +623,7 @@
    },
    "outputs": [],
    "source": [
-    "Hidden test for answer"
+    "# Hidden test for answer"
    ]
   },
   {
@@ -721,8 +721,7 @@
    ]
   }
  ],
-    "metadata": {
-        "nbsphinx":{"execute":"never"},
+ "metadata": {
   "jupytext": {
    "cell_metadata_filter": "all",
    "formats": "ipynb",
@@ -750,6 +749,9 @@
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
    "version": "3.6.8"
+  },
+  "nbsphinx": {
+   "execute": "never"
   },
   "toc": {
    "base_numbering": 1,
