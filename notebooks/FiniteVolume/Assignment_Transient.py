@@ -8,13 +8,12 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.2'
-#       jupytext_version: 0.8.6
+#       jupytext_version: 1.0.0-rc5
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
 #     name: python3
 # ---
-
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"><li><span><a href="#Introduction" data-toc-modified-id="Introduction-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Introduction</a></span></li><li><span><a href="#Initial-conditions" data-toc-modified-id="Initial-conditions-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Initial conditions</a></span><ul class="toc-item"><li><span><a href="#Save-these-into-a-dict-for-later-use" data-toc-modified-id="Save-these-into-a-dict-for-later-use-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Save these into a dict for later use</a></span></li></ul></li><li><span><a href="#Steady-state" data-toc-modified-id="Steady-state-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Steady state</a></span></li><li><span><a href="#Transient-behavior" data-toc-modified-id="Transient-behavior-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Transient behavior</a></span></li></ul></div>
@@ -51,18 +50,20 @@
 # \begin{equation}
 # 2\frac{D\theta}{\Delta x^2} c_{\left[i\right]}  - \frac{D\theta}{\Delta x^2}c_{\left[i-1\right]} -   \frac{D\theta}{\Delta x^2} c_{\left[i+1\right]}  = q
 # \end{equation}
-
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-98a865dfd995366b"}}
+import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 import numpy as np
-# the next two imports are to show animations and video!
-import matplotlib.animation as animation
+from IPython.display import display
 from IPython.display import HTML
 from numpy.testing import assert_allclose
 
+# the next two imports are to show animations and video!
+
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-bd0b49f6ae1acef3"}}
-# this function deals with harmonic averaging when diffusion is not the same everywhere. 
+# this function deals with harmonic averaging when diffusion is not the same everywhere.
 # It doesn't change anything when diffusion is homogeneous but you can try to see how it affects the behavior.
+
 
 def avg(Di, Dj):
     """
@@ -74,32 +75,46 @@ def avg(Di, Dj):
     else:
         return 2 / (1 / Di + 1 / Dj)
 
+
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-54d67b8f8547140a"}}
 def Build_1D_Inhomo_Matrix_Source(bc_left, bc_right, n, D, Width, poro, Q):
     """
     Constructs a coefficient matrix and an array with varying diffusion coefficient and a source term
-    Parameters:
-    --------------
-    bc_left: (float)  left boundary condition
-    bc_right: (float) right boundary conditions
-    n (int): amounts of cells
-    D (float array): values of the diffusion coefficient (dm^2/day)
-    Width (float): Total phyiscal width of the domain
-    poro (float): porosity value
-    Q (float array): volumetric source term (mg/L/day)
-    Returns the matrix A, and the array b to solve the
-    discretized 1D diffusion problem Ax = b
 
+    Parameters
     ----------
+    bc_left: (float)
+          left boundary condition (mg/L)
+    bc_right: (float)
+         right boundary condition (mg/L)
+    n: (int)
+      number of cells
+    D: (float vector)
+        values of the diffusion coefficient ((dm)^2/day)
+    Width: (float)
+        Total phyiscal width of the domain (dm)
+    poro: (float)
+          porosity value
+    Q: (float vector)
+         volumetric source term (mg/L/day)
+
+    Returns
+    -------
+
+    A:  nxn float array
+    b: vector of length n
+
+    that solve the
+    discretized 1D diffusion problem Ax = b
     """
     Matrix = np.zeros((n, n))
     RHS = np.zeros(n)
-    dx = Width / (n-1)
+    dx = Width / (n - 1)
     coef = poro / dx / dx
     for i in range(n):
         if i == 0:
             RHS[i] = bc_left
-            Matrix[i,i] = 1
+            Matrix[i, i] = 1
         elif i == n - 1:
             RHS[i] = bc_right
             Matrix[i, i] = 1
@@ -112,41 +127,42 @@ def Build_1D_Inhomo_Matrix_Source(bc_left, bc_right, n, D, Width, poro, Q):
             Matrix[i, i - 1] = -West
     return Matrix, RHS
 
+
 # %% [markdown]
 # # Initial conditions
 
 # %% [markdown] {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-b41a29613812db59"}}
 # We will use similar conditions than in the previous assignment. However, it is a good practise to use units which are representative of the current problem, otherwise we have to deal with very large or very small numbers.
 #
-# The diffusion coefficient of solutes in pure water is usually 2$\times$10$^{-9}$ m$^2$/s. Concentrations are usually expressed in mg/L, corresponding to mg/dm$^3$. To avoid future unit problems, let us define 
+# The diffusion coefficient of solutes in pure water is usually 2$\times$10$^{-9}$ m$^2$/s. Concentrations are usually expressed in mg/L, corresponding to mg/dm$^3$. To avoid future unit problems, let us define
 #
 # - one day as the time unit
 # - one dm as the length unit (leading to Liters being the adequate volume unit)
 # - mg as the mass unit
 #
-# In these units, the diffusion is expressed in dm$^2$/day, the width in dm, and the rate in mg/L/day. 
-# We will here change the values of the parameters used previously.. 
+# In these units, the diffusion is expressed in dm$^2$/day, the width in dm, and the rate in mg/L/day.
+# We will here change the values of the parameters used previously..
 
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-b9bd7eaf90619a64"}}
-c_left = 1 #mg/L
-c_right = 0 #mg/L
+c_left = 1  # mg/L
+c_right = 0  # mg/L
 n = 51
-Diff = 2e-9*100*24*3600 # dm²/day
+Diff = 2e-9 * 100 * 24 * 3600  # dm²/day
 D = Diff * np.ones(n)
 Q = np.zeros(n)
 Q0 = 5e-2  # mg/L/day
 Q[int(n / 4) : int(n / 2)] = Q0  # mg/L/day
-Width = 2 #dm
+Width = 2  # dm
 poro = 0.4
 nTstp = 201
-dt = 0.5 #days
+dt = 0.5  # days
 
 c_init = np.zeros((nTstp, n))
-c_init[:,0] = 1  # Boundary condition
+c_init[:, 0] = 1  # Boundary condition
 
 
 # %%
-# If you want to change the parameters value, you are welcome to do so here. 
+# If you want to change the parameters value, you are welcome to do so here.
 # But know that your results will be tested based on the parameters given above
 # We encourage you to try different things
 # For example, you change the diffusion at certain places, change the source term, ...
@@ -208,13 +224,14 @@ plt.ylabel("Concentration (mg/L)")
 #
 # So we can solve this problem by using the same matrixes used before, but we need to add extra terms.
 #
-# Based on the previous assignment, most of these terms are already incorporated in the matrix A and b. There are only a couple of terms to add to be able to solve the transient problem. We will keep the structure of matrix A and b defined. 
+# Based on the previous assignment, most of these terms are already incorporated in the matrix A and b. There are only a couple of terms to add to be able to solve the transient problem. We will keep the structure of matrix A and b defined.
 #
 # You have got to modify the next cell (keep its original structure), and incorporate these new terms in the defined arrays Abis and Bbis.
 
 # %% {"nbgrader": {"schema_version": 1, "solution": true, "grade": true, "locked": false, "points": 5, "grade_id": "cell-89ed183cacbcbc6d"}}
 # HERE YOU HAVE TO ADD TWO LINES OF CODE WHERE IS IT ASKED. WE RECOMMEND NOT TO CHANGE ANYTHING ELSE
 # Refer to the equations developed before!
+
 
 def calc_conc(
     Diff=None,
@@ -236,33 +253,65 @@ def calc_conc(
     c = c_init
     Abis = np.zeros((n, n))
     Bbis = np.zeros(n)
-    
+
     for t in range(nTstp - 1):
         for i in range(n):
-            Abis[i,i] = 0   # Here is where you need to change!
+            Abis[i, i] = 0  # Here is where you need to change!
             Bbis[i] = 0  # Here is where you need to change!
-            ### BEGIN SOLUTION
-            Abis[i,i] = poro/dt   # -100000 # Here is where you need to change!
-            Bbis[i] = c[t,i]*poro/dt #-100000 # Here is where you need to change!
-            ### END SOLUTION
         Aa = A + Abis
         bb = b + Bbis
-        c[t + 1,:] = np.linalg.solve(Aa, bb)
-        
+        c[t + 1, :] = np.linalg.solve(Aa, bb)
+
     return x, c
+
+
+### BEGIN SOLUTION
+def calc_conc(
+    Diff=None,
+    D=None,
+    Width=None,
+    c_left=None,
+    c_right=None,
+    poro=None,
+    Q=None,
+    c_init=None,
+    n=None,
+    nTstp=None,
+    dt=None,
+):
+
+    x = np.linspace(0, Width, n)
+    A, b = Build_1D_Inhomo_Matrix_Source(c_left, c_right, n, D, Width, poro, Q)
+
+    c = c_init
+    Abis = np.zeros((n, n))
+    Bbis = np.zeros(n)
+
+    for t in range(nTstp - 1):
+        for i in range(n):
+            Abis[i, i] = poro / dt  # Here is where you need to change!
+            Bbis[i] = c[t, i] * poro / dt  # Here is where you need to change!
+        Aa = A + Abis
+        bb = b + Bbis
+        c[t + 1, :] = np.linalg.solve(Aa, bb)
+
+    return x, c
+
+
+### BEGIN SOLUTION
 
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-41e25b3ba511d765"}}
 x, c = calc_conc(**init_dict)
 
 plt.plot(x, c_final, label="Asymptotic concentration")
-plt.plot(x, c[0,:], label="Initial concentration")
-plt.plot(x, c[10,:], label="Concentration after 10 timestep")
-plt.plot(x, c[30,:], label="Concentration after 30 timesteps")
-plt.plot(x, c[60,:], label="Concentration after 60 timesteps")
-plt.plot(x, c[nTstp - 1,:], label="Concentration after 200 timesteps")
+plt.plot(x, c[0, :], label="Initial concentration")
+plt.plot(x, c[10, :], label="Concentration after 10 timestep")
+plt.plot(x, c[30, :], label="Concentration after 30 timesteps")
+plt.plot(x, c[60, :], label="Concentration after 60 timesteps")
+plt.plot(x, c[nTstp - 1, :], label="Concentration after 200 timesteps")
 plt.xlabel("x-axis (dm)")
 plt.ylabel("Concentration (mg/L)")
-plt.legend(bbox_to_anchor=(1.01, 1), loc='upper left');
+plt.legend(bbox_to_anchor=(1.01, 1), loc="upper left")
 
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": true, "locked": true, "points": 3, "grade_id": "cell-e3dd3d495d9a1bd8"}}
 assert_allclose(c[100][11], 1.69, rtol=1e-2, atol=0)
@@ -278,9 +327,11 @@ answer = c[120][40]
 ### END SOLUTION
 
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": true, "locked": true, "points": 2, "grade_id": "cell-fecfbea162708f5a"}}
-assert_allclose(answer,0.65, rtol = 1e-2)
+assert_allclose(answer, 0.65, rtol=1e-2)
 
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-22d5514ace8b854a"}}
+
+
 def make_animation(init_dict):
     image_list = []
     x, c = calc_conc(**init_dict)
@@ -298,18 +349,19 @@ fig, image_list = make_animation(init_dict)
 
 
 # %%
-# If you want to see the animation, just change movie to True! (might not work depending on your config and browser)
-movie=False
+# If you want to see the animation, just change movie to True
+# (might not work depending on your config and browser, working
+# for chrome on macos
+
+movie = True
 
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-e09cb384b6b1f9c5"}}
 if movie:
-    import matplotlib.animation as animation
-    from IPython.display import HTML
-
     anim = animation.ArtistAnimation(
         fig, image_list, interval=50, blit=True, repeat_delay=1000
     )
 
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-61cb781fde1572ce"}}
 if movie:
-    [HTML(anim.to_html5_video())
+    out = HTML(anim.to_html5_video())
+    display(out)
