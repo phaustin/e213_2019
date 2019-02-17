@@ -7,6 +7,7 @@ python $e213/website/scripts/find_notebooks.py
 import json
 import os
 import shutil
+import sys
 import textwrap
 from pathlib import Path
 
@@ -62,8 +63,16 @@ def main(args=None):
             py_name = f"{notebook}.py"
             nb_name = f"{notebook}.ipynb"
             print(f"processing {nb_name} in folder {context.student_dir}")
-            nb_file = list(context.student_dir.glob(f"**/{nb_name}"))[0]
-            py_file = list(context.student_dir.glob(f"**/{py_name}"))[0]
+            try:
+                nb_file = list(context.student_dir.glob(f"**/{nb_name}"))[0]
+            except IndexError:
+                print(f"error locating {context.student_dir} / {nb_name}")
+                sys.exit(1)
+            try:
+                py_file = list(context.student_dir.glob(f"**/{py_name}"))[0]
+            except IndexError:
+                print(f"error locating {context.student_dir} / {py_name}")
+                sys.exit(1)
             print(nb_file.is_file())
             nb_path = str(nb_file.relative_to(context.student_dir))
             shutil.copy(nb_file, web_notebooks_path)
