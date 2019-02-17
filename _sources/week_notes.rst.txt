@@ -85,9 +85,11 @@ Week 7  Feb 05/Feb 07
 
 - `7_finite_volume_6_html`_
 
-- `7_pdes_1_html`_
+- `7_finite_volume_7_html`_
 
-  
+- `Assignment_Transient_html`_ -- due Tuesday, Feb. 26
+
+
 General notes
 =============
   

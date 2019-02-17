@@ -1,0 +1,391 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Finite volumes 7 - transient problems and time integration"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "\n",
+    "\n",
+    "## Learning goals\n",
+    "1. Be able to formulate a transient finite-volume method.\n",
+    "2. Be able to formulate a stencil for the Euler method for a finite - volume approximation.\n",
+    "3. To recognize the advantages and disadvantages of explicit, implicit and mixed time-stepping schemes.\n",
+    "4. To be able to code a transient problem in python.\n",
+    "5. To be able to plot the results in python.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "## The two Eulers\n",
+    "\n",
+    "We've covered transient ordinary differential equations of the form \n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "{dy\\over dt} &= f(y)\\label{7fv71}\\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n",
+    "The idea of the Euler method is to approximate the time derivative as finite difference:\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "{dy\\over dt} \\approx {y(t+\\Delta t) - y(t)\\over \\Delta t} \\label{7fv72}\\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n",
+    "Then we can approximate the ordinary differential equation with this algebraic equation:\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "{y(t+\\Delta t) - y(t)\\over \\Delta t}  &= f(y)\\label{7fv73}\\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n",
+    "This finite-difference approximation is accurate if $\\Delta t$ is small. The approach behind most transient problems is to **time step** with time steps that are sufficiently small to maintain accuracy and stability. We start with the **initial condition** (knowledge of the dependent variable ($y$) at the start of the period of interest ($t_0$)) and then find $y$ at time $t+\\Delta t$, ...: \n",
+    "<br><br>\n",
+    "\\begin{align*}\n",
+    "\\text{Step 1}\\quad y(t_0)\\quad &\\underrightarrow{\\Delta t} \\quad  y(t_0+\\Delta t)\\\\\n",
+    "\\text{Step 2}\\quad y(t_1)\\quad &\\underrightarrow{\\Delta t} \\quad y(t_1+\\Delta t)\\\\\n",
+    "\\text{Step 3}\\quad y(t_2)\\quad &\\underrightarrow{\\Delta t} \\quad  y(t_2+\\Delta t)\\\\\n",
+    "\\text{Step 4}\\quad y(t_3)\\quad &\\underrightarrow{\\Delta t} \\quad  y(t_3+\\Delta t)\\\\\n",
+    "\\end{align*}\n",
+    "\n",
+    "etc\n",
+    "The value of the dependent variable at the start of the simulation period, usually $t=0$ is $y(0)$ and is called the **initial condition**. The initial condition is part of the problem specification and, along with boundary conditions, is information required before the problem can be solved.\n",
+    "\n",
+    "### Time stepping\n",
+    "In a finite-volume approach with gridblocks in space, the approach is:\n",
+    "<br><br>\n",
+    "1. Start with an initial condition at $t = t_0$\n",
+    "2. Determine solution at every node at $t = t_0 +\\Delta t$, where $\\Delta t$ is the time step.\n",
+    "3. Repeat, optionally with a different time step size, and march forward in time, one time step at a time. \n",
+    "\n",
+    "\n",
+    "<br><br>\n",
+    "The Euler approach then can be written:\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "{y(t+\\Delta t)}  &= y(t) + \\Delta t f(y)\\label{7fv74}\\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n",
+    "The two Euler methods differ in the time level at which we evaluate $f(y)$; either the old time level or the future time level:\n",
+    "\n",
+    "#### Forward Euler - explicit\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "{y(t+\\Delta t)}  &= y(t) + \\Delta t \\underbrace{f(y(t))}_\\text{evaluated at present time}\\label{7fv75}\\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n",
+    "#### Backward Euler - implicit\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "{y(t+\\Delta t)}  &= y(t) + \\Delta t \\underbrace{f(y(t+\\Delta t))}_\\text{evaluated at future time}\\label{7fv76}\\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n",
+    "\n",
+    "\n",
+    "In this notebook, we'll develop the transient 1-D finite volume stencil and then show how we can apply explicit and implicit time stepping schemes. It will then be clear why forward Euler is called explicit and backward Euler implicit (I prefer the terms implicit and explicit).\n",
+    "<br><br><br><br>\n",
+    "\n",
+    "##  Transient finite-volume equation for diffusion in porous media \n",
+    "We'll develop the equations for 1-D. The 2- and 3-D equations follow the same pattern.\n",
+    "Recall from notebook `5.1finite_volume_2.ipynb` the following transient mass conservation statement\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "m_C(t+\\Delta t) - m_C(t) & = \\left(J_{EC}+J_{WC}\\right)\\Delta t \\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n",
+    "where $m_C \\left[M\\right]$ is the mass in control volume C and $J_{EC}, J_{WC}~\\left[M/T\\right]$ are the mass fluxes into C.\n",
+    "If we take $\\Delta t$ to the other side we get:\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "{m_C(t+\\Delta t) - m_C(t)\\over \\Delta t} & =  J_{EC}+J_{WC} \\label{7fv77} \\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n",
+    "We developed a stencil for the right side of this equation $0=J_{EC}+J_{WC}$ for diffusion in porous media in notebooks `6_finite_volume_4.ipynb` and `6_finite_volume_5.ipynb`. The stencil is (1-D):\n",
+    "<br><br><br><br>\n",
+    "\\begin{align}\n",
+    "&J_{EC}+J_{WC}=\\left(D\\theta {c_E - c_C \\over \\Delta x} +   D\\theta {c_W - c_C \\over \\Delta x}   \\right) (\\Delta y) (\\Delta z) \\label{7fv78}\\\\\n",
+    "\\end{align}\n",
+    "\n",
+    "Or with terms that multiply $c_E$, $c_C$ and $c_W$ collected together:\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "&J_{EC}+J_{WC} = \\left(D\\theta {\\Delta y \\Delta z \\over \\Delta x}\\right) c_E - \\left(2 D\\theta {\\Delta y \\Delta z \\over \\Delta x}\\right) c_C + \\left(D\\theta {\\Delta y \\Delta z \\over \\Delta x}\\right) c_W \\label{7fv79}\\\\\n",
+    "\\end{align}\n",
+    "<br><br><br><br>\n",
+    "So, substituting \\ref{7fv79} into \\ref{7fv77} we can write the transient conservation law for the case of 1-D diffusion in porous media as:\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "&{m_C(t+\\Delta t) - m_C(t)\\over \\Delta t}= \\left(D\\theta {\\Delta y \\Delta z \\over \\Delta x}\\right) c_E - \\left(2 D\\theta {\\Delta y \\Delta z \\over \\Delta x}\\right) c_C + \\left(D\\theta {\\Delta y \\Delta z \\over \\Delta x}\\right) c_W \\label{7fv710}\\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Your turn\n",
+    "Show that the dimensions of both sides of transient 1-D diffusion in porous media stencil \\ref{7fv710} are the same.\n",
+    "\n",
+    "The left side has dimensions $\\left[\\text{Left side dimension here}\\right]$\n",
+    "\n",
+    "The right side has dimensions $\\left[\\text{Right side dimension here}\\right]$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<br><br>\n",
+    "As a last step, we convert the mass in the control volume C, $m_C$, into a concentration in the control volume $c_C$.\n",
+    "\n",
+    "\n",
+    "In porous media, when the pores are fully saturated with water, the volume of water in the gridblock is porosity $\\times$ total volume of the gridblock: $\\theta (\\Delta x)(\\Delta y)(\\Delta z)$, so the mass of solute in the water in the gridblock is the volume of water $\\times$ the concentration in the water: $c \\theta (\\Delta x)(\\Delta y)(\\Delta z)$.\n",
+    "<br><br> \n",
+    "So for $m_C$ we substitute $c\\theta (\\Delta x)(\\Delta y)(\\Delta z)$.\n",
+    "<br><br>\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "&{c_C(t+\\Delta t) - c_C(t)\\over \\Delta t}\\theta (\\Delta x)(\\Delta y)(\\Delta z)= \\left(D\\theta {\\Delta y \\Delta z \\over \\Delta x}\\right) c_E - \\left(2 D\\theta {\\Delta y \\Delta z \\over \\Delta x}\\right) c_C + \\left(D\\theta {\\Delta y \\Delta z \\over \\Delta x}\\right) c_W \\label{7fv711}\\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n",
+    "We're not quite done. We have to determine at what time level we compute the right side of this expression.\n",
+    "<br><br><br>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Implicit and explicit methods\n",
+    "\n",
+    "From the Euler perspective, the question we ask, is at what time level do we treat the spatial terms. First some notation.\n",
+    "\n",
+    "* $c_C^t$ = the concentration in gridblock C at the present time level $t$. These values are known. At the first time step, $c_C^{t_0}$ is the **initial condition**.\n",
+    "* $c_C^{(t+\\Delta t)}$ = the concentration in gridblock C at the next time step at time $t+\\Delta t$. These values are not known.\n",
+    "<br><br>\n",
+    "Conceptually, we can think of our transient discrete approximation like the simple ODEs in equation \\ref{7fv74} that we used to introduce the Euler method:\n",
+    "<br><br><br>\n",
+    "\\begin{align}\n",
+    "&\\quad\\quad c_C(t+\\Delta t) =  c_C(t) + \\Delta t f(c_W, c_C, c_E)\\\\\n",
+    "\\nonumber \\text{where}&\\\\\n",
+    "&f(c_W, c_C, c_E)= {1\\over\\theta (\\Delta x)(\\Delta y)(\\Delta z)}\\left\\{  \\left(D\\theta {\\Delta y \\Delta z \\over \\Delta x}\\right) c_E - \\left(2 D\\theta {\\Delta y \\Delta z \\over \\Delta x}\\right) c_C + \\left(D\\theta {\\Delta y \\Delta z \\over \\Delta x}\\right) c_W \\right\\} \\label{7fv712}\\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n",
+    "In an **explicit** method (Forward Euler), we evaluate $f$ in \\ref{7fv712} at the present (known) time level $t$:\n",
+    "<br><br><br>\n",
+    "\\begin{align}\n",
+    "&c_C^{(t+\\Delta t)} =  c_C^t + \\Delta t \\overbrace{f(c_W^t, c_C^t, c_E^t)}^\\text{evaluated at known time}\\label{7fv713}\\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n",
+    "In an **implicit** method (Backward Euler), we evaluate $f$ in \\ref{7fv712} at the future (unknown) time level $t+\\Delta t$:\n",
+    "<br><br><br>\n",
+    "\\begin{align}\n",
+    "&c_C^{(t+\\Delta t)} =  c_C^t + \\Delta t \\overbrace{f(c_W^{(t+\\Delta t)}, c_C^{(t+\\Delta t)}, c_E^{(t+\\Delta t)})}^\\text{evaluated at future time $t+\\Delta t$}\\label{7fv714}\\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n",
+    "## Explicit 1-d stencil for diffusion in porous media\n",
+    "<br><br>\n",
+    "Here, the spatial terms on the right are evaluated using the concentrations at the known time level, $c_W^t$, $c_C^t$, $c_E^t$:\n",
+    "<br><br><br>\n",
+    "\\begin{align}\n",
+    "&{c_C^{(t+\\Delta t)} - c_C^t\\over \\Delta t}\\theta (\\Delta x)(\\Delta y)(\\Delta z)= \\left(D\\theta {\\Delta y \\Delta z \\over \\Delta x}\\right) c_E^t - \\left(2 D\\theta {\\Delta y \\Delta z \\over \\Delta x}\\right) c_C^t + \\left(D\\theta {\\Delta y \\Delta z \\over \\Delta x}\\right) c_W^t \\label{7fv715}\\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Implicit 1-d stencil for diffusion in porous media\n",
+    "<br><br>\n",
+    "Here, the spatial terms on the right are evaluated using the concentrations at the future $t+\\Delta t$ time level, $c_W^{(t+\\Delta t)}$, $c_C^{(t+\\Delta t)}$, $c_E^{(t+\\Delta t)}$:\n",
+    "<br><br><br>\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "&{c_C^{(t+\\Delta t)} - c_C^t\\over \\Delta t}\\theta (\\Delta x)(\\Delta y)(\\Delta z) = \\left(D\\theta {\\Delta y \\Delta z \\over \\Delta x}\\right) c_E^{(t+\\Delta t)} - \\left(2 D\\theta {\\Delta y \\Delta z \\over \\Delta x}\\right) c_C^{(t+\\Delta t)} + \\left(D\\theta {\\Delta y \\Delta z \\over \\Delta x}\\right) c_W^{(t+\\Delta t)}\\label{7fv716}\\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Your turn\n",
+    "\n",
+    "Re-arrange the explicit equation \\ref{7fv715} to collect together the terms that multiply each variable, with the known variables on the right side (those at time level $t$) and the unknowns on the left (those at time level $t+\\Delta t$.\n",
+    "\n",
+    "\n",
+    "Put the result here\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Your turn\n",
+    "\n",
+    "Re-arrange the implicit equation \\ref{7fv716} to collect together the terms that multiply each variable, with the known variables on the right side (those at time level $t$) and the unknowns on the left (those at time level $t+\\Delta t$:\n",
+    "\n",
+    "\n",
+    "Put the result here"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Summary\n",
+    "\n",
+    "### Explicit method\n",
+    "\n",
+    "* initial conditions provide solution for the first $t_0$ time step\n",
+    "* each individual unknown at the next time level $t+\\Delta t$ can be computed from an **explicit** formula containing values from the known time level $t$.\n",
+    "* no matrix equation is necessary - the value of each unknown can be written as an explicit expression of values from a known time level.\n",
+    "* each unknown at time level $t+\\Delta t$ is independent of other values at the $t+\\Delta t$ time level.\n",
+    "\n",
+    "Conceptual model of the explicit method: For a 1-D diffusion problem, the C node at time level $t+\\Delta t$ depends on the values of C, W, E nodes at time level $t$:\n",
+    "\n",
+    "<img src=\"figures/explicit.png\" alt=\"pic05\" width=\"40%\" >"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Implicit method\n",
+    "\n",
+    "* initial conditions provide solution for the first $t_0$ time step\n",
+    "* spatial derivatives evaluated at time level $t+\\Delta t$.\n",
+    "* **cannot** rearrange equation with one unknown at $t+\\Delta t$ in terms of values from the known time level $t$.\n",
+    "* BUT can write one equation for each gridblock - the solution is **IMPLICIT** in the system of equations.\n",
+    "* must solve a system of equations at each time step.\n",
+    "* each unknown at time level $t+\\Delta t$ is dependent on the other values at the $t+\\Delta t$ time level.\n",
+    "\n",
+    "Conceptual model for the 1-D implicit diffusion stencil:\n",
+    "\n",
+    "<img src=\"figures/implicit.png\" alt=\"pic05\" width=\"40%\" >"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<br><br>\n",
+    "## Accuracy, stability and time-step constraints\n",
+    "\n",
+    "### Accuracy\n",
+    "\n",
+    "For both explicit and implicit methods, the accuracy will improve with smaller time steps. That is good. What is the cost of using smaller time steps?\n",
+    "<br><br>\n",
+    "\n",
+    "### Stability\n",
+    "A **stable** time discretization is one where round-off errors and small errors in initial conditions do not grow large with each time step. In an unstable scheme, roundoff errors quickly pollute the solution beyond recognition.\n",
+    "\n",
+    "### Explicit methods are conditionally stable\n",
+    "\n",
+    "Explicit methods are **conditionally stable**, with conditions that depend upon the gridblock size, the parameters of the system and the time step. The conditions on stability are (for one-dimensional diffusion):\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "{\\Delta t\\over (\\Delta x)^2}< {1\\over 2 \\max D} \\label{7fv717}\\\\\n",
+    "\\end{align}\n",
+    "where $D$ is the diffusion coefficient.\n",
+    "<br><br>\n",
+    "\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Your turn\n",
+    "\n",
+    "What is the largest time step (in seconds) that can be used for a grid where $\\Delta x=10~cm$ and $D = 10^{-9}~m^2/s$.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "### BEGIN SOLUTION\n",
+    "dt = (0.1)*(0.1)/(2.*1e-9) \n",
+    "### END SOLUTION"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Implicit methods are unconditionally stable\n",
+    "\n",
+    "Implicit methods are **unconditionally stable**. While large time steps may lead to inaccurate solutions, the solutions will not become unstable. For this reason, implicit methods are preferred for their stability.\n",
+    "<br><br>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Reflection\n",
+    "\n",
+    "* What are the trade-offs between an explicit scheme and an implicit scheme? \n",
+    "* What considerations should you take into account when choosing a time-integration scheme and a time-step size?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "jupytext": {
+   "cell_metadata_filter": "all",
+   "formats": "",
+   "notebook_metadata_filter": "all",
+   "text_representation": {
+    "extension": ".py",
+    "format_name": "percent",
+    "format_version": "1.2",
+    "jupytext_version": "1.0.0-rc4"
+   }
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.1"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
