@@ -493,7 +493,7 @@ for i in range(N_y):
             D[i, j] = Diff / 100
 
 fig, ax = plt.subplots()
-cm = cmap.get_cmap("RdGy")
+cm = cmap.get_cmap("RdGy_r")
 plt.contourf(x, y, D, cmap=cm)
 plt.colorbar()
 # noqa
