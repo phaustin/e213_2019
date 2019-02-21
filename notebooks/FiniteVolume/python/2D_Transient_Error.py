@@ -16,9 +16,9 @@
 # ---
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#Introduction" data-toc-modified-id="Introduction-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Introduction</a></span><ul class="toc-item"><li><span><a href="#Learning-Goals" data-toc-modified-id="Learning-Goals-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Learning Goals</a></span></li><li><span><a href="#Context" data-toc-modified-id="Context-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Context</a></span></li><li><span><a href="#Boundary-conditions" data-toc-modified-id="Boundary-conditions-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Boundary conditions</a></span></li><li><span><a href="#1D-diffusion-from-a-constant-concentration-boundary" data-toc-modified-id="1D-diffusion-from-a-constant-concentration-boundary-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>1D diffusion from a constant-concentration boundary</a></span></li></ul></li><li><span><a href="#Homogeneous-problem" data-toc-modified-id="Homogeneous-problem-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Homogeneous problem</a></span><ul class="toc-item"><li><span><a href="#1D" data-toc-modified-id="1D-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>1D</a></span></li><li><span><a href="#Quantification-of-the-error" data-toc-modified-id="Quantification-of-the-error-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Quantification of the error</a></span></li><li><span><a href="#2D" data-toc-modified-id="2D-2.3"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>2D</a></span></li></ul></li></ul></div>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Learning-Goals" data-toc-modified-id="Learning-Goals-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Learning Goals</a></span></li><li><span><a href="#Context" data-toc-modified-id="Context-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Context</a></span></li><li><span><a href="#Boundary-conditions" data-toc-modified-id="Boundary-conditions-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Boundary conditions</a></span></li><li><span><a href="#1D-diffusion-from-a-constant-concentration-boundary" data-toc-modified-id="1D-diffusion-from-a-constant-concentration-boundary-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>1D diffusion from a constant-concentration boundary</a></span></li><li><span><a href="#1D" data-toc-modified-id="1D-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>1D</a></span></li><li><span><a href="#Quantification-of-the-error" data-toc-modified-id="Quantification-of-the-error-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Quantification of the error</a></span></li><li><span><a href="#2D" data-toc-modified-id="2D-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>2D</a></span></li></ul></div>
 # %% [markdown] {"nbgrader": {"grade": false, "grade_id": "cell-0a4af3607542b85a", "locked": true, "schema_version": 1, "solution": false}}
-# # Introduction
+# # 2D Transient simulation
 #
 # ## Learning Goals
 #
@@ -58,7 +58,6 @@ import numpy as np
 from mpl_toolkits.axes_grid1 import AxesGrid
 from scipy import special
 
-# the next two imports are to show animations and video!
 
 # %%
 N_tstep = 6
@@ -85,6 +84,7 @@ for t in range(1, N_tstep):
 plt.xlabel("x-axis (dm)")
 plt.ylabel("Concentration (mg/L)")
 plt.legend(bbox_to_anchor=(1.01, 1), loc="upper left")
+# noqa
 
 
 # %% [markdown]
@@ -458,7 +458,7 @@ for i in range(nfig):
 
 plt.plot(err_norm)
 maxerr = max(err_norm)
-print(maxerr)
+print(f"maxerr={maxerr}")
 
 # %% [markdown]
 # ## 2D
@@ -496,6 +496,7 @@ fig, ax = plt.subplots()
 cm = cmap.get_cmap("RdGy")
 plt.contourf(x, y, D, cmap=cm)
 plt.colorbar()
+# noqa
 
 
 # %%
@@ -583,8 +584,8 @@ grid = AxesGrid(
 
 for time_index, the_ax in zip(time_steps, grid):
     the_ax.axis("equal")
-    im = the_ax.contourf(x, y, c[:, :, time_index], 20, cm="RdGy")
+    im = the_ax.contourf(x, y, c[:, :, time_index], 20, cmap=cm)
 
-cbar = the_ax.cax.colorbar(im)
 cbar = grid.cbar_axes[0].colorbar(im)
-fig.suptitle("big title here", y=0.9)
+cbar.set_label_text("colorbar title here", rotation=270, size=20, va="bottom")
+fig.suptitle("big title here", y=0.9, size=25, va="bottom")
