@@ -184,39 +184,39 @@ def Build_2D_Matrix(BC, Prob, D, Q):
         else:
             i, j = ind_to_row_col(ind, Number_of_rows, Number_of_col)
         if j == 0:  # WEST BOUNDARY
-            if BC[0].btype == "const":
-                RHS[ind] = BC[0].val
+            if BC["west"].btype == "const":
+                RHS[ind] = BC["west"].val
                 Matrix[ind, ind] = 1
             else:  # flux boundary condition
                 Matrix[ind, ind] = 1
                 Matrix[ind, ind + 1] = -1
-                RHS[ind] = BC[0].val / dx
+                RHS[ind] = BC["west"].val / dx
 
         elif j == Number_of_col - 1:  # EAST BOUNDARY
-            if BC[2].btype == "const":
-                RHS[ind] = BC[2].val
+            if BC["east"].btype == "const":
+                RHS[ind] = BC["east"].val
                 Matrix[ind, ind] = 1
             else:  # flux boundary condition
                 Matrix[ind, ind] = 1
                 Matrix[ind, ind - 1] = -1
-                RHS[ind] = BC[2].val / dx
+                RHS[ind] = BC["east"].val / dx
         elif i == 0 and Prob.ny > 1:  # SOUTH BOUNDARY
-            if BC[3].btype == "const":
-                RHS[ind] = BC[3].val
+            if BC["south"].btype == "const":
+                RHS[ind] = BC["south"].val
                 Matrix[ind, ind] = 1
             else:  # flux boundary condition
                 Matrix[ind, ind] = 1
                 Matrix[ind, ind + Number_of_col] = -1
-                RHS[ind] = BC[3].val / dy
+                RHS[ind] = BC["south"].val / dy
 
         elif i == Number_of_rows - 1 and Prob.ny > 1:  # NORTH BOUNDARY
-            if BC[1].btype == "const":
-                RHS[ind] = BC[0].val
+            if BC["north"].btype == "const":
+                RHS[ind] = BC["west"].val
                 Matrix[ind, ind] = 1
             else:  # flux boundary condition
                 Matrix[ind, ind] = 1
                 Matrix[ind, ind - Number_of_col] = -1
-                RHS[ind] = BC[1].val / dy
+                RHS[ind] = BC["north"].val / dy
         else:
             if is1D:
                 North = 0
@@ -276,7 +276,7 @@ East = boundary("const", val=0)
 North = boundary("zero-flux", val=0)
 South = boundary("zero-flux", val=0)
 
-BC = [West, North, East, South]
+BC = {"west": West, "north": North, "east": East, "south": South}
 # The latter array BC will be send to the different functions
 
 # %% [markdown]
