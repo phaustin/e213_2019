@@ -161,6 +161,7 @@ def Build_2D_Matrix(BC, Prob, D, Q):
     Number_of_rows = Prob.ny
     Number_of_col = Prob.nx
     n = Prob.nx*Prob.ny
+    is1D = False
     if(Number_of_rows == 1 or Number_of_col == 1):
         is1D = True
         Number_of_col = n    
@@ -341,13 +342,15 @@ for t in range(nTstp - 1):
 ax1.legend();
 ax2.legend();
 
+
+
 # %% [markdown]
 # ## Quantification of the error
 #
-# One may realize that the previous visualization of the error is not particularly helpful. We would like to quantify the error using only one real number, so that comparison is easier. This is the concept of the *norm*. It is defined in "numpy.linalg.norm". The norm of a vector $x$ is usually written
+# One may realize that the previous visualization of the error is not particularly helpful. We would like to quantify the error using only one real number, so that comparison is easier. This is the concept of the *norm*. It is defined in "numpy.linalg.norm". The norm of a vector $\overrightarrow{x}$ is usually written
 #
 # \begin{equation}
-# ||\vec{x}||
+# \lvert \lvert \overrightarrow{x}\lvert\lvert
 # \end{equation}
 #
 # There exists many type of norm
@@ -355,35 +358,123 @@ ax2.legend();
 # Norm-1:
 #
 # \begin{equation}
-# ||\vec{x}||_1 = \sum_i^N |x_i
+# \lvert\lvert\overrightarrow{x}\lvert\lvert_1 = \sum_i^N |x_i|
 # \end{equation}
 #
+# Norm-2 (notion of distance)
+#
+# \begin{equation}
+# \lvert\lvert\overrightarrow{x}\lvert\lvert_2 = \sqrt{\sum_i^N |x_i|^2}
+# \end{equation}
+#
+#
+# The infinte-norm:
+#
+# \begin{equation}
+# \lvert\lvert\overrightarrow{x}\lvert\lvert_\infty = max_i  \{ |x_i| \}
+# \end{equation}
+#
+# We can also define the n-norm, but the three previous one are most commonly used.
+#
+# \begin{equation}
+# \lvert\lvert\overrightarrow{x}\lvert\lvert_n = \sqrt[n]{\sum_i^N |x_i|^n}
+# \end{equation}
+#
+# Use the 2nd norm to see the evolution of the global error with the timestep.
+
+# %%
+err_norm = np.zeros(nfig)
+for i in range(nfig):
+    err_norm[i] = np.linalg.norm(err[:,i])
+    
+plt.plot(err_norm)
+maxerr = max(err_norm)
+print(maxerr)
+
+# %% [markdown]
+# Now see the influence of modifying the number of gridblocks and timestep and choose a good compromise between accuracy, and computation time.
+
+# %%
+N_x = 31
+N_y = 1
+Width_X = Width
+Width_Y = 0
+n = N_x*N_y
+x = np.linspace(0,Width,N_x)
+c_init = np.zeros(N_x)
+c_init[0] = c0
+D = Diff * np.ones(n)
+prob = def_prob(N_x,N_y,poro,Width_X,Width_Y)
+Q = np.zeros(n)
+A, b = Build_2D_Matrix(BC, prob, D, Q)
+
+
+Abis = np.zeros((n, n))
+Bbis = np.zeros(n)
+dt = 0.25
+Tf = 100
+nTstp = int(Tf/dt)
+Number_of_fig = 10
+n_of_tstep_before_fig = int(nTstp/Number_of_fig)
+
+
+c = np.zeros(((n,Number_of_fig)))
+err = np.zeros(((n,Number_of_fig)))
+c[:,0] = c_init
+nfig = 1
+Time = 0
+c_real = np.zeros(n)
+v = c_init
+
+
+for t in range(nTstp - 1):
+    for i in range(n):
+        Abis[i,i] = poro/dt   
+        Bbis[i] = v[i]*poro/dt 
+    Aa = A + Abis
+    bb = b + Bbis
+    v = np.linalg.solve(Aa, bb)
+    Time = Time + dt
+    if((t+1) % n_of_tstep_before_fig == 0 and t > 0):
+        for i in range(n):
+            c[i,nfig] = v[i]  
+            DENOM = np.sqrt(4*Diff*(t+1)*dt)
+            c_real[i] = c0*special.erfc((x[i])/DENOM)
+            err[i,nfig] = abs(c[i,nfig]-c_real[i])          
+
+        nfig = nfig+1
+
+        
+ax1.legend();
+ax2.legend();
+
+err_norm = np.zeros(nfig)
+for i in range(nfig):
+    err_norm[i] = np.linalg.norm(err[:,i])
+    
+plt.plot(err_norm)
+maxerr = max(err_norm)
+print(maxerr)
+
+# %% [markdown]
+#
+
+# %%
+
 
 # %% [markdown]
 # ## 2D
 
-# %% [markdown] {"nbgrader": {"grade": false, "grade_id": "cell-b41a29613812db59", "locked": true, "schema_version": 1, "solution": false}}
-# We will use similar conditions than in the previous assignment. However, it is a good practise to use units which are representative of the current problem, otherwise we have to deal with very large or very small numbers.
-#
-# The diffusion coefficient of solutes in pure water is usually 2$\times$10$^{-9}$ m$^2$/s. Concentrations are usually expressed in mg/L, corresponding to mg/dm$^3$. To avoid future unit problems, let us define 
-#
-# - one day as the time unit
-# - one dm as the length unit (leading to Liters being the adequate volume unit)
-# - mg as the mass unit
-#
-# In these units, the diffusion is expressed in dm$^2$/day, the width in dm, and the rate in mg/L/day. 
-# We will here change the values of the parameters used previously.. 
-
 # %% {"nbgrader": {"grade": false, "grade_id": "cell-b9bd7eaf90619a64", "locked": true, "schema_version": 1, "solution": false}}
 Width_X = 10
 Width_Y = 10
-N_x = 26
-N_y = 26
+N_x = 31
+N_y = 31
 
 D = Diff * np.ones((N_y,N_x))
 Q = np.zeros((N_y,N_x))
 poro = 0.4
-dt = 0.1 #days
+dt = 0.25 #days
 c_init = np.zeros((N_y,N_x))
 
 x = np.linspace(0,Width_X,N_x)
@@ -391,14 +482,13 @@ y = np.linspace(0,Width_Y,N_y)
 
 for i in range (N_y):
     for j in range (N_x):
-        #if((abs(x[j])<= a and abs(y[i])<=a) or j==0):
         if(j==0):
             c_init[i,j] = c0
             
             
 for i in range (N_y):
     for j in range (N_x):
-        if((abs(x[j])<= 1.5*a and abs(y[i])<=1.5*a)):
+        if((abs(x[j]-Width_X/2)<= 0.2*Width_X and abs(y[i]-Width_Y/2)<=0.2*Width_Y)):
             D[i,j] = Diff/100
 
 fig, ax = plt.subplots()
