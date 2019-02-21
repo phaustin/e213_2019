@@ -2,21 +2,21 @@
 # jupyter:
 #   jupytext:
 #     cell_metadata_filter: all
+#     formats: ipynb,python//py:percent
 #     notebook_metadata_filter: all
 #     text_representation:
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.2'
-#       jupytext_version: 0.8.6
+#       jupytext_version: 1.0.0
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
 #     name: python3
 # ---
-
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#Introduction" data-toc-modified-id="Introduction-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Introduction</a></span></li><li><span><a href="#Initial-conditions" data-toc-modified-id="Initial-conditions-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Initial conditions</a></span><ul class="toc-item"><li><span><a href="#Save-these-into-a-dict-for-later-use" data-toc-modified-id="Save-these-into-a-dict-for-later-use-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Save these into a dict for later use</a></span></li></ul></li><li><span><a href="#Steady-state" data-toc-modified-id="Steady-state-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Steady state</a></span></li><li><span><a href="#Transient-behavior" data-toc-modified-id="Transient-behavior-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Transient behavior</a></span></li></ul></div>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Introduction" data-toc-modified-id="Introduction-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Introduction</a></span><ul class="toc-item"><li><span><a href="#Learning-Goals" data-toc-modified-id="Learning-Goals-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Learning Goals</a></span></li><li><span><a href="#Context" data-toc-modified-id="Context-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Context</a></span></li><li><span><a href="#Boundary-conditions" data-toc-modified-id="Boundary-conditions-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Boundary conditions</a></span></li><li><span><a href="#1D-diffusion-from-a-constant-concentration-boundary" data-toc-modified-id="1D-diffusion-from-a-constant-concentration-boundary-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>1D diffusion from a constant-concentration boundary</a></span></li></ul></li><li><span><a href="#Homogeneous-problem" data-toc-modified-id="Homogeneous-problem-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Homogeneous problem</a></span><ul class="toc-item"><li><span><a href="#1D" data-toc-modified-id="1D-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>1D</a></span></li><li><span><a href="#Quantification-of-the-error" data-toc-modified-id="Quantification-of-the-error-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Quantification of the error</a></span></li><li><span><a href="#2D" data-toc-modified-id="2D-2.3"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>2D</a></span></li></ul></li></ul></div>
 # %% [markdown] {"nbgrader": {"grade": false, "grade_id": "cell-0a4af3607542b85a", "locked": true, "schema_version": 1, "solution": false}}
 # # Introduction
 #
@@ -29,9 +29,9 @@
 #
 # ## Context
 #
-# We want to study the diffusion of a contaminant in a geological context. The different geological layers and zones induce that the diffusion is not the same in every direction. We want to model these effects that diffusion is stopped on some boundary, that diffusion avoids certain areas of low diffusivity, ... 
+# We want to study the diffusion of a contaminant in a geological context. The different geological layers and zones induce that the diffusion is not the same in every direction. We want to model these effects that diffusion is stopped on some boundary, that diffusion avoids certain areas of low diffusivity, ...
 #
-# To start that, we need a transient 2D model whose parameters are well defined. In order to assess the accuracy of the method, we will start by using the approach on simple cases for which an analytical solution is known. That will allow to define the timestep, gridsize, to have a reasonable agreement with analytical solution. 
+# To start that, we need a transient 2D model whose parameters are well defined. In order to assess the accuracy of the method, we will start by using the approach on simple cases for which an analytical solution is known. That will allow to define the timestep, gridsize, to have a reasonable agreement with analytical solution.
 #
 # From then, we will be able to model any similar situation.
 #
@@ -46,20 +46,19 @@
 # Let us describe the diffusion of a contaminant in soils where a constant concentration is applied at onne boundary. It can be shown that the analytical solution to such a problem can be represented by the following equation:
 #
 # \begin{equation}
-# c(x,t) = c_0  \text{erfc}\left( \frac{x}{\sqrt{4Dt}}  \right)  
+# c(x,t) = c_0  \text{erfc}\left( \frac{x}{\sqrt{4Dt}}  \right)
 # \end{equation}
 #
 # where erfc$(x)$ is the error function. Let us look at this solution for different timesteps.
 #
 # %%
+import matplotlib.cm as cmap
 import matplotlib.pyplot as plt
 import numpy as np
+from mpl_toolkits.axes_grid1 import AxesGrid
 from scipy import special
-import matplotlib.cm as cm
+
 # the next two imports are to show animations and video!
-import matplotlib.animation as animation
-from IPython.display import HTML
-from numpy.testing import assert_allclose
 
 # %%
 N_tstep = 6
@@ -67,26 +66,25 @@ T = [0, 2, 20, 100, 200, 500]
 
 N_x = 100
 Width = 10
-x = np.linspace(0,Width,N_x)
+x = np.linspace(0, Width, N_x)
 c = np.zeros((N_tstep, N_x))
 a = 1
 c0 = 1
-Diff = 2e-9*100*24*3600
-c[0,0] = c0
-        
-plt.plot(x, c[0,:], label="Initial concentration")
+Diff = 2e-9 * 100 * 24 * 3600
+c[0, 0] = c0
 
-for t in range(1,N_tstep):
+plt.plot(x, c[0, :], label="Initial concentration")
+
+for t in range(1, N_tstep):
     for i in range(N_x):
-        DENOM = np.sqrt(4*Diff*T[t])
-        c[t,i] = c0*special.erfc((x[i])/DENOM) 
-    plt.plot(x, c[t,:], label="Concentration after %.0f day" %T[t])
-        
+        DENOM = np.sqrt(4 * Diff * T[t])
+        c[t, i] = c0 * special.erfc((x[i]) / DENOM)
+    plt.plot(x, c[t, :], label="Concentration after %.0f day" % T[t])
 
 
 plt.xlabel("x-axis (dm)")
 plt.ylabel("Concentration (mg/L)")
-plt.legend(bbox_to_anchor=(1.01, 1), loc='upper left');
+plt.legend(bbox_to_anchor=(1.01, 1), loc="upper left")
 
 
 # %% [markdown]
@@ -109,8 +107,9 @@ plt.legend(bbox_to_anchor=(1.01, 1), loc='upper left');
 # - class def_prob: puts every relevant parameter in an object to be given to Build_2d_Matrix
 
 # %% {"nbgrader": {"grade": false, "grade_id": "cell-bd0b49f6ae1acef3", "locked": true, "schema_version": 1, "solution": false}}
-# this function deals with harmonic averaging when diffusion is not the same everywhere. 
+# this function deals with harmonic averaging when diffusion is not the same everywhere.
 # It doesn't change anything when diffusion is homogeneous but you can try to see how it affects the behavior.
+
 
 def avg(Di, Dj):
     """
@@ -122,21 +121,22 @@ def avg(Di, Dj):
     else:
         return 2 / (1 / Di + 1 / Dj)
 
+
 # %%
-def ind_to_row_col(ind,nrows,ncol):
+def ind_to_row_col(ind, nrows, ncol):
     """
     in a 2D array, returns the row and column value
     associated with a certain index
     Bottom left is index is zero (0-th row, 0-th column)
     while index one is the 0-th row and 1st column
     """
-    if(ind>nrows*ncol-1):
+    if ind > nrows * ncol - 1:
         return 0
 
-    row = int(np.floor(ind/ncol))
-    col = int(ind-row*ncol)
+    row = int(np.floor(ind / ncol))
+    col = int(ind - row * ncol)
     return row, col
-    
+
 
 # %%
 def Build_2D_Matrix(BC, Prob, D, Q):
@@ -151,7 +151,7 @@ def Build_2D_Matrix(BC, Prob, D, Q):
     D (float array): values of the diffusion coefficient at each grid point(dm^2/day)
     Width_X (float): x-extent of the domain
     Width_Y (float): y-extent of the domain
-    poro (float): porosity value 
+    poro (float): porosity value
     Q (float array): volumetric source term (mg/L/day)
     Returns the matrix A, and the array b to solve the
     discretized 1D diffusion problem Ax = b
@@ -160,93 +160,95 @@ def Build_2D_Matrix(BC, Prob, D, Q):
     """
     Number_of_rows = Prob.ny
     Number_of_col = Prob.nx
-    n = Prob.nx*Prob.ny
+    n = Prob.nx * Prob.ny
     is1D = False
-    if(Number_of_rows == 1 or Number_of_col == 1):
+    if Number_of_rows == 1 or Number_of_col == 1:
         is1D = True
-        Number_of_col = n    
+        Number_of_col = n
     Matrix = np.zeros((n, n))
     RHS = np.zeros(n)
-    
-    if(is1D):
-        dx = max(Prob.Wx,Prob.Wy)/(max(Prob.ny,Prob.nx)-1)
+
+    if is1D:
+        dx = max(Prob.Wx, Prob.Wy) / (max(Prob.ny, Prob.nx) - 1)
         coef_x = Prob.poro / dx / dx
-    else:    
-        dx = Prob.Wx / (Prob.ny-1)
-        dy = Prob.Wy / (Prob.nx-1)
+    else:
+        dx = Prob.Wx / (Prob.ny - 1)
+        dy = Prob.Wy / (Prob.nx - 1)
         coef_x = Prob.poro / dx / dx
         coef_y = Prob.poro / dy / dy
-    
+
     for ind in range(n):
-        if(is1D):
+        if is1D:
             j = ind
             i = -1
         else:
-            i, j = ind_to_row_col(ind,Number_of_rows,Number_of_col)
-        if j == 0: # WEST BOUNDARY
-            if(BC[0].btype == "const"):
+            i, j = ind_to_row_col(ind, Number_of_rows, Number_of_col)
+        if j == 0:  # WEST BOUNDARY
+            if BC[0].btype == "const":
                 RHS[ind] = BC[0].val
-                Matrix[ind,ind] = 1
-            else: #flux boundary condition
-                Matrix[ind,ind] = 1
-                Matrix[ind,ind+1] = -1
-                RHS[ind] = BC[0].val/dx                
-                
-        elif j == Number_of_col-1: # EAST BOUNDARY
-            if(BC[2].btype == "const"):
+                Matrix[ind, ind] = 1
+            else:  # flux boundary condition
+                Matrix[ind, ind] = 1
+                Matrix[ind, ind + 1] = -1
+                RHS[ind] = BC[0].val / dx
+
+        elif j == Number_of_col - 1:  # EAST BOUNDARY
+            if BC[2].btype == "const":
                 RHS[ind] = BC[2].val
-                Matrix[ind,ind] = 1
-            else: #flux boundary condition
-                Matrix[ind,ind] = 1
-                Matrix[ind,ind-1] = -1
-                RHS[ind] = BC[2].val/dx  
-        elif (i == 0 and Prob.ny>1): # SOUTH BOUNDARY
-            if(BC[3].btype == "const"):
+                Matrix[ind, ind] = 1
+            else:  # flux boundary condition
+                Matrix[ind, ind] = 1
+                Matrix[ind, ind - 1] = -1
+                RHS[ind] = BC[2].val / dx
+        elif i == 0 and Prob.ny > 1:  # SOUTH BOUNDARY
+            if BC[3].btype == "const":
                 RHS[ind] = BC[3].val
-                Matrix[ind,ind] = 1
-            else: #flux boundary condition
-                Matrix[ind,ind] = 1
-                Matrix[ind,ind+Number_of_col] = -1
-                RHS[ind] = BC[3].val/dy  
-            
-        elif (i == Number_of_rows-1 and Prob.ny > 1): # NORTH BOUNDARY
-            if(BC[1].btype == "const"):
+                Matrix[ind, ind] = 1
+            else:  # flux boundary condition
+                Matrix[ind, ind] = 1
+                Matrix[ind, ind + Number_of_col] = -1
+                RHS[ind] = BC[3].val / dy
+
+        elif i == Number_of_rows - 1 and Prob.ny > 1:  # NORTH BOUNDARY
+            if BC[1].btype == "const":
                 RHS[ind] = BC[0].val
-                Matrix[ind,ind] = 1
-            else: #flux boundary condition
-                Matrix[ind,ind] = 1
-                Matrix[ind,ind-Number_of_col] = -1
-                RHS[ind] = BC[1].val/dy           
-        else:  
-            if(is1D):
+                Matrix[ind, ind] = 1
+            else:  # flux boundary condition
+                Matrix[ind, ind] = 1
+                Matrix[ind, ind - Number_of_col] = -1
+                RHS[ind] = BC[1].val / dy
+        else:
+            if is1D:
                 North = 0
                 South = 0
                 RHS[ind] = Q[ind]
-                East = coef_x * avg(D[ind+1],D[ind])
-                West = coef_x * avg(D[ind-1],D[ind])
+                East = coef_x * avg(D[ind + 1], D[ind])
+                West = coef_x * avg(D[ind - 1], D[ind])
             else:
-                North = coef_y * avg(D[i,j], D[i+1,j])
-                South = coef_y * avg(D[i,j], D[i-1,j])
-                East = coef_x * avg(D[i,j], D[i,j+1])
-                West = coef_x * avg(D[i,j], D[i,j-1])
+                North = coef_y * avg(D[i, j], D[i + 1, j])
+                South = coef_y * avg(D[i, j], D[i - 1, j])
+                East = coef_x * avg(D[i, j], D[i, j + 1])
+                West = coef_x * avg(D[i, j], D[i, j - 1])
                 Matrix[ind, ind + Number_of_col] = -North
                 Matrix[ind, ind - Number_of_col] = -South
-                RHS[ind] = Q[i,j]
-                
+                RHS[ind] = Q[i, j]
+
             Matrix[ind, ind] = East + West + North + South
             Matrix[ind, ind + 1] = -East
             Matrix[ind, ind - 1] = -West
-            
-            
+
     return Matrix, RHS
+
 
 # %%
 class boundary:
-    btype: str 
+    btype: str
     val: float
-    def __init__(self,btype,val):
+
+    def __init__(self, btype, val):
         self.btype = btype
-        self.val = val    
+        self.val = val
+
 
 # %%
 class def_prob:
@@ -255,22 +257,24 @@ class def_prob:
     poro: float
     Wx: float
     Wy: float
-    def __init__(self,nx,ny,poro,Wx,Wy):
+
+    def __init__(self, nx, ny, poro, Wx, Wy):
         self.nx = nx
         self.ny = ny
         self.poro = poro
         self.Wx = Wx
         self.Wy = Wy
 
+
 # %%
-#Here we create 4 boundaries, West has a constant concentration at c0, East has a constant boundary at 0;
-West = boundary("const",val = c0)
-East = boundary("const",val = 0)
+# Here we create 4 boundaries, West has a constant concentration at c0, East has a constant boundary at 0;
+West = boundary("const", val=c0)
+East = boundary("const", val=0)
 
 # The other south and north boundaries have a zero flux (impermeable)
 
-North = boundary("zero-flux",val = 0)
-South = boundary("zero-flux",val = 0)
+North = boundary("zero-flux", val=0)
+South = boundary("zero-flux", val=0)
 
 BC = [West, North, East, South]
 # The latter array BC will be send to the different functions
@@ -287,12 +291,13 @@ N_x = 51
 N_y = 1
 Width_X = Width
 Width_Y = 0
-n = N_x*N_y
-x = np.linspace(0,Width,N_x)
+n = N_x * N_y
+x = np.linspace(0, Width, N_x)
 c_init = np.zeros(N_x)
 c_init[0] = c0
 D = Diff * np.ones(n)
-prob = def_prob(N_x,N_y,poro,Width_X,Width_Y)
+poro = 0.4
+prob = def_prob(N_x, N_y, poro, Width_X, Width_Y)
 Q = np.zeros(n)
 A, b = Build_2D_Matrix(BC, prob, D, Q)
 
@@ -301,47 +306,46 @@ Abis = np.zeros((n, n))
 Bbis = np.zeros(n)
 dt = 0.2
 Tf = 100
-nTstp = int(Tf/dt)
+nTstp = int(Tf / dt)
 Number_of_fig = 10
-n_of_tstep_before_fig = int(nTstp/Number_of_fig)
+n_of_tstep_before_fig = int(nTstp / Number_of_fig)
 
 
-c = np.zeros(((n,Number_of_fig)))
-err = np.zeros(((n,Number_of_fig)))
-c[:,0] = c_init
+c = np.zeros(((n, Number_of_fig)))
+err = np.zeros(((n, Number_of_fig)))
+c[:, 0] = c_init
 nfig = 1
 Time = 0
 c_real = np.zeros(n)
 
-fig, (ax1,ax2) = plt.subplots(2,1, figsize=(8,8))
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 8))
 ax1.plot(x, c_init, label="Initial concentration")
-ax2.plot(x,err[:,0],label="Initial error")
+ax2.plot(x, err[:, 0], label="Initial error")
 v = c_init
 
 
 for t in range(nTstp - 1):
     for i in range(n):
-        Abis[i,i] = poro/dt   
-        Bbis[i] = v[i]*poro/dt 
+        Abis[i, i] = poro / dt
+        Bbis[i] = v[i] * poro / dt
     Aa = A + Abis
     bb = b + Bbis
     v = np.linalg.solve(Aa, bb)
     Time = Time + dt
-    if((t+1) % n_of_tstep_before_fig == 0 and t > 0):
+    if (t + 1) % n_of_tstep_before_fig == 0 and t > 0:
         for i in range(n):
-            c[i,nfig] = v[i]  
-            DENOM = np.sqrt(4*Diff*(t+1)*dt)
-            c_real[i] = c0*special.erfc((x[i])/DENOM)
-            err[i,nfig] = abs(c[i,nfig]-c_real[i])          
-            
-        ax1.plot(x, c[:,nfig], label="Concentration after %.0f day" %Time)
-        ax2.plot(x,err[:,nfig], label="Error after %.0f day" %Time )
-        nfig = nfig+1
+            c[i, nfig] = v[i]
+            DENOM = np.sqrt(4 * Diff * (t + 1) * dt)
+            c_real[i] = c0 * special.erfc((x[i]) / DENOM)
+            err[i, nfig] = abs(c[i, nfig] - c_real[i])
 
-        
-ax1.legend();
-ax2.legend();
+        ax1.plot(x, c[:, nfig], label="Concentration after %.0f day" % Time)
+        ax2.plot(x, err[:, nfig], label="Error after %.0f day" % Time)
+        nfig = nfig + 1
 
+
+ax1.legend()
+ax2.legend()
 
 
 # %% [markdown]
@@ -385,8 +389,8 @@ ax2.legend();
 # %%
 err_norm = np.zeros(nfig)
 for i in range(nfig):
-    err_norm[i] = np.linalg.norm(err[:,i])
-    
+    err_norm[i] = np.linalg.norm(err[:, i])
+
 plt.plot(err_norm)
 maxerr = max(err_norm)
 print(maxerr)
@@ -399,12 +403,12 @@ N_x = 31
 N_y = 1
 Width_X = Width
 Width_Y = 0
-n = N_x*N_y
-x = np.linspace(0,Width,N_x)
+n = N_x * N_y
+x = np.linspace(0, Width, N_x)
 c_init = np.zeros(N_x)
 c_init[0] = c0
 D = Diff * np.ones(n)
-prob = def_prob(N_x,N_y,poro,Width_X,Width_Y)
+prob = def_prob(N_x, N_y, poro, Width_X, Width_Y)
 Q = np.zeros(n)
 A, b = Build_2D_Matrix(BC, prob, D, Q)
 
@@ -413,14 +417,14 @@ Abis = np.zeros((n, n))
 Bbis = np.zeros(n)
 dt = 0.25
 Tf = 100
-nTstp = int(Tf/dt)
+nTstp = int(Tf / dt)
 Number_of_fig = 10
-n_of_tstep_before_fig = int(nTstp/Number_of_fig)
+n_of_tstep_before_fig = int(nTstp / Number_of_fig)
 
 
-c = np.zeros(((n,Number_of_fig)))
-err = np.zeros(((n,Number_of_fig)))
-c[:,0] = c_init
+c = np.zeros(((n, Number_of_fig)))
+err = np.zeros(((n, Number_of_fig)))
+c[:, 0] = c_init
 nfig = 1
 Time = 0
 c_real = np.zeros(n)
@@ -429,38 +433,32 @@ v = c_init
 
 for t in range(nTstp - 1):
     for i in range(n):
-        Abis[i,i] = poro/dt   
-        Bbis[i] = v[i]*poro/dt 
+        Abis[i, i] = poro / dt
+        Bbis[i] = v[i] * poro / dt
     Aa = A + Abis
     bb = b + Bbis
     v = np.linalg.solve(Aa, bb)
     Time = Time + dt
-    if((t+1) % n_of_tstep_before_fig == 0 and t > 0):
+    if (t + 1) % n_of_tstep_before_fig == 0 and t > 0:
         for i in range(n):
-            c[i,nfig] = v[i]  
-            DENOM = np.sqrt(4*Diff*(t+1)*dt)
-            c_real[i] = c0*special.erfc((x[i])/DENOM)
-            err[i,nfig] = abs(c[i,nfig]-c_real[i])          
+            c[i, nfig] = v[i]
+            DENOM = np.sqrt(4 * Diff * (t + 1) * dt)
+            c_real[i] = c0 * special.erfc((x[i]) / DENOM)
+            err[i, nfig] = abs(c[i, nfig] - c_real[i])
 
-        nfig = nfig+1
+        nfig = nfig + 1
 
-        
-ax1.legend();
-ax2.legend();
+
+ax1.legend()
+ax2.legend()
 
 err_norm = np.zeros(nfig)
 for i in range(nfig):
-    err_norm[i] = np.linalg.norm(err[:,i])
-    
+    err_norm[i] = np.linalg.norm(err[:, i])
+
 plt.plot(err_norm)
 maxerr = max(err_norm)
 print(maxerr)
-
-# %% [markdown]
-#
-
-# %%
-
 
 # %% [markdown]
 # ## 2D
@@ -471,124 +469,122 @@ Width_Y = 10
 N_x = 31
 N_y = 31
 
-D = Diff * np.ones((N_y,N_x))
-Q = np.zeros((N_y,N_x))
+D = Diff * np.ones((N_y, N_x))
+Q = np.zeros((N_y, N_x))
 poro = 0.4
-dt = 0.25 #days
-c_init = np.zeros((N_y,N_x))
+dt = 0.25  # days
+c_init = np.zeros((N_y, N_x))
 
-x = np.linspace(0,Width_X,N_x)
-y = np.linspace(0,Width_Y,N_y)
+x = np.linspace(0, Width_X, N_x)
+y = np.linspace(0, Width_Y, N_y)
 
-for i in range (N_y):
-    for j in range (N_x):
-        if(j==0):
-            c_init[i,j] = c0
-            
-            
-for i in range (N_y):
-    for j in range (N_x):
-        if((abs(x[j]-Width_X/2)<= 0.2*Width_X and abs(y[i]-Width_Y/2)<=0.2*Width_Y)):
-            D[i,j] = Diff/100
+for i in range(N_y):
+    for j in range(N_x):
+        if j == 0:
+            c_init[i, j] = c0
+
+
+for i in range(N_y):
+    for j in range(N_x):
+        if (
+            abs(x[j] - Width_X / 2) <= 0.2 * Width_X
+            and abs(y[i] - Width_Y / 2) <= 0.2 * Width_Y
+        ):
+            D[i, j] = Diff / 100
 
 fig, ax = plt.subplots()
-plt.contourf(x,y,D,cm='RdGy')
+cm = cmap.get_cmap("RdGy")
+plt.contourf(x, y, D, cmap=cm)
 plt.colorbar()
 
 
 # %%
-def mat2vec(c,nrow,ncol):
-    n = nrow*ncol
+def mat2vec(c, nrow, ncol):
+    n = nrow * ncol
     v = np.zeros(n)
     for ind in range(n):
-        i, j = ind_to_row_col(ind,nrow,ncol)
-        v[ind] = c[i,j]
-        
+        i, j = ind_to_row_col(ind, nrow, ncol)
+        v[ind] = c[i, j]
+
     return v
 
+
 # %%
-def vec2mat(v,nrow,ncol):
+def vec2mat(v, nrow, ncol):
     n = 0
-    c = np.zeros((nrow,ncol))
+    c = np.zeros((nrow, ncol))
     for i in range(nrow):
         for j in range(ncol):
-            c[i,j]=v[n]
-            n = n + 1            
+            c[i, j] = v[n]
+            n = n + 1
     return c
+
 
 # %%
 ### Asymptotic behavior
-prob = def_prob(N_x,N_y,poro,Width_X,Width_Y)
-Q = np.zeros((N_y,N_x))
+prob = def_prob(N_x, N_y, poro, Width_X, Width_Y)
+Q = np.zeros((N_y, N_x))
 A, b = Build_2D_Matrix(BC, prob, D, Q)
-v = mat2vec(c_init,N_y,N_x)
+v = mat2vec(c_init, N_y, N_x)
 v = np.linalg.solve(A, b)
-c = vec2mat(v,N_y,N_x)
+c = vec2mat(v, N_y, N_x)
 
-plt.contourf(x,y,c,20,cm='RdGy')
+plt.contourf(x, y, c, 20, cmap=cm)
 plt.colorbar()
 
 # %%
-prob = def_prob(N_x,N_y,poro,Width_X,Width_Y)
-Q = np.zeros((N_y,N_x))
+prob = def_prob(N_x, N_y, poro, Width_X, Width_Y)
+Q = np.zeros((N_y, N_x))
 A, b = Build_2D_Matrix(BC, prob, D, Q)
 
-v = mat2vec(c_init,N_y,N_x)
+v = mat2vec(c_init, N_y, N_x)
 
-n = N_x*N_y
+n = N_x * N_y
 Abis = np.zeros((n, n))
 Bbis = np.zeros(n)
 nTstp = 160
 n_of_tstep_before_fig = 10
-Number_of_fig = int(1+nTstp/n_of_tstep_before_fig)
-c = np.zeros(((N_y,N_x,Number_of_fig)))
-c[:,:,0] = c_init
+Number_of_fig = int(1 + nTstp / n_of_tstep_before_fig)
+c = np.zeros(((N_y, N_x, Number_of_fig)))
+c[:, :, 0] = c_init
 dt = 5
 nfig = 1
 
 for t in range(nTstp - 1):
     for i in range(n):
-        Abis[i,i] = poro/dt   
-        Bbis[i] = v[i]*poro/dt 
+        Abis[i, i] = poro / dt
+        Bbis[i] = v[i] * poro / dt
     Aa = A + Abis
     bb = b + Bbis
     v = np.linalg.solve(Aa, bb)
-    if(t % n_of_tstep_before_fig == 0 and t > 0):
-        c[:,:,nfig] = vec2mat(v,N_y,N_x)
-        nfig = nfig+1
+    if t % n_of_tstep_before_fig == 0 and t > 0:
+        c[:, :, nfig] = vec2mat(v, N_y, N_x)
+        nfig = nfig + 1
 
 
 # %%
-fig, axarr = plt.subplots(3,3,figsize=(12,12))
+# https://jdhao.github.io/2017/06/11/mpl_multiplot_one_colorbar/
+# https://matplotlib.org/tutorials/toolkits/axes_grid.html
 
-p = axarr[0,0].contourf(x,y,c[:,:,0],20,cm='RdGy')
-fig.colorbar(p,ax=axarr[0,0])
-ax1.axis('equal')
+fig = plt.figure(figsize=(10, 10))
 
-p = axarr[0,1].contourf(x,y,c[:,:,int(nfig/10)],20,cm='RdGy')
-fig.colorbar(p,ax=axarr[0,1])
+ntimesteps = nfig
+time_steps = np.array([0, 1, 2, 3, 5, 8, 9, 12, 15])
 
-p = axarr[0,2].contourf(x,y,c[:,:,int(nfig/8)],20,cm='RdGy')
-fig.colorbar(p,ax=axarr[0,2])
+grid = AxesGrid(
+    fig,
+    111,
+    nrows_ncols=(3, 3),
+    axes_pad=0.20,
+    cbar_mode="single",
+    cbar_location="right",
+    cbar_pad=0.1,
+)
 
-p = axarr[1,0].contourf(x,y,c[:,:,int(nfig/5)],20,cm='RdGy')
-fig.colorbar(p,ax=axarr[1,0])
+for time_index, the_ax in zip(time_steps, grid):
+    the_ax.axis("equal")
+    im = the_ax.contourf(x, y, c[:, :, time_index], 20, cm="RdGy")
 
-p = axarr[1,1].contourf(x,y,c[:,:,int(nfig/3)],20,cm='RdGy')
-fig.colorbar(p,ax=axarr[1,1])
-
-p = axarr[1,2].contourf(x,y,c[:,:,int(nfig/2)],20,cm='RdGy')
-fig.colorbar(p,ax=axarr[1,2])
-
-p = axarr[2,0].contourf(x,y,c[:,:,int(nfig*0.6)],20,cm='RdGy')
-fig.colorbar(p,ax=axarr[2,0])
-
-p = axarr[2,1].contourf(x,y,c[:,:,int(nfig*0.8)],20,cm='RdGy')
-fig.colorbar(p,ax=axarr[2,1])
-
-p = axarr[2,2].contourf(x,y,c[:,:,nfig-1],20,cm='RdGy')
-fig.colorbar(p,ax=axarr[2,2])
-
-
-# %%
-
+cbar = the_ax.cax.colorbar(im)
+cbar = grid.cbar_axes[0].colorbar(im)
+fig.suptitle("big title here", y=0.9)
