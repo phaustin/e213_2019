@@ -15,7 +15,7 @@
 # ---
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#What-makes-code-beautiful?" data-toc-modified-id="What-makes-code-beautiful?-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>What makes code beautiful?</a></span></li><li><span><a href="#Some-rules-of-thumb" data-toc-modified-id="Some-rules-of-thumb-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Some rules of thumb</a></span><ul class="toc-item"><li><span><a href="#Some-docstring-examples" data-toc-modified-id="Some-docstring-examples-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Some docstring examples</a></span></li></ul></li><li><span><a href="#Type-systems" data-toc-modified-id="Type-systems-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Type systems</a></span><ul class="toc-item"><li><span><a href="#Example-of-strong-typing" data-toc-modified-id="Example-of-strong-typing-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Example of strong typing</a></span><ul class="toc-item"><li><span><a href="#Your-turn----rewrite-the-cell-above-with-a-cast-that-makes-it-work" data-toc-modified-id="Your-turn----rewrite-the-cell-above-with-a-cast-that-makes-it-work-3.1.1"><span class="toc-item-num">3.1.1&nbsp;&nbsp;</span>Your turn -- rewrite the cell above with a cast that makes it work</a></span></li></ul></li><li><span><a href="#Example-of-dynamic-typing" data-toc-modified-id="Example-of-dynamic-typing-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Example of dynamic typing</a></span></li><li><span><a href="#Type-summary" data-toc-modified-id="Type-summary-3.3"><span class="toc-item-num">3.3&nbsp;&nbsp;</span>Type summary</a></span></li></ul></li><li><span><a href="#Flexible-functions" data-toc-modified-id="Flexible-functions-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Flexible functions</a></span><ul class="toc-item"><li><span><a href="#See:-vanderplas-Section-6--for-an-explantion-of-*args-and-**kwargs" data-toc-modified-id="See:-vanderplas-Section-6--for-an-explantion-of-*args-and-**kwargs-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>See: <a href="https://jakevdp.github.io/WhirlwindTourOfPython/08-defining-functions.html" target="_blank">vanderplas Section 6</a>  for an explantion of <code>*args</code> and <code>**kwargs</code></a></span></li><li><span><a href="#What-is-going-on-under-the-hood" data-toc-modified-id="What-is-going-on-under-the-hood-4.2"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>What is going on under the hood</a></span></li></ul></li><li><span><a href="#Number-1-python-&quot;gotcha&quot;" data-toc-modified-id="Number-1-python-&quot;gotcha&quot;-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Number 1 python "gotcha"</a></span><ul class="toc-item"><li><span><a href="#Note-that-the-id-of-the-default-list-is-the-same-for-each-call!" data-toc-modified-id="Note-that-the-id-of-the-default-list-is-the-same-for-each-call!-5.1"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>Note that the id of the default list is the same for each call!</a></span></li><li><span><a href="#The-preferred-approach----use-None-as-a-default-value" data-toc-modified-id="The-preferred-approach----use-None-as-a-default-value-5.2"><span class="toc-item-num">5.2&nbsp;&nbsp;</span>The preferred approach -- use None as a default value</a></span></li></ul></li><li><span><a href="#Duck-typing-and-type-coercion" data-toc-modified-id="Duck-typing-and-type-coercion-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Duck typing and type coercion</a></span><ul class="toc-item"><li><span><a href="#Your-turn:--in-the-cell-below,-use-numpy.asarray-to-cast-the-argument-to-an-array" data-toc-modified-id="Your-turn:--in-the-cell-below,-use-numpy.asarray-to-cast-the-argument-to-an-array-6.1"><span class="toc-item-num">6.1&nbsp;&nbsp;</span>Your turn:  in the cell below, use numpy.asarray to cast the argument to an array</a></span></li></ul></li></ul></div>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#What-makes-code-beautiful?" data-toc-modified-id="What-makes-code-beautiful?-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>What makes code beautiful?</a></span></li><li><span><a href="#Some-rules-of-thumb" data-toc-modified-id="Some-rules-of-thumb-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Some rules of thumb</a></span><ul class="toc-item"><li><span><a href="#Some-docstring-examples" data-toc-modified-id="Some-docstring-examples-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Some docstring examples</a></span></li></ul></li><li><span><a href="#Type-systems" data-toc-modified-id="Type-systems-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Type systems</a></span><ul class="toc-item"><li><span><a href="#Example-of-strong-typing" data-toc-modified-id="Example-of-strong-typing-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Example of strong typing</a></span><ul class="toc-item"><li><span><a href="#Your-turn----rewrite-the-cell-above-with-a-cast-that-makes-it-work" data-toc-modified-id="Your-turn----rewrite-the-cell-above-with-a-cast-that-makes-it-work-3.1.1"><span class="toc-item-num">3.1.1&nbsp;&nbsp;</span>Your turn -- rewrite the cell above with a cast that makes it work</a></span></li></ul></li><li><span><a href="#Example-of-dynamic-typing" data-toc-modified-id="Example-of-dynamic-typing-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Example of dynamic typing</a></span></li><li><span><a href="#Type-summary" data-toc-modified-id="Type-summary-3.3"><span class="toc-item-num">3.3&nbsp;&nbsp;</span>Type summary</a></span></li></ul></li><li><span><a href="#Flexible-functions" data-toc-modified-id="Flexible-functions-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Flexible functions</a></span><ul class="toc-item"><li><span><a href="#See:-vanderplas-Section-6--for-an-explantion-of-*args-and-**kwargs" data-toc-modified-id="See:-vanderplas-Section-6--for-an-explantion-of-*args-and-**kwargs-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>See: <a href="https://jakevdp.github.io/WhirlwindTourOfPython/08-defining-functions.html" target="_blank">vanderplas Section 6</a>  for an explantion of <code>*args</code> and <code>**kwargs</code></a></span></li><li><span><a href="#What-is-going-on-under-the-hood" data-toc-modified-id="What-is-going-on-under-the-hood-4.2"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>What is going on under the hood</a></span></li></ul></li><li><span><a href="#Number-1-python-&quot;gotcha&quot;" data-toc-modified-id="Number-1-python-&quot;gotcha&quot;-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Number 1 python "gotcha"</a></span><ul class="toc-item"><li><span><a href="#Note-that-the-id-of-the-default-list-is-the-same-for-each-call!" data-toc-modified-id="Note-that-the-id-of-the-default-list-is-the-same-for-each-call!-5.1"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>Note that the id of the default list is the same for each call!</a></span></li><li><span><a href="#The-preferred-approach----use-None-as-a-default-value" data-toc-modified-id="The-preferred-approach----use-None-as-a-default-value-5.2"><span class="toc-item-num">5.2&nbsp;&nbsp;</span>The preferred approach -- use None as a default value</a></span></li></ul></li><li><span><a href="#Duck-typing-and-type-casting" data-toc-modified-id="Duck-typing-and-type-casting-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Duck typing and type casting</a></span><ul class="toc-item"><li><span><a href="#Your-turn:--in-the-cell-below,-use-numpy.asarray-to-cast-the-argument-to-an-array" data-toc-modified-id="Your-turn:--in-the-cell-below,-use-numpy.asarray-to-cast-the-argument-to-an-array-6.1"><span class="toc-item-num">6.1&nbsp;&nbsp;</span>Your turn:  in the cell below, use numpy.asarray to cast the argument to an array</a></span></li></ul></li></ul></div>
 # %% [markdown]
 # # Wrting python functions
 # %% [markdown]
@@ -167,19 +167,6 @@ fibonacci_raw(10)
 
 
 # %% [markdown]
-# here's the quiz problem they need to be ready for
-#
-# ```
-# 6 points. Write a python function to evaluates the function
-#  f(x,y)=ax^2+by^3+ c
-# Your function should
-# 	Set default values of a=0,b=0,c=0
-# 	Require both x and y
-# 	Work for x and y as scalars, python lists, or numpy arrays
-# ```
-#
-
-# %% [markdown]
 # ## Number 1 python "gotcha"
 #
 # As noted here, there is a subtle issue with using default arguments
@@ -232,7 +219,7 @@ my_other_list = append_to(42)
 print(f"second time I call the function I get {my_other_list}")
 
 # %% [markdown]
-# ## Duck typing and type coercion
+# ## Duck typing and type casting
 #
 # Consider the following function:
 
@@ -241,6 +228,9 @@ import numpy as np
 
 
 def trysort(mylist):
+    #
+    # this assumes mylist is a "duck" with a sort method
+    #
     mylist.sort()
     print(f"inside trysort, mylist is {mylist}")
     return mylist
@@ -267,30 +257,35 @@ except AttributeError:
 # ### Your turn:  in the cell below, use numpy.asarray to cast the argument to an array
 
 # %%
-import numpy as np
-
-
-def trysort(mylist):
-    mylist = np.asarray(mylist)
-    mylist.sort()
-    print(f"inside trysort, mylist is {mylist}")
-    return mylist
-
-
-trysort([3, 2, 1])
-trysort(np.array([3, 2, 1]))
-trysort((3, 2, 1))
 
 # %% [markdown]
-# Generators
+# ## writing tests
+#
+# Python has an extensive testing framework called [pytest](https://docs.pytest.org/en/latest/).  This
+# is overkill for this class, but we can capture the spririt of pytest by writing test functions
+# with asserts
+#
+# ### Example
+
+# %%
+from numpy.testing import assert_allclose
+
+
+def test_fib():
+    #
+    # deliberately insert a wrong result
+    #
+    result = fibonacci(10, b=3, a=1)
+    result[0] = 5
+    answer = [2, 4, 7, 11, 18, 29, 47, 76, 123, 199]
+    assert_allclose(result, answer)
+
+
+test_fib()
+
 
 # %% [markdown]
-# Tests
-
-# %%
-import this
-
-# %%
-a = range(1_000_000_000)
-
-# %%
+# ### Sumary for testing
+#
+# When we start writing python modules, we can use pytest to search through the file, find any
+# functions with the word "test" in their name, and run those tests, generating a report
