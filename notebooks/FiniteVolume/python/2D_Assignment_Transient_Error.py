@@ -169,7 +169,7 @@ def Build_2D_Matrix(BC, Prob, D, Q):
     if number_of_rows == 1 or number_of_col == 1:
         is1D = True
         number_of_col = n
-    Matrix = np.zeros((n, n))
+    the_matrix = np.zeros((n, n))
     RHS = np.zeros(n)
 
     if is1D:
@@ -190,36 +190,36 @@ def Build_2D_Matrix(BC, Prob, D, Q):
         if j == 0:  # WEST BOUNDARY
             if BC["west"].btype == "const":
                 RHS[ind] = BC["west"].val
-                Matrix[ind, ind] = 1
+                the_matrix[ind, ind] = 1
             else:  # flux boundary condition
-                Matrix[ind, ind] = 1
-                Matrix[ind, ind + 1] = -1
+                the_matrix[ind, ind] = 1
+                the_matrix[ind, ind + 1] = -1
                 RHS[ind] = BC["west"].val / dx
 
         elif j == number_of_col - 1:  # EAST BOUNDARY
             if BC["east"].btype == "const":
                 RHS[ind] = BC["east"].val
-                Matrix[ind, ind] = 1
+                the_matrix[ind, ind] = 1
             else:  # flux boundary condition
-                Matrix[ind, ind] = 1
-                Matrix[ind, ind - 1] = -1
+                the_matrix[ind, ind] = 1
+                the_matrix[ind, ind - 1] = -1
                 RHS[ind] = BC["east"].val / dx
         elif i == 0 and Prob.ny > 1:  # SOUTH BOUNDARY
             if BC["south"].btype == "const":
                 RHS[ind] = BC["south"].val
-                Matrix[ind, ind] = 1
+                the_matrix[ind, ind] = 1
             else:  # flux boundary condition
-                Matrix[ind, ind] = 1
-                Matrix[ind, ind + number_of_col] = -1
+                the_matrix[ind, ind] = 1
+                the_matrix[ind, ind + number_of_col] = -1
                 RHS[ind] = BC["south"].val / dy
 
         elif i == number_of_rows - 1 and Prob.ny > 1:  # NORTH BOUNDARY
             if BC["north"].btype == "const":
                 RHS[ind] = BC["west"].val
-                Matrix[ind, ind] = 1
+                the_matrix[ind, ind] = 1
             else:  # flux boundary condition
-                Matrix[ind, ind] = 1
-                Matrix[ind, ind - number_of_col] = -1
+                the_matrix[ind, ind] = 1
+                the_matrix[ind, ind - number_of_col] = -1
                 RHS[ind] = BC["north"].val / dy
         else:
             if is1D:
@@ -233,15 +233,15 @@ def Build_2D_Matrix(BC, Prob, D, Q):
                 South = coef_y * avg(D[i, j], D[i - 1, j])
                 East = coef_x * avg(D[i, j], D[i, j + 1])
                 West = coef_x * avg(D[i, j], D[i, j - 1])
-                Matrix[ind, ind + number_of_col] = -North
-                Matrix[ind, ind - number_of_col] = -South
+                the_matrix[ind, ind + number_of_col] = -North
+                the_matrix[ind, ind - number_of_col] = -South
                 RHS[ind] = Q[i, j]
 
-            Matrix[ind, ind] = East + West + North + South
-            Matrix[ind, ind + 1] = -East
-            Matrix[ind, ind - 1] = -West
+            the_matrix[ind, ind] = East + West + North + South
+            the_matrix[ind, ind + 1] = -East
+            the_matrix[ind, ind - 1] = -West
 
-    return Matrix, RHS
+    return the_matrix, RHS
 
 
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-efd52c1cd03dbf67"}}
@@ -713,7 +713,7 @@ plt.colorbar()
 #
 # Be careful, with a high amount of timesteps, it can take a few minutes to run. Start with only a few timesteps to make sure everything is working properly.
 #
-# If you want to run the simulation until the steady-state is achieved, please do! You are welcome to present any result you want. The last cell is made so 9 different times are plotted. If you can't make it, plot whatever you want in the cell above that one and put the boolean Automated_Plot to false!
+# If you want to run the simulation until the steady-state is achieved, please do! You are welcome to present any result you want. The last cell is made so 9 different times are plotted. If you can't make it, plot whatever you want in the cell above that one and put the boolean automated_plot to false!
 
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-e8a4fef275e77cec"}}
 number_of_fig = 9
@@ -769,8 +769,8 @@ for t in range(nTstp):
 # https://jdhao.github.io/2017/06/11/mpl_multiplot_one_colorbar/
 # https://matplotlib.org/tutorials/toolkits/axes_grid.html
 
-Automated_plot = True  # set that to False if you don't want the automated 9 plots
-if Automated_plot:
+automated_plot = True  # set that to False if you don't want the automated 9 plots
+if automated_plot:
     fig = plt.figure(figsize=(10, 10))
 
     ntimesteps = nfig
