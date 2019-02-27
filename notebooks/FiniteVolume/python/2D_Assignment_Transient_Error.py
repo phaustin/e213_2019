@@ -14,7 +14,6 @@
 #     language: python
 #     name: python3
 # ---
-
 # %% [markdown] {"toc": true, "nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-2ad2c23f9a0a820a"}}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"><li><span><a href="#2D-Transient-simulation" data-toc-modified-id="2D-Transient-simulation-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>2D Transient simulation</a></span><ul class="toc-item"><li><span><a href="#Learning-Goals" data-toc-modified-id="Learning-Goals-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Learning Goals</a></span></li><li><span><a href="#Context" data-toc-modified-id="Context-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Context</a></span></li><li><span><a href="#Boundary-conditions" data-toc-modified-id="Boundary-conditions-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Boundary conditions</a></span></li><li><span><a href="#Transient-diffusion-from-a-constant-concentration-boundary" data-toc-modified-id="Transient-diffusion-from-a-constant-concentration-boundary-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Transient diffusion from a constant-concentration boundary</a></span><ul class="toc-item"><li><span><a href="#1D-Homogeneous-problem" data-toc-modified-id="1D-Homogeneous-problem-1.4.1"><span class="toc-item-num">1.4.1&nbsp;&nbsp;</span>1D Homogeneous problem</a></span></li><li><span><a href="#Quantification-of-the-error" data-toc-modified-id="Quantification-of-the-error-1.4.2"><span class="toc-item-num">1.4.2&nbsp;&nbsp;</span>Quantification of the error</a></span></li><li><span><a href="#2D-transient-diffusion-in-homogeneous-media" data-toc-modified-id="2D-transient-diffusion-in-homogeneous-media-1.4.3"><span class="toc-item-num">1.4.3&nbsp;&nbsp;</span>2D transient diffusion in homogeneous media</a></span></li></ul></li><li><span><a href="#Conclusions" data-toc-modified-id="Conclusions-1.5"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>Conclusions</a></span></li></ul></li></ul></div>
@@ -44,7 +43,7 @@
 #
 # ## Transient diffusion from a constant-concentration boundary
 #
-# Let us describe the diffusion of a contaminant in soils where a constant concentration is applied at onne boundary. It can be shown that the analytical solution to such a problem can be represented by the following equation:
+# Let us describe the diffusion of a contaminant in soils where a constant concentration is applied at one boundary. It can be shown that the analytical solution to such a problem can be represented by the following equation:
 #
 # \begin{equation}
 # c(x,t) = c_0  \text{erfc}\left( \frac{x}{\sqrt{4Dt}}  \right)
@@ -83,7 +82,7 @@ for t in range(1, n_tstep):
     plt.plot(
         x,
         Analytic_conc_1D[t, :],
-        label="Concentration after %.0f day" % Days_of_Plot[t],
+        label="Concentration after %.0f days" % Days_of_Plot[t],
     )
 
 
@@ -93,17 +92,17 @@ plt.legend(bbox_to_anchor=(1.01, 1), loc="upper left")
 
 
 # %% [markdown] {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-d264c8e9ca43eebe"}}
-# If we consider a 2D system, without any heterogeneity along the y-axis, the previous solution is valid for each y axis, and you can imagine that the previous plot is a transverse vision of the evolution of the front. This means that, whatever the value of  $y$:
+# If we consider a 2D system, without any heterogeneity along the y-axis, the previous solution is valid for each y axis, and you can imagine that the previous plot is a transverse cross-section of the evolution of the front. This means that, whatever the value of  $y$:
 #
 # \begin{equation}
 #   c(x,y_1,t) = c(x,y_2,t) \quad \forall y_1,y_2,x,t
 # \end{equation}
 
 # %% [markdown] {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-57e9419f434cc7b6"}}
-# In the next few cells, we define some function which we will use throughout the rest of the assignment.
+# In the next few cells, we define some functions which we will use throughout the rest of the assignment.
 #
 # - avg(Di,Dj) computes the average diffusion coefficient to compute the flux between two cells with different D
-# - ind_to_row_col(...) function to know which column and which row correspond to which index
+# - ind_to_row_col(...) function to find which column and which row correspond to which linear index
 # - Build_2D_Matrix(...) is the same function than before, generalized to 2D and multiple boundary conditions
 #
 # Then we have defined two classes (objects) which will store informations to make it easier to pass to functions.
@@ -285,7 +284,7 @@ South = boundary("zero-flux", val=0)
 
 # %%
 # If  you want to change boundary conditions, to see the impact of these, we highly encourage you to do so!
-# So we leave this cell free for you to change these boundary conditions. Don't
+# So we leave this cell free for you to change these boundary conditions.
 
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-ea536fa5b54285e2"}}
 BC = {"west": West, "north": North, "east": East, "south": South}
