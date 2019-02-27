@@ -46,3 +46,12 @@
 .. _Assignment_Transient_ipynb: notebooks/Assignment_Transient.ipynb
 .. _Assignment_Transient_html: web_notebooks/Assignment_Transient.ipynb
 .. _Assignment_Transient_py: https://github.com/phaustin/eosc213_students/blob/master/python/Assignment_Transient.py
+.. _week6_assign_solution_ipynb: notebooks/week6_assign_solution.ipynb
+.. _week6_assign_solution_html: web_notebooks/week6_assign_solution.ipynb
+.. _week6_assign_solution_py: https://github.com/phaustin/eosc213_students/blob/master/python/week6_assign_solution.py
+.. _Assignment_Transient_solution_ipynb: notebooks/Assignment_Transient_solution.ipynb
+.. _Assignment_Transient_solution_html: web_notebooks/Assignment_Transient_solution.ipynb
+.. _Assignment_Transient_solution_py: https://github.com/phaustin/eosc213_students/blob/master/python/Assignment_Transient_solution.py
+.. _python_functions_ipynb: notebooks/python_functions.ipynb
+.. _python_functions_html: web_notebooks/python_functions.ipynb
+.. _python_functions_py: https://github.com/phaustin/eosc213_students/blob/master/python/python_functions.py

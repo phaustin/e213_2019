@@ -50,4 +50,12 @@ notebooks/7_finite_volume_6.ipynb                   `7_finite_volume_6_html`_   
 notebooks/7_finite_volume_7.ipynb                   `7_finite_volume_7_html`_                   `7_finite_volume_7_py`_                   
 --------------------------------------------------- ------------------------------------------- ----------------------------------------- 
 notebooks/Assignment_Transient.ipynb                `Assignment_Transient_html`_                `Assignment_Transient_py`_                
+--------------------------------------------------- ------------------------------------------- ----------------------------------------- 
+**week 8**                                                                                                                                
+--------------------------------------------------- ------------------------------------------- ----------------------------------------- 
+notebooks/week6_assign_solution.ipynb               `week6_assign_solution_html`_               `week6_assign_solution_py`_               
+--------------------------------------------------- ------------------------------------------- ----------------------------------------- 
+notebooks/Assignment_Transient_solution.ipynb       `Assignment_Transient_solution_html`_       `Assignment_Transient_solution_py`_       
+--------------------------------------------------- ------------------------------------------- ----------------------------------------- 
+notebooks/python_functions.ipynb                    `python_functions_html`_                    `python_functions_py`_                    
 =================================================== =========================================== ========================================= 

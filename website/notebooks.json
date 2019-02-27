@@ -27,5 +27,9 @@
         "7_finite_volume_6",
         "7_finite_volume_7",
         "Assignment_Transient"
-    ]
+    ],
+    "week 8": [
+        "week6_assign_solution",
+        "python_functions"
+    ]    
 }
