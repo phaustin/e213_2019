@@ -2,6 +2,7 @@
 # jupyter:
 #   jupytext:
 #     cell_metadata_filter: all
+#     formats: ipynb,python//py:percent
 #     notebook_metadata_filter: all
 #     text_representation:
 #       extension: .py
@@ -15,7 +16,7 @@
 # ---
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#read-in-all-matrices-for-two-timesteps-and-save-in-a-dict" data-toc-modified-id="read-in-all-matrices-for-two-timesteps-and-save-in-a-dict-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>read in all matrices for two timesteps and save in a dict</a></span></li></ul></div>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#read-in-all-matrices-for-two-timesteps-and-save-in-a-dict" data-toc-modified-id="read-in-all-matrices-for-two-timesteps-and-save-in-a-dict-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>read in all matrices for two timesteps and save in a dict</a></span></li><li><span><a href="#format-the-A-matrix-for-timestep-25" data-toc-modified-id="format-the-A-matrix-for-timestep-25-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>format the A matrix for timestep 25</a></span></li><li><span><a href="#Same-for-Aa" data-toc-modified-id="Same-for-Aa-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Same for Aa</a></span></li><li><span><a href="#Now-do-timestep-26" data-toc-modified-id="Now-do-timestep-26-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Now do timestep 26</a></span></li></ul></div>
 # %%
 from pathlib import Path
 
