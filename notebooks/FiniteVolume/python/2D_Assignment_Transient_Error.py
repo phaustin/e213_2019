@@ -22,7 +22,7 @@
 #
 # ## Learning Goals
 #
-# - Being able to perform a 2D diffusion problem with inhomogeneous diffusion
+# - Being able to solve a 2D diffusion problem with inhomogeneous diffusion
 # - Being able to assess the accuracy by comparing solution of a homogeneous problem to an analyitical solution
 # - Being able to define the gridsize and timesteps to have reasonable computation time vs accuracy
 # - Use the precedent approach to model a more complicated problem
@@ -77,8 +77,8 @@ plt.plot(x, Analytic_conc_1D[0, :], label="Initial concentration")
 
 for t in range(1, n_tstep):
     for i in range(n_x):
-        DENOM = np.sqrt(4 * Diff * Days_of_Plot[t])
-        Analytic_conc_1D[t, i] = c0 * special.erfc((x[i]) / DENOM)
+        denom = np.sqrt(4 * Diff * Days_of_Plot[t])
+        Analytic_conc_1D[t, i] = c0 * special.erfc((x[i]) / denom)
     plt.plot(
         x,
         Analytic_conc_1D[t, :],
@@ -108,7 +108,7 @@ plt.legend(bbox_to_anchor=(1.01, 1), loc="upper left")
 # Then we have defined two classes (objects) which will store informations to make it easier to pass to functions.
 #
 # - class boundary: creates a boundary which has a type and an assigned value ("const" means constant-concentration boundary, and its attribute "val" is the value of this concentration. otherwise, it is a flux boundary condition, and the attribute "0" expresses the derivative at that boundary).
-# - class def_prob: puts every relevant parameter in an object to be given to Build_2d_Matrix
+# - class problem_def: puts every relevant parameter in an object to be given to Build_2d_Matrix
 
 # %% {"nbgrader": {"grade": false, "grade_id": "cell-bd0b49f6ae1acef3", "locked": true, "schema_version": 1, "solution": false}}
 # this function deals with harmonic averaging when diffusion is not the same everywhere.
@@ -143,109 +143,119 @@ def ind_to_row_col(ind, nrows, ncol):
 
 
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-c21949415ff13542"}}
-def Build_2D_Matrix(BC, Prob, D, Q):
+def Build_2D_Matrix(bc_dict, problem, D_matrix, Qsource):
     """
     Constructs a coefficient matrix A and an array b corresponding to the system Ac = b
     This system corresponds either to a 1D or 2D problem
-    Parameters:
-    --------------
-    BC: contains boundary objects defining the boundary conditions
-    nx (int): amounts of cells on the x-axis
-    ny (int): amount of cells on the y-axis
-    D (float array): values of the diffusion coefficient at each grid point(dm^2/day)
+
+    Parameters
+    ----------
+    bc_dict: dict
+       dictionary with boundary_def objects defining the boundary conditions
+    D_matrix (float array): values of the diffusion coefficient at each grid point(dm^2/day)
     width_X (float): x-extent of the domain
     width_Y (float): y-extent of the domain
     poro (float): porosity value
-    Q (float array): volumetric source term (mg/L/day)
-    Returns the matrix A, and the array b to solve the
-    discretized 1D diffusion problem Ax = b
+    Qsource (float array): volumetric source term (mg/L/day)
 
-    ----------
+    Returns
+    -------
+
+    the_matrix, rhs: tuple
+       where the_matrix=A and rhs =b
+       in the discretized diffusion problem
+       Ax=b
     """
-    number_of_rows = Prob.ny
-    number_of_col = Prob.nx
-    n = Prob.nx * Prob.ny
+    number_of_rows = problem.ny
+    number_of_cols = problem.nx
+    n = problem.nx * problem.ny
     is1D = False
-    if number_of_rows == 1 or number_of_col == 1:
+    if number_of_rows == 1 or number_of_cols == 1:
         is1D = True
-        number_of_col = n
+        number_of_cols = n
     the_matrix = np.zeros((n, n))
-    RHS = np.zeros(n)
+    rhs = np.zeros(n)
 
     if is1D:
-        dx = max(Prob.Wx, Prob.Wy) / (max(Prob.ny, Prob.nx) - 1)
-        coef_x = Prob.poro / dx / dx
+        dx = max(problem.wx, problem.wy) / (max(problem.ny, problem.nx) - 1)
+        coef_x = problem.poro / dx / dx
     else:
-        dx = Prob.Wx / (Prob.ny - 1)
-        dy = Prob.Wy / (Prob.nx - 1)
-        coef_x = Prob.poro / dx / dx
-        coef_y = Prob.poro / dy / dy
+        dx = problem.wx / (problem.ny - 1)
+        dy = problem.wy / (problem.nx - 1)
+        coef_x = problem.poro / dx / dx
+        coef_y = problem.poro / dy / dy
 
     for ind in range(n):
         if is1D:
             j = ind
             i = -1
         else:
-            i, j = ind_to_row_col(ind, number_of_rows, number_of_col)
+            i, j = ind_to_row_col(ind, number_of_rows, number_of_cols)
         if j == 0:  # WEST BOUNDARY
-            if BC["west"].btype == "const":
-                RHS[ind] = BC["west"].val
+            if bc_dict["west"].btype == "const":
+                rhs[ind] = bc_dict["west"].val
                 the_matrix[ind, ind] = 1
             else:  # flux boundary condition
                 the_matrix[ind, ind] = 1
                 the_matrix[ind, ind + 1] = -1
-                RHS[ind] = BC["west"].val / dx
+                rhs[ind] = bc_dict["west"].val / dx
 
-        elif j == number_of_col - 1:  # EAST BOUNDARY
-            if BC["east"].btype == "const":
-                RHS[ind] = BC["east"].val
+        elif j == number_of_cols - 1:  # EAST BOUNDARY
+            if bc_dict["east"].btype == "const":
+                rhs[ind] = bc_dict["east"].val
                 the_matrix[ind, ind] = 1
             else:  # flux boundary condition
                 the_matrix[ind, ind] = 1
                 the_matrix[ind, ind - 1] = -1
-                RHS[ind] = BC["east"].val / dx
-        elif i == 0 and Prob.ny > 1:  # SOUTH BOUNDARY
-            if BC["south"].btype == "const":
-                RHS[ind] = BC["south"].val
+                rhs[ind] = bc_dict["east"].val / dx
+        elif i == 0 and problem.ny > 1:  # SOUTH BOUNDARY
+            if bc_dict["south"].btype == "const":
+                rhs[ind] = bc_dict["south"].val
                 the_matrix[ind, ind] = 1
             else:  # flux boundary condition
                 the_matrix[ind, ind] = 1
-                the_matrix[ind, ind + number_of_col] = -1
-                RHS[ind] = BC["south"].val / dy
+                the_matrix[ind, ind + number_of_cols] = -1
+                rhs[ind] = bc_dict["south"].val / dy
 
-        elif i == number_of_rows - 1 and Prob.ny > 1:  # NORTH BOUNDARY
-            if BC["north"].btype == "const":
-                RHS[ind] = BC["west"].val
+        elif i == number_of_rows - 1 and problem.ny > 1:  # NORTH BOUNDARY
+            if bc_dict["north"].btype == "const":
+                rhs[ind] = bc_dict["west"].val
                 the_matrix[ind, ind] = 1
             else:  # flux boundary condition
                 the_matrix[ind, ind] = 1
-                the_matrix[ind, ind - number_of_col] = -1
-                RHS[ind] = BC["north"].val / dy
+                the_matrix[ind, ind - number_of_cols] = -1
+                rhs[ind] = bc_dict["north"].val / dy
         else:
             if is1D:
-                North = 0
-                South = 0
-                RHS[ind] = Q[ind]
-                East = coef_x * avg(D[ind + 1], D[ind])
-                West = coef_x * avg(D[ind - 1], D[ind])
+                north = 0
+                south = 0
+                rhs[ind] = Qsource[ind]
+                east = coef_x * avg(D_matrix[ind + 1], D_matrix[ind])
+                west = coef_x * avg(D_matrix[ind - 1], D_matrix[ind])
             else:
-                North = coef_y * avg(D[i, j], D[i + 1, j])
-                South = coef_y * avg(D[i, j], D[i - 1, j])
-                East = coef_x * avg(D[i, j], D[i, j + 1])
-                West = coef_x * avg(D[i, j], D[i, j - 1])
-                the_matrix[ind, ind + number_of_col] = -North
-                the_matrix[ind, ind - number_of_col] = -South
-                RHS[ind] = Q[i, j]
+                north = coef_y * avg(D_matrix[i, j], D_matrix[i + 1, j])
+                south = coef_y * avg(D_matrix[i, j], D_matrix[i - 1, j])
+                east = coef_x * avg(D_matrix[i, j], D_matrix[i, j + 1])
+                west = coef_x * avg(D_matrix[i, j], D_matrix[i, j - 1])
+                the_matrix[ind, ind + number_of_cols] = -north
+                the_matrix[ind, ind - number_of_cols] = -south
+                rhs[ind] = Qsource[i, j]
 
-            the_matrix[ind, ind] = East + West + North + South
-            the_matrix[ind, ind + 1] = -East
-            the_matrix[ind, ind - 1] = -West
+            the_matrix[ind, ind] = east + west + north + south
+            the_matrix[ind, ind + 1] = -east
+            the_matrix[ind, ind - 1] = -west
 
-    return the_matrix, RHS
+    return the_matrix, rhs
 
 
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-efd52c1cd03dbf67"}}
-class boundary:
+class boundary_def:
+    """
+    this class holds the boundary type btype ('flux' or 'const')
+    and the value of the boundary condition (derivitive of the concentration if 'flux'
+    value of the concentration if 'const')
+    """
+
     btype: str
     val: float
 
@@ -255,40 +265,45 @@ class boundary:
 
 
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-d891cdd619d0f39d"}}
-class def_prob:
+class problem_def:
+    """
+    this class holds the specifcation for the domain,
+    including the value of the porosity
+    """
+
     nx: int
     ny: int
     poro: float
-    Wx: float
-    Wy: float
+    wx: float
+    wy: float
 
-    def __init__(self, nx, ny, poro, Wx, Wy):
+    def __init__(self, nx, ny, poro, wx, wy):
         self.nx = nx
         self.ny = ny
         self.poro = poro
-        self.Wx = Wx
-        self.Wy = Wy
+        self.wx = wx
+        self.wy = wy
 
 
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-f97ab996f12bd2f2"}}
-# Here we create 4 boundaries, West has a constant concentration at c0, East has a constant boundary at 0;
-West = boundary("const", val=c0)
-East = boundary("const", val=0)
+# Here we create 4 boundaries, west has a constant concentration at c0, east has a constant boundary at 0;
+west = boundary_def("const", val=c0)
+east = boundary_def("const", val=0)
 
-# For 1D problem, the used boundaries are West and East.
+# For 1D problem, the used boundaries are west and east.
 
 # The other south and north boundaries have a zero flux (impermeable)
 
-North = boundary("zero-flux", val=0)
-South = boundary("zero-flux", val=0)
+north = boundary_def("flux", val=0)
+south = boundary_def("flux", val=0)
 
 # %%
 # If  you want to change boundary conditions, to see the impact of these, we highly encourage you to do so!
 # So we leave this cell free for you to change these boundary conditions.
 
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-ea536fa5b54285e2"}}
-BC = {"west": West, "north": North, "east": East, "south": South}
-# The latter array BC will be sent to the different functions
+bc_dict = {"west": west, "north": north, "east": east, "south": south}
+# The latter array bc_dict will be sent to the different functions
 
 # %% [markdown] {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-5964a142b442c018"}}
 # ### 1D Homogeneous problem
@@ -308,11 +323,11 @@ n = n_x * n_y
 x = np.linspace(0, width, n_x)
 c_init = np.zeros(n_x)
 c_init[0] = c0
-D = Diff * np.ones(n)
+D_matrix = Diff * np.ones(n)
 poro = 0.4
-prob = def_prob(n_x, n_y, poro, width_X, width_Y)
-Q = np.zeros(n)
-A, b = Build_2D_Matrix(BC, prob, D, Q)
+prob = problem_def(n_x, n_y, poro, width_X, width_Y)
+Qsource = np.zeros(n)
+A, b = Build_2D_Matrix(bc_dict, prob, D_matrix, Qsource)
 dt = 0.2
 Abis = np.zeros((n, n))
 for i in range(n):
@@ -348,8 +363,8 @@ for t in range(nTstp - 1):
     if (t + 1) % n_of_tstep_before_fig == 0 and t > 0:
         for i in range(n):
             c[i, nfig] = v[i]
-            DENOM = np.sqrt(4 * Diff * (t + 1) * dt)
-            c_real[i] = c0 * special.erfc((x[i]) / DENOM)
+            denom = np.sqrt(4 * Diff * (t + 1) * dt)
+            c_real[i] = c0 * special.erfc((x[i]) / denom)
             err[i, nfig] = abs(c[i, nfig] - c_real[i])
 
         ax1.plot(x, c[:, nfig], label="Concentration after %.0f day" % Time)
@@ -431,11 +446,11 @@ def Compute_error(n, dt):
     x = np.linspace(0, width, n)
     c_init = np.zeros(n)
     c_init[0] = c0
-    D = Diff * np.ones(n)
+    D_matrix = Diff * np.ones(n)
     poro = 0.4
-    prob = def_prob(n, 1, poro, width_X, 0)
-    Q = np.zeros(n)
-    A, b = Build_2D_Matrix(BC, prob, D, Q)
+    prob = problem_def(n, 1, poro, width_X, 0)
+    Qsource = np.zeros(n)
+    A, b = Build_2D_Matrix(bc_dict, prob, D_matrix, Qsource)
 
     Abis = np.zeros((n, n))
     for i in range(n):
@@ -467,8 +482,8 @@ def Compute_error(n, dt):
         if (t + 1) % n_of_tstep_before_fig == 0 and t > 0:
             for i in range(n):
                 c[i, nfig] = v[i]
-                DENOM = np.sqrt(4 * Diff * (t + 1) * dt)
-                c_real[i] = c0 * special.erfc((x[i]) / DENOM)
+                denom = np.sqrt(4 * Diff * (t + 1) * dt)
+                c_real[i] = c0 * special.erfc((x[i]) / denom)
                 err[i, nfig] = abs(c[i, nfig] - c_real[i])
 
             nfig = nfig + 1
@@ -625,8 +640,8 @@ width_Y = 10
 # n_x should be defined by your previous analysis
 n_y = n_x
 
-D = Diff * np.ones((n_y, n_x))
-Q = np.zeros((n_y, n_x))
+D_matrix = Diff * np.ones((n_y, n_x))
+Qsource = np.zeros((n_y, n_x))
 poro = 0.4
 dt = 0.25  # days
 c_init = np.zeros((n_y, n_x))
@@ -648,14 +663,14 @@ for i in range(n_y):
             abs(x[j] - width_X / 2) <= 0.2 * width_X
             and abs(y[i] - width_Y / 2) <= 0.2 * width_Y
         ):
-            D[i, j] = Diff_low
+            D_matrix[i, j] = Diff_low
             # here we define a square of low diffusivity in the middle
 
 
 fig, ax = plt.subplots()
 # This generates a colormap of diffusion.
 cm = cmap.get_cmap("magma")
-plt.contourf(x, y, D, cmap=cm)
+plt.contourf(x, y, D_matrix, cmap=cm)
 plt.colorbar()
 
 # "magma" refers to a colormap example. You can chose other ones
@@ -676,9 +691,9 @@ plt.colorbar()
 # we are using everything we have done before
 
 ### Asymptotic behavior
-prob = def_prob(n_x, n_y, poro, width_X, width_Y)
-Q = np.zeros((n_y, n_x))
-A, b = Build_2D_Matrix(BC, prob, D, Q)
+prob = problem_def(n_x, n_y, poro, width_X, width_Y)
+Qsource = np.zeros((n_y, n_x))
+A, b = Build_2D_Matrix(bc_dict, prob, D_matrix, Qsource)
 v = np.linalg.solve(A, b)
 n = n_x * n_y
 # array v contains the solution
@@ -700,7 +715,7 @@ plt.colorbar()
 # Now we want you to solve the transient problem in the next cell.
 # Everything you need has been defined
 #
-# - the boundary conditions have been defined (BC)
+# - the boundary conditions have been defined (bc_dict)
 # - matrix A and b is known from the solution of the steady-state problem
 # - every variable, parameter is known, as well as the initial condition in the matrix c_init
 #
