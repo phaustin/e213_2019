@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # ---
 # jupyter:
 #   jupytext:
@@ -22,10 +23,11 @@
 #
 # ## Learning Goals
 #
-# - Being able to solve a 2D diffusion problem with inhomogeneous diffusion
-# - Being able to assess the accuracy by comparing solution of a homogeneous problem to an analyitical solution
-# - Being able to define the gridsize and timesteps to have reasonable computation time vs accuracy
-# - Use the precedent approach to model a more complicated problem
+# - Formulate and solve a 2D diffusion problem with inhomogeneous diffusion
+# - Assess the accuracy by comparing the solution of a homogeneous problem to an analyitical solution
+# - Define the gridsize and timesteps to have reasonable computation time vs accuracy
+# - Use this approach to model a more complicated problem
+# - Use simple python classes to organize parameters
 #
 # ## Context
 #
@@ -43,13 +45,13 @@
 #
 # ## Transient diffusion from a constant-concentration boundary
 #
-# Let us describe the diffusion of a contaminant in soils where a constant concentration is applied at one boundary. It can be shown that the analytical solution to such a problem can be represented by the following equation:
+# Let us describe the diffusion of a contaminant with concentration c in soils where a constant concentration $c_0$ is fixed at one boundary. It can be shown that the analytical solution to such a problem can be represented by the following equation:
 #
 # \begin{equation}
 # c(x,t) = c_0  \text{erfc}\left( \frac{x}{\sqrt{4Dt}}  \right)
 # \end{equation}
 #
-# where erfc$(x)$ is the error function. Let us look at this solution for different timesteps.
+# where erfc$(x)$ is the error function, t is time ad D is the diffusivity. Let us look at this solution for different timesteps.
 #
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-e58a84ffce31f93a"}}
 import matplotlib.cm as cmap
@@ -64,13 +66,13 @@ from scipy import special
 n_tstep = 6
 Days_of_Plot = [0, 2, 20, 100, 200, 500]
 
-n_x = 100
-width = 10
+n_x = 100  # number of cells
+width = 10  # dm
 x = np.linspace(0, width, n_x)
 Analytic_conc_1D = np.zeros((n_tstep, n_x))
 a = 1
 c0 = 1
-Diff = 2e-9 * 100 * 24 * 3600
+Diff = 2e-9 * 100 * 24 * 3600  # dm²/day
 Analytic_conc_1D[0, 0] = c0
 
 plt.plot(x, Analytic_conc_1D[0, :], label="Initial concentration")
@@ -103,12 +105,12 @@ plt.legend(bbox_to_anchor=(1.01, 1), loc="upper left")
 #
 # - avg(Di,Dj) computes the average diffusion coefficient to compute the flux between two cells with different D
 # - ind_to_row_col(...) function to find which column and which row correspond to which linear index
-# - Build_2D_Matrix(...) is the same function than before, generalized to 2D and multiple boundary conditions
+# - build_2D_matrix(...) is the same function than before, generalized to 2D and multiple boundary conditions
 #
 # Then we have defined two classes (objects) which will store informations to make it easier to pass to functions.
 #
 # - class boundary: creates a boundary which has a type and an assigned value ("const" means constant-concentration boundary, and its attribute "val" is the value of this concentration. otherwise, it is a flux boundary condition, and the attribute "0" expresses the derivative at that boundary).
-# - class problem_def: puts every relevant parameter in an object to be given to Build_2d_Matrix
+# - class Problem_Def: puts every relevant parameter in an object to be given to build_2D_matrix
 
 # %% {"nbgrader": {"grade": false, "grade_id": "cell-bd0b49f6ae1acef3", "locked": true, "schema_version": 1, "solution": false}}
 # this function deals with harmonic averaging when diffusion is not the same everywhere.
@@ -143,7 +145,7 @@ def ind_to_row_col(ind, nrows, ncol):
 
 
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-c21949415ff13542"}}
-def Build_2D_Matrix(bc_dict, problem, D_matrix, Qsource):
+def build_2D_matrix(bc_dict, problem, D_matrix, Qsource):
     """
     Constructs a coefficient matrix A and an array b corresponding to the system Ac = b
     This system corresponds either to a 1D or 2D problem
@@ -151,12 +153,17 @@ def Build_2D_Matrix(bc_dict, problem, D_matrix, Qsource):
     Parameters
     ----------
     bc_dict: dict
-       dictionary with boundary_def objects defining the boundary conditions
-    D_matrix (float array): values of the diffusion coefficient at each grid point(dm^2/day)
-    width_X (float): x-extent of the domain
-    width_Y (float): y-extent of the domain
-    poro (float): porosity value
-    Qsource (float array): volumetric source term (mg/L/day)
+       dictionary with Boundary_Def objects defining the boundary conditions
+    D_matrix: (float array)
+        values of the diffusion coefficient at each grid point(dm^2/day)
+    width_x: (float)
+        x-extent of the domain (dm)
+    width_y: (float)
+        y-extent of the domain (dm)
+    poro (float)
+        porosity value
+    Qsource: (float array)
+      volumetric source term (mg/L/day)
 
     Returns
     -------
@@ -249,7 +256,7 @@ def Build_2D_Matrix(bc_dict, problem, D_matrix, Qsource):
 
 
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-efd52c1cd03dbf67"}}
-class boundary_def:
+class Boundary_Def:
     """
     this class holds the boundary type btype ('flux' or 'const')
     and the value of the boundary condition (derivitive of the concentration if 'flux'
@@ -265,7 +272,7 @@ class boundary_def:
 
 
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-d891cdd619d0f39d"}}
-class problem_def:
+class Problem_Def:
     """
     this class holds the specifcation for the domain,
     including the value of the porosity
@@ -287,15 +294,15 @@ class problem_def:
 
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-f97ab996f12bd2f2"}}
 # Here we create 4 boundaries, west has a constant concentration at c0, east has a constant boundary at 0;
-west = boundary_def("const", val=c0)
-east = boundary_def("const", val=0)
+west = Boundary_Def("const", val=c0)
+east = Boundary_Def("const", val=0)
 
 # For 1D problem, the used boundaries are west and east.
 
 # The other south and north boundaries have a zero flux (impermeable)
 
-north = boundary_def("flux", val=0)
-south = boundary_def("flux", val=0)
+north = Boundary_Def("flux", val=0)
+south = Boundary_Def("flux", val=0)
 
 # %%
 # If  you want to change boundary conditions, to see the impact of these, we highly encourage you to do so!
@@ -314,30 +321,35 @@ bc_dict = {"west": west, "north": north, "east": east, "south": south}
 # We give you the resolution scheme for the 1D problem in the next cell. You will have to use that again later for the error optimization, as well as for the 2D problem.
 #
 
-# %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-0179d33dd0914514"}}
+# %%
 n_x = 51
 n_y = 1
-width_X = width
-width_Y = 0
+Diff = 2e-9 * 100 * 24 * 3600  # dm²/day
+width_x = 10  # dm
+width_y = 0
 n = n_x * n_y
 x = np.linspace(0, width, n_x)
 c_init = np.zeros(n_x)
 c_init[0] = c0
 D_matrix = Diff * np.ones(n)
 poro = 0.4
-prob = problem_def(n_x, n_y, poro, width_X, width_Y)
+prob = Problem_Def(n_x, n_y, poro, width_x, width_y)
 Qsource = np.zeros(n)
-A, b = Build_2D_Matrix(bc_dict, prob, D_matrix, Qsource)
-dt = 0.2
-Abis = np.zeros((n, n))
+A, b = build_2D_matrix(bc_dict, prob, D_matrix, Qsource)
+
+
+# %%
+dt = 0.2  # days
+Adelta = np.zeros((n, n))
 for i in range(n):
-    Abis[i, i] = poro / dt
-A = A + Abis
-# There is no need to update A at every timestep, since the timestep and the porosity are constant.
+    Adelta[i, i] = poro / dt
+A = A + Adelta
+# There is no need to update A at every timestep,
+# since the timestep and the porosity are constant.
 
-Bbis = np.zeros(n)
+Bdelta = np.zeros(n)
 
-Tf = 100
+Tf = 100  # total number of days
 nTstp = int(Tf / dt)
 number_of_fig = 10
 n_of_tstep_before_fig = int(nTstp / number_of_fig)
@@ -356,8 +368,8 @@ v = c_init
 
 for t in range(nTstp - 1):
     for i in range(n):
-        Bbis[i] = v[i] * poro / dt
-    bb = b + Bbis
+        Bdelta[i] = v[i] * poro / dt
+    bb = b + Bdelta
     v = np.linalg.solve(A, bb)
     Time = Time + dt
     if (t + 1) % n_of_tstep_before_fig == 0 and t > 0:
@@ -432,14 +444,14 @@ print(maxerr)
 # In the end, we want you to plot the error in function of the timestep and gridsize, and chose the timestep you think is the best. A good compromise between accuracy and computation time is usually the best. In the rest of the assignment, we will go 2D. So, if your choice from here results in a too high computation time, the 2D calculation will take an important amount of time.
 
 # %% {"nbgrader": {"schema_version": 1, "solution": true, "grade": true, "locked": false, "points": 5, "grade_id": "cell-e3ee742eca9b30e4"}}
-def Compute_error(n, dt):
+def compute_error(n, dt):
     """
     Computes the error of the 1D transient diffusion problem
     n is the amount of gridcells in the x-dimension
     dt is the timestep in days
     """
     ### BEGIN SOLUTION
-    width_X = 10
+    width_x = 10
     x = np.linspace(0, width, n)
     c0 = 1
     Diff = 2e-9 * 100 * 24 * 3600
@@ -448,17 +460,17 @@ def Compute_error(n, dt):
     c_init[0] = c0
     D_matrix = Diff * np.ones(n)
     poro = 0.4
-    prob = problem_def(n, 1, poro, width_X, 0)
+    prob = Problem_Def(n, 1, poro, width_x, 0)
     Qsource = np.zeros(n)
-    A, b = Build_2D_Matrix(bc_dict, prob, D_matrix, Qsource)
+    A, b = build_2D_matrix(bc_dict, prob, D_matrix, Qsource)
 
-    Abis = np.zeros((n, n))
+    Adelta = np.zeros((n, n))
     for i in range(n):
-        Abis[i, i] = poro / dt
-    A = A + Abis
+        Adelta[i, i] = poro / dt
+    A = A + Adelta
     # There is no need to update A at every timestep, since the timestep and the porosity are constant.
 
-    Bbis = np.zeros(n)
+    Bdelta = np.zeros(n)
     Tf = 100
     nTstp = int(Tf / dt)
     number_of_fig = 10
@@ -475,8 +487,8 @@ def Compute_error(n, dt):
 
     for t in range(nTstp - 1):
         for i in range(n):
-            Bbis[i] = v[i] * poro / dt
-        bb = b + Bbis
+            Bdelta[i] = v[i] * poro / dt
+        bb = b + Bdelta
         v = np.linalg.solve(A, bb)
         Time = Time + dt
         if (t + 1) % n_of_tstep_before_fig == 0 and t > 0:
@@ -498,54 +510,55 @@ def Compute_error(n, dt):
 
 
 # %% [markdown] {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-3eb6a9edcf92f2be"}}
-# In the next cell, we want you to use the previously defined function to compute the error for different values of the number_of_grid_cells and time_steps, and give relevant values (a couple of plots, maybe) to justify your future choice. The next cell gives you an example of how we want you to work.
+# In the next cell, we want you to use the previously defined function to compute the error for different values of the number_of_grid_cells and step_size, and give relevant values (incude appropriate plots) to justify your future choice. The next cell gives you an example of how we want you to work.
 #
 #
-#
+# For your answer, save the error and the time_of_sim for at least 4 different values
+# of number_of_grid_cells and step_size.  The idea is to show the tradeoff between
+# accuracy and the cost of the simulation.  Make two plots, one showing error (mg/L) vs. timestep size (days) for your different choices of grid number, the second showing the simulation ("wallclock")
+# time vs. timestep size for the same grid number choices.
 
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-72513ecf5105a7d6"}}
 import time
 
 number_of_grid_cells = 21
-time_steps = 0.5
+step_size = 0.5
 
-Init_Comp_Time = time.time()
-Error = Compute_error(number_of_grid_cells, time_steps)
-Time_of_sim = time.time() - Init_Comp_Time
+init_comp_time = time.time()
+error = compute_error(number_of_grid_cells, step_size)
+time_of_sim = time.time() - init_comp_time
 
-print(f"The error is: {Error}")
-print(f"The simulation wallclock time was {Time_of_sim} seconds")
+print(f"The error is: {error} (mg/L)")
+print(f"The simulation wallclock time was {time_of_sim} seconds")
 
 # %% {"nbgrader": {"schema_version": 1, "solution": true, "grade": true, "locked": false, "points": 5, "grade_id": "cell-4d2689b903183ee2"}}
 ### BEGIN SOLUTION
 number_of_grid_cells = np.array([11, 26, 31, 41])
-time_steps = np.array([0.1, 0.2, 0.5, 1, 2])
+step_size = np.array([0.1, 0.2, 0.5, 1, 2])
 Sim_time = np.zeros((4, 5))
-Error = np.zeros((4, 5))
+error = np.zeros((4, 5))
 
 for i in range(4):
     for j in range(5):
-        Init_Comp_Time = time.time()
-        Error[i, j] = Compute_error(number_of_grid_cells[i], time_steps[j])
-        Sim_time[i, j] = time.time() - Init_Comp_Time
+        init_comp_time = time.time()
+        error[i, j] = compute_error(number_of_grid_cells[i], step_size[j])
+        Sim_time[i, j] = time.time() - init_comp_time
 
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 8))
 for i in range(4):
     ax1.plot(
-        time_steps,
-        Error[i, :],
-        label="Error for %.0f gridcells" % number_of_grid_cells[i],
+        step_size,
+        error[i, :],
+        label="error for %.0f gridcells" % number_of_grid_cells[i],
     )
 
 ax1.set(xlabel="Timestep (day)")
-ax1.set(ylabel="Error (mg/L))")
+ax1.set(ylabel="error (mg/L))")
 ax1.legend()
 
 for i in range(4):
     ax2.plot(
-        time_steps,
-        Sim_time[i, :],
-        label="Time %.0f gridcells" % number_of_grid_cells[i],
+        step_size, Sim_time[i, :], label="Time %.0f gridcells" % number_of_grid_cells[i]
     )
 
 ax2.set(xlabel="Timestep (day)")
@@ -560,7 +573,8 @@ dt = 1
 
 
 # %% [markdown] {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-1fa61d4ac96eee37"}}
-# Based on the previous results, you should fix the value of n_x and dt. We will let you decide which value to take, but we are going to test their values so that they are not out of proportion.
+# Based on the results above, you should fix the value of n_x and dt. Do you see a "sweet spot" that provides the best tradeoff for accuracy vs. speed of simulation?  Replace the `n_x`
+# and `dt` values below with your choices.
 
 # %% {"nbgrader": {"schema_version": 1, "solution": true, "grade": false, "locked": false, "grade_id": "cell-905ce9f3d725544e"}}
 n_x = 1000
@@ -572,16 +586,20 @@ dt = 1
 ### END SOLUTION
 
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": true, "locked": true, "points": 3, "grade_id": "cell-f7f9b6e0a1214947"}}
+# Here is a test to compare your choices against ours.
+### BEGIN HIDDEN TESTS
 assert_allclose(abs(n_x - 28) / 10, 0, atol=0.8, rtol=0.1)
 assert_allclose(abs(dt - 1), 0, atol=0.5, rtol=0.1)
-
+### END HIDDEN TESTS
 
 # %% [markdown] {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-7bfb0e282680103b"}}
 # ### 2D transient diffusion in homogeneous media
 #
-# Going from 1 to 2 dimensions changes nothing conceptually. There is, however a couple of changes required for the coding perspective. Indeed, whether the problem is 1D or 2D or 3D, the stucture of the system of equation Ac = b is the same. Matrix $A$ will always be a $n \times n$ matrix, while $c$ and $b$ will always be column vector of size $n$. In 2D, $n = n_x \times n_y$, while in 3D, it will be $n = n_x \times n_y \times n_z$.
+# Going from 1 to 2 dimensions changes nothing conceptually. There are, however a couple of changes required for the coding perspective. Indeed, whether the problem is 1D or 2D or 3D, the stucture of the system of equation Ac = b is the same. Matrix $A$ will always be a $n \times n$ matrix, while $c$ and $b$ will always be column vector of size $n$. In 2D, $n = n_x \times n_y$, while in 3D, it will be $n = n_x \times n_y \times n_z$.  The individual equation for a cell still
+# produces a single row in the A and b matrices, but in 2D that cell has 4 neighbours instead
+# of 2, and 3D it has 6 neighbors intead of 4.
 #
-# But, the fact that in every case, the solution is stored in one vector, representing either a 1/2/3D solution. For a 2D problem, a two-way conversion between vector and matrix is required. To plot the 2D result, for example, we will use colourmap plots, which require the solution to be plotted to be represented as a Matrix.
+# However, the fact is that in every case, the solution is stored in one vector, representing either a 1/2/3D solution. For these higher dimension problems, a two-way conversion between vector and matrix is required. To plot the 2D result, for example, we will use colourmap plots, which require the solution to be plotted to be represented as a 2D array (matrix).
 #
 # The function vec2mat(...) (specifically $vector\ to\ matrix$) does this: it converts a vector into the relevant 2D matrix, using n_x and n_y.
 #
@@ -619,24 +637,24 @@ def vec2mat(v, nrow, ncol):
 
 
 # %% [markdown] {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-5bb1b1e9f4cb5162"}}
-# So, until here, we have defined values for gridsize and timestep which provide a nice compromise between accuracy and computation time. We will use these values in the following.
+# So, upto now, we have defined values for gridsize and timestep which provide a nice compromise between accuracy and computation time. We will use these values in the following.
 #
 # We could perform the same analysis in 2D for the error. But we will here a focus on a nicer problem, in which there is a zone of very low diffusivity in the middle. We will let you decide which value to put there for diffusion, we will start by a diffusion 100 times lower. You can change that value if you want.
 
 # %%
-Decreasing_Factor = 0.01  # Feel free to change if you want to see the impact
+decreasing_factor = 0.01  # Feel free to change if you want to see the impact
 # (you can go higher than 1 ... But be careful, if diffusion speeds up significantly,
 # the accuracy with respect to the chosen timestep might not be so good if you speed things up! )
 # Initial value is 0.01
 
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-42d47ff484f9a502"}}
-Diff_low = Diff * Decreasing_Factor
+Diff_low = Diff * decreasing_factor
 
 # %% {"nbgrader": {"grade": false, "grade_id": "cell-b9bd7eaf90619a64", "locked": true, "schema_version": 1, "solution": false}}
 # Here we define the initial condition, and the diffusion matrix for the 2D problem
 
-width_X = 10
-width_Y = 10
+width_x = 10  # dm
+width_y = 10  # dm
 # n_x should be defined by your previous analysis
 n_y = n_x
 
@@ -646,8 +664,8 @@ poro = 0.4
 dt = 0.25  # days
 c_init = np.zeros((n_y, n_x))
 
-x = np.linspace(0, width_X, n_x)
-y = np.linspace(0, width_Y, n_y)
+x = np.linspace(0, width_x, n_x)
+y = np.linspace(0, width_y, n_y)
 
 for i in range(n_y):
     for j in range(n_x):
@@ -660,8 +678,8 @@ for i in range(n_y):
 for i in range(n_y):
     for j in range(n_x):
         if (
-            abs(x[j] - width_X / 2) <= 0.2 * width_X
-            and abs(y[i] - width_Y / 2) <= 0.2 * width_Y
+            abs(x[j] - width_x / 2) <= 0.2 * width_x
+            and abs(y[i] - width_y / 2) <= 0.2 * width_y
         ):
             D_matrix[i, j] = Diff_low
             # here we define a square of low diffusivity in the middle
@@ -691,9 +709,9 @@ plt.colorbar()
 # we are using everything we have done before
 
 ### Asymptotic behavior
-prob = problem_def(n_x, n_y, poro, width_X, width_Y)
+prob = Problem_Def(n_x, n_y, poro, width_x, width_y)
 Qsource = np.zeros((n_y, n_x))
-A, b = Build_2D_Matrix(bc_dict, prob, D_matrix, Qsource)
+A, b = build_2D_matrix(bc_dict, prob, D_matrix, Qsource)
 v = np.linalg.solve(A, b)
 n = n_x * n_y
 # array v contains the solution
@@ -707,6 +725,8 @@ plt.colorbar()
 
 # %% {"nbgrader": {"schema_version": 1, "solution": true, "grade": true, "locked": false, "points": 2, "grade_id": "cell-df577303ded255f6"}}
 # Provide here a few comments on the asymptotic solution. What does your intuition tell you?
+# For technical reasons, this is a python cell, so make your remarks a block comment
+# or add your own markdown cell below this one it that's easier/clearer
 ### BEGIN SOLUTION
 # the flux is lowered on the central zone which is being avoided, ... just want them to comment
 ### END SOLUTION
@@ -748,14 +768,20 @@ n_of_tstep_before_fig = int(nTstp / (number_of_fig - 1))
 # You have to save the values of the solution at certain timesteps in c[:,:,New_timestep]
 
 # %%
+# This cell is empty so you can modify values of the cell above as needed
 
 # %% {"nbgrader": {"schema_version": 1, "solution": true, "grade": true, "locked": false, "points": 10, "grade_id": "cell-80a44bbf4fb48e87"}}
+# Now solve for the concetration c as a function of time
+# Our solution fills the c array defined above with 9 separate
+# 2D concentration fields spaced evenly throughout the 800 days of the simulation
+# as shown in class
+### BEGIN SOLUTION
 v = mat2vec(c_init, n_y, n_x)
-Abis = np.zeros((n, n))
+Adelta = np.zeros((n, n))
 for i in range(n):
-    Abis[i, i] = poro / dt
-Aa = A + Abis
-Bbis = np.zeros(n)
+    Adelta[i, i] = poro / dt
+Aa = A + Adelta
+Bdelta = np.zeros(n)
 
 n_of_tstep_before_fig = int(nTstp / (number_of_fig - 1))
 
@@ -764,18 +790,18 @@ nfig = 1
 fig_timesteps = []
 for t in range(nTstp):
     for i in range(n):
-        Bbis[i] = v[i] * poro / dt
-    bb = b + Bbis
+        Bdelta[i] = v[i] * poro / dt
+    bb = b + Bdelta
     v = np.linalg.solve(Aa, bb)
     if (t + 1) % n_of_tstep_before_fig == 0:
         c[:, :, nfig] = vec2mat(v, n_y, n_x)
         nfig = nfig + 1
         fig_timesteps.append(t)
+### END SOLUTION
 
 
 # %% {"nbgrader": {"schema_version": 1, "solution": true, "grade": true, "locked": false, "points": 0, "grade_id": "cell-c9e47b546ce1cdbe"}}
-### If you didn't manage to save the different figures, please plot the result for the final timestep here.
-# If not required, you can just delete the error (this answer is worth 0 point, so it's not going to matter.)
+# Make a 2d contourf plot of the concentration for you final timestep here
 ### BEGIN SOLUTION
 
 ### END SOLUTION
@@ -810,6 +836,7 @@ if automated_plot:
     fig.suptitle(
         "Evolution of the concentration through time", y=0.9, size=25, va="bottom"
     )
+    fig.savefig("evolution.png")
 
 # %% [markdown]
 # ##  Conclusions
