@@ -15,6 +15,24 @@
 #     language: python
 #     name: python3
 # ---
+# %%
+# -*- coding: utf-8 -*-
+# ---
+# jupyter:
+#   jupytext:
+#     cell_metadata_filter: all
+#     formats: ipynb,python//py:percent
+#     notebook_metadata_filter: all
+#     text_representation:
+#       extension: .py
+#       format_name: percent
+#       format_version: '1.2'
+#       jupytext_version: 1.0.1
+#   kernelspec:
+#     display_name: Python 3
+#     language: python
+#     name: python3
+# ---
 # %% [markdown] {"toc": true, "nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-2ad2c23f9a0a820a"}}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"><li><span><a href="#2D-Transient-simulation" data-toc-modified-id="2D-Transient-simulation-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>2D Transient simulation</a></span><ul class="toc-item"><li><span><a href="#Learning-Goals" data-toc-modified-id="Learning-Goals-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Learning Goals</a></span></li><li><span><a href="#Context" data-toc-modified-id="Context-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Context</a></span></li><li><span><a href="#Boundary-conditions" data-toc-modified-id="Boundary-conditions-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Boundary conditions</a></span></li><li><span><a href="#Transient-diffusion-from-a-constant-concentration-boundary" data-toc-modified-id="Transient-diffusion-from-a-constant-concentration-boundary-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Transient diffusion from a constant-concentration boundary</a></span><ul class="toc-item"><li><span><a href="#1D-Homogeneous-problem" data-toc-modified-id="1D-Homogeneous-problem-1.4.1"><span class="toc-item-num">1.4.1&nbsp;&nbsp;</span>1D Homogeneous problem</a></span></li><li><span><a href="#Quantification-of-the-error" data-toc-modified-id="Quantification-of-the-error-1.4.2"><span class="toc-item-num">1.4.2&nbsp;&nbsp;</span>Quantification of the error</a></span></li><li><span><a href="#2D-transient-diffusion-in-homogeneous-media" data-toc-modified-id="2D-transient-diffusion-in-homogeneous-media-1.4.3"><span class="toc-item-num">1.4.3&nbsp;&nbsp;</span>2D transient diffusion in homogeneous media</a></span></li></ul></li><li><span><a href="#Conclusions" data-toc-modified-id="Conclusions-1.5"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>Conclusions</a></span></li></ul></li></ul></div>
@@ -69,21 +87,20 @@ Days_of_Plot = [0, 2, 20, 100, 200, 500]
 n_x = 100  # number of cells
 width = 10  # dm
 x = np.linspace(0, width, n_x)
-Analytic_conc_1D = np.zeros((n_tstep, n_x))
-a = 1
-c0 = 1
+analytic_conc_1D = np.zeros((n_tstep, n_x))
+c0 = 1  # mg/L
 Diff = 2e-9 * 100 * 24 * 3600  # dm²/day
-Analytic_conc_1D[0, 0] = c0
+analytic_conc_1D[0, 0] = c0  # mg/L
 
-plt.plot(x, Analytic_conc_1D[0, :], label="Initial concentration")
+plt.plot(x, analytic_conc_1D[0, :], label="Initial concentration")
 
 for t in range(1, n_tstep):
     for i in range(n_x):
         denom = np.sqrt(4 * Diff * Days_of_Plot[t])
-        Analytic_conc_1D[t, i] = c0 * special.erfc((x[i]) / denom)
+        analytic_conc_1D[t, i] = c0 * special.erfc((x[i]) / denom)
     plt.plot(
         x,
-        Analytic_conc_1D[t, :],
+        analytic_conc_1D[t, :],
         label="Concentration after %.0f days" % Days_of_Plot[t],
     )
 
@@ -98,13 +115,16 @@ plt.legend(bbox_to_anchor=(1.01, 1), loc="upper left")
 #
 # \begin{equation}
 #   c(x,y_1,t) = c(x,y_2,t) \quad \forall y_1,y_2,x,t
-# \end{equation}
+#  \end{equation}
 
 # %% [markdown] {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-57e9419f434cc7b6"}}
 # In the next few cells, we define some functions which we will use throughout the rest of the assignment.
 #
 # - avg(Di,Dj) computes the average diffusion coefficient to compute the flux between two cells with different D
-# - ind_to_row_col(...) function to find which column and which row correspond to which linear index
+# - index_to_row_col(...), mat2vec() and vec2mat() functions
+#   to find which column and which row correspond to which linear index, and to move back and forth
+#   between the 2D array for the physical domain and the 1D vector equation system used for the linear
+#   equation solver
 # - build_2D_matrix(...) is the same function than before, generalized to 2D and multiple boundary conditions
 #
 # Then we have defined two classes (objects) which will store informations to make it easier to pass to functions.
@@ -128,11 +148,14 @@ def avg(Di, Dj):
         return 2 / (1 / Di + 1 / Dj)
 
 
+# %% [markdown] {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-3c98bf2bf0a2b462"}}
+# The `index_to_row_col`
+
 # %% {"nbgrader": {"schema_version": 1, "solution": false, "grade": false, "locked": true, "grade_id": "cell-de21986c428ada9e"}}
-def ind_to_row_col(ind, nrows, ncol):
+def index_to_row_col(ind, nrows, ncol):
     """
     in a 2D array, returns the row and column value
-    associated with a certain index
+    associated with a 1D index
     Bottom left is index is zero (0-th row, 0-th column)
     while index one is the 0-th row and 1st column
     """
@@ -154,8 +177,9 @@ def build_2D_matrix(bc_dict, problem, D_matrix, Qsource):
     ----------
     bc_dict: dict
        dictionary with Boundary_Def objects defining the boundary conditions
-    D_matrix: (float array)
+    D_matrix: (float vector if 1D or matrix if 2D)
         values of the diffusion coefficient at each grid point(dm^2/day)
+        if 2D, dimension is [problem.ny, problem.nx]
     width_x: (float)
         x-extent of the domain (dm)
     width_y: (float)
@@ -197,7 +221,7 @@ def build_2D_matrix(bc_dict, problem, D_matrix, Qsource):
             j = ind
             i = -1
         else:
-            i, j = ind_to_row_col(ind, number_of_rows, number_of_cols)
+            i, j = index_to_row_col(ind, number_of_rows, number_of_cols)
         if j == 0:  # WEST BOUNDARY
             if bc_dict["west"].btype == "const":
                 rhs[ind] = bc_dict["west"].val
@@ -532,20 +556,38 @@ print(f"The error is: {error} (mg/L)")
 print(f"The simulation wallclock time was {time_of_sim} seconds")
 
 # %% {"nbgrader": {"schema_version": 1, "solution": true, "grade": true, "locked": false, "points": 5, "grade_id": "cell-4d2689b903183ee2"}}
+# Here is an excerpt from our solution showing how we filled
+# our error and simulation time matrices and made one of the
+# plots
+
+# nrows,ncols=error.shape
+# for i in range(nrows):
+#     for j in range(ncols):
+#         init_comp_time = time.time()
+#         error[i, j] =
+#         sim_time[i, j] = time.time() - init_comp_time
+
+# fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 8))
+# for i in range(nrows):
+#     ax1.plot(
+#
+#     )
+
 ### BEGIN SOLUTION
 number_of_grid_cells = np.array([11, 26, 31, 41])
 step_size = np.array([0.1, 0.2, 0.5, 1, 2])
-Sim_time = np.zeros((4, 5))
+sim_time = np.zeros((4, 5))
 error = np.zeros((4, 5))
 
-for i in range(4):
-    for j in range(5):
+nrows, ncols = error.shape
+for i in range(nrows):
+    for j in range(ncols):
         init_comp_time = time.time()
         error[i, j] = compute_error(number_of_grid_cells[i], step_size[j])
-        Sim_time[i, j] = time.time() - init_comp_time
+        sim_time[i, j] = time.time() - init_comp_time
 
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 8))
-for i in range(4):
+for i in range(nrows):
     ax1.plot(
         step_size,
         error[i, :],
@@ -556,9 +598,9 @@ ax1.set(xlabel="Timestep (day)")
 ax1.set(ylabel="error (mg/L))")
 ax1.legend()
 
-for i in range(4):
+for i in range(nrows):
     ax2.plot(
-        step_size, Sim_time[i, :], label="Time %.0f gridcells" % number_of_grid_cells[i]
+        step_size, sim_time[i, :], label="Time %.0f gridcells" % number_of_grid_cells[i]
     )
 
 ax2.set(xlabel="Timestep (day)")
@@ -615,7 +657,7 @@ def mat2vec(c, nrow, ncol):
     n = nrow * ncol
     v = np.zeros(n)
     for ind in range(n):
-        i, j = ind_to_row_col(ind, nrow, ncol)
+        i, j = index_to_row_col(ind, nrow, ncol)
         v[ind] = c[i, j]
 
     return v
@@ -775,6 +817,17 @@ n_of_tstep_before_fig = int(nTstp / (number_of_fig - 1))
 # Our solution fills the c array defined above with 9 separate
 # 2D concentration fields spaced evenly throughout the 800 days of the simulation
 # as shown in class
+#
+# Here is an excerpt from our solution showing how we filled our concentration array
+# for t in range(nTstp):
+#     for i in range(n):
+#         Bdelta[i] =
+#     bb =
+#     v =
+#     if (t + 1) % n_of_tstep_before_fig == 0:
+#         c[:, :, nfig] =
+#         nfig = nfig + 1
+#         fig_timesteps.append(t)
 ### BEGIN SOLUTION
 v = mat2vec(c_init, n_y, n_x)
 Adelta = np.zeros((n, n))
