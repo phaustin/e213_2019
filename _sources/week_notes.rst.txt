@@ -1,11 +1,11 @@
 .. include:: refs.txt
-.. include:: index_notebooks.txt             
+.. include:: index_notebooks.txt
 .. default-role:: math
 
 ..
    .. toctree::
       :hidden:
-      
+
 Week by week topics
 +++++++++++++++++++
 
@@ -19,7 +19,7 @@ Week 1  Jan 3
 Week 2  Jan 8/Jan 10
 ====================
 
-* `Week 2 classroom notes <week2_class.rst>`_       
+* `Week 2 classroom notes <week2_class.rst>`_
 
 * Python basics notebook: `1-python-basics_html`_
 
@@ -42,7 +42,7 @@ Week 3  Jan 15/Jan 17
 
   - `TMF Assignment intro: <https://www.dropbox.com/s/kcbfw289286toqc/Lect1801.pdf?dl=0>`_
 
-  - TMF assignment notebook: `tmf_assignment_pha_html`_  
+  - TMF assignment notebook: `tmf_assignment_pha_html`_
 
 * Solution posted: `1-python-basics_solution <http://clouds.eoas.ubc.ca/~phil/Downloads/e213_solutions/1-python-basics_solution.html>`_
 
@@ -60,13 +60,13 @@ Week 5  Jan 29/Jan 31
 - Here are the instructions for seeing your
   :ref:`assignment_handbacks`
 
-- `5.1_finite_volume_1_html`_
-       
+- `5.1_finite_volume_1_
+
 - `5.1_finite_volume_2_html`_
 
 - `5.1_finite_volume_3_html`_
 
-       
+
 Week 6  Feb 05/Feb 07
 =====================
 
@@ -77,10 +77,10 @@ Week 6  Feb 05/Feb 07
 - `6_finite_volume_6_html`_
 
 - `Quiz 1 answer key <http://clouds.eoas.ubc.ca/~phil/Downloads/e213_solutions/Quiz1_answers.pdf>`_
-  
+
 - Due Tuesday noon: `week6_assign_html`_
 
-Week 7  Feb 05/Feb 07
+Week 7  Feb 19/Feb 21
 =====================
 
 - `7_finite_volume_6_html`_
@@ -89,9 +89,39 @@ Week 7  Feb 05/Feb 07
 
 - `Assignment_Transient_html`_ -- due Tuesday, Feb. 26
 
+Week 8  Feb 26/Feb 28
+=====================
+
+- `week6_assign_solution_html`_
+
+- `8_finite_volume_by_hand_html`_
+
+- `python_functions_html`_
+
+Week 9  Mar 05/Mar 07
+=====================
+
+- `Assignment_Transient_solution_html`_
+
+- `2D_Assignment_Transient_Error_checkpoint_html`_
+
+- `2D_assignment_restart_html`_
+
+- `9_pdes_1_html`_
+
+- `install_conda_howto_html`_
+
 
 General notes
 =============
-  
+
 - Good reference on plotting with matplotlib is
     `D. J. Pine Chapter 5: Plotting with matplotlib <https://clouds.eos.ubc.ca/~phil/djpine_python/chap5/chap5_plot.html>`_
+
+- Books on python:
+
+  - `Dive into Python 3 <https://www.diveinto.org/python3/>`_
+
+  - `Python for data analysis <https://github.com/wesm/pydata-book>`_
+
+

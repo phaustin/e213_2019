@@ -1,0 +1,842 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "toc": true
+   },
+   "source": [
+    "<h1>Table of Contents<span class=\"tocSkip\"></span></h1>\n",
+    "<div class=\"toc\"><ul class=\"toc-item\"><li><span><a href=\"#Learning-goals\" data-toc-modified-id=\"Learning-goals-1\"><span class=\"toc-item-num\">1&nbsp;&nbsp;</span>Learning goals</a></span></li><li><span><a href=\"#Approach-to-develop-a-partial-differential-equation\" data-toc-modified-id=\"Approach-to-develop-a-partial-differential-equation-2\"><span class=\"toc-item-num\">2&nbsp;&nbsp;</span>Approach to develop a partial differential equation</a></span><ul class=\"toc-item\"><li><span><a href=\"#2-d-transient-mass---balance-statement\" data-toc-modified-id=\"2-d-transient-mass---balance-statement-2.1\"><span class=\"toc-item-num\">2.1&nbsp;&nbsp;</span>2-d transient mass - balance statement</a></span></li><li><span><a href=\"#Sign-conventions\" data-toc-modified-id=\"Sign-conventions-2.2\"><span class=\"toc-item-num\">2.2&nbsp;&nbsp;</span>Sign conventions</a></span></li><li><span><a href=\"#Upshot\" data-toc-modified-id=\"Upshot-2.3\"><span class=\"toc-item-num\">2.3&nbsp;&nbsp;</span>Upshot</a></span></li><li><span><a href=\"#Per-unit-volume,-per-unit-time\" data-toc-modified-id=\"Per-unit-volume,-per-unit-time-2.4\"><span class=\"toc-item-num\">2.4&nbsp;&nbsp;</span>Per unit volume, per unit time</a></span></li><li><span><a href=\"#Your-turn\" data-toc-modified-id=\"Your-turn-2.5\"><span class=\"toc-item-num\">2.5&nbsp;&nbsp;</span>Your turn</a></span></li><li><span><a href=\"#Partial-differential-equation\" data-toc-modified-id=\"Partial-differential-equation-2.6\"><span class=\"toc-item-num\">2.6&nbsp;&nbsp;</span>Partial differential equation</a></span></li></ul></li><li><span><a href=\"#Conservation-of-mass-equation-in-3-dimensions\" data-toc-modified-id=\"Conservation-of-mass-equation-in-3-dimensions-3\"><span class=\"toc-item-num\">3&nbsp;&nbsp;</span>Conservation of mass equation in 3 dimensions</a></span><ul class=\"toc-item\"><li><span><a href=\"#Interpretation\" data-toc-modified-id=\"Interpretation-3.1\"><span class=\"toc-item-num\">3.1&nbsp;&nbsp;</span>Interpretation</a></span></li><li><span><a href=\"#Your-turn\" data-toc-modified-id=\"Your-turn-3.2\"><span class=\"toc-item-num\">3.2&nbsp;&nbsp;</span>Your turn</a></span></li><li><span><a href=\"#Divergence-of-a-vector\" data-toc-modified-id=\"Divergence-of-a-vector-3.3\"><span class=\"toc-item-num\">3.3&nbsp;&nbsp;</span>Divergence of a vector</a></span></li><li><span><a href=\"#Your-turn\" data-toc-modified-id=\"Your-turn-3.4\"><span class=\"toc-item-num\">3.4&nbsp;&nbsp;</span>Your turn</a></span></li></ul></li><li><span><a href=\"#Vector-notation\" data-toc-modified-id=\"Vector-notation-4\"><span class=\"toc-item-num\">4&nbsp;&nbsp;</span>Vector notation</a></span><ul class=\"toc-item\"><li><span><a href=\"#Why-$\\vec{\\nabla}$?\" data-toc-modified-id=\"Why-$\\vec{\\nabla}$?-4.1\"><span class=\"toc-item-num\">4.1&nbsp;&nbsp;</span>Why $\\vec{\\nabla}$?</a></span></li></ul></li><li><span><a href=\"#Diffusion-equation\" data-toc-modified-id=\"Diffusion-equation-5\"><span class=\"toc-item-num\">5&nbsp;&nbsp;</span>Diffusion equation</a></span><ul class=\"toc-item\"><li><span><a href=\"#Your-turn\" data-toc-modified-id=\"Your-turn-5.1\"><span class=\"toc-item-num\">5.1&nbsp;&nbsp;</span>Your turn</a></span></li><li><span><a href=\"#Constant-diffusion-coefficient\" data-toc-modified-id=\"Constant-diffusion-coefficient-5.2\"><span class=\"toc-item-num\">5.2&nbsp;&nbsp;</span>Constant diffusion coefficient</a></span></li><li><span><a href=\"#Diffusion-in-porous-media\" data-toc-modified-id=\"Diffusion-in-porous-media-5.3\"><span class=\"toc-item-num\">5.3&nbsp;&nbsp;</span>Diffusion in porous media</a></span></li><li><span><a href=\"#For-homogeneous-porosity\" data-toc-modified-id=\"For-homogeneous-porosity-5.4\"><span class=\"toc-item-num\">5.4&nbsp;&nbsp;</span>For homogeneous porosity</a></span></li></ul></li><li><span><a href=\"#Solving-PDEs:-Boundary---value-problems\" data-toc-modified-id=\"Solving-PDEs:-Boundary---value-problems-6\"><span class=\"toc-item-num\">6&nbsp;&nbsp;</span>Solving PDEs: Boundary - value problems</a></span><ul class=\"toc-item\"><li><span><a href=\"#Boundary-value-problem-checklist\" data-toc-modified-id=\"Boundary-value-problem-checklist-6.1\"><span class=\"toc-item-num\">6.1&nbsp;&nbsp;</span>Boundary-value problem checklist</a></span></li><li><span><a href=\"#TMF-BVP-example\" data-toc-modified-id=\"TMF-BVP-example-6.2\"><span class=\"toc-item-num\">6.2&nbsp;&nbsp;</span>TMF BVP example</a></span></li><li><span><a href=\"#Equation\" data-toc-modified-id=\"Equation-6.3\"><span class=\"toc-item-num\">6.3&nbsp;&nbsp;</span>Equation</a></span></li><li><span><a href=\"#Domain\" data-toc-modified-id=\"Domain-6.4\"><span class=\"toc-item-num\">6.4&nbsp;&nbsp;</span>Domain</a></span></li><li><span><a href=\"#Properties-of-the-problem-domain\" data-toc-modified-id=\"Properties-of-the-problem-domain-6.5\"><span class=\"toc-item-num\">6.5&nbsp;&nbsp;</span>Properties of the problem domain</a></span></li><li><span><a href=\"#Boundary-conditions\" data-toc-modified-id=\"Boundary-conditions-6.6\"><span class=\"toc-item-num\">6.6&nbsp;&nbsp;</span>Boundary conditions</a></span></li><li><span><a href=\"#Initial-conditions\" data-toc-modified-id=\"Initial-conditions-6.7\"><span class=\"toc-item-num\">6.7&nbsp;&nbsp;</span>Initial conditions</a></span></li></ul></li><li><span><a href=\"#Assignment\" data-toc-modified-id=\"Assignment-7\"><span class=\"toc-item-num\">7&nbsp;&nbsp;</span>Assignment</a></span></li><li><span><a href=\"#1-Finding-an-analytical-solution\" data-toc-modified-id=\"1-Finding-an-analytical-solution-8\"><span class=\"toc-item-num\">8&nbsp;&nbsp;</span>1 Finding an analytical solution</a></span><ul class=\"toc-item\"><li><span><a href=\"#Your-turn\" data-toc-modified-id=\"Your-turn-8.1\"><span class=\"toc-item-num\">8.1&nbsp;&nbsp;</span>Your turn</a></span></li></ul></li><li><span><a href=\"#2-Interpretation\" data-toc-modified-id=\"2-Interpretation-9\"><span class=\"toc-item-num\">9&nbsp;&nbsp;</span>2 Interpretation</a></span><ul class=\"toc-item\"><li><span><a href=\"#1.\" data-toc-modified-id=\"1.-9.1\"><span class=\"toc-item-num\">9.1&nbsp;&nbsp;</span>1.</a></span></li><li><span><a href=\"#2.\" data-toc-modified-id=\"2.-9.2\"><span class=\"toc-item-num\">9.2&nbsp;&nbsp;</span>2.</a></span></li><li><span><a href=\"#3.\" data-toc-modified-id=\"3.-9.3\"><span class=\"toc-item-num\">9.3&nbsp;&nbsp;</span>3.</a></span></li><li><span><a href=\"#4.\" data-toc-modified-id=\"4.-9.4\"><span class=\"toc-item-num\">9.4&nbsp;&nbsp;</span>4.</a></span></li></ul></li></ul></div>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "\n",
+    "\n",
+    "# Learning goals\n",
+    "1. Be able to take a discrete approximation to limit of infinitesimal volume size and time step to arrive at the partial differential equation.\n",
+    "2. Be able to read a partial differential equation:\n",
+    " * distinguish between terms that represent fluxes, sources and storage of quantities within the volume (infinitesimal point).\n",
+    " * recognize the order of the equation.\n",
+    " * recognize conservative forms\n",
+    "3. Be able to simplify a partial differential equation when coefficients are constant.\n",
+    "4. Recognize the conservation principle in integral form and match it to the corresponding partial differential equation.\n",
+    "5. Be able to set up boundary value problem:\n",
+    " * define domain of the problem.\n",
+    " * define the equations that govern the dependent variable.\n",
+    " * define the parameters of the equation, and if they are spatially homogeneous (do not vary in space) or heterogeneous.\n",
+    " * distinguish between the principal boundary conditions that prevail.\n",
+    " * assign initial conditions (if a time dependent problem).\n",
+    "6. Be able to understand the significance of the mathematical concept of divergence and its relationship to flux at a point.\n",
+    "7. Be able to recognize a partial differential equation when written in vector form using divergence and gradient.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "# Approach to develop a partial differential equation\n",
+    "\n",
+    "1. Write a discrete approximation for mass conservation for a finite volume.\n",
+    "2. Take limits as the size of the volume element and the time period of consideration shrink to infinitesimal size.\n",
+    "3. Recognize limits as derivatives. Where the independent variable (eg concentration) is a function of more than one dependent variable (typically 3 space dimensions $x$, $y$ and $z$, and $t$), the derivatives are partial.\n",
+    "\n",
+    "<img src=\"figures/shrink_to_infinitesimal.png\" alt=\"pic01\" width=\"35%\" >\n",
+    "\n",
+    "\n",
+    "## 2-d transient mass - balance statement\n",
+    "\n",
+    "We'll do this in 2-d. From that we can easily go to either 3-d or 1-d.\n",
+    "\n",
+    "We'll consider the transient case, where mass is changing in time in the volume. Let's consider the simple 2-d stencil, where the gridblock is of size $\\Delta x$, $\\Delta y$, $\\Delta z$ (where $\\Delta z$ is into the page in the figure below).\n",
+    "\n",
+    "<img src=\"figures/nsewc_stencil.png\" alt=\"pic02\" width=\"20%\" >\n",
+    "\n",
+    "Recall from notebook `5.1_finite_volume_2.ipynb` A transient conservation statement is\n",
+    " * **the change of the quanity in the volume over a time $\\Delta t$ = the net flux of the quantity into the volume over the time period $\\Delta t$ **.\n",
+    "\n",
+    "To make things more concrete, let's consider the case where the conserved quantity is mass $m$, such as sulfate.\n",
+    "\n",
+    "\n",
+    "In one dimension, the transient conservation expression is (from `5.1_finite_volume_2.ipynb`):\n",
+    "\n",
+    "\\begin{align}\n",
+    "\\Delta m_C = m_C(t+\\Delta t) - m_C(t) & = (J_E+J_W)\\Delta t \\label{1dcons}\\\\\n",
+    "\\end{align}\n",
+    "\n",
+    "where both sides of the equation have dimensions of mass:\n",
+    "* $m_C(t)~\\left[M\\right]$ is the mass in gridblock C at time $t$ and $m_C(t+\\Delta t)~\\left[M\\right]$ is the mass in gridblock C at time $t+\\Delta t$\n",
+    "* $(J_E+J_W)\\Delta t~\\left[M\\right]$ is the net mass that fluxed into volume over time period $\\Delta t$.\n",
+    "<br>\n",
+    "<br>\n",
+    "\n",
+    "\n",
+    "If we now go to 2-d and express this equation in terms of specific fluxes ${j}$, and recall that ${J}=jA$ where we multiply the net specific flux by the area of the boundary of volume perpendicular to the flux component (*eg* for fluxes in the $x$ direction, the area perpendicular is $\\Delta y \\Delta z$):<br>\n",
+    "<br>\n",
+    "<br>\n",
+    "\\begin{align}\n",
+    "\\left(m_C(t+\\Delta t) - m_C(t)\\right) = \\left\\{\\left(j_{EC} + j_{WC}\\right) \\Delta y \\Delta z +  \\left(j_{NC} + j_{SC}\\right) \\Delta x \\Delta z \\right\\}\\Delta t \\label{7pde1}\\\\\n",
+    "\\end{align}\n",
+    "<br>\n",
+    "<br>\n",
+    "<br>\n",
+    "<br>\n",
+    "\n",
+    "## Sign conventions\n",
+    "\n",
+    "\n",
+    "The next step is to re-express the fluxes in the discrete approximation such as $j_{EC}$ in terms of components of a flux vector that varies continuously with location (here in 2-d) $\\vec{j}= \\left\\{j_x, j_y\\right\\}$ - the \"true\" flux that is approximated at gridblock edges by $j_{EC}$, etc. The only \"trick\" here is to be careful of the sign conventions.\n",
+    "\n",
+    "In contrast to our finite volume convention where fluxes such as $j_{EC}$ are **positive** for flux **into the volume**, in math, a vector component is **positive** if the vector is pointing in the direction in which the **coordinate direction corresponding to that component is increasing**.\n",
+    "\n",
+    "We'll demonstrate this for the $x$ direction here. Consider gridblock C where the left (W) face is located at $x$ and the right (E) face is located a position $x+\\Delta x$. First, recognize that both $j_{WC}$ and $j_{EC}$ are $x$ flux components.\n",
+    "\n",
+    "<img src=\"figures/cv_x_dx.png\" alt=\"pic03\" width=\"25%\" >\n",
+    "\n",
+    "Here is the correspondence:\n",
+    "\n",
+    "* $j_{WC}$ corresponds to $j_x(x,y,z)$ because when $j_x$ is positive, flux enters C, just like $j_{WC}$\n",
+    "* $j_{EC}$ corresponds to $-j_x(x+\\Delta x,y,z)$ because when $-j_x$ is positive flux enters C, just like $j_{EC}$\n",
+    "\n",
+    "<br>\n",
+    "<br>\n",
+    "<br>\n",
+    "Example, for some hypothetical situation, $j_x(x,y,z) = 3~mg/(s\\cdot m^2)$ and $j_x(x+\\Delta x,y,z) = -2.5~mg/(s\\cdot m^2)$, then\n",
+    "* on the W face, $j_x$ is directed in the positive $x$ direction, so is flowing into C, so $j_{WC} = j_x(x,y,z) = 3~ mg/(s\\cdot m^2)$\n",
+    "* on the E face, $j_x$ is directed in the negative $x$ direction, so is flowing into C, so $j_{EC} = -j_x(x+\\Delta x,y,z) = 2.5 ~mg/(s\\cdot m^2)$\n",
+    "\n",
+    "<br>\n",
+    "<br>\n",
+    "\n",
+    "## Upshot\n",
+    "In our conservation statement \\ref{7pde1}, we replace $j_{WC}\\rightarrow j_x(x,y,z)$ and $j_{EC} \\rightarrow -j_x(x+\\Delta x,y,z)$. Similarly, in the $y$ direction $j_{SC}\\rightarrow j_y(x,y,z)$ and $j_{NC} \\rightarrow -j_y(x,y+\\Delta y,z)$\n",
+    "<br><br>\n",
+    "The conservation statement \\ref{7pde1} becomes: <br>\n",
+    "\n",
+    "\\begin{align}\n",
+    "m_C(t+\\Delta t) - m_C(t) = \\left\\{\\left(-j_x(x+\\Delta x,y,z)+j_x(x,y,z) \\right) \\Delta y \\Delta z +  \\left(-j_y(x,y+\\Delta y,z) + j_y(x,y,z)\\right) \\Delta x \\Delta z \\right\\}\\Delta t \\label{7pde2}\\\\\n",
+    "\\end{align}\n",
+    "\n",
+    "## Per unit volume, per unit time\n",
+    "\n",
+    "<br>\n",
+    "<br>\n",
+    "Next, divide the equation by the volume of the control volume (gridblock), $(\\Delta x)(\\Delta y) (\\Delta z)$ and time interval $(\\Delta t)$:\n",
+    "<br> <br>\n",
+    "\\begin{align}\n",
+    "{m_C(t+\\Delta t) - m_C(t)\\over (\\Delta t)(\\Delta x)(\\Delta y) (\\Delta z)}\n",
+    "= {-j_x(x+\\Delta x,y,z)+j_x(x,y,z) \\over  \\Delta x} +  {-j_y(x,y+\\Delta y,z) + j_y(x,y,z)\\over  \\Delta y}  \\label{7pde3}\\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n",
+    "Because concentration is mass over volume, in \\ref{7pde3} we can substitute concentration $c$ for $m_C$, mass in the control volume C. If we substitute ${m_C\\over (\\Delta x)(\\Delta y) (\\Delta z)}\\rightarrow  c$:\n",
+    "<br> <br> <br>\n",
+    "\n",
+    "\\begin{align}\n",
+    "{ c(t+\\Delta t) - c(t)\\over \\Delta t}\n",
+    "= { -j_x(x+\\Delta x,y,z)+j_x(x,y,z)  \\over  \\Delta x} +  { -j_y(x,y+\\Delta y,z) + j_y(x,y,z) \\over  \\Delta y}  \\label{7pde4}\\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "## Your turn\n",
+    "Answer the following questions in this cell:\n",
+    "\n",
+    "1. What are the dimensions of each term in the conservation equation above \\ref{7pde4}? $\\left[ DIMENSIONS~HERE\\right]$\n",
+    "2. Does this term ${ c(t+\\Delta t) - c(t)\\over \\Delta t}$ remind you of anything from calculus? What? **type answer here**\n",
+    "3. Does this term ${-j_y(x,y+\\Delta y,z) + j_y(x,y,z)\\over  \\Delta y}$ remind you of anything from calculus? What? **type answer here**\n",
+    "\n",
+    "<br> <br> <br>\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "## Partial differential equation\n",
+    "\n",
+    "The conservation equation \\ref{7pde4} is an algebraic equation that applies to a finite-sized control volume C. When we divided by volume and time, we re-expressed the expression on a per unit volume, per unit time basis. Next, we are going to take limits and shrink the volume and time to infinitesimals. In the process, the equation will transform from an algebraic equation to a differential equation. Up to now, we have been considering finite-sized volumes and fluxes in and out over time periods, with a differential equation, we can think of fluxes in and out of mathematical points over instances in time.\n",
+    "\n",
+    "<br> <br>\n",
+    "\n",
+    "Recognize\n",
+    "\\begin{align}\n",
+    "&\\lim_{\\Delta t, \\Delta x,\\Delta y,\\Delta z \\rightarrow 0} { c(t+\\Delta t) - c(t)\\over \\Delta t} = {\\partial c\\over \\partial t}\\\\\n",
+    "&\\\\\n",
+    "&\\lim_{\\Delta t, \\Delta x,\\Delta y,\\Delta z \\rightarrow 0}{-j_x(x+\\Delta x,y,z)+j_x(x,y,z) \\over  \\Delta x}= -{\\partial j_x\\over \\partial x}\\\\\n",
+    "&\\\\\n",
+    "&\\lim_{\\Delta t, \\Delta x,\\Delta y,\\Delta z \\rightarrow 0}{-j_y(x,y+\\Delta y,z)+j_y(x,y,z) \\over  \\Delta y}= -{\\partial j_y\\over \\partial y}\\\\\n",
+    "\\end{align}\n",
+    "\n",
+    "<br><br><br>\n",
+    "So the algebraic equation becomes the **partial differential equation** (pde)\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "{\\partial c\\over \\partial t} &= -{\\partial j_x\\over \\partial x}-{\\partial j_y\\over \\partial y} \\label{7pde5}\\\\\n",
+    "\\end{align}\n",
+    "<br> <br>\n",
+    "# Conservation of mass equation in 3 dimensions\n",
+    "In three dimensions, (Cartesian coordinates):\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "{\\partial c\\over \\partial t} &= -{\\partial j_x\\over \\partial x}-{\\partial j_y\\over \\partial y}-{\\partial j_z\\over \\partial z}  \\label{7pde6}\\\\\n",
+    "\\end{align}\n",
+    "<br> <br>\n",
+    "## Interpretation\n",
+    "You can interpret this pde just the way we interpreted our finite-volume conservation statements:\n",
+    "\\begin{align}\n",
+    "\\overbrace{\\partial c\\over \\partial t}^\\text{rate of mass change at point} &= \\underbrace{-{\\partial j_x\\over \\partial x}-{\\partial j_y\\over \\partial y}-{\\partial j_z\\over \\partial z}}_\\text{net flux rate into a point}  \\label{7pde7}\\\\\n",
+    "\\end{align}\n",
+    "<br> <br>\n",
+    "\n",
+    "The left side is the rate of change of mass per unit volume at a point, and the right hand side (the sum of the terms) is the net rate at which mass is fluxing into the point per unit volume.\n",
+    "\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "## Your turn\n",
+    "Answer the question in this cell.\n",
+    "1. What are the dimensions of each term in the pde \\ref{7pde7}? Do those dimensions agree with the description above?\n",
+    "\n",
+    "The dimensions are $\\left[\\text{Replace with correct dimensions}\\right]$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "## Divergence of a vector\n",
+    "\n",
+    "The **divergence** of a flux vector $\\vec{j}=(j_x, j_y, j_z)$ is a **number**, defined as\n",
+    "\\begin{align}\n",
+    "\\text{divergence of }\\vec{j} &= {{\\partial j_x\\over \\partial x}+{\\partial j_y\\over \\partial y}+{\\partial j_z\\over \\partial z}}  \\label{7pde8}\\\\\n",
+    "\\end{align}\n",
+    "<br> <br>\n",
+    "In pictures, the divergence is the rate per unit volume at which a flux is spreading **out** from a point. In the picture below, the lines indicate flux directions. On the left, flux is diverging from the point, so at that point it is **positive**. On the right, flux is converging to a point, so the divergence is **negative**.\n",
+    "<img src=\"figures/E.png\" alt=\"pic04\" width=\"50%\" >\n",
+    "<br><br>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "## Your turn\n",
+    "Answer the question in this cell.\n",
+    "\n",
+    "1. What does it mean if at a point, the divergence of the flux is zero ${{\\partial j_x\\over \\partial x}+{\\partial j_y\\over \\partial y}+{\\partial j_z\\over \\partial z}}=0$?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "# Vector notation\n",
+    "The divergence is a concept from vector calculus and is found in most pdes that describe conservation laws. Accordingly it gets a special *nabla*, $\\nabla$, notation (see https://en.wikipedia.org/wiki/Del):\n",
+    "\\begin{align}\n",
+    "\\vec{\\nabla} \\cdot \\vec{j} = \\text{div}~\\vec{j} = \\text{divergence of }\\vec{j} &= {{\\partial j_x\\over \\partial x}+{\\partial j_y\\over \\partial y}+{\\partial j_z\\over \\partial z}}  \\label{7pde9}\\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n",
+    "The nabla $\\vec{\\nabla}$ is a vector - calculus operator: it takes action \"operates\" on an argument. In Cartesian coordinates, it is often written as a vector:\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "\\vec{\\nabla}  &= \\left({{\\partial  \\over \\partial x},{\\partial  \\over \\partial y},{\\partial  \\over \\partial z}}\\right)  \\label{7pde10}\\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n",
+    "**Divergence of a flux** : the nabla vector maps a flux vector to a scalar number, the divergence (the net flux rate per unit volume):\n",
+    "\n",
+    "\\begin{align}\n",
+    "\\vec{\\nabla} \\cdot \\vec{j} =\\left({{\\partial  \\over \\partial x},{\\partial  \\over \\partial y},{\\partial  \\over \\partial z}}\\right)  \\cdot \\left\\{\\begin{array}{c}\n",
+    "j_x\\\\\n",
+    "j_y\\\\\n",
+    "j_z\\\\\n",
+    "\\end{array}\\right\\} = {{\\partial j_x\\over \\partial x}+{\\partial j_y\\over \\partial y}+{\\partial j_z\\over \\partial z}}\n",
+    "\\label{7pde11}\n",
+    "\\end{align}\n",
+    "<br><br><br><br>\n",
+    "**Gradient of a scalar**\n",
+    "\n",
+    "A scalar is a single-valued function: at each point it has one value, unlike a flux which is a vector function - at each point it has 3 components (in a 3-d system). The gradient operator takes a scalar function and produces a vector that points in the direction in which the function is increasing. The nabla notation is used for the gradient (here for the case of concentration $c$):\n",
+    "\\begin{align}\n",
+    "\\vec{\\nabla} c &= \\left({{\\partial c \\over \\partial x},{\\partial c \\over \\partial y},{\\partial c \\over \\partial z}}\\right)  \\label{7pde12}\\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n",
+    "\n",
+    "The latter is sometimes written as:\n",
+    "\\begin{equation}\n",
+    "\\vec{\\nabla} c = \\overrightarrow{\\text{grad}} c\n",
+    "\\end{equation}\n",
+    "**Fick's law**\n",
+    "\n",
+    "Fick's law of diffusion says that the diffusive flux  $\\vec{j}$ is a vector that points in the opposite direction of the concentration gradient. We can now write Fick's law in vector-calculus nabla notation:\n",
+    "\\begin{align}\n",
+    "\\vec{j} = -D \\vec{\\nabla} c &= \\left({-D {\\partial c \\over \\partial x},-D {\\partial c \\over \\partial y},-D {\\partial c \\over \\partial z}}\\right)  \\label{7pde13}\\\\\n",
+    "\\end{align}\n",
+    "where $D~\\left[L^2/T\\right]$ is the diffusion coefficient.\n",
+    "<br><br>\n",
+    "That is, each component of the diffusive flux is:\n",
+    "\\begin{align}\n",
+    "j_x &= - D {\\partial c \\over \\partial x}\\\\\n",
+    "j_y &= - D {\\partial c\\over \\partial y}\\\\\n",
+    "j_z &= - D {\\partial c\\over \\partial z}\\\\\n",
+    "\\end{align}\n",
+    "<br><br> <br>\n",
+    "## Why $\\vec{\\nabla}$?\n",
+    "\n",
+    "Why bother with the nabla notation? **Clarity**. Using the nabla notation, we clear up the clutter with partials here and there and make the connection to a conservation law very clear. Our conservation PDE becomes:\n",
+    "<br><br>\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "{\\partial c\\over \\partial t} &= -{\\partial j_x\\over \\partial x}-{\\partial j_y\\over \\partial y}-{\\partial j_z\\over \\partial z}  \\quad\\quad\\rightarrow\\quad\\quad {\\partial c\\over \\partial t}= -\\vec{\\nabla} \\cdot \\vec{j}  \\label{7pde14}\\\\\n",
+    "\\end{align}\n",
+    "<br> <br>\n",
+    "In the righthand form of the equation, we can quickly see the divergence of a flux and \"read\" the equation quickly. If you see the divergence of a flux, then you are looking at a conservation statement.\n",
+    "<br><br>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "# Diffusion equation\n",
+    "We can now put this all together to get the diffusion equation. That is, we substitute components of Fick's law \\ref{7pde13} into the conservation of mass equation \\ref{7pde6}:\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "&{\\partial c\\over \\partial t} = {\\partial \\over \\partial x}\\left( D {\\partial c \\over \\partial x}\\right) + {\\partial \\over \\partial y}\\left( D {\\partial c \\over \\partial y}\\right)+ {\\partial \\over \\partial z}\\left( D {\\partial c \\over \\partial z}\\right)  \\label{7pde15}\\\\\n",
+    "\\text{or}&\\nonumber\\\\\n",
+    "&{\\partial c\\over \\partial t} = \\vec{\\nabla} \\cdot (D \\vec{\\nabla} c)\\label{7pde16}\\\\\n",
+    "\\end{align}\n",
+    "<br> <br>\n",
+    "\n",
+    "which can also be written as\n",
+    "\\begin{equation}\n",
+    "\\frac{\\partial c}{\\partial t} = \\text{div} (D \\overrightarrow{\\text{grad}} c)\n",
+    "\\end{equation}\n",
+    "\n",
+    "These notations are used in everywhere the scientific literature, that's why we are introducing them. But you should be able to make the link between them, and most importantly, relate to the mass-balance problem from which we have started them.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "## Your turn\n",
+    "\n",
+    "Modify this transient 3-d diffusion equation into the steady-state 2-d ($x$ and $y$ dimensions) equation:\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "&{\\partial c\\over \\partial t} = {\\partial \\over \\partial x}\\left( D {\\partial c \\over \\partial x}\\right) + {\\partial \\over \\partial y}\\left( D {\\partial c \\over \\partial y}\\right)+ {\\partial \\over \\partial z}\\left( D {\\partial c \\over \\partial z}\\right)  \\label{7pde17}\\\\\n",
+    "\\end{align}\n",
+    "<br> <br>\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "## Constant diffusion coefficient\n",
+    "\n",
+    "If the diffusion coefficient does not vary with position (is spatially homogeneous), we can simplify terms in the equation. For example by the chain rule:\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "{\\partial \\over \\partial x}\\left( D {\\partial c \\over \\partial x}\\right)=  {\\partial D \\over \\partial x}{\\partial c \\over \\partial x} + D{\\partial^2 c \\over \\partial x^2}= 0 + D {\\partial^2 c\\over \\partial x^2}  \\label{7pde18}\\\\\n",
+    "\\end{align}\n",
+    "<br> <br>\n",
+    "since if $D$ is homogeneous, it is not a function of $x$, $y$, or $z$ so ${\\partial D\\over\\partial x}= {\\partial D\\over\\partial y}={\\partial D\\over\\partial z}=0$ and the equation becomes\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "&{\\partial c\\over \\partial t} = D{\\partial^2 c \\over \\partial x^2}+ D{\\partial^2 c\\over \\partial y^2}+ D{\\partial^2 c\\over \\partial z^2}  \\label{7pde19}\\\\\n",
+    "\\end{align}\n",
+    "<br> <br>\n",
+    "This equation is sometimes written using nabla notation as:\n",
+    "\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "&{\\partial c\\over \\partial t} = D \\nabla^2 c   \\label{7pde20}\\\\\n",
+    "\\end{align}\n",
+    "<br> <br>\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "## Diffusion in porous media\n",
+    "\n",
+    "Earlier in `5.1_finite_volume_3.ipynb` we saw that Fick's law of diffusion in porous media is (given here in vector notation):\n",
+    "\\begin{align}\n",
+    "\\vec{j} = -D\\theta\\vec{\\nabla} c c \\label{7pde21}\\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n",
+    "where $\\theta$ is the porosity.\n",
+    "<br><br>\n",
+    "To develop the PDE for diffusion in porous media, we have to change the storage term. If the entire control volume is filled with water, then for a dissolved solute like sulfate, the mass of sulfate is the concentration $\\times$ volume of the control volume:\n",
+    "\\begin{align}\n",
+    "m_C =c (\\Delta x)(\\Delta y)(\\Delta z) \\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n",
+    "However, in porous media, when the pores are fully saturated with water, the volume of water in the gridblock is porosity $\\times$ total volume: $\\theta (\\Delta x)(\\Delta y)(\\Delta z)$, so the mass of solute in the water in the gridblock is the volume of water $\\times$ the concentration in the water: $c \\theta (\\Delta x)(\\Delta y)(\\Delta z)$.\n",
+    "<br><br>\n",
+    "Upshot: In our derivation above, wherever we have $m_C$ we substitute $c\\theta (\\Delta x)(\\Delta y)(\\Delta z)$ the result is in our PDE we make this change:\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "&{\\partial c\\over \\partial t} \\rightarrow  {\\partial \\theta c\\over \\partial t}  \\label{7pde201}\\\\\n",
+    "\\end{align}\n",
+    "<br> <br>\n",
+    "And the equation for diffusion in porous media becomes:\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "&{\\partial \\theta c\\over \\partial t} = {\\partial \\over \\partial x}\\left( D\\theta {\\partial c \\over \\partial x}\\right) + {\\partial \\over \\partial y}\\left( D\\theta  {\\partial c \\over \\partial y}\\right)+ {\\partial \\over \\partial z}\\left( D \\theta {\\partial c \\over \\partial z}\\right)  \\label{7pde22}\\\\\n",
+    "\\text{or}&\\nonumber\\\\\n",
+    "&{\\partial \\theta c\\over \\partial t} = \\nabla \\cdot (D \\theta \\nabla c)\\label{7pde23}\\\\\n",
+    "\\end{align}\n",
+    "<br> <br>\n",
+    "## For homogeneous porosity\n",
+    "If porosity is spatially homogeneous, much as above when the diffusion coefficient was homogeneous (constant in space and time) it is not a function of the independent variables $x$, $y$, $z$ and $t$ so we can pull it out of the derivatives:${\\partial \\theta c\\over \\partial t}\\rightarrow \\theta{\\partial  c\\over \\partial t}$ and ${\\partial \\over \\partial x}\\left( D\\theta {\\partial c \\over \\partial x}\\right)\\rightarrow \\theta  {\\partial \\over \\partial x}\\left( D {\\partial c \\over \\partial x}\\right)$ and divide through both sides to get\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "&{\\partial c\\over \\partial t} = {\\partial \\over \\partial x}\\left( D {\\partial c \\over \\partial x}\\right) + {\\partial \\over \\partial y}\\left( D {\\partial c \\over \\partial y}\\right)+ {\\partial \\over \\partial z}\\left( D {\\partial c \\over \\partial z}\\right)  \\label{7pde24}\\\\\n",
+    "\\end{align}\n",
+    "<br> <br>\n",
+    "Surprise! For the case of homogeneous porosity, the equation is the same! However, if you are calculating fluxes between gridblocks, you have to use Fick's law for porous media, $\\vec{j} = -D\\theta \\nabla c$."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "# Solving PDEs: Boundary - value problems\n",
+    "\n",
+    "The solution to a partial differential equation is a function in space (and time if transient) in a specified domain. Most courses on differential equations focus on methods to determine analytical (sometimes called closed-form) solutions, whereas in this course we focus on discrete approximations. Solving a partial differential equation requires that we establish a so-called boundary-value problem. This is a common-sense collection of information required before we solve the problem.\n",
+    "\n",
+    "## Boundary-value problem checklist\n",
+    "To solve a boundary value problem requires:\n",
+    "1. knowledge of the equation(s) that govern the dependent variable(s).\n",
+    "2. specification of the problem domain.\n",
+    "3. specification of properties of the problem domain.\n",
+    "4. specification of the value of the dependent variable or its derivatives everywhere on the boundary.\n",
+    "5. for time-dependent problems: ** initial conditions** - specification of the value of the dependent variables at the beginning of period of analysis.\n",
+    "\n",
+    "\n",
+    "## TMF BVP example\n",
+    "\n",
+    "We were asked to compute the steady-state concentration profile beneath the pond where the concentration at 2 m depth was fixed at $c=2000~mg/L$ and at the pond-sediment interface $c=93~mg/L$. The sulfate moved by diffusion only, and there were no sources or sinks. Let's go through the check list.\n",
+    "\n",
+    "## Equation\n",
+    "This is a diffusion problem. We argued that because we were looking at a vertical profile in the middle of a large pond, the concentration only varies in one dimension (the vertical). Let's say $z$ is the vertical direction. Because the problems is steady, we know ${\\partial c\\over\\partial t} = 0$. So the equation for steady-state one-dimensional diffusion is:\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    " {\\partial \\over \\partial z}\\left( D {\\partial c \\over \\partial z}\\right) =0 \\label{7pde25}\\\\\n",
+    "\\end{align}\n",
+    "<br> <br>\n",
+    "\n",
+    "Note that $c$ varies with $z$ only - it is one-dimensional and since it is steady, it does not vary with time. Therefore since in this case concentration is a function of one variable alone, we don't need partials and can also write\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    " {d\\over d z}\\left( D {d c \\over d z}\\right) =0 \\label{7pde26}\\\\\n",
+    "\\end{align}\n",
+    "<br> <br>\n",
+    "Because the diffusion coefficient is spatially homogeneous, we can pull it out of the derivative (as above):\n",
+    "<br> <br>\n",
+    "\\begin{align}\n",
+    " D{d^2 c \\over d z^2} =0 \\label{7pde27}\\\\\n",
+    "\\end{align}\n",
+    "<br> <br>\n",
+    "Finally dividing both sides by the diffusion coefficient $D$ we have:\n",
+    "<br> <br>\n",
+    "\\begin{align}\n",
+    " {d^2 c \\over d z^2} =0 \\label{7pde28}\\\\\n",
+    "\\end{align}\n",
+    "<br> <br>\n",
+    "\n",
+    "## Domain\n",
+    "\n",
+    "The figure below shows the domain: the 1-D vertical profile under the middle of the pond:\n",
+    "\n",
+    "<img src=\"figures/tailings_diffusion.png\" alt=\"pic05\" width=\"35%\" >\n",
+    "\n",
+    "Let's put the origin $z=0$ at 2 m depth, so that the pond-sediment interface is at $z=2~m$. We could also put the origin at the top and set $z=2~m$ at 2 m into the sediments.\n",
+    "<br> <br>\n",
+    "\n",
+    "## Properties of the problem domain\n",
+    "Here the only property needed to describe steady-state concentration profile is the diffusion coefficient $D$. For our problem, it's value was spatially homogeneous $D=2\\times 10^{-10}~m^2/s$.\n",
+    "<br> <br>\n",
+    "\n",
+    "## Boundary conditions\n",
+    "This problem has two prescribed concentration boundary conditions.\n",
+    "1. $c(0)=2000~mg/L$ at 2  m depth in the sediments (where $z=0$).\n",
+    "2. $c(2)=93~mg/L$ at the pond-sediment interface (where $z=2~m$).\n",
+    "<br> <br>\n",
+    "\n",
+    "## Initial conditions\n",
+    "\n",
+    "Not required since this is not a time-dependent problem.\n",
+    "\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "# Assignment"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "lines_to_next_cell": 0,
+    "nbgrader": {
+     "checksum": "1feb0ff41fc784bacfaee46cf689a869",
+     "grade": false,
+     "grade_id": "cell-aab5f6e342530224",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "# 1 Finding an analytical solution\n",
+    "\n",
+    "Let's see if we can guess the exact solution to the BVP for the TMF diffusion problem.\n",
+    "## Your turn\n",
+    "\n",
+    "1. You are clever, and guess that the concentration profile varies linearly with depth. That is, the function is of the form\n",
+    "\n",
+    "\\begin{align}\n",
+    "c(z) &= az + b\\\\\n",
+    "\\end{align}\n",
+    "where $a$ and $b$ are some coefficients. What are the values of $a$ and $b$ that satisfy the boundary - value problem? Common sense: the solution has to run linearly between the two boundary points. Solve for $a$ and $b$ and enter their values in the cell below for autograding, i.e. write two lines of python that set:\n",
+    "\n",
+    "a= xxx\n",
+    "b=xxx\n",
+    "\n",
+    "\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "lines_to_next_cell": 2,
+    "nbgrader": {
+     "checksum": "d570d90e0eb71ebe2475316ae950e40f",
+     "grade": false,
+     "grade_id": "cell-380fbeea05e160b1",
+     "locked": false,
+     "schema_version": 1,
+     "solution": true
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# YOUR CODE HERE\n",
+    "raise NotImplementedError()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "lines_to_next_cell": 2,
+    "nbgrader": {
+     "checksum": "92f6327c45959050577d1e0497137940",
+     "grade": true,
+     "grade_id": "cell-e61ecfd1a8dba18b",
+     "locked": true,
+     "points": 2,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# We test your a and b values here\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "194252bb36b92034ea870ff6de4c2649",
+     "grade": false,
+     "grade_id": "cell-822",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "2. Prove that the analytical \"solves\" the BVP by:\n",
+    "\n",
+    "i. substituting the analytical expression into the partial differential equation and differentiating (in the same way you proved solutions solved the ODE).\n",
+    "\n",
+    "ii. showing that the solution satisfies the boundary conditions. That is, show that $c(0) = 2000$ and $c(2) = 93$.\n",
+    "\n",
+    "Enter work in the cell below"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "nbgrader": {
+     "checksum": "9a13dafa024ba0fb6ad633346ad6e927",
+     "grade": true,
+     "grade_id": "cell-822ad23c1f3437c5",
+     "locked": false,
+     "points": 4,
+     "schema_version": 1,
+     "solution": true
+    }
+   },
+   "source": [
+    "YOUR ANSWER HERE"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "bc1fdefbd3896740d8426076f1884404",
+     "grade": false,
+     "grade_id": "cell-21015739c885b7d5",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "3. What would the profile look like if the diffusion coefficient were 10 times larger? Or 10 times smaller? Explain in the cell below"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "nbgrader": {
+     "checksum": "8fef1eca8b8c26ec54b03a6db1ff3022",
+     "grade": true,
+     "grade_id": "cell-21015739",
+     "locked": false,
+     "points": 2,
+     "schema_version": 1,
+     "solution": true
+    }
+   },
+   "source": [
+    "YOUR ANSWER HERE"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "bedadf16cfedb43fcd0643d9d299a8c7",
+     "grade": false,
+     "grade_id": "cell-790f63f42c2c67fe",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "4. If the porosity of the sediments is $\\theta=0.25$, what is the magnitude of the specific diffusive flux $j$ in units of $mg/(s\\cdot m^2)$. Enter the magnitude of the diffusive flux $j$ in the cell below for autograding.\n",
+    "\n",
+    "Spefically we are expecitng you to write a line in python like:\n",
+    "\n",
+    "j=xxx"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "nbgrader": {
+     "checksum": "0c0eebf439a0ff4edd22487b49aae798",
+     "grade": false,
+     "grade_id": "cell-2e98eca5963b3b67",
+     "locked": false,
+     "schema_version": 1,
+     "solution": true
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# your answer here\n",
+    "\n",
+    "# YOUR CODE HERE\n",
+    "raise NotImplementedError()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "lines_to_next_cell": 2,
+    "nbgrader": {
+     "checksum": "3d9368a32edb1acef8e807c90512ecd8",
+     "grade": true,
+     "grade_id": "cell-206039ca628af33b",
+     "locked": true,
+     "points": 2,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# Hidden test here\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#  2 Interpretation\n",
+    "\n",
+    "Heat moves by conduction from high temperature to low temperature according to Fourier's law:\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "\\vec{q} = -\\kappa\\nabla u \\label{7pde29}\\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n",
+    "where\n",
+    "* $u~\\left[\\Theta\\right]$ is the temperature (typical units of Kelvin)(note that $\\Theta$ is the dimension for temperature)\n",
+    "* $q ~\\left[{M \\over T^3} \\right]$ is the specific heat flux (typical units are Watts per $m^2$)\n",
+    "* $\\kappa~\\left[{M L\\over T^3\\Theta}\\right]$ is the thermal conductivity (typical units are Watts per $m$ per Kelvin)\n",
+    "* $\\nabla u~\\left[{\\Theta\\over L}\\right]$ is the temperature gradient (typical units are Kelvin per $m$).\n",
+    "\n",
+    "\n",
+    "## 1.\n",
+    "\n",
+    "Show that the dimensions of the left and right hand of Fourier's law are the same:\n",
+    "\n",
+    "Dimensions of $q$: $\\left[{M \\over T^3} \\right]$; Dimensions of $-\\kappa\\nabla u$: $\\left[{\\text{Your dimensions here}}\\right]$\n",
+    "<br><br>\n",
+    "\n",
+    "The partial differential equation that governs heat flow by conduction can be written in vector form\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "&\\rho c_p{\\partial u\\over \\partial t} = \\nabla \\cdot (\\kappa \\nabla u)\\label{7pde30}\\\\\n",
+    "\\end{align}\n",
+    "<br> <br>\n",
+    "where\n",
+    "$\\rho~\\left[{M\\over L^3}\\right]$ is the density of the material through which heat is conducting.  This equation is called **the heat equation**.\n",
+    "\n",
+    "## 2.\n",
+    "What are the dimensions of the specific heat capacity $c_p$?\n",
+    "\n",
+    "$c_p~\\left[{\\text{Your dimensions here}}\\right]$\n",
+    "<br><br>\n",
+    "\n",
+    "## 3.\n",
+    "What is the physical meaning of the the term $\\rho c_p{\\partial u\\over \\partial t}$ in the heat equation \\ref{7pde30}?\n",
+    "\n",
+    "## 4.\n",
+    "\n",
+    "Write the transient heat equation in non-vector form in two dimensions ($x$, and $y$). Hint: look at diffusion equation examples above.\n",
+    "\n",
+    "\\begin{align}\n",
+    "\\text{your equation here}\n",
+    "\\end{align}\n"
+   ]
+  }
+ ],
+ "metadata": {
+  "jupytext": {
+   "cell_metadata_filter": "all",
+   "formats": "ipynb",
+   "notebook_metadata_filter": "all"
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.8"
+  },
+  "nbsphinx": {
+   "execute": "never"
+  },
+  "toc": {
+   "base_numbering": 1,
+   "nav_menu": {},
+   "number_sections": true,
+   "sideBar": true,
+   "skip_h1_title": false,
+   "title_cell": "Table of Contents",
+   "title_sidebar": "Contents",
+   "toc_cell": true,
+   "toc_position": {},
+   "toc_section_display": true,
+   "toc_window_display": true
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

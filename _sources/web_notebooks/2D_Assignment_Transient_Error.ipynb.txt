@@ -1,0 +1,1537 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "lines_to_next_cell": 0,
+    "nbgrader": {
+     "checksum": "49f40bdefd870cc4e6acf1d85203d6ab",
+     "grade": false,
+     "grade_id": "cell-2ad2c23f9a0a820a",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    },
+    "toc": true
+   },
+   "source": [
+    "<h1>Table of Contents<span class=\"tocSkip\"></span></h1>\n",
+    "<div class=\"toc\"><ul class=\"toc-item\"><li><span><a href=\"#Learning-Goals\" data-toc-modified-id=\"Learning-Goals-1\"><span class=\"toc-item-num\">1&nbsp;&nbsp;</span>Learning Goals</a></span></li><li><span><a href=\"#Context\" data-toc-modified-id=\"Context-2\"><span class=\"toc-item-num\">2&nbsp;&nbsp;</span>Context</a></span></li><li><span><a href=\"#Boundary-conditions\" data-toc-modified-id=\"Boundary-conditions-3\"><span class=\"toc-item-num\">3&nbsp;&nbsp;</span>Boundary conditions</a></span></li><li><span><a href=\"#Transient-diffusion-from-a-constant-concentration-boundary\" data-toc-modified-id=\"Transient-diffusion-from-a-constant-concentration-boundary-4\"><span class=\"toc-item-num\">4&nbsp;&nbsp;</span>Transient diffusion from a constant-concentration boundary</a></span><ul class=\"toc-item\"><li><span><a href=\"#1D-Homogeneous-problem\" data-toc-modified-id=\"1D-Homogeneous-problem-4.1\"><span class=\"toc-item-num\">4.1&nbsp;&nbsp;</span>1D Homogeneous problem</a></span></li><li><span><a href=\"#Now-solve-the-1D-problem\" data-toc-modified-id=\"Now-solve-the-1D-problem-4.2\"><span class=\"toc-item-num\">4.2&nbsp;&nbsp;</span>Now solve the 1D problem</a></span></li><li><span><a href=\"#Quantification-of-the-error\" data-toc-modified-id=\"Quantification-of-the-error-4.3\"><span class=\"toc-item-num\">4.3&nbsp;&nbsp;</span>Quantification of the error</a></span><ul class=\"toc-item\"><li><span><a href=\"#Q1-(5)----calculate-an-error-function\" data-toc-modified-id=\"Q1-(5)----calculate-an-error-function-4.3.1\"><span class=\"toc-item-num\">4.3.1&nbsp;&nbsp;</span>Q1 (5) -- calculate an error function</a></span></li><li><span><a href=\"#Q2-(5)-Plot-the-error-and-execution-time\" data-toc-modified-id=\"Q2-(5)-Plot-the-error-and-execution-time-4.3.2\"><span class=\"toc-item-num\">4.3.2&nbsp;&nbsp;</span>Q2 (5) Plot the error and execution time</a></span></li><li><span><a href=\"#Q3-(3)-Find-the-&quot;sweet-spot&quot;\" data-toc-modified-id=\"Q3-(3)-Find-the-&quot;sweet-spot&quot;-4.3.3\"><span class=\"toc-item-num\">4.3.3&nbsp;&nbsp;</span>Q3 (3) Find the \"sweet spot\"</a></span></li></ul></li><li><span><a href=\"#2D-transient-diffusion-in-homogeneous-media\" data-toc-modified-id=\"2D-transient-diffusion-in-homogeneous-media-4.4\"><span class=\"toc-item-num\">4.4&nbsp;&nbsp;</span>2D transient diffusion in homogeneous media</a></span><ul class=\"toc-item\"><li><span><a href=\"#Q4-(2)-Comment-on-the-steady-state-solution\" data-toc-modified-id=\"Q4-(2)-Comment-on-the-steady-state-solution-4.4.1\"><span class=\"toc-item-num\">4.4.1&nbsp;&nbsp;</span>Q4 (2) Comment on the steady state solution</a></span></li><li><span><a href=\"#Q5-(10)-Solve-for-the-2D-concentration-as-a-function-of-time\" data-toc-modified-id=\"Q5-(10)-Solve-for-the-2D-concentration-as-a-function-of-time-4.4.2\"><span class=\"toc-item-num\">4.4.2&nbsp;&nbsp;</span>Q5 (10) Solve for the 2D concentration as a function of time</a></span></li></ul></li></ul></li><li><span><a href=\"#Conclusions\" data-toc-modified-id=\"Conclusions-5\"><span class=\"toc-item-num\">5&nbsp;&nbsp;</span>Conclusions</a></span></li></ul></div>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "lines_to_next_cell": 0,
+    "nbgrader": {
+     "checksum": "9bf81c982f4f5aecb579298b036c8018",
+     "grade": false,
+     "grade_id": "cell-0a4af3607542b85a",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "# 2D Transient simulation\n",
+    "\n",
+    "## Learning Goals\n",
+    "\n",
+    "- Formulate and solve a 2D diffusion problem with inhomogeneous diffusion\n",
+    "- Assess the accuracy by comparing the solution of a homogeneous problem to an analyitical solution\n",
+    "- Define the gridsize and timesteps to have reasonable computation time vs accuracy\n",
+    "- Use this approach to model a more complicated problem\n",
+    "- Use simple python classes to organize parameters\n",
+    "\n",
+    "## Context\n",
+    "\n",
+    "We want to study the diffusion of a contaminant in a geological context. The different geological layers and zones induce that the diffusion is not the same in every direction. We want to model these effects that diffusion is stopped on some boundary, that diffusion avoids certain areas of low diffusivity, ...\n",
+    "\n",
+    "To start that, we need a transient 2D model whose parameters are well defined. In order to assess the accuracy of the method, we will start by using the approach on simple cases for which an analytical solution is known. That will allow to define the timestep, gridsize, to have a reasonable agreement with analytical solution.\n",
+    "\n",
+    "From then, we will be able to model any similar situation.\n",
+    "\n",
+    "## Boundary conditions\n",
+    "\n",
+    "Different types of boundary conditions can be encountered. So far, we have only used a boundary condition specifying the value of the unknown at one point (these are called Dirichlet boundary condition). In some case, a flux  is specified as a boundary condition, e.g. a certain amount of water/gas is injected at one boundary at a rate of 1 kg/s. These conditions will specify the derivative of the unknowns.\n",
+    "\n",
+    "A usual boundary condition is a no-flux boundary condition, meaning the solutes cannot go through a boundary. No diffusive flux means that the difference in concentration is zero. Thus, it specifies a zero-derivative at the boundary. Physically, this represents particle bouncing on a reflecting surface: every particle colliding with the surface is reflected back. Therefore, zooming on the boundary, the derivative of the concentration is zero.\n",
+    "\n",
+    "## Transient diffusion from a constant-concentration boundary\n",
+    "\n",
+    "Let us describe the diffusion of a contaminant with concentration c in soils where a constant concentration $c_0$ is fixed at one boundary. It can be shown that the analytical solution to such a problem can be represented by the following equation:\n",
+    "\n",
+    "\\begin{equation}\n",
+    "c(x,t) = c_0  \\text{erfc}\\left( \\frac{x}{\\sqrt{4Dt}}  \\right)\n",
+    "\\end{equation}\n",
+    "\n",
+    "where erfc$(x)$ is the error function, t is time ad D is the diffusivity. Let us look at this solution for different timesteps.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "lines_to_next_cell": 2,
+    "nbgrader": {
+     "checksum": "84bbaeac6d70f7c8b06381bfffc89dd9",
+     "grade": false,
+     "grade_id": "cell-e58a84ffce31f93a",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "import matplotlib.cm as cmap\n",
+    "import matplotlib.pyplot as plt\n",
+    "import numpy as np\n",
+    "from mpl_toolkits.axes_grid1 import AxesGrid\n",
+    "from numpy.testing import assert_allclose\n",
+    "from scipy import special"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "lines_to_next_cell": 2
+   },
+   "outputs": [],
+   "source": [
+    "n_tstep = 6\n",
+    "Days_of_Plot = [0, 2, 20, 100, 200, 500]\n",
+    "\n",
+    "n_x = 100  # number of cells\n",
+    "width = 10  # dm\n",
+    "x = np.linspace(0, width, n_x)\n",
+    "analytic_conc_1D = np.zeros((n_tstep, n_x))\n",
+    "c0 = 1  # mg/L\n",
+    "Diff = 2e-9 * 100 * 24 * 3600  # dm²/day\n",
+    "analytic_conc_1D[0, 0] = c0  # mg/L\n",
+    "\n",
+    "plt.plot(x, analytic_conc_1D[0, :], label=\"Initial concentration\")\n",
+    "\n",
+    "for t in range(1, n_tstep):\n",
+    "    for i in range(n_x):\n",
+    "        denom = np.sqrt(4 * Diff * Days_of_Plot[t])\n",
+    "        analytic_conc_1D[t, i] = c0 * special.erfc((x[i]) / denom)\n",
+    "    plt.plot(\n",
+    "        x,\n",
+    "        analytic_conc_1D[t, :],\n",
+    "        label=\"Concentration after %.0f days\" % Days_of_Plot[t],\n",
+    "    )\n",
+    "\n",
+    "\n",
+    "plt.xlabel(\"x-axis (dm)\")\n",
+    "plt.ylabel(\"Concentration (mg/L)\")\n",
+    "plt.legend(bbox_to_anchor=(1.01, 1), loc=\"upper left\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "bb3ba87fec18f9781cd3171fc6dd3710",
+     "grade": false,
+     "grade_id": "cell-d264c8e9ca43eebe",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "If we consider a 2D system, without any heterogeneity along the y-axis, the previous solution is valid for each y axis, and you can imagine that the previous plot is a transverse cross-section of the evolution of the front. This means that, whatever the value of  $y$:\n",
+    "\n",
+    "\\begin{equation}\n",
+    "  c(x,y_1,t) = c(x,y_2,t) \\quad \\forall y_1,y_2,x,t\n",
+    " \\end{equation}"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "d8dd9631b994bd76088c1009c785ae7e",
+     "grade": false,
+     "grade_id": "cell-57e9419f434cc7b6",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "In the next few cells, we define some functions which we will use throughout the rest of the assignment.\n",
+    "\n",
+    "- avg(Di,Dj) computes the average diffusion coefficient to compute the flux between two cells with different D\n",
+    "- index_to_row_col(...), mat2vec() and vec2mat() functions\n",
+    "  to find which column and which row correspond to which linear index, and to move back and forth\n",
+    "  between the 2D array for the physical domain and the 1D vector equation system used for the linear\n",
+    "  equation solver\n",
+    "- build_2D_matrix(...) is the same function than before, generalized to 2D and multiple boundary conditions\n",
+    "\n",
+    "Then we have defined two classes (objects) which will store informations to make it easier to pass to functions.\n",
+    "\n",
+    "- class boundary: creates a boundary which has a type and an assigned value (\"const\" means constant-concentration boundary, and its attribute \"val\" is the value of this concentration. otherwise, it is a flux boundary condition, and the attribute \"0\" expresses the derivative at that boundary).\n",
+    "- class Problem_Def: puts every relevant parameter in an object to be given to build_2D_matrix"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "99a22b583a544f1bc2b1046f7a3052eb",
+     "grade": false,
+     "grade_id": "cell-bd0b49f6ae1acef3",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# this function deals with harmonic averaging when diffusion is not the same everywhere.\n",
+    "# It doesn't change anything when diffusion is homogeneous but you can try to see how it affects the behavior.\n",
+    "\n",
+    "\n",
+    "def avg(Di, Dj):\n",
+    "    \"\"\"\n",
+    "    Computes the harmonic average between two values Di and Dj\n",
+    "    Returns 0 if either of them is zero\n",
+    "    \"\"\"\n",
+    "    if (Di * Dj) == 0:\n",
+    "        return 0\n",
+    "    else:\n",
+    "        return 2 / (1 / Di + 1 / Dj)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "dcaf32d9cc71083bda41751807fb2f97",
+     "grade": false,
+     "grade_id": "cell-3c98bf2bf0a2b462",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "The `index_to_row_col`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "3fd665e1a1c1f1a173e53f592b4836b1",
+     "grade": false,
+     "grade_id": "cell-de21986c428ada9e",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "def index_to_row_col(ind, nrows, ncol):\n",
+    "    \"\"\"\n",
+    "    in a 2D array, returns the row and column value\n",
+    "    associated with a 1D index\n",
+    "    Bottom left is index is zero (0-th row, 0-th column)\n",
+    "    while index one is the 0-th row and 1st column\n",
+    "    \"\"\"\n",
+    "    if ind > nrows * ncol - 1:\n",
+    "        return 0\n",
+    "\n",
+    "    row = int(np.floor(ind / ncol))\n",
+    "    col = int(ind - row * ncol)\n",
+    "    return row, col"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "962ab8e7fc1e90c9cf2a568df7c7d33e",
+     "grade": false,
+     "grade_id": "cell-c21949415ff13542",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "def build_2D_matrix(bc_dict, problem, D_matrix, Qsource):\n",
+    "    \"\"\"\n",
+    "    Constructs a coefficient matrix A and an array b corresponding to the system Ac = b\n",
+    "    This system corresponds either to a 1D or 2D problem\n",
+    "\n",
+    "    Parameters\n",
+    "    ----------\n",
+    "    bc_dict: dict\n",
+    "       dictionary with Boundary_Def objects defining the boundary conditions\n",
+    "    D_matrix: (float vector if 1D or matrix if 2D)\n",
+    "        values of the diffusion coefficient at each grid point(dm^2/day)\n",
+    "        if 2D, dimension is [problem.ny, problem.nx]\n",
+    "    width_x: (float)\n",
+    "        x-extent of the domain (dm)\n",
+    "    width_y: (float)\n",
+    "        y-extent of the domain (dm)\n",
+    "    poro (float)\n",
+    "        porosity value\n",
+    "    Qsource: (float array)\n",
+    "      volumetric source term (mg/L/day)\n",
+    "\n",
+    "    Returns\n",
+    "    -------\n",
+    "\n",
+    "    the_matrix, rhs: tuple\n",
+    "       where the_matrix=A and rhs =b\n",
+    "       in the discretized diffusion problem\n",
+    "       Ax=b\n",
+    "    \"\"\"\n",
+    "    number_of_rows = problem.ny\n",
+    "    number_of_cols = problem.nx\n",
+    "    n = problem.nx * problem.ny\n",
+    "    is1D = False\n",
+    "    if number_of_rows == 1 or number_of_cols == 1:\n",
+    "        is1D = True\n",
+    "        number_of_cols = n\n",
+    "    the_matrix = np.zeros((n, n))\n",
+    "    rhs = np.zeros(n)\n",
+    "\n",
+    "    if is1D:\n",
+    "        dx = max(problem.wx, problem.wy) / (max(problem.ny, problem.nx) - 1)\n",
+    "        coef_x = problem.poro / dx / dx\n",
+    "    else:\n",
+    "        dx = problem.wx / (problem.ny - 1)\n",
+    "        dy = problem.wy / (problem.nx - 1)\n",
+    "        coef_x = problem.poro / dx / dx\n",
+    "        coef_y = problem.poro / dy / dy\n",
+    "\n",
+    "    for ind in range(n):\n",
+    "        if is1D:\n",
+    "            j = ind\n",
+    "            i = -1\n",
+    "        else:\n",
+    "            i, j = index_to_row_col(ind, number_of_rows, number_of_cols)\n",
+    "        if j == 0:  # WEST BOUNDARY\n",
+    "            if bc_dict[\"west\"].btype == \"const\":\n",
+    "                rhs[ind] = bc_dict[\"west\"].val\n",
+    "                the_matrix[ind, ind] = 1\n",
+    "            else:  # flux boundary condition\n",
+    "                the_matrix[ind, ind] = 1\n",
+    "                the_matrix[ind, ind + 1] = -1\n",
+    "                rhs[ind] = bc_dict[\"west\"].val / dx\n",
+    "\n",
+    "        elif j == number_of_cols - 1:  # EAST BOUNDARY\n",
+    "            if bc_dict[\"east\"].btype == \"const\":\n",
+    "                rhs[ind] = bc_dict[\"east\"].val\n",
+    "                the_matrix[ind, ind] = 1\n",
+    "            else:  # flux boundary condition\n",
+    "                the_matrix[ind, ind] = 1\n",
+    "                the_matrix[ind, ind - 1] = -1\n",
+    "                rhs[ind] = bc_dict[\"east\"].val / dx\n",
+    "        elif i == 0 and problem.ny > 1:  # SOUTH BOUNDARY\n",
+    "            if bc_dict[\"south\"].btype == \"const\":\n",
+    "                rhs[ind] = bc_dict[\"south\"].val\n",
+    "                the_matrix[ind, ind] = 1\n",
+    "            else:  # flux boundary condition\n",
+    "                the_matrix[ind, ind] = 1\n",
+    "                the_matrix[ind, ind + number_of_cols] = -1\n",
+    "                rhs[ind] = bc_dict[\"south\"].val / dy\n",
+    "\n",
+    "        elif i == number_of_rows - 1 and problem.ny > 1:  # NORTH BOUNDARY\n",
+    "            if bc_dict[\"north\"].btype == \"const\":\n",
+    "                rhs[ind] = bc_dict[\"west\"].val\n",
+    "                the_matrix[ind, ind] = 1\n",
+    "            else:  # flux boundary condition\n",
+    "                the_matrix[ind, ind] = 1\n",
+    "                the_matrix[ind, ind - number_of_cols] = -1\n",
+    "                rhs[ind] = bc_dict[\"north\"].val / dy\n",
+    "        else:\n",
+    "            if is1D:\n",
+    "                north = 0\n",
+    "                south = 0\n",
+    "                rhs[ind] = Qsource[ind]\n",
+    "                east = coef_x * avg(D_matrix[ind + 1], D_matrix[ind])\n",
+    "                west = coef_x * avg(D_matrix[ind - 1], D_matrix[ind])\n",
+    "            else:\n",
+    "                north = coef_y * avg(D_matrix[i, j], D_matrix[i + 1, j])\n",
+    "                south = coef_y * avg(D_matrix[i, j], D_matrix[i - 1, j])\n",
+    "                east = coef_x * avg(D_matrix[i, j], D_matrix[i, j + 1])\n",
+    "                west = coef_x * avg(D_matrix[i, j], D_matrix[i, j - 1])\n",
+    "                the_matrix[ind, ind + number_of_cols] = -north\n",
+    "                the_matrix[ind, ind - number_of_cols] = -south\n",
+    "                rhs[ind] = Qsource[i, j]\n",
+    "\n",
+    "            the_matrix[ind, ind] = east + west + north + south\n",
+    "            the_matrix[ind, ind + 1] = -east\n",
+    "            the_matrix[ind, ind - 1] = -west\n",
+    "\n",
+    "    return the_matrix, rhs"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "d606ebec74fdd9b98f555a420395d18a",
+     "grade": false,
+     "grade_id": "cell-efd52c1cd03dbf67",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "class Boundary_Def:\n",
+    "    \"\"\"\n",
+    "    this class holds the boundary type btype ('flux' or 'const')\n",
+    "    and the value of the boundary condition (derivitive of the concentration if 'flux'\n",
+    "    value of the concentration if 'const')\n",
+    "    \"\"\"\n",
+    "\n",
+    "    btype: str\n",
+    "    val: float\n",
+    "\n",
+    "    def __init__(self, btype, val):\n",
+    "        self.btype = btype\n",
+    "        self.val = val"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "d2f73e2ae5ce25fedec6595466e2e21d",
+     "grade": false,
+     "grade_id": "cell-d891cdd619d0f39d",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "class Problem_Def:\n",
+    "    \"\"\"\n",
+    "    this class holds the specifcation for the domain,\n",
+    "    including the value of the porosity\n",
+    "    \"\"\"\n",
+    "\n",
+    "    nx: int\n",
+    "    ny: int\n",
+    "    poro: float\n",
+    "    wx: float\n",
+    "    wy: float\n",
+    "\n",
+    "    def __init__(self, nx, ny, poro, wx, wy):\n",
+    "        self.nx = nx\n",
+    "        self.ny = ny\n",
+    "        self.poro = poro\n",
+    "        self.wx = wx\n",
+    "        self.wy = wy"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "934a63638768252e44368c469e617d09",
+     "grade": false,
+     "grade_id": "cell-f97ab996f12bd2f2",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# Here we create 4 boundaries, west has a constant concentration at c0, east has a constant boundary at 0;\n",
+    "west = Boundary_Def(\"const\", val=c0)\n",
+    "east = Boundary_Def(\"const\", val=0)\n",
+    "\n",
+    "# For 1D problem, the used boundaries are west and east.\n",
+    "\n",
+    "# The other south and north boundaries have a zero flux (impermeable)\n",
+    "\n",
+    "north = Boundary_Def(\"flux\", val=0)\n",
+    "south = Boundary_Def(\"flux\", val=0)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# If  you want to change boundary conditions, to see the impact of these, we highly encourage you to do so!\n",
+    "# So we leave this cell free for you to change these boundary conditions."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "7efa86587eac81a42f3b9443c4839de9",
+     "grade": false,
+     "grade_id": "cell-ea536fa5b54285e2",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "bc_dict = {\"west\": west, \"north\": north, \"east\": east, \"south\": south}\n",
+    "# The latter array bc_dict will be sent to the different functions"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "2883563a2a050567ddf5282539fb450d",
+     "grade": false,
+     "grade_id": "cell-5964a142b442c018",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "### 1D Homogeneous problem\n",
+    "\n",
+    "\n",
+    "We will use the different defined function (which also work in 1D) to assess a reasonable timestep and gridsize so that the error is acceptable.\n",
+    "\n",
+    "We give you the resolution scheme for the 1D problem in the next cell. You will have to use that again later for the error optimization, as well as for the 2D problem.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "lines_to_next_cell": 2
+   },
+   "outputs": [],
+   "source": [
+    "n_x = 51\n",
+    "n_y = 1\n",
+    "Diff = 2e-9 * 100 * 24 * 3600  # dm²/day\n",
+    "width_x = 10  # dm\n",
+    "width_y = 0\n",
+    "n = n_x * n_y\n",
+    "x = np.linspace(0, width, n_x)\n",
+    "c_init = np.zeros(n_x)\n",
+    "c_init[0] = c0\n",
+    "D_matrix = Diff * np.ones(n)\n",
+    "poro = 0.4\n",
+    "prob = Problem_Def(n_x, n_y, poro, width_x, width_y)\n",
+    "Qsource = np.zeros(n)\n",
+    "A, b = build_2D_matrix(bc_dict, prob, D_matrix, Qsource)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Now solve the 1D problem"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "lines_to_next_cell": 2
+   },
+   "outputs": [],
+   "source": [
+    "dt = 0.2  # days\n",
+    "Adelta = np.zeros((n, n))\n",
+    "for i in range(n):\n",
+    "    Adelta[i, i] = poro / dt\n",
+    "A = A + Adelta\n",
+    "# There is no need to update A at every timestep,\n",
+    "# since the timestep and the porosity are constant.\n",
+    "\n",
+    "Bdelta = np.zeros(n)\n",
+    "\n",
+    "Tf = 100  # total number of days\n",
+    "nTstp = int(Tf / dt)\n",
+    "number_of_fig = 10\n",
+    "n_of_tstep_before_fig = int(nTstp / number_of_fig)\n",
+    "\n",
+    "c = np.zeros(((n, number_of_fig)))\n",
+    "err = np.zeros(((n, number_of_fig)))\n",
+    "c[:, 0] = c_init\n",
+    "nfig = 1\n",
+    "Time = 0\n",
+    "c_real = np.zeros(n)\n",
+    "\n",
+    "fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 8))\n",
+    "ax1.plot(x, c_init, label=\"Initial concentration\")\n",
+    "ax2.plot(x, err[:, 0], label=\"Initial error\")\n",
+    "v = c_init\n",
+    "\n",
+    "for t in range(nTstp - 1):\n",
+    "    for i in range(n):\n",
+    "        Bdelta[i] = v[i] * poro / dt\n",
+    "    bb = b + Bdelta\n",
+    "    v = np.linalg.solve(A, bb)\n",
+    "    Time = Time + dt\n",
+    "    if (t + 1) % n_of_tstep_before_fig == 0 and t > 0:\n",
+    "        for i in range(n):\n",
+    "            c[i, nfig] = v[i]\n",
+    "            denom = np.sqrt(4 * Diff * (t + 1) * dt)\n",
+    "            c_real[i] = c0 * special.erfc((x[i]) / denom)\n",
+    "            err[i, nfig] = abs(c[i, nfig] - c_real[i])\n",
+    "\n",
+    "        ax1.plot(x, c[:, nfig], label=\"Concentration after %.0f day\" % Time)\n",
+    "        ax2.plot(x, err[:, nfig], label=\"Error after %.0f day\" % Time)\n",
+    "        nfig = nfig + 1\n",
+    "\n",
+    "\n",
+    "ax1.legend()\n",
+    "ax2.legend()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "67f2751822f6703c5985249d198fdf6e",
+     "grade": false,
+     "grade_id": "cell-ff2e81fd696c865b",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "### Quantification of the error\n",
+    "\n",
+    "One may realize that the previous visualization of the error is not particularly helpful. We would like to quantify the error using only one real number, so that comparison is easier. This is the concept of the *norm*. It is defined in \"numpy.linalg.norm\". The norm of a vector $\\overrightarrow{x}$ is usually written\n",
+    "\n",
+    "\\begin{equation}\n",
+    "\\lvert \\lvert \\overrightarrow{x}\\lvert\\lvert\n",
+    "\\end{equation}\n",
+    "\n",
+    "There exists many type of norm\n",
+    "\n",
+    "Norm-1:\n",
+    "\n",
+    "\\begin{equation}\n",
+    "\\lvert\\lvert\\overrightarrow{x}\\lvert\\lvert_1 = \\sum_i^N |x_i|\n",
+    "\\end{equation}\n",
+    "\n",
+    "Norm-2 (notion of distance)\n",
+    "\n",
+    "\\begin{equation}\n",
+    "\\lvert\\lvert\\overrightarrow{x}\\lvert\\lvert_2 = \\sqrt{\\sum_i^N |x_i|^2}\n",
+    "\\end{equation}\n",
+    "\n",
+    "\n",
+    "The infinte-norm:\n",
+    "\n",
+    "\\begin{equation}\n",
+    "\\lvert\\lvert\\overrightarrow{x}\\lvert\\lvert_\\infty = max_i  \\{ |x_i| \\}\n",
+    "\\end{equation}\n",
+    "\n",
+    "We can also define the n-norm, but the three previous one are most commonly used.\n",
+    "\n",
+    "\\begin{equation}\n",
+    "\\lvert\\lvert\\overrightarrow{x}\\lvert\\lvert_n = \\sqrt[n]{\\sum_i^N |x_i|^n}\n",
+    "\\end{equation}\n",
+    "\n",
+    "Use the 2nd norm ( np.linalg.norm() ) to see the evolution of the global error with the timestep."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "bde4edbfd8d8b94b2aea480455a52811",
+     "grade": false,
+     "grade_id": "cell-d08b4fb1a4c4794f",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "err_norm = np.zeros(nfig)\n",
+    "for i in range(nfig):\n",
+    "    err_norm[i] = np.linalg.norm(err[:, i])\n",
+    "\n",
+    "plt.plot(err_norm)\n",
+    "maxerr = max(err_norm)\n",
+    "print(maxerr)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "5aa25822f2cbc7e6f7cafb429bab51a1",
+     "grade": false,
+     "grade_id": "cell-86aecca9b6e85e67",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "#### Q1 (5) -- calculate an error function\n",
+    "\n",
+    "\n",
+    "Now see the influence of modifying the number of gridblocks and timestep and choose a good compromise between accuracy, and computation time.\n",
+    "\n",
+    "What we want you to do, is to convert one of the previous cell, which does the computation of the solution and the error. That function should return one single real number, representing the norm of the error. We want you to define several timestep and gridsize (4-5 values max for each, otherwise computation time might be too important). So, loop over the different timesteps and gridsize you have chosen, call the function for each situation, and store the return of the function as an error.\n",
+    "\n",
+    "In the end, we want you to plot the error in function of the timestep and gridsize, and chose the timestep you think is the best. A good compromise between accuracy and computation time is usually the best. In the rest of the assignment, we will go 2D. So, if your choice from here results in a too high computation time, the 2D calculation will take an important amount of time."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "nbgrader": {
+     "checksum": "74c1ec4119150f0977c59cc0d7527891",
+     "grade": true,
+     "grade_id": "cell-e3ee742eca9b30e4",
+     "locked": false,
+     "points": 5,
+     "schema_version": 1,
+     "solution": true
+    }
+   },
+   "outputs": [],
+   "source": [
+    "def compute_error(n, dt):\n",
+    "    \"\"\"\n",
+    "    Computes the maximum error of the 1D transient diffusion problem\n",
+    "    n is the number of gridcells in the x-dimension\n",
+    "    dt is the timestep in days\n",
+    "    \n",
+    "    Returns\n",
+    "    -------\n",
+    "    \n",
+    "    err_norm: float\n",
+    "       the maximum normalized error found using np.linalg.norm\n",
+    "    \"\"\"\n",
+    "#\n",
+    "# our solution copies the code from section 4.2 (Now solve the 1D problem)\n",
+    "# and uses it to fill  a matrix of the difference between that solution\n",
+    "# and the analytic answer  Here is the section that saves the error matrix\n",
+    "#\n",
+    "# for t in range(nTstp - 1):\n",
+    "#         for i in range(n):\n",
+    "#             Bdelta[i] = \n",
+    "#         bb =\n",
+    "#         v = \n",
+    "#         Time = Time + dt\n",
+    "#         if (t + 1) % n_of_tstep_before_fig == 0 and t > 0:\n",
+    "#             for i in range(n):\n",
+    "#                 c[i, nfig] = \n",
+    "#                 denom =\n",
+    "#                 c_real[i] = \n",
+    "#                 err[i, nfig] = \n",
+    "#\n",
+    "#             nfig = nfig + 1\n",
+    "\n",
+    "#     err_norm = np.zeros(nfig)\n",
+    "#     for i in range(nfig):\n",
+    "#         err_norm[i] =\n",
+    "#     maxerr = max(err_norm)\n",
+    "\n",
+    "# YOUR CODE HERE\n",
+    "raise NotImplementedError()\n",
+    "    return maxerr"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "1e2eb869667ee0e3012c5070b79871b0",
+     "grade": false,
+     "grade_id": "cell-3eb6a9edcf92f2be",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "In the next cell, we want you to use the previously defined function to compute the error for different values of the number_of_grid_cells and step_size, and give relevant values (incude appropriate plots) to justify your future choice. The next cell gives you an example of how we want you to work.\n",
+    "\n",
+    "\n",
+    "For your answer, save the error and the time_of_sim for at least 4 different values\n",
+    "of number_of_grid_cells and step_size.  The idea is to show the tradeoff between\n",
+    "accuracy and the cost of the simulation.  Make two plots, one showing error (mg/L) vs. timestep size (days) for your different choices of grid number, the second showing the simulation (\"wallclock\")\n",
+    "time vs. timestep size for the same grid number choices."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "ee0ce6f841adb607cefeee10760fae17",
+     "grade": false,
+     "grade_id": "cell-72513ecf5105a7d6",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "import time\n",
+    "\n",
+    "number_of_grid_cells = 21\n",
+    "step_size = 0.5\n",
+    "\n",
+    "init_comp_time = time.time()\n",
+    "error = compute_error(number_of_grid_cells, step_size)\n",
+    "time_of_sim = time.time() - init_comp_time\n",
+    "\n",
+    "print(f\"The error is: {error} (mg/L)\")\n",
+    "print(f\"The simulation wallclock time was {time_of_sim} seconds\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "73d7c726f15421cb9feb2eb73a4c7afa",
+     "grade": false,
+     "grade_id": "cell-3d80e9210c9b25e8",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "#### Q2 (5) Plot the error and execution time"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "lines_to_next_cell": 2,
+    "nbgrader": {
+     "checksum": "3e1c559a1c011d6bd00f003838e06376",
+     "grade": true,
+     "grade_id": "cell-4d2689b903183ee2",
+     "locked": false,
+     "points": 5,
+     "schema_version": 1,
+     "solution": true
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# Here is an excerpt from our solution showing how we filled\n",
+    "# our error and simulation time matrices and made one of the\n",
+    "# plots\n",
+    "\n",
+    "# nrows,ncols=error.shape\n",
+    "# for i in range(nrows):\n",
+    "#     for j in range(ncols):\n",
+    "#         init_comp_time = time.time()\n",
+    "#         error[i, j] =\n",
+    "#         sim_time[i, j] = time.time() - init_comp_time\n",
+    "\n",
+    "# fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 8))\n",
+    "# for i in range(nrows):\n",
+    "#     ax1.plot(\n",
+    "#\n",
+    "#     )\n",
+    "\n",
+    "# YOUR CODE HERE\n",
+    "raise NotImplementedError()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "6b69575a1dc591fddda0f8311dac15a9",
+     "grade": false,
+     "grade_id": "cell-1fa61d4ac96eee37",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "#### Q3 (3) Find the \"sweet spot\"\n",
+    "\n",
+    "Based on the results above, you should fix the value of n_x and dt. Do you see a \"sweet spot\" that provides the best tradeoff for accuracy vs. speed of simulation?  Replace the `n_x`\n",
+    "and `dt` values below with your choices."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "nbgrader": {
+     "checksum": "6d945524f7bf9e89c5edc60d41612c5c",
+     "grade": false,
+     "grade_id": "cell-905ce9f3d725544e",
+     "locked": false,
+     "schema_version": 1,
+     "solution": true
+    }
+   },
+   "outputs": [],
+   "source": [
+    "n_x = 1000\n",
+    "dt = 0.01\n",
+    "# Change the values given above\n",
+    "# YOUR CODE HERE\n",
+    "raise NotImplementedError()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "6263799ee230d7cfb7ce0da583f1afeb",
+     "grade": true,
+     "grade_id": "cell-f7f9b6e0a1214947",
+     "locked": true,
+     "points": 3,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# Here is a test to compare your choices against ours."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "2c905c27bf93e25eade30b7fd698db30",
+     "grade": false,
+     "grade_id": "cell-7bfb0e282680103b",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "### 2D transient diffusion in homogeneous media\n",
+    "\n",
+    "Going from 1 to 2 dimensions changes nothing conceptually. There are, however a couple of changes required for the coding perspective. Indeed, whether the problem is 1D or 2D or 3D, the stucture of the system of equation Ac = b is the same. Matrix $A$ will always be a $n \\times n$ matrix, while $c$ and $b$ will always be column vector of size $n$. In 2D, $n = n_x \\times n_y$, while in 3D, it will be $n = n_x \\times n_y \\times n_z$.  The individual equation for a cell still\n",
+    "produces a single row in the A and b matrices, but in 2D that cell has 4 neighbours instead\n",
+    "of 2, and 3D it has 6 neighbors intead of 4.\n",
+    "\n",
+    "However, the fact is that in every case, the solution is stored in one vector, representing either a 1/2/3D solution. For these higher dimension problems, a two-way conversion between vector and matrix is required. To plot the 2D result, for example, we will use colourmap plots, which require the solution to be plotted to be represented as a 2D array (matrix).\n",
+    "\n",
+    "The function vec2mat(...) (specifically $vector\\ to\\ matrix$) does this: it converts a vector into the relevant 2D matrix, using n_x and n_y.\n",
+    "\n",
+    "The reverse function is usually required to initialize the initial condition. It is mac2vec(...). These two functions are defined here below."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "692865118f8437fca9c03770f99942dd",
+     "grade": false,
+     "grade_id": "cell-2df802b730b66747",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "def mat2vec(c, nrow, ncol):\n",
+    "    #\n",
+    "    # flatten a 2-dimensional concentration array\n",
+    "    # to one dimension, so it can be solved\n",
+    "    # with a matrix equation of the form A*x=b\n",
+    "    #\n",
+    "    n = nrow * ncol\n",
+    "    v = np.zeros(n)\n",
+    "    for ind in range(n):\n",
+    "        i, j = index_to_row_col(ind, nrow, ncol)\n",
+    "        v[ind] = c[i, j]\n",
+    "\n",
+    "    return v"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "5faf44f963d6d85b070b832d78b8a400",
+     "grade": false,
+     "grade_id": "cell-5ae46e57106d0e5c",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "def vec2mat(v, nrow, ncol):\n",
+    "    #\n",
+    "    # return a flattened concentration matrix\n",
+    "    # to its 2-dimensional form for plotting\n",
+    "    #\n",
+    "    n = 0\n",
+    "    c = np.zeros((nrow, ncol))\n",
+    "    for i in range(nrow):\n",
+    "        for j in range(ncol):\n",
+    "            c[i, j] = v[n]\n",
+    "            n = n + 1\n",
+    "    return c"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "75f1aeb346c8065c8a1b2bd27b70fe52",
+     "grade": false,
+     "grade_id": "cell-5bb1b1e9f4cb5162",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "So, upto now, we have defined values for gridsize and timestep which provide a nice compromise between accuracy and computation time. We will use these values in the following.\n",
+    "\n",
+    "We could perform the same analysis in 2D for the error. But we will here a focus on a nicer problem, in which there is a zone of very low diffusivity in the middle. We will let you decide which value to put there for diffusion, we will start by a diffusion 100 times lower. You can change that value if you want."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "decreasing_factor = 0.01  # Feel free to change if you want to see the impact\n",
+    "# (you can go higher than 1 ... But be careful, if diffusion speeds up significantly,\n",
+    "# the accuracy with respect to the chosen timestep might not be so good if you speed things up! )\n",
+    "# Initial value is 0.01"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "edaeeb34cf97139f30791a1ed54521b5",
+     "grade": false,
+     "grade_id": "cell-42d47ff484f9a502",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "Diff_low = Diff * decreasing_factor"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "lines_to_next_cell": 2,
+    "nbgrader": {
+     "checksum": "c4c7997344a8fed0091604312abded8b",
+     "grade": false,
+     "grade_id": "cell-b9bd7eaf90619a64",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# Here we define the initial condition, and the diffusion matrix for the 2D problem\n",
+    "\n",
+    "width_x = 10  # dm\n",
+    "width_y = 10  # dm\n",
+    "# n_x should be defined by your previous analysis\n",
+    "n_y = n_x\n",
+    "\n",
+    "D_matrix = Diff * np.ones((n_y, n_x))\n",
+    "Qsource = np.zeros((n_y, n_x))\n",
+    "poro = 0.4\n",
+    "dt = 0.25  # days\n",
+    "c_init = np.zeros((n_y, n_x))\n",
+    "\n",
+    "x = np.linspace(0, width_x, n_x)\n",
+    "y = np.linspace(0, width_y, n_y)\n",
+    "\n",
+    "for i in range(n_y):\n",
+    "    for j in range(n_x):\n",
+    "        if j == 0:\n",
+    "            c_init[i, j] = c0  # Initial c ondition\n",
+    "#\n",
+    "# overwrite the center of the image iwth a low diffusivity\n",
+    "#\n",
+    "\n",
+    "for i in range(n_y):\n",
+    "    for j in range(n_x):\n",
+    "        if (\n",
+    "            abs(x[j] - width_x / 2) <= 0.2 * width_x\n",
+    "            and abs(y[i] - width_y / 2) <= 0.2 * width_y\n",
+    "        ):\n",
+    "            D_matrix[i, j] = Diff_low\n",
+    "            # here we define a square of low diffusivity in the middle\n",
+    "\n",
+    "\n",
+    "fig, ax = plt.subplots()\n",
+    "# This generates a colormap of diffusion.\n",
+    "cm = cmap.get_cmap(\"magma\")\n",
+    "plt.contourf(x, y, D_matrix, cmap=cm)\n",
+    "plt.colorbar()\n",
+    "\n",
+    "# \"magma\" refers to a colormap example. You can chose other ones\n",
+    "# https://matplotlib.org/examples/color/colormaps_reference.html"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "lines_to_next_cell": 2,
+    "nbgrader": {
+     "checksum": "a7258d625fbf1bc51c16aee397c91885",
+     "grade": false,
+     "grade_id": "cell-3f0b9e511535468c",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# Here we plot the initial condition using the colormap again\n",
+    "fig, ax = plt.subplots()\n",
+    "# This generates a colormap of diffusion.\n",
+    "cm = cmap.get_cmap(\"RdGy_r\")\n",
+    "plt.contourf(x, y, c_init, cmap=cm)\n",
+    "plt.colorbar()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "9d9902cb911da080841d5c8dcd0c89cf",
+     "grade": false,
+     "grade_id": "cell-bbb5e477a2fcd825",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# Here we give you the asymptotic solution to the problem\n",
+    "# we are using everything we have done before\n",
+    "\n",
+    "### Asymptotic behavior\n",
+    "prob = Problem_Def(n_x, n_y, poro, width_x, width_y)\n",
+    "Qsource = np.zeros((n_y, n_x))\n",
+    "A, b = build_2D_matrix(bc_dict, prob, D_matrix, Qsource)\n",
+    "v = np.linalg.solve(A, b)\n",
+    "n = n_x * n_y\n",
+    "# array v contains the solution\n",
+    "# we convert it in a matrix:\n",
+    "\n",
+    "c = vec2mat(v, n_y, n_x)\n",
+    "\n",
+    "# and we plot the matrix\n",
+    "plt.contourf(x, y, c, 20, cmap=cm)\n",
+    "plt.colorbar()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "5a9cf80db8469dd6ca5e99a234d954a3",
+     "grade": false,
+     "grade_id": "cell-27f5e485de0dd8b0",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "#### Q4 (2) Comment on the steady state solution"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "nbgrader": {
+     "checksum": "12084aac624426d3ba63c53c58b2e617",
+     "grade": true,
+     "grade_id": "cell-df577303ded255f6",
+     "locked": false,
+     "points": 2,
+     "schema_version": 1,
+     "solution": true
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# Provide here a few comments on the asymptotic solution. What does your intuition tell you?\n",
+    "# For technical reasons, this is a python cell, so make your remarks a block comment\n",
+    "# or add your own markdown cell below this one it that's easier/clearer\n",
+    "# YOUR CODE HERE\n",
+    "raise NotImplementedError()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "b823e72484a71ae50c4e1897a323e79a",
+     "grade": false,
+     "grade_id": "cell-effb46d8e7357037",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "Now we want you to solve the transient problem in the next cell.\n",
+    "Everything you need has been defined\n",
+    "\n",
+    "- the boundary conditions have been defined (bc_dict)\n",
+    "- matrix A and b is known from the solution of the steady-state problem\n",
+    "- every variable, parameter is known, as well as the initial condition in the matrix c_init\n",
+    "\n",
+    "We want you to perform a similar timeloop as we did for the 1D problem. We want you to save 9 different timesteps (including the initial one), which will be plotted in the cell after.\n",
+    "\n",
+    "You need to initialize v from the initial condition, define the number of timesteps (hence the total duration of the simulation in days), define at which moment you want to save the concentration so that we can plot them later.\n",
+    "\n",
+    "\n",
+    "If you struggle organizing exactly plots at the right time, at least provide one plot similar to the one we have generated above.\n",
+    "\n",
+    "Be careful, with a high amount of timesteps, it can take a few minutes to run. Start with only a few timesteps to make sure everything is working properly.\n",
+    "\n",
+    "If you want to run the simulation until the steady-state is achieved, please do! You are welcome to present any result you want. The last cell is made so 9 different times are plotted. If you can't make it, plot whatever you want in the cell above that one and put the boolean automated_plot to false!"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "7cd8d3d43415728f367095f8d3c6adc9",
+     "grade": false,
+     "grade_id": "cell-e8a4fef275e77cec",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "number_of_fig = 9\n",
+    "c = np.zeros(((n_y, n_x, number_of_fig)))\n",
+    "for i in range(number_of_fig):\n",
+    "    c[:, :, i] = c_init\n",
+    "Tf = 800\n",
+    "nTstp = int(Tf / dt)  # number of timesteps\n",
+    "#\n",
+    "# we set dt=0.25 days above, so 800 days will\n",
+    "# require 3200 timesteps\n",
+    "#\n",
+    "n_of_tstep_before_fig = int(nTstp / (number_of_fig - 1))\n",
+    "\n",
+    "\n",
+    "# We will plot the different slices of c in the end.\n",
+    "# You have to save the values of the solution at certain timesteps in c[:,:,New_timestep]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# This cell is empty so you can modify values of the cell above as needed"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Q5 (10) Solve for the 2D concentration as a function of time"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "lines_to_next_cell": 2,
+    "nbgrader": {
+     "checksum": "7e091a6207cd43dc0ab6be37839be8de",
+     "grade": true,
+     "grade_id": "cell-80a44bbf4fb48e87",
+     "locked": false,
+     "points": 10,
+     "schema_version": 1,
+     "solution": true
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# Now solve for the concetration c as a function of time\n",
+    "# Our solution fills the c array defined above with 9 separate\n",
+    "# 2D concentration fields spaced evenly throughout the 800 days of the simulation\n",
+    "# as shown in class\n",
+    "#\n",
+    "# Here is an excerpt from our solution showing how we filled our concentration array\n",
+    "# for t in range(nTstp):\n",
+    "#     for i in range(n):\n",
+    "#         Bdelta[i] =\n",
+    "#     bb =\n",
+    "#     v =\n",
+    "#     if (t + 1) % n_of_tstep_before_fig == 0:\n",
+    "#         c[:, :, nfig] =\n",
+    "#         nfig = nfig + 1\n",
+    "#         fig_timesteps.append(t)\n",
+    "# YOUR CODE HERE\n",
+    "raise NotImplementedError()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "nbgrader": {
+     "checksum": "a456972bdd286e00a6a1626e71064aec",
+     "grade": true,
+     "grade_id": "cell-c9e47b546ce1cdbe",
+     "locked": false,
+     "points": 0,
+     "schema_version": 1,
+     "solution": true
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# Make a 2d contourf plot of the concentration for you final timestep here\n",
+    "# YOUR CODE HERE\n",
+    "raise NotImplementedError()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "f41d618d1a16c4250ffc18c246164804",
+     "grade": false,
+     "grade_id": "cell-be8acbb200b99a1f",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# https://jdhao.github.io/2017/06/11/mpl_multiplot_one_colorbar/\n",
+    "# https://matplotlib.org/tutorials/toolkits/axes_grid.html\n",
+    "\n",
+    "automated_plot = False  # set that to False if you don't want the automated 9 plots\n",
+    "if automated_plot:\n",
+    "    fig = plt.figure(figsize=(10, 10))\n",
+    "\n",
+    "    ntimesteps = nfig\n",
+    "    time_steps = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8])\n",
+    "\n",
+    "    grid = AxesGrid(\n",
+    "        fig,\n",
+    "        111,\n",
+    "        nrows_ncols=(3, 3),\n",
+    "        axes_pad=0.20,\n",
+    "        cbar_mode=\"single\",\n",
+    "        cbar_location=\"right\",\n",
+    "        cbar_pad=0.1,\n",
+    "    )\n",
+    "\n",
+    "    for time_index, the_ax in zip(time_steps, grid):\n",
+    "        the_ax.axis(\"equal\")\n",
+    "        im = the_ax.contourf(x, y, c[:, :, time_index], 20, cmap=cm)\n",
+    "\n",
+    "    cbar = grid.cbar_axes[0].colorbar(im)\n",
+    "    cbar.set_label_text(\"Concentration (mg/L)\", rotation=270, size=20, va=\"bottom\")\n",
+    "    fig.suptitle(\n",
+    "        \"Evolution of the concentration through time\", y=0.9, size=25, va=\"bottom\"\n",
+    "    )\n",
+    "    fig.savefig(\"evolution.png\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "##  Conclusions\n",
+    "\n",
+    "What you may have noticed, is that, even for small simple 2d transient problems like the one you have just solved, the computation times are already becoming significant...\n",
+    "\n",
+    "This is partly because we are dealing with big matrix which are filled with zeros. It is a complete waste of time and memory to deal with all of these 0 values. There are other ways to make our calculation way faster. We will probably dedicate a lecture to understand how we can improve this."
+   ]
+  }
+ ],
+    "metadata": {
+        "nbsphinx": {"execute":"never"},
+  "jupytext": {
+   "cell_metadata_filter": "all",
+   "formats": "ipynb",
+   "notebook_metadata_filter": "all"
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.7"
+  },
+  "toc": {
+   "base_numbering": 1,
+   "nav_menu": {},
+   "number_sections": true,
+   "sideBar": true,
+   "skip_h1_title": true,
+   "title_cell": "Table of Contents",
+   "title_sidebar": "Contents",
+   "toc_cell": true,
+   "toc_position": {
+    "height": "calc(100% - 180px)",
+    "left": "10px",
+    "top": "150px",
+    "width": "288.594px"
+   },
+   "toc_section_display": true,
+   "toc_window_display": true
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

@@ -61,8 +61,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">1.4. Week 4  Jan 22/Jan 24</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">1.5. Week 5  Jan 29/Jan 31</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">1.6. Week 6  Feb 05/Feb 07</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-7-feb-05-feb-07">1.7. Week 7  Feb 05/Feb 07</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.8. General notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-7-feb-19-feb-21">1.7. Week 7  Feb 19/Feb 21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-8-feb-26-feb-28">1.8. Week 8  Feb 26/Feb 28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-9-mar-05-mar-07">1.9. Week 9  Mar 05/Mar 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.10. General notes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a><ul>
@@ -357,7 +359,31 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<div class="section" id="Finite-volumes-7---transient-problems-and-time-integration">
+<h1><p>Table of Contents</p>
+</h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;Finite volumes 7 - transient problems and time integration</p>
+</li><li><p>2&nbsp;&nbsp;Learning goals</p>
+</li><li><p>3&nbsp;&nbsp;The two Eulers</p>
+<ul class="toc-item"><li><p>3.1&nbsp;&nbsp;Time stepping</p>
+<ul class="toc-item"><li><p>3.1.1&nbsp;&nbsp;Forward Euler - explicit</p>
+</li><li><p>3.1.2&nbsp;&nbsp;Backward Euler - implicit</p>
+</li></ul></li></ul></li><li><p>4&nbsp;&nbsp;Transient finite-volume equation for diffusion in porous media</p>
+<ul class="toc-item"><li><p>4.1&nbsp;&nbsp;Your turn</p>
+</li></ul></li><li><p>5&nbsp;&nbsp;Implicit and explicit methods</p>
+</li><li><p>6&nbsp;&nbsp;Explicit 1-d stencil for diffusion in porous media</p>
+</li><li><p>7&nbsp;&nbsp;Implicit 1-d stencil for diffusion in porous media</p>
+<ul class="toc-item"><li><p>7.1&nbsp;&nbsp;Your turn</p>
+</li><li><p>7.2&nbsp;&nbsp;Your turn</p>
+</li></ul></li><li><p>8&nbsp;&nbsp;Summary</p>
+<ul class="toc-item"><li><p>8.1&nbsp;&nbsp;Explicit method</p>
+</li><li><p>8.2&nbsp;&nbsp;Implicit method</p>
+</li></ul></li><li><p>9&nbsp;&nbsp;Accuracy, stability and time-step constraints</p>
+<ul class="toc-item"><li><p>9.1&nbsp;&nbsp;Accuracy</p>
+</li><li><p>9.2&nbsp;&nbsp;Stability</p>
+</li><li><p>9.3&nbsp;&nbsp;Explicit methods are conditionally stable</p>
+</li><li><p>9.4&nbsp;&nbsp;Your turn</p>
+</li><li><p>9.5&nbsp;&nbsp;Implicit methods are unconditionally stable</p>
+</li></ul></li><li><p>10&nbsp;&nbsp;Reflection</p>
+</li></ul></div><div class="section" id="Finite-volumes-7---transient-problems-and-time-integration">
 <h1>Finite volumes 7 - transient problems and time integration<a class="headerlink" href="#Finite-volumes-7---transient-problems-and-time-integration" title="Permalink to this headline">¶</a></h1>
 </div>
 <div class="section" id="Learning-goals">
@@ -550,7 +576,7 @@ m_C(t+\Delta t) - m_C(t) & = \left(J_{EC}+J_{WC}\right)\Delta t \\
     </p>
     <p>
         &copy; Copyright 2019, Philip Austin.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.<br/>
     </p>
   </div>
 </footer>

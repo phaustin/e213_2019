@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Assignment Finite volumes by hand &#8212; E213</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}, "extensions": ["color.js"]}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          Home</a>
+        <span class="navbar-text navbar-version pull-left"><b>2019Jan01</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-1-jan-3">1.1. Week 1  Jan 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-2-jan-8-jan-10">1.2. Week 2  Jan 8/Jan 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-3-jan-15-jan-17">1.3. Week 3  Jan 15/Jan 17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">1.4. Week 4  Jan 22/Jan 24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">1.5. Week 5  Jan 29/Jan 31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">1.6. Week 6  Feb 05/Feb 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-7-feb-19-feb-21">1.7. Week 7  Feb 19/Feb 21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-8-feb-26-feb-28">1.8. Week 8  Feb 26/Feb 28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-9-mar-05-mar-07">1.9. Week 9  Mar 05/Mar 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.10. General notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../solutions.html#week-2">2.1. Week 2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#math">3.1. Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#python">3.2. Python</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#python-introductory-texts">4.1. Python Introductory Texts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#moving-from-matlab-to-python">4.2. Moving from matlab to python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#cocalc">4.3. Cocalc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-shell-commands">5.1. Useful shell commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-git-commands">5.2. Useful git commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-debugger-commands">5.3. Useful debugger commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/web_notebooks/8_finite_volume_by_hand.ipynb.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 7ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<h1><p>Table of Contents</p>
+</h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;Learning goals</p>
+</li><li><p>2&nbsp;&nbsp;The problem</p>
+<ul class="toc-item"><li><p>2.1&nbsp;&nbsp;2-D discrete approximation stencil for steady-state diffusion.</p>
+<ul class="toc-item"><li><p>2.1.1&nbsp;&nbsp;2D stencil</p>
+</li></ul></li><li><p>2.2&nbsp;&nbsp;Q1 (2pts) Write your 2d Stencil</p>
+</li><li><p>2.3&nbsp;&nbsp;The equations for each gridblock in the mesh.</p>
+<ul class="toc-item"><li><p>2.3.1&nbsp;&nbsp;Row-major numbering</p>
+</li></ul></li><li><p>2.4&nbsp;&nbsp;Q2 Writing equations for each gridblock</p>
+<ul class="toc-item"><li><p>2.4.1&nbsp;&nbsp;Q2 (2pts) entry cell below</p>
+</li></ul></li><li><p>2.5&nbsp;&nbsp;Q3 Put your equations into the matrix</p>
+<ul class="toc-item"><li><p>2.5.1&nbsp;&nbsp;Q3 (4pts) entry cell below</p>
+</li></ul></li><li><p>2.6&nbsp;&nbsp;Q4 (4pts) Solve the system of equations</p>
+</li><li><p>2.7&nbsp;&nbsp;Check your answer</p>
+</li></ul></li><li><p>3&nbsp;&nbsp;Reflection</p>
+</li></ul></div><div class="section" id="Assignment-Finite-volumes-by-hand">
+<h1>Assignment Finite volumes by hand<a class="headerlink" href="#Assignment-Finite-volumes-by-hand" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Learning-goals">
+<h2>Learning goals<a class="headerlink" href="#Learning-goals" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Can apply the finite-volume stencil to a 2D steady-state problem, and generate the equations for each unknown in the mesh.</li>
+<li>Can place the equations into a system matrix.</li>
+<li>Can compute fluxes.</li>
+</ol>
+</div>
+<div class="section" id="The-problem">
+<h2>The problem<a class="headerlink" href="#The-problem" title="Permalink to this headline">¶</a></h2>
+<p>Consider the two-dimensional diffusion problem below. There are zero-flux boundary conditions on the top and bottom of the domain, and prescribed concentration (more generally known as Dirichlet or first-type boundary conditions)on the to sides. Each gridblock is the same dimension <span class="math notranslate nohighlight">\(\Delta x = \Delta y = 200~m\)</span>, and <span class="math notranslate nohighlight">\(\Delta z= 3~m\)</span> (out of the page). The gridblock node is placed at Dirichlet (prescribed concentration) boundaries. The diffusion coefficient in each gridblock is as
+shown in the figure and the porosity is <span class="math notranslate nohighlight">\(\theta = 0.25\)</span> is the same everywhere.</p>
+<div class="section" id="2-D-discrete-approximation-stencil-for-steady-state-diffusion.">
+<h3>2-D discrete approximation stencil for steady-state diffusion.<a class="headerlink" href="#2-D-discrete-approximation-stencil-for-steady-state-diffusion." title="Permalink to this headline">¶</a></h3>
+<p>Recall the 1D stencil looks like this.</p>
+<p><span class="math">\begin{align}
+&\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) =0 \label{8fvbh1}\\
+\end{align}</span></p>
+<div class="section" id="2D-stencil">
+<h4>2D stencil<a class="headerlink" href="#2D-stencil" title="Permalink to this headline">¶</a></h4>
+<p>Change the following 1-D stencil to 2-D by adding the “N” and “S” terms. <span class="math">\begin{align}
+&\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) =0 \label{8fvbh2}\\
+\end{align}</span> You may also want to simplify your stencil for the case of constant diffusion coefficient and constant gridblock dimensions.</p>
+</div>
+</div>
+<div class="section" id="Q1-(2pts)-Write-your-2d-Stencil">
+<h3>Q1 (2pts) Write your 2d Stencil<a class="headerlink" href="#Q1-(2pts)-Write-your-2d-Stencil" title="Permalink to this headline">¶</a></h3>
+<p>In the cell below, enter your stencil in markdown.</p>
+<p>YOUR ANSWER HERE</p>
+</div>
+<div class="section" id="The-equations-for-each-gridblock-in-the-mesh.">
+<h3>The equations for each gridblock in the mesh.<a class="headerlink" href="#The-equations-for-each-gridblock-in-the-mesh." title="Permalink to this headline">¶</a></h3>
+<p>How many unknowns are there? In the 2-d problem above, we have 3 rows and 4 columns so <strong>12 unknowns</strong> in total. <strong>Problem</strong> now our mesh is two dimensional - how can we number our gridblocks and unknowns? In 1-D, we just numbered one gridblock after another: We eventually want to put the system of equations into a matrix that looks like this (for a 5-gridblock 1-D problem with two boundary concentrations <span class="math notranslate nohighlight">\(bc_1\)</span> and <span class="math notranslate nohighlight">\(bc_5\)</span>) <span class="math">\begin{align*} \mathbf{Ac} &= \mathbf{b}\\ {
+\begin{bmatrix}
+1 & 0 & 0 & 0 & 0 \\
+1 & -2 & 1 & 0 & 0\\
+0 & 1 & -2 & 1 & 0\\
+0 & 0 & 1 & -2 & 1\\
+0 & 0 & 0 & 0 & 1\\
+\end{bmatrix}}
+\begin{bmatrix}
+c_1\\
+c_2\\
+c_3\\
+c_4\\
+c_5\\
+\end{bmatrix}
+&= \begin{bmatrix}
+bc_1\\
+0\\
+0\\
+0\\
+bc_5\\
+\end{bmatrix}
+\end{align*}</span> We will have a similar matrix structure for a 2, 3 or n-dimensional problem. For a multidimensional problem, the key is to number the gridblocks in an organized way. #### Row-major numbering Python is organized so that so-called <strong>row-major</strong> numbering is the most efficient. That means we should number our gridblocks as shown here:</p>
+<p>Where we used the python style and gave the first gridblock the index 0. This numbering can be considered a mapping of the row, column structure to a sequential, 1-D vector of indices. In the 2-D code you were given, we used the following function to map a gridblock index into row and column index that we used to assemble the equations in the algorithm.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="k">def</span> <span class="nf">index_to_row_col</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">nrows</span><span class="p">,</span> <span class="n">ncol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    in a 2D array, returns the row and column value</span>
+<span class="sd">    associated with a 1D index</span>
+<span class="sd">    Bottom left is index is zero (0-th row, 0-th column)</span>
+<span class="sd">    while index one is the 0-th row and 1st column</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">ind</span> <span class="o">&gt;</span> <span class="n">nrows</span> <span class="o">*</span> <span class="n">ncol</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="n">row</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">ind</span> <span class="o">/</span> <span class="n">ncol</span><span class="p">))</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ind</span> <span class="o">-</span> <span class="n">row</span> <span class="o">*</span> <span class="n">ncol</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span>
+</pre></div>
+</div>
+</div>
+<p>Let’s see if it returns the proper indices for our situation where <code class="docutils literal notranslate"><span class="pre">nrows</span> <span class="pre">=</span> <span class="pre">3</span></code> and <code class="docutils literal notranslate"><span class="pre">ncol</span> <span class="pre">=</span> <span class="pre">4</span></code>. According to the figure, the gridblock number 6 should be in python row 1, python column 2 (a python row or column begins with index 0):</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ind</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">nrows</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">ncols</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">row</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="n">index_to_row_col</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;The gridblock {ind} is in python row {row} and python column {column}&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Q2-Writing-equations-for-each-gridblock">
+<h3>Q2 Writing equations for each gridblock<a class="headerlink" href="#Q2-Writing-equations-for-each-gridblock" title="Permalink to this headline">¶</a></h3>
+<p>Now, write your equations using your stencil, the gridblock dimensions, diffusion coefficient and boundary conditions. I’ll write a few (but not all) of the simple equations at the Dirichlet (specified concentration) boundaries: <span class="math">\begin{align*}
+&c_0 = 64\\
+&c_4 = 64\\
+&c_3= 125\\
+&c_7 = 125\\
+\end{align*}</span> Use your stencil and write the other equations here in markdown. <strong>Zero-flux boundaries</strong></p>
+<p>Hint: the 2-D stencil is basically just <span class="math notranslate nohighlight">\(J_{WC}+J_{EC}+J_{SC} + J_{NC}=0\)</span>. When the C gridblock is adjacent to a zero-flux boundary, one of the terms in the stencil is set to zero. For example in gridblock 1 above, we have this mapping of the stencil <span class="math notranslate nohighlight">\(\rightarrow\)</span> gridblock index: C <span class="math notranslate nohighlight">\(\rightarrow\)</span> 1, W <span class="math notranslate nohighlight">\(\rightarrow\)</span> 0, N <span class="math notranslate nohighlight">\(\rightarrow\)</span> 5, but to the S we have a zero-flux boundary. Accordingly, in the stencil for gridblock with index 1, <span class="math notranslate nohighlight">\(J_{SC}=0\)</span> and the stencil
+simplifies to <span class="math notranslate nohighlight">\(J_{WC}+J_{EC}+ J_{NC}=0\)</span>.</p>
+<div class="section" id="Q2-(2pts)-entry-cell-below">
+<h4>Q2 (2pts) entry cell below<a class="headerlink" href="#Q2-(2pts)-entry-cell-below" title="Permalink to this headline">¶</a></h4>
+<p>YOUR ANSWER HERE</p>
+</div>
+</div>
+<div class="section" id="Q3-Put-your-equations-into-the-matrix">
+<h3>Q3 Put your equations into the matrix<a class="headerlink" href="#Q3-Put-your-equations-into-the-matrix" title="Permalink to this headline">¶</a></h3>
+<p>I’ve put some of the easy ones in. You do the rest by replacing the zeros in the markdown array below with the correct coefficients from your equations. Double click on this cell to get the raw latex formatting, then copy it below into the answer box and edit.</p>
+<p><span class="math">\begin{align*} \mathbf{Ac} &= \mathbf{b}\\
+{\begin{bmatrix}
+1 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0\\
+0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
+0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
+0 & 0 & 0 & 1 & 0 &0 &0 &0 &0 &0 &0 &0 \\
+0 & 0 & 0 & 0 & 1 &0 &0 &0 &0 &0 &0 &0 \\
+0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
+0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
+0 & 0 & 0 & 0 & 0 &0 &0 &1 &0 &0 &0 &0 \\
+0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
+0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
+0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
+0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
+\end{bmatrix}}
+\begin{bmatrix}
+c_0\\
+c_1\\
+c_2\\
+c_3\\
+c_4\\
+c_5\\
+c_6\\
+c_7\\
+c_8\\
+c_9\\
+c_{10}\\
+c_{11}\\
+\end{bmatrix}
+&= \begin{bmatrix}
+64\\
+0\\
+0\\
+125\\
+64\\
+0\\
+0\\
+125\\
+0\\
+0\\
+0\\
+0\\
+\end{bmatrix} \end{align*}</span></p>
+<div class="section" id="Q3-(4pts)-entry-cell-below">
+<h4>Q3 (4pts) entry cell below<a class="headerlink" href="#Q3-(4pts)-entry-cell-below" title="Permalink to this headline">¶</a></h4>
+<p>YOUR ANSWER HERE</p>
+</div>
+</div>
+<div class="section" id="Q4-(4pts)-Solve-the-system-of-equations">
+<h3>Q4 (4pts) Solve the system of equations<a class="headerlink" href="#Q4-(4pts)-Solve-the-system-of-equations" title="Permalink to this headline">¶</a></h3>
+<p>You have a few options here: 1. Guess the answer and check if the equations are satisfied. 2. Use python. See how the code uses the statement <code class="docutils literal notranslate"><span class="pre">c</span> <span class="pre">=</span> <span class="pre">np.linalg.solve(A,</span> <span class="pre">b)</span></code>. The trick is to put your equations into numpy arrays <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>. To check that you have solved the equations, we ask that you report the concentrations in gridblocks 5 and 6 for autograding in the cell below.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># replace -9999 with the values of the concentration in gridblocks 5 and 6 below</span>
+<span class="c1"># c5 = -9999</span>
+<span class="c1"># c6 = -9999</span>
+<span class="c1"># YOUR CODE HERE</span>
+<span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Hidden test follows here.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Check-your-answer">
+<h3>Check your answer<a class="headerlink" href="#Check-your-answer" title="Permalink to this headline">¶</a></h3>
+<p>Take the equation for any gridblock and substitute in the concentrations you computed. Is the equation satisfied?</p>
+</div>
+</div>
+<div class="section" id="Reflection">
+<h2>Reflection<a class="headerlink" href="#Reflection" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Each row in the coefficient matrix has only a few non-zero coefficients. Why?</li>
+<li>What would this system matrix look like for a 3-d discretization?</li>
+<li>How would the python function <code class="docutils literal notranslate"><span class="pre">index_to_row_col</span></code> change for a 3-d discretization, where we now have row, columns and layers?</li>
+</ol>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2019, Philip Austin.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

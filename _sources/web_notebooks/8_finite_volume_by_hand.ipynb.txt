@@ -1,0 +1,539 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "toc": true
+   },
+   "source": [
+    "<h1>Table of Contents<span class=\"tocSkip\"></span></h1>\n",
+    "<div class=\"toc\"><ul class=\"toc-item\"><li><span><a href=\"#Learning-goals\" data-toc-modified-id=\"Learning-goals-1\"><span class=\"toc-item-num\">1&nbsp;&nbsp;</span>Learning goals</a></span></li><li><span><a href=\"#The-problem\" data-toc-modified-id=\"The-problem-2\"><span class=\"toc-item-num\">2&nbsp;&nbsp;</span>The problem</a></span><ul class=\"toc-item\"><li><span><a href=\"#2-D-discrete-approximation-stencil-for-steady-state-diffusion.\" data-toc-modified-id=\"2-D-discrete-approximation-stencil-for-steady-state-diffusion.-2.1\"><span class=\"toc-item-num\">2.1&nbsp;&nbsp;</span>2-D discrete approximation stencil for steady-state diffusion.</a></span><ul class=\"toc-item\"><li><span><a href=\"#2D-stencil\" data-toc-modified-id=\"2D-stencil-2.1.1\"><span class=\"toc-item-num\">2.1.1&nbsp;&nbsp;</span>2D stencil</a></span></li></ul></li><li><span><a href=\"#Q1-(2pts)-Write-your-2d-Stencil\" data-toc-modified-id=\"Q1-(2pts)-Write-your-2d-Stencil-2.2\"><span class=\"toc-item-num\">2.2&nbsp;&nbsp;</span>Q1 (2pts) Write your 2d Stencil</a></span></li><li><span><a href=\"#The-equations-for-each-gridblock-in-the-mesh.\" data-toc-modified-id=\"The-equations-for-each-gridblock-in-the-mesh.-2.3\"><span class=\"toc-item-num\">2.3&nbsp;&nbsp;</span>The equations for each gridblock in the mesh.</a></span><ul class=\"toc-item\"><li><span><a href=\"#Row-major-numbering\" data-toc-modified-id=\"Row-major-numbering-2.3.1\"><span class=\"toc-item-num\">2.3.1&nbsp;&nbsp;</span>Row-major numbering</a></span></li></ul></li><li><span><a href=\"#Q2-Writing-equations-for-each-gridblock\" data-toc-modified-id=\"Q2-Writing-equations-for-each-gridblock-2.4\"><span class=\"toc-item-num\">2.4&nbsp;&nbsp;</span>Q2 Writing equations for each gridblock</a></span><ul class=\"toc-item\"><li><span><a href=\"#Q2-(2pts)-entry-cell-below\" data-toc-modified-id=\"Q2-(2pts)-entry-cell-below-2.4.1\"><span class=\"toc-item-num\">2.4.1&nbsp;&nbsp;</span>Q2 (2pts) entry cell below</a></span></li></ul></li><li><span><a href=\"#Q3-Put-your-equations-into-the-matrix\" data-toc-modified-id=\"Q3-Put-your-equations-into-the-matrix-2.5\"><span class=\"toc-item-num\">2.5&nbsp;&nbsp;</span>Q3 Put your equations into the matrix</a></span><ul class=\"toc-item\"><li><span><a href=\"#Q3-(4pts)-entry-cell-below\" data-toc-modified-id=\"Q3-(4pts)-entry-cell-below-2.5.1\"><span class=\"toc-item-num\">2.5.1&nbsp;&nbsp;</span>Q3 (4pts) entry cell below</a></span></li></ul></li><li><span><a href=\"#Q4-(4pts)-Solve-the-system-of-equations\" data-toc-modified-id=\"Q4-(4pts)-Solve-the-system-of-equations-2.6\"><span class=\"toc-item-num\">2.6&nbsp;&nbsp;</span>Q4 (4pts) Solve the system of equations</a></span></li><li><span><a href=\"#Check-your-answer\" data-toc-modified-id=\"Check-your-answer-2.7\"><span class=\"toc-item-num\">2.7&nbsp;&nbsp;</span>Check your answer</a></span></li></ul></li><li><span><a href=\"#Reflection\" data-toc-modified-id=\"Reflection-3\"><span class=\"toc-item-num\">3&nbsp;&nbsp;</span>Reflection</a></span></li></ul></div>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "d53663505c78682bf9ce40bde7af7800",
+     "grade": false,
+     "grade_id": "cell-de94433790126e19",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "# Assignment Finite volumes by hand"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "lines_to_next_cell": 0,
+    "nbgrader": {
+     "checksum": "dfd95b893e8c483887e919fe49861eaa",
+     "grade": false,
+     "grade_id": "cell-7f386941cdae6573",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "\n",
+    "\n",
+    "## Learning goals\n",
+    "1. Can apply the finite-volume stencil to a 2D steady-state problem, and generate the equations for each unknown in the mesh.\n",
+    "2. Can place the equations into a system matrix.\n",
+    "3. Can compute fluxes.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "lines_to_next_cell": 0,
+    "nbgrader": {
+     "checksum": "be5a065707078be5674aee3a94aa1c17",
+     "grade": false,
+     "grade_id": "cell-ec69e54f103e4048",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "## The problem\n",
+    "\n",
+    "Consider the two-dimensional diffusion problem below. There are zero-flux boundary conditions on the top and bottom of the domain, and prescribed concentration (more generally known as Dirichlet or first-type boundary conditions)on the to sides. Each gridblock is the same dimension $\\Delta x = \\Delta y = 200~m$, and $\\Delta z= 3~m$ (out of the page).  The gridblock node is placed at Dirichlet (prescribed concentration) boundaries. The diffusion coefficient in each gridblock is as shown in the figure and the porosity is $\\theta = 0.25$ is the same everywhere.\n",
+    "\n",
+    "\n",
+    "<img src=\"figures/by_hand.png\" alt=\"pic05\" width=\"50%\" >\n",
+    "\n",
+    "<br><br><br>\n",
+    "\n",
+    "\n",
+    "###  2-D discrete approximation stencil for steady-state diffusion. \n",
+    "\n",
+    "Recall the 1D stencil looks like this.\n",
+    "\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "&\\left(D\\theta {c_E - c_C \\over \\Delta x} +   D\\theta {c_W - c_C \\over \\Delta x}   \\right) (\\Delta y) (\\Delta z) =0 \\label{8fvbh1}\\\\\n",
+    "\\end{align}\n",
+    "\n",
+    "<br><br>\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "ad76b08affaa31f70b918bbd70e5556a",
+     "grade": false,
+     "grade_id": "cell-11c64894ba08ce51",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "#### 2D stencil\n",
+    "\n",
+    "Change the following 1-D stencil to 2-D by adding the \"N\" and \"S\" terms.\n",
+    "<br><br>\n",
+    "\\begin{align}\n",
+    "&\\left(D\\theta {c_E - c_C \\over \\Delta x} +   D\\theta {c_W - c_C \\over \\Delta x}   \\right) (\\Delta y) (\\Delta z) =0 \\label{8fvbh2}\\\\\n",
+    "\\end{align}\n",
+    "<br><br>\n",
+    "You may also want to simplify your stencil for the case of constant diffusion coefficient and constant gridblock dimensions."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "bab6a15f659657983dc0406085d9987a",
+     "grade": false,
+     "grade_id": "cell-aaeb99589e3d8757",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "### Q1 (2pts) Write your 2d Stencil\n",
+    "\n",
+    "In the cell below, enter your stencil in markdown."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "nbgrader": {
+     "checksum": "6ff2c308059342dd0bc69905833a7390",
+     "grade": true,
+     "grade_id": "cell-a0eeb6eaec166609",
+     "locked": false,
+     "points": 2,
+     "schema_version": 1,
+     "solution": true
+    }
+   },
+   "source": [
+    "YOUR ANSWER HERE"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "b822389ee3f2d32ad5dbc38d8cc8a60a",
+     "grade": false,
+     "grade_id": "cell-da52f03fa9ac85b8",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "### The equations for each gridblock in the mesh.\n",
+    "<br><br>\n",
+    "How many unknowns are there? In the 2-d problem above, we have 3 rows and 4 columns so **12 unknowns** in total.\n",
+    "<br><br>\n",
+    "**Problem** now our mesh is two dimensional - how can we number our gridblocks and unknowns? In 1-D, we just numbered one gridblock after another:\n",
+    "<br><br>\n",
+    "<img src=\"figures/1d-numbered-grid.png\" alt=\"pic05\" width=\"50%\" >\n",
+    "<br><br>\n",
+    "We eventually want to put the system of equations into a matrix that looks like this (for a 5-gridblock 1-D problem with two boundary concentrations $bc_1$ and $bc_5$)\n",
+    "\\begin{align*} \\mathbf{Ac} &= \\mathbf{b}\\\\ {\n",
+    "\\begin{bmatrix} \n",
+    "1 & 0 & 0 & 0 & 0 \\\\ \n",
+    "1 & -2 & 1 & 0 & 0\\\\ \n",
+    "0 & 1 & -2 & 1 & 0\\\\ \n",
+    "0 & 0 & 1 & -2 & 1\\\\ \n",
+    "0 & 0 & 0 & 0 & 1\\\\ \n",
+    "\\end{bmatrix}} \n",
+    "\\begin{bmatrix} \n",
+    "c_1\\\\ \n",
+    "c_2\\\\ \n",
+    "c_3\\\\ \n",
+    "c_4\\\\ \n",
+    "c_5\\\\ \n",
+    "\\end{bmatrix} \n",
+    "&= \\begin{bmatrix} \n",
+    "bc_1\\\\ \n",
+    "0\\\\ \n",
+    "0\\\\ \n",
+    "0\\\\ \n",
+    "bc_5\\\\ \n",
+    "\\end{bmatrix} \n",
+    "\\end{align*}\n",
+    "<br><br>\n",
+    "We will have a similar matrix structure for a 2, 3 or n-dimensional problem. For a multidimensional problem, the key is to number the gridblocks in an organized way. \n",
+    "<br><br>\n",
+    "#### Row-major numbering\n",
+    "Python is organized so that so-called **row-major** numbering is the most efficient. That means we should number our gridblocks as shown here:\n",
+    "<img src=\"figures/by_hand_numbered.png\" alt=\"pic05\" width=\"50%\" >\n",
+    "\n",
+    "<br><br>\n",
+    "Where we used the python style and gave the first gridblock the index 0. This numbering can be considered a mapping of the row, column structure to a sequential, 1-D vector of indices.\n",
+    "<br><br>\n",
+    "In the 2-D code you were given, we used the following function to map a gridblock index into row and column index that we used to assemble the equations in the algorithm."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np\n",
+    "def index_to_row_col(ind, nrows, ncol):\n",
+    "    \"\"\"\n",
+    "    in a 2D array, returns the row and column value\n",
+    "    associated with a 1D index\n",
+    "    Bottom left is index is zero (0-th row, 0-th column)\n",
+    "    while index one is the 0-th row and 1st column\n",
+    "    \"\"\"\n",
+    "    if ind > nrows * ncol - 1:\n",
+    "        return 0\n",
+    "\n",
+    "    row = int(np.floor(ind / ncol))\n",
+    "    col = int(ind - row * ncol)\n",
+    "    return row, col"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Let's see if it returns the proper indices for our situation where `nrows = 3` and `ncol = 4`. According to the figure, the gridblock number 6 should be in python row 1, python column 2 (a python row or column begins with index 0): "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ind = 6\n",
+    "nrows = 3\n",
+    "ncols = 4\n",
+    "row, column = index_to_row_col(ind, nrows, ncols)\n",
+    "print(f\"The gridblock {ind} is in python row {row} and python column {column}\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Q2 Writing equations for each gridblock\n",
+    "\n",
+    "Now, write your equations using your stencil, the gridblock dimensions, diffusion coefficient and boundary conditions.\n",
+    "I'll write a few (but not all) of the simple equations at the Dirichlet (specified concentration) boundaries:\n",
+    "\\begin{align*}\n",
+    "&c_0 = 64\\\\\n",
+    "&c_4 = 64\\\\\n",
+    "&c_3= 125\\\\\n",
+    "&c_7 = 125\\\\\n",
+    "\\end{align*}\n",
+    "<br><br> \n",
+    "Use your stencil and write the other equations here in markdown.\n",
+    "<br><br>\n",
+    "**Zero-flux boundaries** \n",
+    "\n",
+    "Hint: the 2-D stencil is basically just $J_{WC}+J_{EC}+J_{SC} + J_{NC}=0$. When the C gridblock is adjacent to a zero-flux boundary, one of the terms in the stencil is set to zero. For example in gridblock 1 above, we have this mapping of the stencil $\\rightarrow$ gridblock index: C $\\rightarrow$ 1, W $\\rightarrow$ 0, N $\\rightarrow$ 5, but to the S we have a zero-flux boundary. Accordingly, in the stencil for gridblock with index 1, $J_{SC}=0$ and the stencil simplifies to $J_{WC}+J_{EC}+ J_{NC}=0$."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "ba6cd056fcde0ee3dabb99ce0099ffab",
+     "grade": false,
+     "grade_id": "cell-2c42cc4bc6a65d4d",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "#### Q2 (2pts) entry cell below"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "nbgrader": {
+     "checksum": "aa80b2001517ee6b67c38ed43baffa70",
+     "grade": true,
+     "grade_id": "cell-5697ad62cf1545ae",
+     "locked": false,
+     "points": 2,
+     "schema_version": 1,
+     "solution": true
+    }
+   },
+   "source": [
+    "YOUR ANSWER HERE"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Q3 Put your equations into the matrix\n",
+    "\n",
+    "I've put some of the easy ones in. You do the rest by replacing the zeros in the markdown array \n",
+    "below with the correct coefficients from your equations.  Double click on this cell to get the\n",
+    "raw latex formatting, then copy it below into the answer box and edit.\n",
+    "\n",
+    "\\begin{align*} \\mathbf{Ac} &= \\mathbf{b}\\\\ \n",
+    "{\\begin{bmatrix} \n",
+    "1 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0\\\\\n",
+    "0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\\\\n",
+    "0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\\\\n",
+    "0 & 0 & 0 & 1 & 0 &0 &0 &0 &0 &0 &0 &0 \\\\\n",
+    "0 & 0 & 0 & 0 & 1 &0 &0 &0 &0 &0 &0 &0 \\\\\n",
+    "0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\\\\n",
+    "0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\\\\n",
+    "0 & 0 & 0 & 0 & 0 &0 &0 &1 &0 &0 &0 &0 \\\\\n",
+    "0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\\\\n",
+    "0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\\\\n",
+    "0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\\\\n",
+    "0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\\\\n",
+    "\\end{bmatrix}} \n",
+    "\\begin{bmatrix} \n",
+    "c_0\\\\ \n",
+    "c_1\\\\ \n",
+    "c_2\\\\ \n",
+    "c_3\\\\ \n",
+    "c_4\\\\ \n",
+    "c_5\\\\ \n",
+    "c_6\\\\ \n",
+    "c_7\\\\ \n",
+    "c_8\\\\ \n",
+    "c_9\\\\ \n",
+    "c_{10}\\\\ \n",
+    "c_{11}\\\\\n",
+    "\\end{bmatrix} \n",
+    "&= \\begin{bmatrix} \n",
+    "64\\\\ \n",
+    "0\\\\ \n",
+    "0\\\\ \n",
+    "125\\\\ \n",
+    "64\\\\ \n",
+    "0\\\\ \n",
+    "0\\\\\n",
+    "125\\\\ \n",
+    "0\\\\ \n",
+    "0\\\\ \n",
+    "0\\\\ \n",
+    "0\\\\ \n",
+    "\\end{bmatrix} \\end{align*}\n",
+    "<br><br>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "1488183aa8d35e1ead5864cf56fb4f1b",
+     "grade": false,
+     "grade_id": "cell-054ca779a158a743",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "#### Q3 (4pts) entry cell below"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "nbgrader": {
+     "checksum": "7ff53e7859b58982baf8799410bd7c08",
+     "grade": true,
+     "grade_id": "cell-a67b164bea144ab7",
+     "locked": false,
+     "points": 4,
+     "schema_version": 1,
+     "solution": true
+    }
+   },
+   "source": [
+    "YOUR ANSWER HERE"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "8030a7425e0b8af6fe460d3e2e32ac47",
+     "grade": false,
+     "grade_id": "cell-d244a601d6dfbef6",
+     "locked": true,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "source": [
+    "### Q4 (4pts) Solve the system of equations\n",
+    "\n",
+    "You have a few options here:\n",
+    "1. Guess the answer and check if the equations are satisfied.\n",
+    "2. Use python. See how the code uses the statement `c = np.linalg.solve(A, b)`. The trick is to put your equations into numpy arrays `A` and `b`.\n",
+    "<br><br> \n",
+    "To check that you have solved the equations, we ask that you report the concentrations in gridblocks 5 and 6 for autograding in the cell below. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "nbgrader": {
+     "checksum": "12bdc96d1e4cc8792cef2c65718c4bcf",
+     "grade": false,
+     "grade_id": "cell-a82414d1b2a6dfdb",
+     "locked": false,
+     "schema_version": 1,
+     "solution": true
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# replace -9999 with the values of the concentration in gridblocks 5 and 6 below\n",
+    "# c5 = -9999\n",
+    "# c6 = -9999\n",
+    "# YOUR CODE HERE\n",
+    "raise NotImplementedError()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "deletable": false,
+    "editable": false,
+    "nbgrader": {
+     "checksum": "8f735371eff3135b3a8a0d0b0a67fb52",
+     "grade": true,
+     "grade_id": "cell-d059da85a25864e9",
+     "locked": true,
+     "points": 4,
+     "schema_version": 1,
+     "solution": false
+    }
+   },
+   "outputs": [],
+   "source": [
+    "# Hidden test follows here."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Check your answer\n",
+    "\n",
+    "Take the equation for any gridblock and substitute in the concentrations you computed. Is the equation satisfied?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Reflection\n",
+    "1. Each row in the coefficient matrix has only a few non-zero coefficients. Why?\n",
+    "2. What would this system matrix look like for a 3-d discretization?\n",
+    "3. How would the python function `index_to_row_col` change for a 3-d discretization, where we now have row, columns and layers?"
+   ]
+  }
+ ],
+ "metadata": {
+  "jupytext": {
+   "cell_metadata_filter": "all",
+   "formats": "ipynb",
+   "notebook_metadata_filter": "all"
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.7"
+  },
+  "nbsphinx": {
+   "execute": "never"
+  },
+  "toc": {
+   "base_numbering": 1,
+   "nav_menu": {},
+   "number_sections": true,
+   "sideBar": true,
+   "skip_h1_title": true,
+   "title_cell": "Table of Contents",
+   "title_sidebar": "Contents",
+   "toc_cell": true,
+   "toc_position": {},
+   "toc_section_display": true,
+   "toc_window_display": true
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

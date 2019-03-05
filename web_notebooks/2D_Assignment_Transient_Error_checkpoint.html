@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>2D Transient simulation – checkpoint your work &#8212; E213</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}, "extensions": ["color.js"]}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          Home</a>
+        <span class="navbar-text navbar-version pull-left"><b>2019Jan01</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-1-jan-3">1.1. Week 1  Jan 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-2-jan-8-jan-10">1.2. Week 2  Jan 8/Jan 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-3-jan-15-jan-17">1.3. Week 3  Jan 15/Jan 17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">1.4. Week 4  Jan 22/Jan 24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">1.5. Week 5  Jan 29/Jan 31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">1.6. Week 6  Feb 05/Feb 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-7-feb-19-feb-21">1.7. Week 7  Feb 19/Feb 21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-8-feb-26-feb-28">1.8. Week 8  Feb 26/Feb 28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-9-mar-05-mar-07">1.9. Week 9  Mar 05/Mar 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.10. General notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../solutions.html#week-2">2.1. Week 2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#math">3.1. Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#python">3.2. Python</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#python-introductory-texts">4.1. Python Introductory Texts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#moving-from-matlab-to-python">4.2. Moving from matlab to python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#cocalc">4.3. Cocalc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-shell-commands">5.1. Useful shell commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-git-commands">5.2. Useful git commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-debugger-commands">5.3. Useful debugger commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/web_notebooks/2D_Assignment_Transient_Error_checkpoint.ipynb.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 7ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="2D-Transient-simulation-–-checkpoint-your-work">
+<h1>2D Transient simulation – checkpoint your work<a class="headerlink" href="#2D-Transient-simulation-–-checkpoint-your-work" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Learning-Goals">
+<h2>Learning Goals<a class="headerlink" href="#Learning-Goals" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Write numerical state out to an npz file for later use</li>
+<li>Write function and class definitions out to a python module for later import</li>
+</ul>
+</div>
+<div class="section" id="Context">
+<h2>Context<a class="headerlink" href="#Context" title="Permalink to this headline">¶</a></h2>
+<p>The 2D transient simulation is approach a level of complexity that makes keeping it all in a single notebook problematic. Here is a demonstration of how we can modify the original notebook to save our work for later use. We will export all of our functions and classes to a python module called build_2D_matrix.py, and export all of our numeric data (boundary conditions, initial concentration, etc.) to a numpy.npz file called savestate.npz</p>
+<p>We will read these back into the <code class="docutils literal notranslate"><span class="pre">2D_assignment_restart.ipynb</span></code> notebook</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.cm</span> <span class="kn">as</span> <span class="nn">cmap</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1</span> <span class="kn">import</span> <span class="n">AxesGrid</span>
+<span class="kn">from</span> <span class="nn">numpy.testing</span> <span class="kn">import</span> <span class="n">assert_allclose</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">special</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Our-functions">
+<h2>Our functions<a class="headerlink" href="#Our-functions" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># this function deals with harmonic averaging when diffusion is not the same everywhere.</span>
+<span class="c1"># It doesn&#39;t change anything when diffusion is homogeneous but you can try to see how it affects the behavior.</span>
+
+
+<span class="k">def</span> <span class="nf">avg</span><span class="p">(</span><span class="n">Di</span><span class="p">,</span> <span class="n">Dj</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the harmonic average between two values Di and Dj</span>
+<span class="sd">    Returns 0 if either of them is zero</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">Di</span> <span class="o">*</span> <span class="n">Dj</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">Di</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">Dj</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">index_to_row_col</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">nrows</span><span class="p">,</span> <span class="n">ncol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    in a 2D array, returns the row and column value</span>
+<span class="sd">    associated with a 1D index</span>
+<span class="sd">    Bottom left is index is zero (0-th row, 0-th column)</span>
+<span class="sd">    while index one is the 0-th row and 1st column</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">ind</span> <span class="o">&gt;</span> <span class="n">nrows</span> <span class="o">*</span> <span class="n">ncol</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="n">row</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">ind</span> <span class="o">/</span> <span class="n">ncol</span><span class="p">))</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ind</span> <span class="o">-</span> <span class="n">row</span> <span class="o">*</span> <span class="n">ncol</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">build_2D_matrix</span><span class="p">(</span><span class="n">bc_dict</span><span class="p">,</span> <span class="n">problem</span><span class="p">,</span> <span class="n">D_matrix</span><span class="p">,</span> <span class="n">Qsource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constructs a coefficient matrix A and an array b corresponding to the system Ac = b</span>
+<span class="sd">    This system corresponds either to a 1D or 2D problem</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    bc_dict: dict</span>
+<span class="sd">       dictionary with Boundary_Def objects defining the boundary conditions</span>
+<span class="sd">    D_matrix: (float vector if 1D or matrix if 2D)</span>
+<span class="sd">        values of the diffusion coefficient at each grid point(dm^2/day)</span>
+<span class="sd">        if 2D, dimension is [problem.ny, problem.nx]</span>
+<span class="sd">    width_x: (float)</span>
+<span class="sd">        x-extent of the domain (dm)</span>
+<span class="sd">    width_y: (float)</span>
+<span class="sd">        y-extent of the domain (dm)</span>
+<span class="sd">    poro (float)</span>
+<span class="sd">        porosity value</span>
+<span class="sd">    Qsource: (float array)</span>
+<span class="sd">      volumetric source term (mg/L/day)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    the_matrix, rhs: tuple</span>
+<span class="sd">       where the_matrix=A and rhs =b</span>
+<span class="sd">       in the discretized diffusion problem</span>
+<span class="sd">       Ax=b</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">number_of_rows</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">ny</span>
+    <span class="n">number_of_cols</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">nx</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">nx</span> <span class="o">*</span> <span class="n">problem</span><span class="o">.</span><span class="n">ny</span>
+    <span class="n">is1D</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="k">if</span> <span class="n">number_of_rows</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">number_of_cols</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">is1D</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">number_of_cols</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="n">the_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+    <span class="n">rhs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">is1D</span><span class="p">:</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">wx</span><span class="p">,</span> <span class="n">problem</span><span class="o">.</span><span class="n">wy</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">ny</span><span class="p">,</span> <span class="n">problem</span><span class="o">.</span><span class="n">nx</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">coef_x</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">poro</span> <span class="o">/</span> <span class="n">dx</span> <span class="o">/</span> <span class="n">dx</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">wx</span> <span class="o">/</span> <span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">ny</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">wy</span> <span class="o">/</span> <span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">nx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">coef_x</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">poro</span> <span class="o">/</span> <span class="n">dx</span> <span class="o">/</span> <span class="n">dx</span>
+        <span class="n">coef_y</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">poro</span> <span class="o">/</span> <span class="n">dy</span> <span class="o">/</span> <span class="n">dy</span>
+
+    <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">is1D</span><span class="p">:</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">ind</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">index_to_row_col</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">number_of_rows</span><span class="p">,</span> <span class="n">number_of_cols</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># WEST BOUNDARY</span>
+            <span class="k">if</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;west&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">btype</span> <span class="o">==</span> <span class="s2">&quot;const&quot;</span><span class="p">:</span>
+                <span class="n">rhs</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;west&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">val</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># flux boundary condition</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+                <span class="n">rhs</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;west&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">val</span> <span class="o">/</span> <span class="n">dx</span>
+
+        <span class="k">elif</span> <span class="n">j</span> <span class="o">==</span> <span class="n">number_of_cols</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># EAST BOUNDARY</span>
+            <span class="k">if</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;east&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">btype</span> <span class="o">==</span> <span class="s2">&quot;const&quot;</span><span class="p">:</span>
+                <span class="n">rhs</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;east&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">val</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># flux boundary condition</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+                <span class="n">rhs</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;east&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">val</span> <span class="o">/</span> <span class="n">dx</span>
+        <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">problem</span><span class="o">.</span><span class="n">ny</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># SOUTH BOUNDARY</span>
+            <span class="k">if</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;south&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">btype</span> <span class="o">==</span> <span class="s2">&quot;const&quot;</span><span class="p">:</span>
+                <span class="n">rhs</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;south&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">val</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># flux boundary condition</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span> <span class="o">+</span> <span class="n">number_of_cols</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+                <span class="n">rhs</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;south&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">val</span> <span class="o">/</span> <span class="n">dy</span>
+
+        <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="n">number_of_rows</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">problem</span><span class="o">.</span><span class="n">ny</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># NORTH BOUNDARY</span>
+            <span class="k">if</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;north&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">btype</span> <span class="o">==</span> <span class="s2">&quot;const&quot;</span><span class="p">:</span>
+                <span class="n">rhs</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;west&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">val</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># flux boundary condition</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span> <span class="o">-</span> <span class="n">number_of_cols</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+                <span class="n">rhs</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;north&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">val</span> <span class="o">/</span> <span class="n">dy</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">is1D</span><span class="p">:</span>
+                <span class="n">north</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">south</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">rhs</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">Qsource</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+                <span class="n">east</span> <span class="o">=</span> <span class="n">coef_x</span> <span class="o">*</span> <span class="n">avg</span><span class="p">(</span><span class="n">D_matrix</span><span class="p">[</span><span class="n">ind</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">D_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">])</span>
+                <span class="n">west</span> <span class="o">=</span> <span class="n">coef_x</span> <span class="o">*</span> <span class="n">avg</span><span class="p">(</span><span class="n">D_matrix</span><span class="p">[</span><span class="n">ind</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">D_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">north</span> <span class="o">=</span> <span class="n">coef_y</span> <span class="o">*</span> <span class="n">avg</span><span class="p">(</span><span class="n">D_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">D_matrix</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
+                <span class="n">south</span> <span class="o">=</span> <span class="n">coef_y</span> <span class="o">*</span> <span class="n">avg</span><span class="p">(</span><span class="n">D_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">D_matrix</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
+                <span class="n">east</span> <span class="o">=</span> <span class="n">coef_x</span> <span class="o">*</span> <span class="n">avg</span><span class="p">(</span><span class="n">D_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">D_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="n">west</span> <span class="o">=</span> <span class="n">coef_x</span> <span class="o">*</span> <span class="n">avg</span><span class="p">(</span><span class="n">D_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">D_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span> <span class="o">+</span> <span class="n">number_of_cols</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">north</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span> <span class="o">-</span> <span class="n">number_of_cols</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">south</span>
+                <span class="n">rhs</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">Qsource</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+
+            <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">east</span> <span class="o">+</span> <span class="n">west</span> <span class="o">+</span> <span class="n">north</span> <span class="o">+</span> <span class="n">south</span>
+            <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">east</span>
+            <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">west</span>
+
+    <span class="k">return</span> <span class="n">the_matrix</span><span class="p">,</span> <span class="n">rhs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="The-boundary/problem-classes">
+<h2>The boundary/problem classes<a class="headerlink" href="#The-boundary/problem-classes" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">class</span> <span class="nc">Boundary_Def</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    this class holds the boundary type btype (&#39;flux&#39; or &#39;const&#39;)</span>
+<span class="sd">    and the value of the boundary condition (derivitive of the concentration if &#39;flux&#39;</span>
+<span class="sd">    value of the concentration if &#39;const&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">btype</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">val</span><span class="p">:</span> <span class="nb">float</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">btype</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btype</span> <span class="o">=</span> <span class="n">btype</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">class</span> <span class="nc">Problem_Def</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    this class holds the specifcation for the domain,</span>
+<span class="sd">    including the value of the porosity</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">nx</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">ny</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">poro</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">wx</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">wy</span><span class="p">:</span> <span class="nb">float</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span> <span class="n">wx</span><span class="p">,</span> <span class="n">wy</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nx</span> <span class="o">=</span> <span class="n">nx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ny</span> <span class="o">=</span> <span class="n">ny</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">poro</span> <span class="o">=</span> <span class="n">poro</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wx</span> <span class="o">=</span> <span class="n">wx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wy</span> <span class="o">=</span> <span class="n">wy</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Create-the-boundary-conditions">
+<h2>Create the boundary conditions<a class="headerlink" href="#Create-the-boundary-conditions" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Here we create 4 boundaries, west has a constant concentration at c0, east has a constant boundary at 0;</span>
+<span class="n">c0</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># mg/L</span>
+<span class="n">west</span> <span class="o">=</span> <span class="n">Boundary_Def</span><span class="p">(</span><span class="s2">&quot;const&quot;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">c0</span><span class="p">)</span>
+<span class="n">east</span> <span class="o">=</span> <span class="n">Boundary_Def</span><span class="p">(</span><span class="s2">&quot;const&quot;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># For 1D problem, the used boundaries are west and east.</span>
+
+<span class="c1"># The other south and north boundaries have a zero flux (impermeable)</span>
+
+<span class="n">north</span> <span class="o">=</span> <span class="n">Boundary_Def</span><span class="p">(</span><span class="s2">&quot;flux&quot;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">south</span> <span class="o">=</span> <span class="n">Boundary_Def</span><span class="p">(</span><span class="s2">&quot;flux&quot;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">bc_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;west&quot;</span><span class="p">:</span> <span class="n">west</span><span class="p">,</span> <span class="s2">&quot;north&quot;</span><span class="p">:</span> <span class="n">north</span><span class="p">,</span> <span class="s2">&quot;east&quot;</span><span class="p">:</span> <span class="n">east</span><span class="p">,</span> <span class="s2">&quot;south&quot;</span><span class="p">:</span> <span class="n">south</span><span class="p">}</span>
+<span class="c1"># The latter array bc_dict will be sent to the different functions</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Build-the-2D-matrix">
+<h2>Build the 2D matrix<a class="headerlink" href="#Build-the-2D-matrix" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">n_x</span> <span class="o">=</span> <span class="mi">51</span>
+<span class="n">n_y</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># 1D -- x only</span>
+<span class="n">Diff</span> <span class="o">=</span> <span class="mf">2e-9</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">3600</span>  <span class="c1"># dm²/day</span>
+<span class="n">width_x</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># dm</span>
+<span class="n">width_y</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">n_x</span> <span class="o">*</span> <span class="n">n_y</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">width_x</span><span class="p">,</span> <span class="n">n_x</span><span class="p">)</span>
+<span class="n">c_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_x</span><span class="p">)</span>
+<span class="n">c_init</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">c0</span>
+<span class="n">D_matrix</span> <span class="o">=</span> <span class="n">Diff</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">poro</span> <span class="o">=</span> <span class="mf">0.4</span>
+<span class="n">prob</span> <span class="o">=</span> <span class="n">Problem_Def</span><span class="p">(</span><span class="n">n_x</span><span class="p">,</span> <span class="n">n_y</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span> <span class="n">width_x</span><span class="p">,</span> <span class="n">width_y</span><span class="p">)</span>
+<span class="n">Qsource</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">A</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">build_2D_matrix</span><span class="p">(</span><span class="n">bc_dict</span><span class="p">,</span> <span class="n">prob</span><span class="p">,</span> <span class="n">D_matrix</span><span class="p">,</span> <span class="n">Qsource</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Make-a-checkpoint">
+<h2>Make a checkpoint<a class="headerlink" href="#Make-a-checkpoint" title="Permalink to this headline">¶</a></h2>
+<p>Save everything you need to reconstruct A and B outside of this notebook</p>
+<p>use <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.savez.html">https://docs.scipy.org/doc/numpy/reference/generated/numpy.savez.html</a> to dump the state to a file named “savestate.npz”</p>
+<div class="section" id="Save-our-work-in-an-npz-file">
+<h3>Save our work in an npz file<a class="headerlink" href="#Save-our-work-in-an-npz-file" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">out_name</span><span class="o">=</span> <span class="s1">&#39;savestate.npz&#39;</span>
+<span class="n">np</span><span class="o">.</span><span class="n">savez</span><span class="p">(</span><span class="n">out_name</span><span class="p">,</span><span class="n">n_x</span><span class="o">=</span><span class="n">n_x</span><span class="p">,</span><span class="n">n_y</span><span class="o">=</span><span class="n">n_y</span><span class="p">,</span><span class="n">poro</span><span class="o">=</span><span class="n">poro</span><span class="p">,</span><span class="n">width_x</span><span class="o">=</span><span class="n">width_x</span><span class="p">,</span>
+        <span class="n">width_y</span><span class="o">=</span><span class="n">width_y</span><span class="p">,</span><span class="n">Qsource</span><span class="o">=</span><span class="n">Qsource</span><span class="p">,</span> <span class="n">c0</span><span class="o">=</span><span class="n">c0</span><span class="p">,</span> <span class="n">c_init</span><span class="o">=</span><span class="n">c_init</span><span class="p">,</span><span class="n">Diff</span><span class="o">=</span><span class="n">Diff</span><span class="p">,</span>
+        <span class="n">save_date</span><span class="o">=</span><span class="s2">&quot;March 3, 2019&quot;</span><span class="p">,</span>
+        <span class="n">case_name</span><span class="o">=</span><span class="s2">&quot;1D simulation&quot;</span><span class="p">,</span>
+        <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;simple x-only domain&quot;</span><span class="p">,</span>
+        <span class="n">history</span><span class="o">=</span><span class="s2">&quot;written by 2D_Assignment_Transient_Error_checkpoint.ipynb&quot;</span><span class="p">,</span>
+        <span class="n">units</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Diff: dm²/day&quot;</span><span class="p">,</span><span class="s2">&quot;length: dm&quot;</span><span class="p">,</span><span class="s2">&quot;concentration: mg/L&quot;</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;writing the savez file {out_name}&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+writing the savez file savestate.npz
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Write-functions-and-classes-to-a-module-file">
+<h3>Write functions and classes to a module file<a class="headerlink" href="#Write-functions-and-classes-to-a-module-file" title="Permalink to this headline">¶</a></h3>
+<p>The cell below saves the function and class definitions into a new module call <code class="docutils literal notranslate"><span class="pre">build_2D_matrix.py</span></code>. It uses the special IPython “magic” function <code class="docutils literal notranslate"><span class="pre">%%writefile</span> <span class="pre">build_2D_matrix.py</span></code></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%%writefile</span> build_2D_matrix.py
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">functions and classes for 2D matrix construction</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="k">def</span> <span class="nf">index_to_row_col</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">nrows</span><span class="p">,</span> <span class="n">ncol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    in a 2D array, returns the row and column value</span>
+<span class="sd">    associated with a 1D index</span>
+<span class="sd">    Bottom left is index is zero (0-th row, 0-th column)</span>
+<span class="sd">    while index one is the 0-th row and 1st column</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">ind</span> <span class="o">&gt;</span> <span class="n">nrows</span> <span class="o">*</span> <span class="n">ncol</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">ind</span> <span class="o">/</span> <span class="n">ncol</span><span class="p">))</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ind</span> <span class="o">-</span> <span class="n">row</span> <span class="o">*</span> <span class="n">ncol</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span>
+
+<span class="k">def</span> <span class="nf">avg</span><span class="p">(</span><span class="n">Di</span><span class="p">,</span> <span class="n">Dj</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the harmonic average between two values Di and Dj</span>
+<span class="sd">    Returns 0 if either of them is zero</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">Di</span> <span class="o">*</span> <span class="n">Dj</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">Di</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">Dj</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Boundary_Def</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    this class holds the boundary type btype (&#39;flux&#39; or &#39;const&#39;)</span>
+<span class="sd">    and the value of the boundary condition (derivitive of the concentration if &#39;flux&#39;</span>
+<span class="sd">    value of the concentration if &#39;const&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">btype</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">val</span><span class="p">:</span> <span class="nb">float</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">btype</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btype</span> <span class="o">=</span> <span class="n">btype</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+
+<span class="k">class</span> <span class="nc">Problem_Def</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    this class holds the specifcation for the domain,</span>
+<span class="sd">    including the value of the porosity</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">nx</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">ny</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">poro</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">wx</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">wy</span><span class="p">:</span> <span class="nb">float</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span> <span class="n">wx</span><span class="p">,</span> <span class="n">wy</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nx</span> <span class="o">=</span> <span class="n">nx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ny</span> <span class="o">=</span> <span class="n">ny</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">poro</span> <span class="o">=</span> <span class="n">poro</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wx</span> <span class="o">=</span> <span class="n">wx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wy</span> <span class="o">=</span> <span class="n">wy</span>
+
+<span class="k">def</span> <span class="nf">build_2D_matrix</span><span class="p">(</span><span class="n">bc_dict</span><span class="p">,</span> <span class="n">problem</span><span class="p">,</span> <span class="n">D_matrix</span><span class="p">,</span> <span class="n">Qsource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constructs a coefficient matrix A and an array b corresponding to the system Ac = b</span>
+<span class="sd">    This system corresponds either to a 1D or 2D problem</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    bc_dict: dict</span>
+<span class="sd">       dictionary with Boundary_Def objects defining the boundary conditions</span>
+<span class="sd">    D_matrix: (float vector if 1D or matrix if 2D)</span>
+<span class="sd">        values of the diffusion coefficient at each grid point(dm^2/day)</span>
+<span class="sd">        if 2D, dimension is [problem.ny, problem.nx]</span>
+<span class="sd">    width_x: (float)</span>
+<span class="sd">        x-extent of the domain (dm)</span>
+<span class="sd">    width_y: (float)</span>
+<span class="sd">        y-extent of the domain (dm)</span>
+<span class="sd">    poro (float)</span>
+<span class="sd">        porosity value</span>
+<span class="sd">    Qsource: (float array)</span>
+<span class="sd">      volumetric source term (mg/L/day)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    the_matrix, rhs: tuple</span>
+<span class="sd">       where the_matrix=A and rhs =b</span>
+<span class="sd">       in the discretized diffusion problem</span>
+<span class="sd">       Ax=b</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+    <span class="n">number_of_rows</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">ny</span>
+    <span class="n">number_of_cols</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">nx</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">nx</span> <span class="o">*</span> <span class="n">problem</span><span class="o">.</span><span class="n">ny</span>
+    <span class="n">is1D</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="k">if</span> <span class="n">number_of_rows</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">number_of_cols</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">is1D</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">number_of_cols</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="n">the_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+    <span class="n">rhs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">is1D</span><span class="p">:</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">wx</span><span class="p">,</span> <span class="n">problem</span><span class="o">.</span><span class="n">wy</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">ny</span><span class="p">,</span> <span class="n">problem</span><span class="o">.</span><span class="n">nx</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">coef_x</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">poro</span> <span class="o">/</span> <span class="n">dx</span> <span class="o">/</span> <span class="n">dx</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">wx</span> <span class="o">/</span> <span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">ny</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">wy</span> <span class="o">/</span> <span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">nx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">coef_x</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">poro</span> <span class="o">/</span> <span class="n">dx</span> <span class="o">/</span> <span class="n">dx</span>
+        <span class="n">coef_y</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">poro</span> <span class="o">/</span> <span class="n">dy</span> <span class="o">/</span> <span class="n">dy</span>
+
+    <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">is1D</span><span class="p">:</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">ind</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">index_to_row_col</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">number_of_rows</span><span class="p">,</span> <span class="n">number_of_cols</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># WEST BOUNDARY</span>
+            <span class="k">if</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;west&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">btype</span> <span class="o">==</span> <span class="s2">&quot;const&quot;</span><span class="p">:</span>
+                <span class="n">rhs</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;west&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">val</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># flux boundary condition</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+                <span class="n">rhs</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;west&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">val</span> <span class="o">/</span> <span class="n">dx</span>
+
+        <span class="k">elif</span> <span class="n">j</span> <span class="o">==</span> <span class="n">number_of_cols</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># EAST BOUNDARY</span>
+            <span class="k">if</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;east&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">btype</span> <span class="o">==</span> <span class="s2">&quot;const&quot;</span><span class="p">:</span>
+                <span class="n">rhs</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;east&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">val</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># flux boundary condition</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+                <span class="n">rhs</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;east&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">val</span> <span class="o">/</span> <span class="n">dx</span>
+        <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">problem</span><span class="o">.</span><span class="n">ny</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># SOUTH BOUNDARY</span>
+            <span class="k">if</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;south&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">btype</span> <span class="o">==</span> <span class="s2">&quot;const&quot;</span><span class="p">:</span>
+                <span class="n">rhs</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;south&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">val</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># flux boundary condition</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span> <span class="o">+</span> <span class="n">number_of_cols</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+                <span class="n">rhs</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;south&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">val</span> <span class="o">/</span> <span class="n">dy</span>
+
+        <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="n">number_of_rows</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">problem</span><span class="o">.</span><span class="n">ny</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># NORTH BOUNDARY</span>
+            <span class="k">if</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;north&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">btype</span> <span class="o">==</span> <span class="s2">&quot;const&quot;</span><span class="p">:</span>
+                <span class="n">rhs</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;west&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">val</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># flux boundary condition</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span> <span class="o">-</span> <span class="n">number_of_cols</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+                <span class="n">rhs</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">bc_dict</span><span class="p">[</span><span class="s2">&quot;north&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">val</span> <span class="o">/</span> <span class="n">dy</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">is1D</span><span class="p">:</span>
+                <span class="n">north</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">south</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">rhs</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">Qsource</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+                <span class="n">east</span> <span class="o">=</span> <span class="n">coef_x</span> <span class="o">*</span> <span class="n">avg</span><span class="p">(</span><span class="n">D_matrix</span><span class="p">[</span><span class="n">ind</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">D_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">])</span>
+                <span class="n">west</span> <span class="o">=</span> <span class="n">coef_x</span> <span class="o">*</span> <span class="n">avg</span><span class="p">(</span><span class="n">D_matrix</span><span class="p">[</span><span class="n">ind</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">D_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">north</span> <span class="o">=</span> <span class="n">coef_y</span> <span class="o">*</span> <span class="n">avg</span><span class="p">(</span><span class="n">D_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">D_matrix</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
+                <span class="n">south</span> <span class="o">=</span> <span class="n">coef_y</span> <span class="o">*</span> <span class="n">avg</span><span class="p">(</span><span class="n">D_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">D_matrix</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
+                <span class="n">east</span> <span class="o">=</span> <span class="n">coef_x</span> <span class="o">*</span> <span class="n">avg</span><span class="p">(</span><span class="n">D_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">D_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="n">west</span> <span class="o">=</span> <span class="n">coef_x</span> <span class="o">*</span> <span class="n">avg</span><span class="p">(</span><span class="n">D_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">D_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span> <span class="o">+</span> <span class="n">number_of_cols</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">north</span>
+                <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span> <span class="o">-</span> <span class="n">number_of_cols</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">south</span>
+                <span class="n">rhs</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">Qsource</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+
+            <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">east</span> <span class="o">+</span> <span class="n">west</span> <span class="o">+</span> <span class="n">north</span> <span class="o">+</span> <span class="n">south</span>
+            <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">east</span>
+            <span class="n">the_matrix</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">ind</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">west</span>
+
+    <span class="k">return</span> <span class="n">the_matrix</span><span class="p">,</span> <span class="n">rhs</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Overwriting build_2D_matrix.py
+</pre></div></div>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2019, Philip Austin.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

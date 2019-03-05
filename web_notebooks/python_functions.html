@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Wrting python functions &#8212; E213</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}, "extensions": ["color.js"]}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          Home</a>
+        <span class="navbar-text navbar-version pull-left"><b>2019Jan01</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-1-jan-3">1.1. Week 1  Jan 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-2-jan-8-jan-10">1.2. Week 2  Jan 8/Jan 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-3-jan-15-jan-17">1.3. Week 3  Jan 15/Jan 17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">1.4. Week 4  Jan 22/Jan 24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">1.5. Week 5  Jan 29/Jan 31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">1.6. Week 6  Feb 05/Feb 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-7-feb-19-feb-21">1.7. Week 7  Feb 19/Feb 21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-8-feb-26-feb-28">1.8. Week 8  Feb 26/Feb 28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-9-mar-05-mar-07">1.9. Week 9  Mar 05/Mar 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.10. General notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../solutions.html#week-2">2.1. Week 2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#math">3.1. Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#python">3.2. Python</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#python-introductory-texts">4.1. Python Introductory Texts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#moving-from-matlab-to-python">4.2. Moving from matlab to python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#cocalc">4.3. Cocalc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-shell-commands">5.1. Useful shell commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-git-commands">5.2. Useful git commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-debugger-commands">5.3. Useful debugger commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/web_notebooks/python_functions.ipynb.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 7ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<h1><p>Table of Contents</p>
+</h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;What makes code beautiful?</p>
+</li><li><p>2&nbsp;&nbsp;Some rules of thumb</p>
+<ul class="toc-item"><li><p>2.1&nbsp;&nbsp;Some docstring examples</p>
+</li></ul></li><li><p>3&nbsp;&nbsp;Type systems</p>
+<ul class="toc-item"><li><p>3.1&nbsp;&nbsp;Example of strong typing</p>
+<ul class="toc-item"><li><p>3.1.1&nbsp;&nbsp;Your turn – rewrite the cell above with a cast that makes it work</p>
+</li></ul></li><li><p>3.2&nbsp;&nbsp;Example of dynamic typing</p>
+</li><li><p>3.3&nbsp;&nbsp;Type summary</p>
+</li></ul></li><li><p>4&nbsp;&nbsp;Flexible functions</p>
+<ul class="toc-item"><li><p>4.1&nbsp;&nbsp;See: vanderplas Section 6 for an explantion of *args and **kwargs</p>
+</li><li><p>4.2&nbsp;&nbsp;What is going on under the hood</p>
+</li></ul></li><li><p>5&nbsp;&nbsp;Number 1 python “gotcha”</p>
+<ul class="toc-item"><li><p>5.1&nbsp;&nbsp;Note that the id of the default list is the same for each call!</p>
+</li><li><p>5.2&nbsp;&nbsp;The preferred approach – use None as a default value</p>
+</li></ul></li><li><p>6&nbsp;&nbsp;Duck typing and type casting</p>
+<ul class="toc-item"><li><p>6.1&nbsp;&nbsp;Your turn: in the cell below, use numpy.asarray to cast the argument to an array</p>
+</li></ul></li></ul></div><div class="section" id="Wrting-python-functions">
+<h1>Wrting python functions<a class="headerlink" href="#Wrting-python-functions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="What-makes-code-beautiful?">
+<h2>What makes code beautiful?<a class="headerlink" href="#What-makes-code-beautiful?" title="Permalink to this headline">¶</a></h2>
+<p>Reference: <a class="reference external" href="http://webcat2.library.ubc.ca/vwebv/holdingsInfo?searchId=169488&amp;recCount=100&amp;recPointer=1&amp;bibId=9436527">Chapter 29 of Beautiful Code</a> by Yukihiro Matsumoto: “Treating code as an essay”</p>
+<ul class="simple">
+<li>Brevity – no unnecessary information – DRY “don’t repeat yourself”</li>
+<li>Familiarity – use familiar patterns</li>
+<li>Simplicity</li>
+<li>Flexibilty – simple things should be simple, complex things should be possible</li>
+<li>Balance</li>
+</ul>
+<p>Coding is a craft, like writing, cooking or furniture making. You develop a sense of balance by following master craftspeople in an apprenticeship. One of the big benefits of github is that it gives you a chance to interact with very good programmers in an informal apprenticeship.</p>
+</div>
+<div class="section" id="Some-rules-of-thumb">
+<h2>Some rules of thumb<a class="headerlink" href="#Some-rules-of-thumb" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Functions in a program play the role of paragraphs in an essay. They should express a single idea clearly.</li>
+<li>That means they should not be longer than a single screen. Paging is distracting and breaks your concentration. It shouldn’t take more than 1 minute to understand what a function does.</li>
+<li>Not every function has to be documented, but you should be able to summarize any function you write in a clear, concise, docstring.</li>
+<li>The best documentation is a working test case.</li>
+<li>You should think about how your function might change in the future, and design in some degree of flexibility.</li>
+<li>Functions should have a single entry and a single exit</li>
+<li>Whenever possible functions should be free of side effects. Exceptions to this rule include opening and writing files to disk, and modifying large arrays in place to avoid a copy.</li>
+<li>If you do modify an erray that is passed as a function argument, return that array to signal the change. In python there is no performance penalty for this, because the array is not copied, instead, a new name is assigned and python now knows that two names point to the same array. When in doubt, use the <code class="docutils literal notranslate"><span class="pre">id</span></code> function to get the memory location of the new name and the old name – they should be identical</li>
+</ol>
+<div class="section" id="Some-docstring-examples">
+<h3>Some docstring examples<a class="headerlink" href="#Some-docstring-examples" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>Formatted: <a class="reference external" href="https://phaustin.github.io/a301_code/codedoc/full_listing.html#a301.landsat.toa_radiance.calc_radiance_8">https://phaustin.github.io/a301_code/codedoc/full_listing.html#a301.landsat.toa_radiance.calc_radiance_8</a></li>
+<li>Source: <a class="reference external" href="https://phaustin.github.io/a301_code/_modules/a301/landsat/toa_radiance.html#calc_radiance_8">https://phaustin.github.io/a301_code/_modules/a301/landsat/toa_radiance.html#calc_radiance_8</a></li>
+</ol>
+</div>
+</div>
+<div class="section" id="Type-systems">
+<h2>Type systems<a class="headerlink" href="#Type-systems" title="Permalink to this headline">¶</a></h2>
+<p>In order to understand python functions, it helps to understand how python handles types.</p>
+<p>Compare C and python:</p>
+<ul class="simple">
+<li>C: Strongly typed, statically typed</li>
+<li>Python: Stongly typed, dynamically typed</li>
+</ul>
+<div class="section" id="Example-of-strong-typing">
+<h3>Example of strong typing<a class="headerlink" href="#Example-of-strong-typing" title="Permalink to this headline">¶</a></h3>
+<p>The following cell will raise a TypeError in python. This will also fail to compile in C</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">+</span> <span class="s2">&quot;3&quot;</span>
+<span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;caught a TypeError -- won&#39;t work&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+caught a TypeError -- won&#39;t work
+</pre></div></div>
+</div>
+<div class="section" id="Your-turn-–-rewrite-the-cell-above-with-a-cast-that-makes-it-work">
+<h4>Your turn – rewrite the cell above with a cast that makes it work<a class="headerlink" href="#Your-turn-–-rewrite-the-cell-above-with-a-cast-that-makes-it-work" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="Example-of-dynamic-typing">
+<h3>Example of dynamic typing<a class="headerlink" href="#Example-of-dynamic-typing" title="Permalink to this headline">¶</a></h3>
+<p>The following cell will run in python, but would fail to compile in C because it reassigns the type of a</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;the type of a is {type(a)}&quot;</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;5&quot;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;now the type of a is {type(a)}&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+the type of a is &lt;class &#39;int&#39;&gt;
+now the type of a is &lt;class &#39;str&#39;&gt;
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Type-summary">
+<h3>Type summary<a class="headerlink" href="#Type-summary" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Python is strongly typed, which means that it won’t coerce a type into another type without an explicit cast. (“Explicit is better than implicit”)</li>
+<li>Python is dynamically typed, which means that a variable name is attached to an instance of an object, but not to the object’s type, so the name can be reassigned to an instance of a different type.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="Flexible-functions">
+<h2>Flexible functions<a class="headerlink" href="#Flexible-functions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="See:-vanderplas-Section-6-for-an-explantion-of-*args-and-**kwargs">
+<h3>See: <a class="reference external" href="https://jakevdp.github.io/WhirlwindTourOfPython/08-defining-functions.html">vanderplas Section 6</a> for an explantion of <code class="docutils literal notranslate"><span class="pre">*args</span></code> and <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code><a class="headerlink" href="#See:-vanderplas-Section-6-for-an-explantion-of-*args-and-**kwargs" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">fibonacci</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">:</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+        <span class="n">L</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">L</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fibonacci</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fibonacci</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[3, 4, 7, 11, 18, 29, 47, 76, 123, 199]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="What-is-going-on-under-the-hood">
+<h3>What is going on under the hood<a class="headerlink" href="#What-is-going-on-under-the-hood" title="Permalink to this headline">¶</a></h3>
+<p>Now rewrite this to be fully flexible – this is what the default arguments code is actually doing:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">fibonacci_raw</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;I got args={args} and kwargs={kwargs}&quot;</span><span class="p">)</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1">#</span>
+    <span class="c1"># the dictionary &quot;get&quot; method takes a second</span>
+    <span class="c1"># argument which is the default value</span>
+    <span class="c1"># that is returned when the dictionary key is missing</span>
+    <span class="c1">#</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">:</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+        <span class="n">L</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">L</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fibonacci_raw</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bummer</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+I got args=(10,) and kwargs={&#39;b&#39;: 3, &#39;a&#39;: 1, &#39;bummer&#39;: True}
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[3, 4, 7, 11, 18, 29, 47, 76, 123, 199]
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fibonacci_raw</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+I got args=(10,) and kwargs={}
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Number-1-python-“gotcha”">
+<h2>Number 1 python “gotcha”<a class="headerlink" href="#Number-1-python-“gotcha”" title="Permalink to this headline">¶</a></h2>
+<p>As noted here, there is a subtle issue with using default arguments that are not numbers or strings. Bottom line, do not do this.</p>
+<p><a class="reference external" href="https://docs.python-guide.org/writing/gotchas/">https://docs.python-guide.org/writing/gotchas/</a></p>
+<p>Here’s an example of how you can get bitten:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">append_to</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">to_list</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="n">to_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">calling with element={element}, the id of to_list is {id(to_list)}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">to_list</span>
+
+
+<span class="n">my_list</span> <span class="o">=</span> <span class="n">append_to</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;first time I call the function I get {my_list}&quot;</span><span class="p">)</span>
+
+<span class="n">my_other_list</span> <span class="o">=</span> <span class="n">append_to</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;second time I call the function I get {my_other_list}&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+calling with element=12, the id of to_list is 4416911432
+
+first time I call the function I get [12]
+
+calling with element=42, the id of to_list is 4416911432
+
+second time I call the function I get [12, 42]
+</pre></div></div>
+</div>
+<div class="section" id="Note-that-the-id-of-the-default-list-is-the-same-for-each-call!">
+<h3>Note that the id of the default list is the same for each call!<a class="headerlink" href="#Note-that-the-id-of-the-default-list-is-the-same-for-each-call!" title="Permalink to this headline">¶</a></h3>
+<p>This is generally not what you expect, because you’ll get different behaviour with identical inputs. This violates “no side effects” and also “familiarity”</p>
+</div>
+<div class="section" id="The-preferred-approach-–-use-None-as-a-default-value">
+<h3>The preferred approach – use None as a default value<a class="headerlink" href="#The-preferred-approach-–-use-None-as-a-default-value" title="Permalink to this headline">¶</a></h3>
+<p>If you want the list to be created fresh by default, then test for None and create it.</p>
+<p>Note that now the two lists have different ids.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">append_to</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">to_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">to_list</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">to_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">to_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">calling with element={element}, the id of to_list is {id(to_list)}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">to_list</span>
+
+
+<span class="n">my_list</span> <span class="o">=</span> <span class="n">append_to</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;first time I call the function I get {my_list}&quot;</span><span class="p">)</span>
+
+<span class="n">my_other_list</span> <span class="o">=</span> <span class="n">append_to</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;second time I call the function I get {my_other_list}&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+calling with element=12, the id of to_list is 4416911880
+
+first time I call the function I get [12]
+
+calling with element=42, the id of to_list is 4416911176
+
+second time I call the function I get [42]
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="Duck-typing-and-type-casting">
+<h2>Duck typing and type casting<a class="headerlink" href="#Duck-typing-and-type-casting" title="Permalink to this headline">¶</a></h2>
+<p>Consider the following function:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+
+<span class="k">def</span> <span class="nf">trysort</span><span class="p">(</span><span class="n">mylist</span><span class="p">):</span>
+    <span class="c1">#</span>
+    <span class="c1"># this assumes mylist is a &quot;duck&quot; with a sort method</span>
+    <span class="c1">#</span>
+    <span class="n">mylist</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;inside trysort, mylist is {mylist}&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mylist</span>
+
+
+<span class="n">trysort</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">trysort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">trysort</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;last example failed, tuple has no sort method&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+inside trysort, mylist is [1, 2, 3]
+inside trysort, mylist is [1 2 3]
+last example failed, tuple has no sort method
+</pre></div></div>
+</div>
+<p>This is an example of “duck typing”</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">If</span> <span class="n">it</span> <span class="n">walks</span> <span class="n">like</span> <span class="n">duck</span><span class="p">,</span> <span class="ow">and</span> <span class="n">quacks</span> <span class="n">like</span> <span class="n">a</span> <span class="n">duck</span>
+<span class="n">then</span> <span class="n">it</span><span class="s1">&#39;s a duck</span>
+</pre></div>
+</div>
+<p>This function fails because the tuple object has no sort method</p>
+<div class="section" id="Your-turn:-in-the-cell-below,-use-numpy.asarray-to-cast-the-argument-to-an-array">
+<h3>Your turn: in the cell below, use numpy.asarray to cast the argument to an array<a class="headerlink" href="#Your-turn:-in-the-cell-below,-use-numpy.asarray-to-cast-the-argument-to-an-array" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="writing-tests">
+<h2>writing tests<a class="headerlink" href="#writing-tests" title="Permalink to this headline">¶</a></h2>
+<p>Python has an extensive testing framework called <a class="reference external" href="https://docs.pytest.org/en/latest/">pytest</a>. This is overkill for this class, but we can capture the spririt of pytest by writing test functions with asserts</p>
+<div class="section" id="Example">
+<h3>Example<a class="headerlink" href="#Example" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">numpy.testing</span> <span class="kn">import</span> <span class="n">assert_allclose</span>
+<span class="k">def</span> <span class="nf">test_fib</span><span class="p">():</span>
+    <span class="c1">#</span>
+    <span class="c1"># deliberately insert a wrong result</span>
+    <span class="c1">#</span>
+    <span class="n">result</span><span class="o">=</span><span class="n">fibonacci</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">5</span>
+    <span class="n">answer</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">123</span><span class="p">,</span> <span class="mi">199</span><span class="p">]</span>
+    <span class="n">assert_allclose</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="n">answer</span><span class="p">)</span>
+
+<span class="n">test_fib</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AssertionError</span>                            Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-18-c613ee92d79a&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      9</span>     assert_allclose<span class="ansi-blue-fg">(</span>result<span class="ansi-blue-fg">,</span>answer<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     10</span>
+<span class="ansi-green-fg">---&gt; 11</span><span class="ansi-red-fg"> </span>test_fib<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     12</span>
+
+<span class="ansi-green-fg">&lt;ipython-input-18-c613ee92d79a&gt;</span> in <span class="ansi-cyan-fg">test_fib</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      7</span>     result<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">5</span>
+<span class="ansi-green-intense-fg ansi-bold">      8</span>     answer<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">7</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">11</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">18</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">29</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">47</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">76</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">123</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">199</span><span class="ansi-blue-fg">]</span>
+<span class="ansi-green-fg">----&gt; 9</span><span class="ansi-red-fg">     </span>assert_allclose<span class="ansi-blue-fg">(</span>result<span class="ansi-blue-fg">,</span>answer<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     10</span>
+<span class="ansi-green-intense-fg ansi-bold">     11</span> test_fib<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/mini37/envs/e213/lib/python3.6/site-packages/numpy/testing/_private/utils.py</span> in <span class="ansi-cyan-fg">assert_allclose</span><span class="ansi-blue-fg">(actual, desired, rtol, atol, equal_nan, err_msg, verbose)</span>
+<span class="ansi-green-intense-fg ansi-bold">   1491</span>     header <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">&#39;Not equal to tolerance rtol=%g, atol=%g&#39;</span> <span class="ansi-blue-fg">%</span> <span class="ansi-blue-fg">(</span>rtol<span class="ansi-blue-fg">,</span> atol<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   1492</span>     assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+<span class="ansi-green-fg">-&gt; 1493</span><span class="ansi-red-fg">                          verbose=verbose, header=header, equal_nan=equal_nan)
+</span><span class="ansi-green-intense-fg ansi-bold">   1494</span>
+<span class="ansi-green-intense-fg ansi-bold">   1495</span>
+
+<span class="ansi-green-fg">~/mini37/envs/e213/lib/python3.6/site-packages/numpy/testing/_private/utils.py</span> in <span class="ansi-cyan-fg">assert_array_compare</span><span class="ansi-blue-fg">(comparison, x, y, err_msg, verbose, header, precision, equal_nan, equal_inf)</span>
+<span class="ansi-green-intense-fg ansi-bold">    817</span>                                 verbose<span class="ansi-blue-fg">=</span>verbose<span class="ansi-blue-fg">,</span> header<span class="ansi-blue-fg">=</span>header<span class="ansi-blue-fg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    818</span>                                 names=(&#39;x&#39;, &#39;y&#39;), precision=precision)
+<span class="ansi-green-fg">--&gt; 819</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">raise</span> AssertionError<span class="ansi-blue-fg">(</span>msg<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    820</span>     <span class="ansi-green-fg">except</span> ValueError<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    821</span>         <span class="ansi-green-fg">import</span> traceback
+
+<span class="ansi-red-fg">AssertionError</span>:
+Not equal to tolerance rtol=1e-07, atol=0
+
+Mismatch: 10%
+Max absolute difference: 3
+Max relative difference: 1.5
+ x: array([  5,   4,   7,  11,  18,  29,  47,  76, 123, 199])
+ y: array([  2,   4,   7,  11,  18,  29,  47,  76, 123, 199])
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Sumary-for-testing">
+<h3>Sumary for testing<a class="headerlink" href="#Sumary-for-testing" title="Permalink to this headline">¶</a></h3>
+<p>When we start writing python modules, we can use pytest to search through the file, find any functions with the word “test” in their name, and run those tests, generating a report</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2019, Philip Austin.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

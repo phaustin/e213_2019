@@ -1,0 +1,81 @@
+# ---
+# jupyter:
+#   jupytext:
+#     text_representation:
+#       extension: .py
+#       format_name: percent
+#       format_version: '1.2'
+#       jupytext_version: 1.0.2
+#   kernelspec:
+#     display_name: Python 3
+#     language: python
+#     name: python3
+# ---
+
+# %% [markdown] {"toc": true}
+# <h1>Table of Contents<span class="tocSkip"></span></h1>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Links-to-videos" data-toc-modified-id="Links-to-videos-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Links to videos</a></span></li><li><span><a href="#What-the-installers-do" data-toc-modified-id="What-the-installers-do-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>What the installers do</a></span></li><li><span><a href="#Basic-steps-in-the-video" data-toc-modified-id="Basic-steps-in-the-video-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Basic steps in the video</a></span></li><li><span><a href="#Next-step" data-toc-modified-id="Next-step-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Next step</a></span></li><li><span><a href="#Futher-reading" data-toc-modified-id="Futher-reading-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Futher reading</a></span></li></ul></div>
+
+# %% [markdown]
+# # Installing the conda python distribution
+#
+# These links supplement the two 6 minute screencasts I made that walk you through how to
+# install the EOSC 213 set of conda packages on your MacOS or Windows 10 laptop.
+#
+# ##  Links to videos
+#
+# * [MacOs install](https://goo.gl/15JFnN)
+#
+# * [Windows install](https://goo.gl/6XY38C)
+
+# %% [markdown]
+# ## What the installers do
+#
+# * On Macs 
+#
+#   - install python plus packages in a folder of your choosing
+#   - edit your `~/.bash_profile` file so that when you launch a new
+#     bash terminal, python, jupyter, etc. are in your PATH and can
+#     be launched from the bash command line
+#     
+# * On Windows
+#
+#   - install python plus packages in a folder of your choosing
+#   - create a shortcut called `Anaconda prompt` that launches a cmd shell
+#     with python, jupyter in your PATH so that they can be launched
+#     from the cmd line
+#     
+#     
+
+# %% [markdown]
+# ## Basic steps in the video
+#
+# * Go to [the miniconda download page](https://docs.conda.io/en/latest/miniconda.html) and download and
+#   install miniconda in a folder in your home directory
+#   
+# * Install git so you can get the list of packages needed for the course by cloning our github repository
+#
+#       conda install git
+#       git clone https://github.com/phaustin/eosc213_students.git
+#       
+# * Create the conda environment with the packages needed for the course, which are listed
+#   in [this file](https://github.com/phaustin/eosc213_students/blob/master/utils/eosc.yml)
+#   
+#       cd utils
+#       conda env create -f eosc.yml
+#       conda activate eosc
+#       
+# * So to work on a project
+#
+#   1.  Launch a terminal (either a `bash terminal` (Mac) or an `Anaconda prompt` (Windows)
+#   1.  cd to your project folder
+#   1.  `jupyter notebook`   or `jupyter qtconsole` or `ipython --matplotlib`, depending on you
+#       want to work
+#       
+# ## Next step
+#       
+# * begin editing python scripts with [visual studio code](https://code.visualstudio.com/docs/languages/python) or [pycharm](https://www.jetbrains.com/pycharm/)
+#
+# ## Futher reading
+#
+# * https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html
