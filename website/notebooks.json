@@ -30,6 +30,14 @@
     ],
     "week 8": [
         "week6_assign_solution",
-        "python_functions"
-    ]    
+        "python_functions",
+        "8_finite_volume_by_hand"
+    ],
+    "week 9": [
+        "Assignment_Transient_solution",
+        "2D_Assignment_Transient_Error_checkpoint",
+        "2D_assignment_restart",
+        "9_pdes_1",
+        "install_conda_howto"
+    ]
 }
