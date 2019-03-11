@@ -8,16 +8,15 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.2'
-#       jupytext_version: 1.0.0
+#       jupytext_version: 1.0.2
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
 #     name: python3
 # ---
-
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#Learning-goals" data-toc-modified-id="Learning-goals-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Learning goals</a></span></li><li><span><a href="#Finite-difference-approximations-to-derivatives" data-toc-modified-id="Finite-difference-approximations-to-derivatives-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Finite-difference approximations to derivatives</a></span><ul class="toc-item"><li><span><a href="#Intuition" data-toc-modified-id="Intuition-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Intuition</a></span></li><li><span><a href="#Backward--difference" data-toc-modified-id="Backward--difference-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Backward  difference</a></span></li><li><span><a href="#Forward-difference" data-toc-modified-id="Forward-difference-2.3"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>Forward difference</a></span></li><li><span><a href="#Central-difference" data-toc-modified-id="Central-difference-2.4"><span class="toc-item-num">2.4&nbsp;&nbsp;</span>Central difference</a></span></li><li><span><a href="#Example:-approximation-error" data-toc-modified-id="Example:-approximation-error-2.5"><span class="toc-item-num">2.5&nbsp;&nbsp;</span>Example: approximation error</a></span></li><li><span><a href="#Assess-error" data-toc-modified-id="Assess-error-2.6"><span class="toc-item-num">2.6&nbsp;&nbsp;</span>Assess error</a></span></li><li><span><a href="#Taylor-Series-analysis-of-finite-difference-approximations" data-toc-modified-id="Taylor-Series-analysis-of-finite-difference-approximations-2.7"><span class="toc-item-num">2.7&nbsp;&nbsp;</span>Taylor Series analysis of finite-difference approximations</a></span><ul class="toc-item"><li><span><a href="#Approach" data-toc-modified-id="Approach-2.7.1"><span class="toc-item-num">2.7.1&nbsp;&nbsp;</span>Approach</a></span></li><li><span><a href="#Forward-difference-Taylor-analysis" data-toc-modified-id="Forward-difference-Taylor-analysis-2.7.2"><span class="toc-item-num">2.7.2&nbsp;&nbsp;</span>Forward difference Taylor analysis</a></span><ul class="toc-item"><li><span><a href="#Truncation-error" data-toc-modified-id="Truncation-error-2.7.2.1"><span class="toc-item-num">2.7.2.1&nbsp;&nbsp;</span>Truncation error</a></span></li><li><span><a href="#Order-of-approximation" data-toc-modified-id="Order-of-approximation-2.7.2.2"><span class="toc-item-num">2.7.2.2&nbsp;&nbsp;</span>Order of approximation</a></span></li></ul></li><li><span><a href="#Backward-difference-Taylor-analysis" data-toc-modified-id="Backward-difference-Taylor-analysis-2.7.3"><span class="toc-item-num">2.7.3&nbsp;&nbsp;</span>Backward difference Taylor analysis</a></span></li><li><span><a href="#Central-difference-Taylor-analysis" data-toc-modified-id="Central-difference-Taylor-analysis-2.7.4"><span class="toc-item-num">2.7.4&nbsp;&nbsp;</span>Central difference Taylor analysis</a></span></li><li><span><a href="#Second-derivative" data-toc-modified-id="Second-derivative-2.7.5"><span class="toc-item-num">2.7.5&nbsp;&nbsp;</span>Second derivative</a></span></li></ul></li><li><span><a href="#Summary-of-finite-difference-approximations" data-toc-modified-id="Summary-of-finite-difference-approximations-2.8"><span class="toc-item-num">2.8&nbsp;&nbsp;</span>Summary of finite difference approximations</a></span><ul class="toc-item"><li><span><a href="#First-derivative" data-toc-modified-id="First-derivative-2.8.1"><span class="toc-item-num">2.8.1&nbsp;&nbsp;</span>First derivative</a></span></li><li><span><a href="#Second-derivative" data-toc-modified-id="Second-derivative-2.8.2"><span class="toc-item-num">2.8.2&nbsp;&nbsp;</span>Second derivative</a></span></li></ul></li><li><span><a href="#Implications-for-finite-volumes" data-toc-modified-id="Implications-for-finite-volumes-2.9"><span class="toc-item-num">2.9&nbsp;&nbsp;</span>Implications for finite volumes</a></span><ul class="toc-item"><li><span><a href="#Euler-methods" data-toc-modified-id="Euler-methods-2.9.1"><span class="toc-item-num">2.9.1&nbsp;&nbsp;</span>Euler methods</a></span></li><li><span><a href="#Fluxes" data-toc-modified-id="Fluxes-2.9.2"><span class="toc-item-num">2.9.2&nbsp;&nbsp;</span>Fluxes</a></span></li></ul></li></ul></li><li><span><a href="#Reflection" data-toc-modified-id="Reflection-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Reflection</a></span></li></ul></div>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Finite-volumes-8---finite-difference-approximations" data-toc-modified-id="Finite-volumes-8---finite-difference-approximations-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Finite volumes 8 - finite-difference approximations</a></span><ul class="toc-item"><li><span><a href="#Learning-goals" data-toc-modified-id="Learning-goals-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Learning goals</a></span></li><li><span><a href="#Finite-difference-approximations-to-derivatives" data-toc-modified-id="Finite-difference-approximations-to-derivatives-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Finite-difference approximations to derivatives</a></span><ul class="toc-item"><li><span><a href="#Intuition" data-toc-modified-id="Intuition-1.2.1"><span class="toc-item-num">1.2.1&nbsp;&nbsp;</span>Intuition</a></span></li><li><span><a href="#Backward--difference" data-toc-modified-id="Backward--difference-1.2.2"><span class="toc-item-num">1.2.2&nbsp;&nbsp;</span>Backward  difference</a></span></li><li><span><a href="#Forward-difference" data-toc-modified-id="Forward-difference-1.2.3"><span class="toc-item-num">1.2.3&nbsp;&nbsp;</span>Forward difference</a></span></li><li><span><a href="#Central-difference" data-toc-modified-id="Central-difference-1.2.4"><span class="toc-item-num">1.2.4&nbsp;&nbsp;</span>Central difference</a></span></li><li><span><a href="#Example:-approximation-error" data-toc-modified-id="Example:-approximation-error-1.2.5"><span class="toc-item-num">1.2.5&nbsp;&nbsp;</span>Example: approximation error</a></span></li><li><span><a href="#Assess-error" data-toc-modified-id="Assess-error-1.2.6"><span class="toc-item-num">1.2.6&nbsp;&nbsp;</span>Assess error</a></span></li><li><span><a href="#Taylor-Series-analysis-of-finite-difference-approximations" data-toc-modified-id="Taylor-Series-analysis-of-finite-difference-approximations-1.2.7"><span class="toc-item-num">1.2.7&nbsp;&nbsp;</span>Taylor Series analysis of finite-difference approximations</a></span></li><li><span><a href="#Summary-of-finite-difference-approximations" data-toc-modified-id="Summary-of-finite-difference-approximations-1.2.8"><span class="toc-item-num">1.2.8&nbsp;&nbsp;</span>Summary of finite difference approximations</a></span></li><li><span><a href="#Implications-for-finite-volumes" data-toc-modified-id="Implications-for-finite-volumes-1.2.9"><span class="toc-item-num">1.2.9&nbsp;&nbsp;</span>Implications for finite volumes</a></span></li></ul></li><li><span><a href="#Reflection" data-toc-modified-id="Reflection-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Reflection</a></span></li></ul></li></ul></div>
 # %% [markdown]
 # # Finite volumes 8 - finite-difference approximations
 # %% [markdown]
@@ -242,6 +241,10 @@ for dx in np.nditer(dx_vals):
     back_err.append(abs(back_dif - exact_d))
     cent_err.append(abs(cent_dif - exact_d))
 
+    #
+    # for a list of 6 string values (sv) of width 8 and 3 decimal points
+    # from each of the differences and their errors
+    #
     sv = [
         f"{item:8.3f}"
         for item in [
@@ -254,9 +257,10 @@ for dx in np.nditer(dx_vals):
         ]
     ]
 
-    print(
-        f"{sv[0]:8>} {sv[1]:8<}   {sv[2]:8<}        {sv[3]:8>}  {sv[4]:8>}   {sv[5]:8>}"
-    )
+    #
+    # print out our list of string values
+    #
+    print(f"{sv[0]:} {sv[1]:}   {sv[2]:}        {sv[3]:}  {sv[4]:}   {sv[5]:}")
 
 
 # must convert lists that contain errors to numpy arrays to plot with matplotlib
