@@ -1,0 +1,111 @@
+\documentclass{article}
+
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{multicol}
+%%%<
+\usepackage{verbatim}
+%\usepackage[active,tightpage]{preview}
+%%\PreviewEnvironment{tikzpicture}
+%\setlength\PreviewBorder{5pt}%
+%%%>
+
+
+
+\begin{document}
+\pagestyle{empty}
+
+\large{EOSC 213 Quiz 1} \hspace{10cm} \large{March 14$^{\textrm{th}}$, 2019}
+
+\large{Name:} \hspace{12cm} \large{ID: }
+\begin{center}
+\Huge{EOSC 213 - Quiz}
+\end{center}
+
+\rule{\textwidth}{1pt}
+
+\large{\textbf{Instructions (20 points in total)}}
+\begin{multicols}{2}
+\begin{itemize}
+\item Read the examination before beginning.
+\item Calculators are allowed (if you don't have one, just give the expression to type in a calculator).
+\item You have exactly 30 minutes for the examination.
+\item Be as precise and clear as possible.
+\item This is a closed book examination.
+\item If you get stuck, make an assumption, state what it is and try to carry on.
+\end{itemize} 
+\end{multicols}
+
+
+\rule{\textwidth}{1pt}
+
+
+
+
+Let us consider the continuity equation \ref{eq:continuity}
+
+\begin{equation}
+\frac{\partial c}{\partial t} + \mathrm{div} \overrightarrow{j} = Q, \label{eq:continuity}
+\end{equation} Fick's law of diffusion
+\begin{equation}
+\overrightarrow{j_{\mathrm{diff}}} = - D \overrightarrow{\nabla} c, \label{eq:fick}
+\end{equation} and the advective flux (with Darcy-velocity $ \overrightarrow{u} $ )
+
+\begin{equation}
+\overrightarrow{j_{\mathrm{adv}}} = \overrightarrow{u} c. \label{eq:adv}
+\end{equation}
+\begin{description}
+\item [Q1] Describe equation \ref{eq:continuity} (dimensions, physical meaning of each term, ...) \textbf{[4 points]}
+\vspace{4cm}
+\end{description}
+
+
+\begin{description}
+\item [Q2] In which circumstances equation \ref{eq:continuity} becomes $ \frac{\partial c}{\partial t}  = Q$ ? \textbf{[2 points]}
+\vspace{2cm}
+
+\item [Q3] Rewrite equation \ref{eq:continuity} in the context of a 1D diffusion problem \textbf{[2 points]}
+\vspace{2cm}
+\item [Q4] Rewrite equation \ref{eq:continuity} in the context of a 1D steady-state diffusion problem \textbf{[2 points]}
+\vspace{2cm}
+\end{description}
+
+We will now consider that $Q=0$ and that we work in a \textbf{closed system} between -5 and 5 meters. 
+
+
+\begin{description}
+\item [Q5] Describe this new problem (equation, variable and domain) \textbf{[2 points]}
+\vspace{2cm}
+\item [Q6] Can you describe in words and/or mathematically the boundary conditions which describe this \textbf{closed} system? \textbf{[2 points]}
+\vspace{2cm}
+
+\item [Q7] Concentrations were measured at three different times and are represented in the graph below. The messy person who did the measurements does not remember at which time these measurements were taken. Can you help him, using your physical intuition? Give the temporal sequence of the three curves.  \textbf{[2 points]}
+
+\end{description}
+
+\begin{tikzpicture}
+\begin{axis}[width = 6cm, xmin=-5,xmax = 5, height = 6cm, grid = both, xlabel = {x-axis}, ylabel = {$c$}]
+\addplot[red, densely dotted, line width = 2pt] table [x=x, y=c1]{diff.txt}; \addlegendentry{(b)}
+\addplot[blue, line width = 2pt] table [x=x, y=c0]{diff.txt}; \addlegendentry{(a)}
+
+\addplot[black, dotted, = 2pt] table [x=x, y=c2]{diff.txt}; \addlegendentry{(c)}
+\end{axis}
+\end{tikzpicture}
+
+%\scalebox{0.83}{\input{diffu.tex}}
+%\includegraphics[width = 7cm]{quizzEx2}
+\begin{description}
+
+\item [Q8] Give the asymptotic solution to this problem and draw it on the previous graph  \textbf{[2 points]}
+
+\item[Bonus Question] Can you provide the value for the exact asymptotic concentration at some place of your choice between -5 and 5 m ? \textbf{2 points}
+\vspace{2cm}
+
+\item[Q9] Python Question
+
+\end{description}
+
+
+\end{document}
