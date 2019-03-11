@@ -1,5 +1,27 @@
+# %% [markdown] {"toc": true}
+# <h1>Table of Contents<span class="tocSkip"></span></h1>
+# <div class="toc"><ul class="toc-item"></ul></div>
+# %%
 import numpy as np
 from numpy.testing import assert_allclose
+
+module_name = __name__
+if module_name == "module_2D":
+    print(
+        (
+            "It looks like I've been imported by another python script\n"
+            f"My file location is: \n{__file__}\n"
+        )
+    )
+else:
+    print(
+        (
+            "It looks like I am being run as a main program\n"
+            f"My name is {__name__}\n\n"
+        )
+    )
+
+# %%
 
 
 def avg(Di, Dj):
@@ -13,6 +35,7 @@ def avg(Di, Dj):
         return 2 / (1 / Di + 1 / Dj)
 
 
+# %%
 def index_to_row_col(ind, nrows, ncol):
     """
     in a 2D array, returns the row and column value
@@ -28,6 +51,7 @@ def index_to_row_col(ind, nrows, ncol):
     return row, col
 
 
+# %%
 def build_2D_matrix(bc_dict, problem, D_matrix, Qsource):
     """
     Constructs a coefficient matrix A and an array b corresponding to the system Ac = b
@@ -139,6 +163,7 @@ def build_2D_matrix(bc_dict, problem, D_matrix, Qsource):
     return the_matrix, rhs
 
 
+# %%
 class Boundary_Def:
     """
     this class holds the boundary type btype ('flux' or 'const')
@@ -154,6 +179,7 @@ class Boundary_Def:
         self.val = val
 
 
+# %%
 class Problem_Def:
     """
     this class holds the specifcation for the domain,
@@ -174,6 +200,7 @@ class Problem_Def:
         self.wy = wy
 
 
+# %%
 def mat2vec(c, nrow, ncol):
     #
     # flatten a 2-dimensional concentration array
@@ -189,6 +216,7 @@ def mat2vec(c, nrow, ncol):
     return v
 
 
+# %%
 def vec2mat(v, nrow, ncol):
     #
     # return a flattened concentration matrix
@@ -201,3 +229,19 @@ def vec2mat(v, nrow, ncol):
             c[i, j] = v[n]
             n = n + 1
     return c
+
+
+def test_vec():
+    """
+    test vec2mat using a vector of length
+    30 containing the numbers 0 to 29 inclusive
+    Note that the second test fails
+    """
+    v = np.arange(0, 30, 1)
+    c = vec2mat(v, 3, 10)
+    assert_allclose(c[1, 1], 11.0)
+    assert_allclose(c[2, 7], 25.0)
+
+
+if __name__ == "__main__":
+    test_vec()
