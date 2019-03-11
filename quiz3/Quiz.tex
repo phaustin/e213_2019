@@ -17,7 +17,7 @@
 \begin{document}
 \pagestyle{empty}
 
-\large{EOSC 213 Quiz 1} \hspace{10cm} \large{March 14$^{\textrm{th}}$, 2019}
+\large{EOSC 213 Quiz 3} \hspace{10cm} \large{March 14$^{\textrm{th}}$, 2019}
 
 \large{Name:} \hspace{12cm} \large{ID: }
 \begin{center}
@@ -40,8 +40,6 @@
 
 
 \rule{\textwidth}{1pt}
-
-
 
 
 Let us consider the continuity equation \ref{eq:continuity}
@@ -96,16 +94,79 @@ We will now consider that $Q=0$ and that we work in a \textbf{closed system} bet
 
 %\scalebox{0.83}{\input{diffu.tex}}
 %\includegraphics[width = 7cm]{quizzEx2}
-\begin{description}
 
+\begin{description}
 \item [Q8] Give the asymptotic solution to this problem and draw it on the previous graph  \textbf{[2 points]}
 
-\item[Bonus Question] Can you provide the value for the exact asymptotic concentration at some place of your choice between -5 and 5 m ? \textbf{2 points}
+\item[Bonus Question] Can you provide the value for the exact asymptotic concentration at some place of your choice between -5 and 5 m ? \textbf{[2 BONUS points]}
 \vspace{2cm}
 
-\item[Q9] Python Question
-
 \end{description}
+
+%\hline 
+\rule{15cm}{0.75pt}
+
+\textbf{Python Questions}
+
+Consider the following code:
+
+
+\texttt{class Problem$\_$Def:}
+
+\texttt{   """}
+
+\texttt{   this class holds the specifcation for the domain,}
+
+\texttt{   including the value of the porosity}
+
+\texttt{   """}
+
+\texttt{   nx: int}
+
+\texttt{   ny: int}
+
+\texttt{   poro: float}
+
+\texttt{   wx: float}
+
+\texttt{   wy: float}
+
+\texttt{ }
+
+\texttt{   def $\_\_$init$\_\_$(self, nx, ny, poro, wx, wy):}
+
+\texttt{       self.nx = nx}
+
+\texttt{       self.ny = ny}
+
+\texttt{       self.poro = poro}
+
+\texttt{       self.wx = wx}
+
+\texttt{       self.wy = wy}
+
+\texttt{ }
+
+\texttt{def calc$\_$area(nx=4,ny=3,poro=0.4,wx=10,wy=20):}
+
+\texttt{   the$\_$prob = Problem$\_$Def(nx,ny,poro,wx,wy)}
+
+\texttt{   delx = the$\_$prob.wx/the$\_$prob.nx}
+
+\texttt{   dely = the$\_$prob.wy/the$\_$prob.ny}
+
+\texttt{   return delx, dely}
+
+\texttt{\# \%\%}
+
+\texttt{print(f"\{calc$\_$area(nx=6)\}")}
+
+\begin{description}
+\item[Q9] What would be the ouptut of the previous program? \textbf{[2 points]}
+\vspace{2cm}
+\item[Q10] Write a program which returns ... ? \textbf{[2 points]}
+\end{description}
+
 
 
 \end{document}
