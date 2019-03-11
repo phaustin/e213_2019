@@ -55,6 +55,9 @@
 .. _8_finite_volume_by_hand_ipynb: notebooks/8_finite_volume_by_hand.ipynb
 .. _8_finite_volume_by_hand_html: web_notebooks/8_finite_volume_by_hand.ipynb
 .. _8_finite_volume_by_hand_py: https://github.com/phaustin/eosc213_students/blob/master/python/8_finite_volume_by_hand.py
+.. _2D_Assignment_Transient_Error_ipynb: notebooks/2D_Assignment_Transient_Error.ipynb
+.. _2D_Assignment_Transient_Error_html: web_notebooks/2D_Assignment_Transient_Error.ipynb
+.. _2D_Assignment_Transient_Error_py: https://github.com/phaustin/eosc213_students/blob/master/python/2D_Assignment_Transient_Error.py
 .. _Assignment_Transient_solution_ipynb: notebooks/Assignment_Transient_solution.ipynb
 .. _Assignment_Transient_solution_html: web_notebooks/Assignment_Transient_solution.ipynb
 .. _Assignment_Transient_solution_py: https://github.com/phaustin/eosc213_students/blob/master/python/Assignment_Transient_solution.py

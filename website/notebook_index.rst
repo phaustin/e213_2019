@@ -59,6 +59,8 @@ notebooks/python_functions.ipynb                         `python_functions_html`
 -------------------------------------------------------- ------------------------------------------------ ---------------------------------------------- 
 notebooks/8_finite_volume_by_hand.ipynb                  `8_finite_volume_by_hand_html`_                  `8_finite_volume_by_hand_py`_                  
 -------------------------------------------------------- ------------------------------------------------ ---------------------------------------------- 
+notebooks/2D_Assignment_Transient_Error.ipynb            `2D_Assignment_Transient_Error_html`_            `2D_Assignment_Transient_Error_py`_            
+-------------------------------------------------------- ------------------------------------------------ ---------------------------------------------- 
 **week 9**                                                                                                                                               
 -------------------------------------------------------- ------------------------------------------------ ---------------------------------------------- 
 notebooks/Assignment_Transient_solution.ipynb            `Assignment_Transient_solution_html`_            `Assignment_Transient_solution_py`_            
