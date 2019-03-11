@@ -30,8 +30,8 @@ from module_2D import mat2vec
 from module_2D import Problem_Def
 from module_2D import vec2mat
 from mpl_toolkits.axes_grid1 import AxesGrid
-from scipy.sparse.linalg import spsolve
 from scipy.sparse import csr_matrix
+from scipy.sparse.linalg import spsolve
 
 
 # %%
