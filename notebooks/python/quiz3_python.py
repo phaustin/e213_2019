@@ -1,24 +1,3 @@
-# ---
-# jupyter:
-#   jupytext:
-#     cell_metadata_filter: all
-#     formats: ipynb,python//py:percent
-#     notebook_metadata_filter: all
-#     text_representation:
-#       extension: .py
-#       format_name: percent
-#       format_version: '1.2'
-#       jupytext_version: 1.0.2
-#   kernelspec:
-#     display_name: Python 3
-#     language: python
-#     name: python3
-# ---
-# %% [markdown] {"toc": true}
-# <h1>Table of Contents<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#Q2:-modify-Problem_Def-to-incorporate-get_spacing-as-an-instance-method" data-toc-modified-id="Q2:-modify-Problem_Def-to-incorporate-get_spacing-as-an-instance-method-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Q2: modify Problem_Def to incorporate get_spacing as an instance method</a></span></li></ul></div>
-# %%
-
 class Problem_Def:
     """
     this class holds the specifcation for the domain,
