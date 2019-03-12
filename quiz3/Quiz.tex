@@ -45,14 +45,14 @@
 Let us consider the continuity equation \ref{eq:continuity}
 
 \begin{equation}
-\frac{\partial c}{\partial t} + \mathrm{div} \overrightarrow{j} = Q, \label{eq:continuity}
+\frac{\partial c}{\partial t} + \overrightarrow{\nabla} \cdot \overrightarrow{j} = Q, \label{eq:continuity}
 \end{equation} Fick's law of diffusion
 \begin{equation}
 \overrightarrow{j_{\mathrm{diff}}} = - D \overrightarrow{\nabla} c, \label{eq:fick}
-\end{equation} and the advective flux (with Darcy-velocity $ \overrightarrow{u} $ )
+\end{equation} and the advective flux (with Darcy-velocity $\overrightarrow{u}$)
 
 \begin{equation}
-\overrightarrow{j_{\mathrm{adv}}} = \overrightarrow{u} c. \label{eq:adv}
+\overrightarrow{j_{\mathrm{adv}}} = c \overrightarrow{u} . \label{eq:adv}
 \end{equation}
 \begin{description}
 \item [Q1] Describe equation \ref{eq:continuity} (dimensions, physical meaning of each term, ...) \textbf{[4 points]}
@@ -61,12 +61,12 @@ Let us consider the continuity equation \ref{eq:continuity}
 
 
 \begin{description}
-\item [Q2] In which circumstances equation \ref{eq:continuity} becomes $ \frac{\partial c}{\partial t}  = Q$ ? \textbf{[2 points]}
+\item [Q2] Describe the \textbf{physical meaning} of $ \frac{\partial c}{\partial t}  = Q$ ? \textbf{[2 points]}
 \vspace{2cm}
 
-\item [Q3] Rewrite equation \ref{eq:continuity} in the context of a 1D diffusion problem \textbf{[2 points]}
+\item [Q3] Write the appropriate equation that would describe a 1D diffusion problem \textbf{[2 points]}
 \vspace{2cm}
-\item [Q4] Rewrite equation \ref{eq:continuity} in the context of a 1D steady-state diffusion problem \textbf{[2 points]}
+\item [Q4] Write the appropriate equation that would describe a 1D \textbf{steady-state} diffusion problem \textbf{[2 points]}
 \vspace{2cm}
 \end{description}
 
@@ -146,6 +146,7 @@ def get_spacing(nx=4, ny=3, poro=0.4, wx=10, wy=20):
   
 \verb+print(f"{get_spacing(nx=6)}")+
 
+\vspace{1.5cm}
   
 \end{description}
 
