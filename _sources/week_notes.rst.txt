@@ -111,6 +111,14 @@ Week 9  Mar 05/Mar 07
 
 - `install_conda_howto_html`_
 
+Week 10  Mar 12/Mar 14
+=====================
+
+- `2D_Assignment_Transient_sparse_html`_
+
+- `module_2D.py <https://github.com/phaustin/eosc213_students/blob/march12/notebooks/2D_Assignment_sparse/module_2D.py>`_ 
+
+* `class_intro_mar12_html`_
 
 General notes
 =============

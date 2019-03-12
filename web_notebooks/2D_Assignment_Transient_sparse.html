@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Introducing sparse matrices &#8212; E213</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}, "extensions": ["color.js"]}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          Home</a>
+        <span class="navbar-text navbar-version pull-left"><b>2019Jan01</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-1-jan-3">1.1. Week 1  Jan 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-2-jan-8-jan-10">1.2. Week 2  Jan 8/Jan 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-3-jan-15-jan-17">1.3. Week 3  Jan 15/Jan 17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">1.4. Week 4  Jan 22/Jan 24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">1.5. Week 5  Jan 29/Jan 31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">1.6. Week 6  Feb 05/Feb 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-7-feb-19-feb-21">1.7. Week 7  Feb 19/Feb 21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-8-feb-26-feb-28">1.8. Week 8  Feb 26/Feb 28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-9-mar-05-mar-07">1.9. Week 9  Mar 05/Mar 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.10. General notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../solutions.html#week-2">2.1. Week 2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#math">3.1. Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#python">3.2. Python</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#python-introductory-texts">4.1. Python Introductory Texts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#moving-from-matlab-to-python">4.2. Moving from matlab to python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#cocalc">4.3. Cocalc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-shell-commands">5.1. Useful shell commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-git-commands">5.2. Useful git commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-debugger-commands">5.3. Useful debugger commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/web_notebooks/2D_Assignment_Transient_sparse.ipynb.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 7ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<h1><p>Table of Contents</p>
+</h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;Set up the boundary values</p>
+</li><li><p>2&nbsp;&nbsp;Set up the diffusivity matrix</p>
+</li><li><p>3&nbsp;&nbsp;Steady state the old-fashioned way</p>
+</li><li><p>4&nbsp;&nbsp;Repeat the steady state calculation using a sparse matrix</p>
+</li><li><p>5&nbsp;&nbsp;Now do the 2d problem</p>
+<ul class="toc-item"><li><p>5.1&nbsp;&nbsp;Set up the problem domain and build A and b</p>
+</li></ul></li><li><p>6&nbsp;&nbsp;Compare dense and sparse</p>
+</li><li><p>7&nbsp;&nbsp;Plot your saved snapshots on a grid</p>
+</li><li><p>8&nbsp;&nbsp;Conclusions</p>
+</li></ul></div><div class="section" id="Introducing-sparse-matrices">
+<h1>Introducing sparse matrices<a class="headerlink" href="#Introducing-sparse-matrices" title="Permalink to this headline">¶</a></h1>
+<p>This is a rerun of the 2D_Transient_Assignment with two differences:</p>
+<ol class="arabic simple">
+<li>It imports common functions from a new python module called module_2D.py</li>
+<li>It uses the scipy.sparse compressed storage format for rows (csr) with the sparse solver spsolve</li>
+</ol>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.cm</span> <span class="kn">as</span> <span class="nn">cmap</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">module_2D</span> <span class="kn">import</span> <span class="n">Boundary_Def</span>
+<span class="kn">from</span> <span class="nn">module_2D</span> <span class="kn">import</span> <span class="n">build_2D_matrix</span>
+<span class="kn">from</span> <span class="nn">module_2D</span> <span class="kn">import</span> <span class="n">mat2vec</span>
+<span class="kn">from</span> <span class="nn">module_2D</span> <span class="kn">import</span> <span class="n">Problem_Def</span>
+<span class="kn">from</span> <span class="nn">module_2D</span> <span class="kn">import</span> <span class="n">vec2mat</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1</span> <span class="kn">import</span> <span class="n">AxesGrid</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">csr_matrix</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse.linalg</span> <span class="kn">import</span> <span class="n">spsolve</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+It looks like I&#39;ve been imported by another python script
+My file location is:
+/Users/phil/repos/eosc213_students/notebooks/2D_Assignment_sparse/module_2D.py
+
+</pre></div></div>
+</div>
+<div class="section" id="Set-up-the-boundary-values">
+<h2>Set up the boundary values<a class="headerlink" href="#Set-up-the-boundary-values" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">c0</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># mg/L</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Here we create 4 boundaries, west has a constant concentration at c0, east has a constant boundary at 0;</span>
+<span class="n">west</span> <span class="o">=</span> <span class="n">Boundary_Def</span><span class="p">(</span><span class="s2">&quot;const&quot;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">c0</span><span class="p">)</span>
+<span class="n">east</span> <span class="o">=</span> <span class="n">Boundary_Def</span><span class="p">(</span><span class="s2">&quot;const&quot;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># For 1D problem, the used boundaries are west and east.</span>
+
+<span class="c1"># The other south and north boundaries have a zero flux (impermeable)</span>
+
+<span class="n">north</span> <span class="o">=</span> <span class="n">Boundary_Def</span><span class="p">(</span><span class="s2">&quot;flux&quot;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">south</span> <span class="o">=</span> <span class="n">Boundary_Def</span><span class="p">(</span><span class="s2">&quot;flux&quot;</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">bc_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;west&quot;</span><span class="p">:</span> <span class="n">west</span><span class="p">,</span> <span class="s2">&quot;north&quot;</span><span class="p">:</span> <span class="n">north</span><span class="p">,</span> <span class="s2">&quot;east&quot;</span><span class="p">:</span> <span class="n">east</span><span class="p">,</span> <span class="s2">&quot;south&quot;</span><span class="p">:</span> <span class="n">south</span><span class="p">}</span>
+<span class="c1"># The latter array bc_dict will be sent to the different functions</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Set-up-the-diffusivity-matrix">
+<h2>Set up the diffusivity matrix<a class="headerlink" href="#Set-up-the-diffusivity-matrix" title="Permalink to this headline">¶</a></h2>
+<p>Going from 1 to 2 dimensions changes nothing conceptually. There are, however a couple of changes required for the coding perspective. Indeed, whether the problem is 1D or 2D or 3D, the stucture of the system of equation Ac = b is the same. Matrix <span class="math notranslate nohighlight">\(A\)</span> will always be a <span class="math notranslate nohighlight">\(n \times n\)</span> matrix, while <span class="math notranslate nohighlight">\(c\)</span> and <span class="math notranslate nohighlight">\(b\)</span> will always be column vector of size <span class="math notranslate nohighlight">\(n\)</span>. In 2D, <span class="math notranslate nohighlight">\(n = n_x \times n_y\)</span>, while in 3D, it will be <span class="math notranslate nohighlight">\(n = n_x \times n_y \times n_z\)</span>. The individual
+equation for a cell still produces a single row in the A and b matrices, but in 2D that cell has 4 neighbours instead of 2, and 3D it has 6 neighbors intead of 4.</p>
+<p>However, the fact is that in every case, the solution is stored in one vector, representing either a 1/2/3D solution. For these higher dimension problems, a two-way conversion between vector and matrix is required. To plot the 2D result, for example, we will use colourmap plots, which require the solution to be plotted to be represented as a 2D array (matrix).</p>
+<p>The function vec2mat(…) (specifically <span class="math notranslate nohighlight">\(vector\ to\ matrix\)</span>) does this: it converts a vector into the relevant 2D matrix, using n_x and n_y.</p>
+<p>The reverse function is usually required to initialize the initial condition. It is mac2vec(…). These two functions are defined here below.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">decreasing_factor</span> <span class="o">=</span> <span class="mf">0.1</span>  <span class="c1"># Feel free to change if you want to see the impact</span>
+<span class="c1"># (you can go higher than 1 ... But be careful, if diffusion speeds up significantly,</span>
+<span class="c1"># the accuracy with respect to the chosen timestep might not be so good if you speed things up! )</span>
+<span class="c1"># Initial value is 0.01</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">Diff</span> <span class="o">=</span> <span class="mf">2e-9</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">3600</span>  <span class="c1"># dm²/day</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Here we define the initial condition, and the diffusion matrix for the 2D problem</span>
+
+
+<span class="k">def</span> <span class="nf">make_D_matrix</span><span class="p">(</span><span class="n">the_problem</span><span class="p">,</span> <span class="n">Diff</span><span class="p">,</span> <span class="n">decreasing_factor</span><span class="p">):</span>
+    <span class="n">Diff_low</span> <span class="o">=</span> <span class="n">Diff</span> <span class="o">*</span> <span class="n">decreasing_factor</span>
+    <span class="n">n_x</span><span class="p">,</span> <span class="n">n_y</span> <span class="o">=</span> <span class="n">the_problem</span><span class="o">.</span><span class="n">nx</span><span class="p">,</span> <span class="n">the_problem</span><span class="o">.</span><span class="n">ny</span>
+    <span class="n">width_x</span><span class="p">,</span> <span class="n">width_y</span> <span class="o">=</span> <span class="n">the_problem</span><span class="o">.</span><span class="n">wx</span><span class="p">,</span> <span class="n">the_problem</span><span class="o">.</span><span class="n">wy</span>
+    <span class="n">D_matrix</span> <span class="o">=</span> <span class="n">Diff</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n_y</span><span class="p">,</span> <span class="n">n_x</span><span class="p">))</span>
+
+    <span class="n">c_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_y</span><span class="p">,</span> <span class="n">n_x</span><span class="p">))</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">width_x</span><span class="p">,</span> <span class="n">n_x</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">width_y</span><span class="p">,</span> <span class="n">n_y</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_y</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_x</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">c_init</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">c0</span>  <span class="c1"># Initial condition</span>
+    <span class="c1">#</span>
+    <span class="c1"># overwrite the center of the image with a low diffusivity</span>
+    <span class="c1">#</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_y</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_x</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">width_x</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">width_x</span>
+                <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">width_y</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">width_y</span>
+            <span class="p">):</span>
+                <span class="n">D_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">Diff_low</span>
+                <span class="c1"># here we define a square of low diffusivity in the middle</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">D_matrix</span><span class="p">,</span> <span class="n">c_init</span>
+
+
+<span class="n">width_x</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># dm</span>
+<span class="n">width_y</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># dm</span>
+<span class="n">n_x</span> <span class="o">=</span> <span class="mi">21</span>
+<span class="n">n_y</span> <span class="o">=</span> <span class="n">n_x</span>
+<span class="n">poro</span> <span class="o">=</span> <span class="mf">0.4</span>
+
+<span class="n">the_prob</span> <span class="o">=</span> <span class="n">Problem_Def</span><span class="p">(</span><span class="n">n_x</span><span class="p">,</span> <span class="n">n_y</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span> <span class="n">width_x</span><span class="p">,</span> <span class="n">width_y</span><span class="p">)</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">D_matrix</span><span class="p">,</span> <span class="n">c_init</span> <span class="o">=</span> <span class="n">make_D_matrix</span><span class="p">(</span><span class="n">the_prob</span><span class="p">,</span> <span class="n">Diff</span><span class="p">,</span> <span class="n">decreasing_factor</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1"># This generates a colormap of diffusion.</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">cmap</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;magma&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">D_matrix</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+
+<span class="c1"># &quot;magma&quot; refers to a colormap example. You can chose other ones</span>
+<span class="c1"># https://matplotlib.org/examples/color/colormaps_reference.html</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;matplotlib.colorbar.Colorbar at 0x115c46ac8&gt;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_2D_Assignment_Transient_sparse_10_1.png" src="../_images/web_notebooks_2D_Assignment_Transient_sparse_10_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Here we plot the initial condition using the colormap again</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1"># This generates a colormap of diffusion.</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">cmap</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;RdGy_r&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c_init</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;matplotlib.colorbar.Colorbar at 0x115d89278&gt;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_2D_Assignment_Transient_sparse_11_1.png" src="../_images/web_notebooks_2D_Assignment_Transient_sparse_11_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Steady-state-the-old-fashioned-way">
+<h2>Steady state the old-fashioned way<a class="headerlink" href="#Steady-state-the-old-fashioned-way" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Here we give you the asymptotic solution to the problem</span>
+<span class="c1"># we are using everything we have done before</span>
+
+<span class="c1">### Asymptotic behavior</span>
+
+<span class="n">Qsource</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_y</span><span class="p">,</span> <span class="n">n_x</span><span class="p">))</span>
+<span class="n">A</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">build_2D_matrix</span><span class="p">(</span><span class="n">bc_dict</span><span class="p">,</span> <span class="n">the_prob</span><span class="p">,</span> <span class="n">D_matrix</span><span class="p">,</span> <span class="n">Qsource</span><span class="p">)</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">n_x</span> <span class="o">*</span> <span class="n">n_y</span>
+<span class="c1"># array v contains the solution</span>
+<span class="c1"># we convert it in a matrix:</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">vec2mat</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">n_y</span><span class="p">,</span> <span class="n">n_x</span><span class="p">)</span>
+
+<span class="c1"># and we plot the matrix</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;matplotlib.colorbar.Colorbar at 0x11639cb38&gt;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_2D_Assignment_Transient_sparse_13_1.png" src="../_images/web_notebooks_2D_Assignment_Transient_sparse_13_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Repeat-the-steady-state-calculation-using-a-sparse-matrix">
+<h2>Repeat the steady state calculation using a sparse matrix<a class="headerlink" href="#Repeat-the-steady-state-calculation-using-a-sparse-matrix" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Here we give you the asymptotic solution to the problem</span>
+<span class="c1"># we are using everything we have done before</span>
+
+<span class="c1">### Asymptotic behavior</span>
+
+<span class="n">poro</span> <span class="o">=</span> <span class="mf">0.4</span>
+<span class="n">prob</span> <span class="o">=</span> <span class="n">Problem_Def</span><span class="p">(</span><span class="n">n_x</span><span class="p">,</span> <span class="n">n_y</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span> <span class="n">width_x</span><span class="p">,</span> <span class="n">width_y</span><span class="p">)</span>
+<span class="n">Qsource</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_y</span><span class="p">,</span> <span class="n">n_x</span><span class="p">))</span>
+<span class="n">A</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">build_2D_matrix</span><span class="p">(</span><span class="n">bc_dict</span><span class="p">,</span> <span class="n">prob</span><span class="p">,</span> <span class="n">D_matrix</span><span class="p">,</span> <span class="n">Qsource</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">csr_matrix</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">v</span> <span class="o">=</span> <span class="n">spsolve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">n_x</span> <span class="o">*</span> <span class="n">n_y</span>
+<span class="c1"># # array v contains the solution</span>
+<span class="c1"># # we convert it in a matrix:</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">vec2mat</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">n_y</span><span class="p">,</span> <span class="n">n_x</span><span class="p">)</span>
+
+<span class="c1"># # and we plot the matrix</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;matplotlib.colorbar.Colorbar at 0x1164bccf8&gt;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_2D_Assignment_Transient_sparse_15_1.png" src="../_images/web_notebooks_2D_Assignment_Transient_sparse_15_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Now-do-the-2d-problem">
+<h2>Now do the 2d problem<a class="headerlink" href="#Now-do-the-2d-problem" title="Permalink to this headline">¶</a></h2>
+<p>As before, we will save a series of snapshots for plotting at different timesteps</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">dt</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1">#days</span>
+<span class="n">Tf</span> <span class="o">=</span> <span class="mf">2000.0</span>  <span class="c1"># days</span>
+<span class="n">number_of_fig</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">plot_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Tf</span><span class="p">,</span> <span class="n">number_of_fig</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">plot_timesteps</span> <span class="o">=</span> <span class="p">(</span><span class="n">plot_times</span> <span class="o">/</span> <span class="n">dt</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+<span class="n">nTstp</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">Tf</span> <span class="o">/</span> <span class="n">dt</span><span class="p">)</span>  <span class="c1"># number of timesteps</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Set-up-the-problem-domain-and-build-A-and-b">
+<h3>Set up the problem domain and build A and b<a class="headerlink" href="#Set-up-the-problem-domain-and-build-A-and-b" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">width_x</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># dm</span>
+<span class="n">width_y</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># dm</span>
+<span class="n">n_x</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="n">n_y</span> <span class="o">=</span> <span class="n">n_x</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">n_x</span> <span class="o">*</span> <span class="n">n_y</span>
+<span class="n">poro</span> <span class="o">=</span> <span class="mf">0.4</span>
+
+<span class="n">the_prob</span> <span class="o">=</span> <span class="n">Problem_Def</span><span class="p">(</span><span class="n">n_x</span><span class="p">,</span> <span class="n">n_y</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span> <span class="n">width_x</span><span class="p">,</span> <span class="n">width_y</span><span class="p">)</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">D_matrix</span><span class="p">,</span> <span class="n">c_init</span> <span class="o">=</span> <span class="n">make_D_matrix</span><span class="p">(</span><span class="n">the_prob</span><span class="p">,</span> <span class="n">Diff</span><span class="p">,</span> <span class="n">decreasing_factor</span><span class="p">)</span>
+<span class="n">Qsource</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_y</span><span class="p">,</span> <span class="n">n_x</span><span class="p">))</span>
+<span class="n">A</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">build_2D_matrix</span><span class="p">(</span><span class="n">bc_dict</span><span class="p">,</span> <span class="n">the_prob</span><span class="p">,</span> <span class="n">D_matrix</span><span class="p">,</span> <span class="n">Qsource</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Compare-dense-and-sparse">
+<h2>Compare dense and sparse<a class="headerlink" href="#Compare-dense-and-sparse" title="Permalink to this headline">¶</a></h2>
+<p>You should see about a factor of 6 speedup when you set <code class="docutils literal notranslate"><span class="pre">try_sparse</span> <span class="pre">=</span> <span class="pre">True</span></code></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">try_sparse</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">mat2vec</span><span class="p">(</span><span class="n">c_init</span><span class="p">,</span> <span class="n">n_y</span><span class="p">,</span> <span class="n">n_x</span><span class="p">)</span>
+<span class="n">Adelta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">Adelta</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">poro</span> <span class="o">/</span> <span class="n">dt</span>
+<span class="n">Aa</span> <span class="o">=</span> <span class="n">A</span> <span class="o">+</span> <span class="n">Adelta</span>
+<span class="n">Bdelta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">try_sparse</span><span class="p">:</span>
+    <span class="n">Aa</span> <span class="o">=</span> <span class="n">csr_matrix</span><span class="p">(</span><span class="n">Aa</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">save_figs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+<span class="n">clock_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">fig_timesteps</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">fig_count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nTstp</span><span class="p">):</span>
+    <span class="n">capture_time</span> <span class="o">=</span> <span class="n">plot_timesteps</span><span class="p">[</span><span class="n">fig_count</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">Bdelta</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">poro</span> <span class="o">/</span> <span class="n">dt</span>
+    <span class="n">bb</span> <span class="o">=</span> <span class="n">b</span> <span class="o">+</span> <span class="n">Bdelta</span>
+    <span class="k">if</span> <span class="n">try_sparse</span><span class="p">:</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">spsolve</span><span class="p">(</span><span class="n">Aa</span><span class="p">,</span> <span class="n">bb</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">Aa</span><span class="p">,</span> <span class="n">bb</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="n">capture_time</span><span class="p">:</span>
+        <span class="n">save_figs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vec2mat</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">n_y</span><span class="p">,</span> <span class="n">n_x</span><span class="p">))</span>
+        <span class="n">fig_count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="n">clock_stop</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;with try_sparse={try_sparse}, elapsed time is {clock_stop - clock_start}&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+with try_sparse=False, elapsed time is 18.92159104347229
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Plot-your-saved-snapshots-on-a-grid">
+<h2>Plot your saved snapshots on a grid<a class="headerlink" href="#Plot-your-saved-snapshots-on-a-grid" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># https://jdhao.github.io/2017/06/11/mpl_multiplot_one_colorbar/</span>
+<span class="c1"># https://matplotlib.org/tutorials/toolkits/axes_grid.html</span>
+
+<span class="n">automated_plot</span> <span class="o">=</span> <span class="bp">True</span>  <span class="c1"># set that to False if you don&#39;t want the automated 9 plots</span>
+<span class="k">if</span> <span class="n">automated_plot</span><span class="p">:</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">AxesGrid</span><span class="p">(</span>
+        <span class="n">fig</span><span class="p">,</span>
+        <span class="mi">111</span><span class="p">,</span>
+        <span class="n">nrows_ncols</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+        <span class="n">axes_pad</span><span class="o">=</span><span class="mf">0.40</span><span class="p">,</span>
+        <span class="n">cbar_mode</span><span class="o">=</span><span class="s2">&quot;single&quot;</span><span class="p">,</span>
+        <span class="n">cbar_location</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span>
+        <span class="n">cbar_pad</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">fig_num</span><span class="p">,</span> <span class="n">the_ax</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">grid</span><span class="p">):</span>
+        <span class="n">the_ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">time_step</span> <span class="o">=</span> <span class="n">plot_times</span><span class="p">[</span><span class="n">fig_num</span><span class="p">]</span>
+            <span class="n">conc</span> <span class="o">=</span> <span class="n">save_figs</span><span class="p">[</span><span class="n">fig_num</span><span class="p">]</span>
+            <span class="n">im</span> <span class="o">=</span> <span class="n">the_ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">conc</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="p">)</span>
+            <span class="n">the_ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;timestep {time_step} days&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">delaxes</span><span class="p">(</span><span class="n">the_ax</span><span class="p">)</span>
+
+    <span class="n">cbar</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">cbar_axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+    <span class="n">cbar</span><span class="o">.</span><span class="n">set_label_text</span><span class="p">(</span><span class="s2">&quot;Concentration (mg/L)&quot;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">270</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span>
+        <span class="s2">&quot;Evolution of the concentration through time&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span>
+    <span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;evolution.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_2D_Assignment_Transient_sparse_23_0.png" src="../_images/web_notebooks_2D_Assignment_Transient_sparse_23_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Conclusions">
+<h2>Conclusions<a class="headerlink" href="#Conclusions" title="Permalink to this headline">¶</a></h2>
+<p>What you may have noticed, is that, even for small simple 2d transient problems like the one you have just solved, the computation times are already becoming significant…</p>
+<p>This is partly because we are dealing with big matrix which are filled with zeros. It is a complete waste of time and memory to deal with all of these 0 values. There are other ways to make our calculation way faster. We will probably dedicate a lecture to understand how we can improve this.</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2019, Philip Austin.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
