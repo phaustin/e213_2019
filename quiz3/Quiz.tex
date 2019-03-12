@@ -103,70 +103,89 @@ We will now consider that $Q=0$ and that we work in a \textbf{closed system} bet
 
 \end{description}
 
+
+\newpage
+\textbf{Python Questions}
+
+
+This is a question about the following code:
+
 %\hline 
 \rule{15cm}{0.75pt}
 
-\textbf{Python Questions}
 
-Consider the following code:
+\begin{verbatim}
+class Problem_Def:
+    """
+    this class holds the specifcation for the domain,
+    including the value of the porosity
+    """
+
+    nx: int
+    ny: int
+    poro: float
+    wx: float
+    wy: float
+
+    def __init__(self, nx, ny, poro, wx, wy):
+        self.nx = nx
+        self.ny = ny
+        self.poro = poro
+        self.wx = wx
+        self.wy = wy
 
 
-\texttt{class Problem$\_$Def:}
+def get_spacing(nx=4, ny=3, poro=0.4, wx=10, wy=20):
+    the_prob = Problem_Def(nx, ny, poro, wx, wy)
+    delx = the_prob.wx / the_prob.nx
+    dely = the_prob.wy / the_prob.ny
+    return delx, dely
+\end{verbatim}
 
-\texttt{   """}
-
-\texttt{   this class holds the specifcation for the domain,}
-
-\texttt{   including the value of the porosity}
-
-\texttt{   """}
-
-\texttt{   nx: int}
-
-\texttt{   ny: int}
-
-\texttt{   poro: float}
-
-\texttt{   wx: float}
-
-\texttt{   wy: float}
-
-\texttt{ }
-
-\texttt{   def $\_\_$init$\_\_$(self, nx, ny, poro, wx, wy):}
-
-\texttt{       self.nx = nx}
-
-\texttt{       self.ny = ny}
-
-\texttt{       self.poro = poro}
-
-\texttt{       self.wx = wx}
-
-\texttt{       self.wy = wy}
-
-\texttt{ }
-
-\texttt{def calc$\_$area(nx=4,ny=3,poro=0.4,wx=10,wy=20):}
-
-\texttt{   the$\_$prob = Problem$\_$Def(nx,ny,poro,wx,wy)}
-
-\texttt{   delx = the$\_$prob.wx/the$\_$prob.nx}
-
-\texttt{   dely = the$\_$prob.wy/the$\_$prob.ny}
-
-\texttt{   return delx, dely}
-
-\texttt{\# \%\%}
-
-\texttt{print(f"\{calc$\_$area(nx=6)\}")}
+%\hline 
+\rule{15cm}{0.75pt}
 
 \begin{description}
-\item[Q9] What would be the ouptut of the previous program? \textbf{[2 points]}
-\vspace{2cm}
-\item[Q10] Write a program which returns ... ? \textbf{[2 points]}
+
+\item[Q9] Given the code above, what does the following python statement print?
+  \textbf{[2 points]}
+  
+\verb+print(f"{get_spacing(nx=6)}")+
+
+  
 \end{description}
+
+
+\begin{description}  
+
+  
+\item[Q10] modify the \verb+Problem_Def+ class to
+  incorporate \verb+get_spacing+ as an instance method \textbf{[2 points]}
+
+  That is, create a version of \verb+Problem_Def+ for which the following will work::
+
+\begin{verbatim}
+
+     the_instance = Problem_Def()
+     delx, dely = the_instance.get_spacing()
+
+\end{verbatim}
+
+where the new constructor has the signature::
+
+\begin{verbatim}
+      def __init__(self,nx=4,ny=3,poro=0.4,wx=10,wy=20):
+         ...
+\end{verbatim}
+
+  
+\end{description}  
+
 
 
 
 \end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
