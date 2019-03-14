@@ -399,85 +399,119 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="section" id="The-two-Eulers">
 <h1>The two Eulers<a class="headerlink" href="#The-two-Eulers" title="Permalink to this headline">¶</a></h1>
-<p>We’ve covered transient ordinary differential equations of the form <span class="math">\begin{align}
-{dy\over dt} &= f(y)\label{7fv71}\\
-\end{align}</span> The idea of the Euler method is to approximate the time derivative as finite difference: <span class="math">\begin{align}
-{dy\over dt} \approx {y(t+\Delta t) - y(t)\over \Delta t} \label{7fv72}\\
-\end{align}</span> Then we can approximate the ordinary differential equation with this algebraic equation: <span class="math">\begin{align}
-{y(t+\Delta t) - y(t)\over \Delta t}  &= f(y)\label{7fv73}\\
-\end{align}</span> This finite-difference approximation is accurate if <span class="math notranslate nohighlight">\(\Delta t\)</span> is small. The approach behind most transient problems is to <strong>time step</strong> with time steps that are sufficiently small to maintain accuracy and stability. We start with the <strong>initial condition</strong> (knowledge of the dependent variable (<span class="math notranslate nohighlight">\(y\)</span>) at the start of the period of interest (<span class="math notranslate nohighlight">\(t_0\)</span>)) and then find <span class="math notranslate nohighlight">\(y\)</span> at time <span class="math notranslate nohighlight">\(t+\Delta t\)</span>, …: <span class="math">\begin{align*}
-\text{Step 1}\quad y(t_0)\quad &\underrightarrow{\Delta t} \quad  y(t_0+\Delta t)\\
-\text{Step 2}\quad y(t_1)\quad &\underrightarrow{\Delta t} \quad y(t_1+\Delta t)\\
-\text{Step 3}\quad y(t_2)\quad &\underrightarrow{\Delta t} \quad  y(t_2+\Delta t)\\
-\text{Step 4}\quad y(t_3)\quad &\underrightarrow{\Delta t} \quad  y(t_3+\Delta t)\\
-\end{align*}</span></p>
-<p>etc The value of the dependent variable at the start of the simulation period, usually <span class="math notranslate nohighlight">\(t=0\)</span> is <span class="math notranslate nohighlight">\(y(0)\)</span> and is called the <strong>initial condition</strong>. The initial condition is part of the problem specification and, along with boundary conditions, is information required before the problem can be solved.</p>
+<p>We’ve covered transient ordinary differential equations of the form</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  {dy\over dt} &amp;= f(y)\label{7fv71}\\
+  \end{align}\end{split}\\The idea of the Euler method is to approximate the time derivative as finite difference:\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  {dy\over dt} \approx {y(t+\Delta t) - y(t)\over \Delta t} \label{7fv72}\\
+  \end{align}\end{split}\\Then we can approximate the ordinary differential equation with this algebraic equation:\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  {y(t+\Delta t) - y(t)\over \Delta t}  &amp;= f(y)\label{7fv73}\\
+  \end{align}\end{split}\\This finite-difference approximation is accurate if :math:`\Delta t` is small. The approach behind most transient problems is to **time step** with time steps that are sufficiently small to maintain accuracy and stability. We start with the **initial condition** (knowledge of the dependent variable (:math:`y`) at the start of the period of interest (:math:`t_0`)) and then find :math:`y` at time :math:`t+\Delta t`, ...:\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\begin{align*}
+\text{Step 1}\quad y(t_0)\quad &amp;\underrightarrow{\Delta t} \quad  y(t_0+\Delta t)\\
+\text{Step 2}\quad y(t_1)\quad &amp;\underrightarrow{\Delta t} \quad y(t_1+\Delta t)\\
+\text{Step 3}\quad y(t_2)\quad &amp;\underrightarrow{\Delta t} \quad  y(t_2+\Delta t)\\
+\text{Step 4}\quad y(t_3)\quad &amp;\underrightarrow{\Delta t} \quad  y(t_3+\Delta t)\\
+\end{align*}</div><p>etc The value of the dependent variable at the start of the simulation period, usually <span class="math notranslate nohighlight">\(t=0\)</span> is <span class="math notranslate nohighlight">\(y(0)\)</span> and is called the <strong>initial condition</strong>. The initial condition is part of the problem specification and, along with boundary conditions, is information required before the problem can be solved.</p>
 <div class="section" id="Time-stepping">
 <h2>Time stepping<a class="headerlink" href="#Time-stepping" title="Permalink to this headline">¶</a></h2>
 <p>In a finite-volume approach with gridblocks in space, the approach is: 1. Start with an initial condition at <span class="math notranslate nohighlight">\(t = t_0\)</span> 2. Determine solution at every node at <span class="math notranslate nohighlight">\(t = t_0 +\Delta t\)</span>, where <span class="math notranslate nohighlight">\(\Delta t\)</span> is the time step. 3. Repeat, optionally with a different time step size, and march forward in time, one time step at a time.</p>
-<p>The Euler approach then can be written: <span class="math">\begin{align}
-{y(t+\Delta t)}  &= y(t) + \Delta t f(y)\label{7fv74}\\
-\end{align}</span> The two Euler methods differ in the time level at which we evaluate <span class="math notranslate nohighlight">\(f(y)\)</span>; either the old time level or the future time level:</p>
+<blockquote>
+<div>The Euler approach then can be written:</div></blockquote>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  {y(t+\Delta t)}  &amp;= y(t) + \Delta t f(y)\label{7fv74}\\
+  \end{align}\end{split}\\The two Euler methods differ in the time level at which we evaluate :math:`f(y)`; either the old time level or the future time level:\end{aligned}\end{align} \]</div>
 <div class="section" id="Forward-Euler---explicit">
 <h3>Forward Euler - explicit<a class="headerlink" href="#Forward-Euler---explicit" title="Permalink to this headline">¶</a></h3>
-<p><span class="math">\begin{align}
-{y(t+\Delta t)}  &= y(t) + \Delta t \underbrace{f(y(t))}_\text{evaluated at present time}\label{7fv75}\\
-\end{align}</span> #### Backward Euler - implicit <span class="math">\begin{align}
-{y(t+\Delta t)}  &= y(t) + \Delta t \underbrace{f(y(t+\Delta t))}_\text{evaluated at future time}\label{7fv76}\\
-\end{align}</span></p>
-<p>In this notebook, we’ll develop the transient 1-D finite volume stencil and then show how we can apply explicit and implicit time stepping schemes. It will then be clear why forward Euler is called explicit and backward Euler implicit (I prefer the terms implicit and explicit).</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  {y(t+\Delta t)}  &amp;= y(t) + \Delta t \underbrace{f(y(t))}_\text{evaluated at present time}\label{7fv75}\\
+  \end{align}\end{split}\\#### Backward Euler - implicit\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\begin{align}
+{y(t+\Delta t)}  &amp;= y(t) + \Delta t \underbrace{f(y(t+\Delta t))}_\text{evaluated at future time}\label{7fv76}\\
+\end{align}</div><p>In this notebook, we’ll develop the transient 1-D finite volume stencil and then show how we can apply explicit and implicit time stepping schemes. It will then be clear why forward Euler is called explicit and backward Euler implicit (I prefer the terms implicit and explicit).</p>
 </div>
 </div>
 </div>
 <div class="section" id="Transient-finite-volume-equation-for-diffusion-in-porous-media">
 <h1>Transient finite-volume equation for diffusion in porous media<a class="headerlink" href="#Transient-finite-volume-equation-for-diffusion-in-porous-media" title="Permalink to this headline">¶</a></h1>
-<p>We’ll develop the equations for 1-D. The 2- and 3-D equations follow the same pattern. Recall from notebook <code class="docutils literal notranslate"><span class="pre">5.1finite_volume_2.ipynb</span></code> the following transient mass conservation statement <span class="math">\begin{align}
-m_C(t+\Delta t) - m_C(t) & = \left(J_{EC}+J_{WC}\right)\Delta t \\
-\end{align}</span> where <span class="math notranslate nohighlight">\(m_C \left[M\right]\)</span> is the mass in control volume C and <span class="math notranslate nohighlight">\(J_{EC}, J_{WC}~\left[M/T\right]\)</span> are the mass fluxes into C. If we take <span class="math notranslate nohighlight">\(\Delta t\)</span> to the other side we get: <span class="math">\begin{align}
-{m_C(t+\Delta t) - m_C(t)\over \Delta t} & =  J_{EC}+J_{WC} \label{7fv77} \\
-\end{align}</span> We developed a stencil for the right side of this equation <span class="math notranslate nohighlight">\(0=J_{EC}+J_{WC}\)</span> for diffusion in porous media in notebooks <code class="docutils literal notranslate"><span class="pre">6_finite_volume_4.ipynb</span></code> and <code class="docutils literal notranslate"><span class="pre">6_finite_volume_5.ipynb</span></code>. The stencil is (1-D): <span class="math">\begin{align}
-&J_{EC}+J_{WC}=\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) \label{7fv78}\\
-\end{align}</span></p>
-<p>Or with terms that multiply <span class="math notranslate nohighlight">\(c_E\)</span>, <span class="math notranslate nohighlight">\(c_C\)</span> and <span class="math notranslate nohighlight">\(c_W\)</span> collected together: <span class="math">\begin{align}
-&J_{EC}+J_{WC} = \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_E - \left(2 D\theta {\Delta y \Delta z \over \Delta x}\right) c_C + \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_W \label{7fv79}\\
-\end{align}</span> So, substituting <span class="math">\ref{7fv79}</span> into <span class="math">\ref{7fv77}</span> we can write the transient conservation law for the case of 1-D diffusion in porous media as: <span class="math">\begin{align}
-&{m_C(t+\Delta t) - m_C(t)\over \Delta t}= \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_E - \left(2 D\theta {\Delta y \Delta z \over \Delta x}\right) c_C + \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_W \label{7fv710}\\
-\end{align}</span></p>
-<div class="section" id="Your-turn">
+<p>We’ll develop the equations for 1-D. The 2- and 3-D equations follow the same pattern. Recall from notebook <code class="docutils literal notranslate"><span class="pre">5.1finite_volume_2.ipynb</span></code> the following transient mass conservation statement</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  m_C(t+\Delta t) - m_C(t) &amp; = \left(J_{EC}+J_{WC}\right)\Delta t \\
+  \end{align}\end{split}\\where :math:`m_C \left[M\right]` is the mass in control volume C and :math:`J_{EC}, J_{WC}~\left[M/T\right]` are the mass fluxes into C. If we take :math:`\Delta t` to the other side we get:\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  {m_C(t+\Delta t) - m_C(t)\over \Delta t} &amp; =  J_{EC}+J_{WC} \label{7fv77} \\
+  \end{align}\end{split}\\We developed a stencil for the right side of this equation :math:`0=J_{EC}+J_{WC}` for diffusion in porous media in notebooks ``6_finite_volume_4.ipynb`` and ``6_finite_volume_5.ipynb``. The stencil is (1-D):\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;J_{EC}+J_{WC}=\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) \label{7fv78}\\
+\end{align}</div><p>Or with terms that multiply <span class="math notranslate nohighlight">\(c_E\)</span>, <span class="math notranslate nohighlight">\(c_C\)</span> and <span class="math notranslate nohighlight">\(c_W\)</span> collected together:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  &amp;J_{EC}+J_{WC} = \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_E - \left(2 D\theta {\Delta y \Delta z \over \Delta x}\right) c_C + \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_W \label{7fv79}\\
+  \end{align}\end{split}\\So, substituting :nbsphinx-math:`\ref{7fv79}` into :nbsphinx-math:`\ref{7fv77}` we can write the transient conservation law for the case of 1-D diffusion in porous media as:\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;{m_C(t+\Delta t) - m_C(t)\over \Delta t}= \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_E - \left(2 D\theta {\Delta y \Delta z \over \Delta x}\right) c_C + \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_W \label{7fv710}\\
+\end{align}</div><div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
 <p>Show that the dimensions of both sides of transient 1-D diffusion in porous media stencil <span class="math">\ref{7fv710}</span> are the same.</p>
 <p>The left side has dimensions <span class="math notranslate nohighlight">\(\left[\text{Left side dimension here}\right]\)</span></p>
 <p>The right side has dimensions <span class="math notranslate nohighlight">\(\left[\text{Right side dimension here}\right]\)</span></p>
-<p>As a last step, we convert the mass in the control volume C, <span class="math notranslate nohighlight">\(m_C\)</span>, into a concentration in the control volume <span class="math notranslate nohighlight">\(c_C\)</span>.</p>
-<p>In porous media, when the pores are fully saturated with water, the volume of water in the gridblock is porosity <span class="math notranslate nohighlight">\(\times\)</span> total volume of the gridblock: <span class="math notranslate nohighlight">\(\theta (\Delta x)(\Delta y)(\Delta z)\)</span>, so the mass of solute in the water in the gridblock is the volume of water <span class="math notranslate nohighlight">\(\times\)</span> the concentration in the water: <span class="math notranslate nohighlight">\(c \theta (\Delta x)(\Delta y)(\Delta z)\)</span>. So for <span class="math notranslate nohighlight">\(m_C\)</span> we substitute <span class="math notranslate nohighlight">\(c\theta (\Delta x)(\Delta y)(\Delta z)\)</span>. <span class="math">\begin{align}
-&{c_C(t+\Delta t) - c_C(t)\over \Delta t}\theta (\Delta x)(\Delta y)(\Delta z)= \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_E - \left(2 D\theta {\Delta y \Delta z \over \Delta x}\right) c_C + \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_W \label{7fv711}\\
-\end{align}</span> We’re not quite done. We have to determine at what time level we compute the right side of this expression.</p>
+<blockquote>
+<div>As a last step, we convert the mass in the control volume C, <span class="math notranslate nohighlight">\(m_C\)</span>, into a concentration in the control volume <span class="math notranslate nohighlight">\(c_C\)</span>.</div></blockquote>
+<p>In porous media, when the pores are fully saturated with water, the volume of water in the gridblock is porosity <span class="math notranslate nohighlight">\(\times\)</span> total volume of the gridblock: <span class="math notranslate nohighlight">\(\theta (\Delta x)(\Delta y)(\Delta z)\)</span>, so the mass of solute in the water in the gridblock is the volume of water <span class="math notranslate nohighlight">\(\times\)</span> the concentration in the water: <span class="math notranslate nohighlight">\(c \theta (\Delta x)(\Delta y)(\Delta z)\)</span>. So for <span class="math notranslate nohighlight">\(m_C\)</span> we substitute <span class="math notranslate nohighlight">\(c\theta (\Delta x)(\Delta y)(\Delta z)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  &amp;{c_C(t+\Delta t) - c_C(t)\over \Delta t}\theta (\Delta x)(\Delta y)(\Delta z)= \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_E - \left(2 D\theta {\Delta y \Delta z \over \Delta x}\right) c_C + \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_W \label{7fv711}\\
+  \end{align}\end{split}\\We're not quite done. We have to determine at what time level we compute the right side of this expression.\end{aligned}\end{align} \]</div>
 </div>
 </div>
 <div class="section" id="Implicit-and-explicit-methods">
 <h1>Implicit and explicit methods<a class="headerlink" href="#Implicit-and-explicit-methods" title="Permalink to this headline">¶</a></h1>
 <p>From the Euler perspective, the question we ask, is at what time level do we treat the spatial terms. First some notation.</p>
-<ul class="simple">
-<li><span class="math notranslate nohighlight">\(c_C^t\)</span> = the concentration in gridblock C at the present time level <span class="math notranslate nohighlight">\(t\)</span>. These values are known. At the first time step, <span class="math notranslate nohighlight">\(c_C^{t_0}\)</span> is the <strong>initial condition</strong>.</li>
-<li><span class="math notranslate nohighlight">\(c_C^{(t+\Delta t)}\)</span> = the concentration in gridblock C at the next time step at time <span class="math notranslate nohighlight">\(t+\Delta t\)</span>. These values are not known. Conceptually, we can think of our transient discrete approximation like the simple ODEs in equation <span class="math">\ref{7fv74}</span> that we used to introduce the Euler method: <span class="math">\begin{align}
-&\quad\quad c_C(t+\Delta t) =  c_C(t) + \Delta t f(c_W, c_C, c_E)\\
-\nonumber \text{where}&\\
-&f(c_W, c_C, c_E)= {1\over\theta (\Delta x)(\Delta y)(\Delta z)}\left\{  \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_E - \left(2 D\theta {\Delta y \Delta z \over \Delta x}\right) c_C + \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_W \right\} \label{7fv712}\\
-\end{align}</span> In an <strong>explicit</strong> method (Forward Euler), we evaluate <span class="math notranslate nohighlight">\(f\)</span> in <span class="math">\ref{7fv712}</span> at the present (known) time level <span class="math notranslate nohighlight">\(t\)</span>: <span class="math">\begin{align}
-&c_C^{(t+\Delta t)} =  c_C^t + \Delta t \overbrace{f(c_W^t, c_C^t, c_E^t)}^\text{evaluated at known time}\label{7fv713}\\
-\end{align}</span> In an <strong>implicit</strong> method (Backward Euler), we evaluate <span class="math notranslate nohighlight">\(f\)</span> in <span class="math">\ref{7fv712}</span> at the future (unknown) time level <span class="math notranslate nohighlight">\(t+\Delta t\)</span>: <span class="math">\begin{align}
-&c_C^{(t+\Delta t)} =  c_C^t + \Delta t \overbrace{f(c_W^{(t+\Delta t)}, c_C^{(t+\Delta t)}, c_E^{(t+\Delta t)})}^\text{evaluated at future time $t+\Delta t$}\label{7fv714}\\
-\end{align}</span> ## Explicit 1-d stencil for diffusion in porous media Here, the spatial terms on the right are evaluated using the concentrations at the known time level, <span class="math notranslate nohighlight">\(c_W^t\)</span>, <span class="math notranslate nohighlight">\(c_C^t\)</span>, <span class="math notranslate nohighlight">\(c_E^t\)</span>: <span class="math">\begin{align}
-&{c_C^{(t+\Delta t)} - c_C^t\over \Delta t}\theta (\Delta x)(\Delta y)(\Delta z)= \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_E^t - \left(2 D\theta {\Delta y \Delta z \over \Delta x}\right) c_C^t + \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_W^t \label{7fv715}\\
-\end{align}</span></li>
+<ul>
+<li><p class="first"><span class="math notranslate nohighlight">\(c_C^t\)</span> = the concentration in gridblock C at the present time level <span class="math notranslate nohighlight">\(t\)</span>. These values are known. At the first time step, <span class="math notranslate nohighlight">\(c_C^{t_0}\)</span> is the <strong>initial condition</strong>.</p>
+</li>
+<li><p class="first"><span class="math notranslate nohighlight">\(c_C^{(t+\Delta t)}\)</span> = the concentration in gridblock C at the next time step at time <span class="math notranslate nohighlight">\(t+\Delta t\)</span>. These values are not known. Conceptually, we can think of our transient discrete approximation like the simple ODEs in equation <span class="math">\ref{7fv74}</span> that we used to introduce the Euler method:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  &amp;\quad\quad c_C(t+\Delta t) =  c_C(t) + \Delta t f(c_W, c_C, c_E)\\
+  \nonumber \text{where}&amp;\\
+  &amp;f(c_W, c_C, c_E)= {1\over\theta (\Delta x)(\Delta y)(\Delta z)}\left\{  \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_E - \left(2 D\theta {\Delta y \Delta z \over \Delta x}\right) c_C + \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_W \right\} \label{7fv712}\\
+  \end{align}\end{split}\\In an **explicit** method (Forward Euler), we evaluate :math:`f` in :nbsphinx-math:`\ref{7fv712}` at the present (known) time level :math:`t`:\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  &amp;c_C^{(t+\Delta t)} =  c_C^t + \Delta t \overbrace{f(c_W^t, c_C^t, c_E^t)}^\text{evaluated at known time}\label{7fv713}\\
+  \end{align}\end{split}\\In an **implicit** method (Backward Euler), we evaluate :math:`f` in :nbsphinx-math:`\ref{7fv712}` at the future (unknown) time level :math:`t+\Delta t`:\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  &amp;c_C^{(t+\Delta t)} =  c_C^t + \Delta t \overbrace{f(c_W^{(t+\Delta t)}, c_C^{(t+\Delta t)}, c_E^{(t+\Delta t)})}^\text{evaluated at future time $t+\Delta t$}\label{7fv714}\\
+  \end{align}\end{split}\\## Explicit 1-d stencil for diffusion in porous media Here, the spatial terms on the right are evaluated using the concentrations at the known time level, :math:`c_W^t`, :math:`c_C^t`, :math:`c_E^t`:\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;{c_C^{(t+\Delta t)} - c_C^t\over \Delta t}\theta (\Delta x)(\Delta y)(\Delta z)= \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_E^t - \left(2 D\theta {\Delta y \Delta z \over \Delta x}\right) c_C^t + \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_W^t \label{7fv715}\\
+\end{align}</div></li>
 </ul>
 </div>
 <div class="section" id="Implicit-1-d-stencil-for-diffusion-in-porous-media">
 <h1>Implicit 1-d stencil for diffusion in porous media<a class="headerlink" href="#Implicit-1-d-stencil-for-diffusion-in-porous-media" title="Permalink to this headline">¶</a></h1>
-<p>Here, the spatial terms on the right are evaluated using the concentrations at the future <span class="math notranslate nohighlight">\(t+\Delta t\)</span> time level, <span class="math notranslate nohighlight">\(c_W^{(t+\Delta t)}\)</span>, <span class="math notranslate nohighlight">\(c_C^{(t+\Delta t)}\)</span>, <span class="math notranslate nohighlight">\(c_E^{(t+\Delta t)}\)</span>: <span class="math">\begin{align}
-&{c_C^{(t+\Delta t)} - c_C^t\over \Delta t}\theta (\Delta x)(\Delta y)(\Delta z) = \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_E^{(t+\Delta t)} - \left(2 D\theta {\Delta y \Delta z \over \Delta x}\right) c_C^{(t+\Delta t)} + \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_W^{(t+\Delta t)}\label{7fv716}\\
-\end{align}</span></p>
-<div class="section" id="Your-turn">
+<blockquote>
+<div>Here, the spatial terms on the right are evaluated using the concentrations at the future <span class="math notranslate nohighlight">\(t+\Delta t\)</span> time level, <span class="math notranslate nohighlight">\(c_W^{(t+\Delta t)}\)</span>, <span class="math notranslate nohighlight">\(c_C^{(t+\Delta t)}\)</span>, <span class="math notranslate nohighlight">\(c_E^{(t+\Delta t)}\)</span>:</div></blockquote>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;{c_C^{(t+\Delta t)} - c_C^t\over \Delta t}\theta (\Delta x)(\Delta y)(\Delta z) = \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_E^{(t+\Delta t)} - \left(2 D\theta {\Delta y \Delta z \over \Delta x}\right) c_C^{(t+\Delta t)} + \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_W^{(t+\Delta t)}\label{7fv716}\\
+\end{align}</div><div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
 <p>Re-arrange the explicit equation <span class="math">\ref{7fv715}</span> to collect together the terms that multiply each variable, with the known variables on the right side (those at time level <span class="math notranslate nohighlight">\(t\)</span>) and the unknowns on the left (those at time level <span class="math notranslate nohighlight">\(t+\Delta t\)</span>.</p>
 <p>Put the result here</p>
@@ -511,7 +545,8 @@ m_C(t+\Delta t) - m_C(t) & = \left(J_{EC}+J_{WC}\right)\Delta t \\
 <li>each unknown at time level <span class="math notranslate nohighlight">\(t+\Delta t\)</span> is dependent on the other values at the <span class="math notranslate nohighlight">\(t+\Delta t\)</span> time level.</li>
 </ul>
 <p>Conceptual model for the 1-D implicit diffusion stencil:</p>
-<p>## Accuracy, stability and time-step constraints</p>
+<blockquote>
+<div>## Accuracy, stability and time-step constraints</div></blockquote>
 </div>
 <div class="section" id="Accuracy">
 <h2>Accuracy<a class="headerlink" href="#Accuracy" title="Permalink to this headline">¶</a></h2>
@@ -523,9 +558,11 @@ m_C(t+\Delta t) - m_C(t) & = \left(J_{EC}+J_{WC}\right)\Delta t \\
 </div>
 <div class="section" id="Explicit-methods-are-conditionally-stable">
 <h2>Explicit methods are conditionally stable<a class="headerlink" href="#Explicit-methods-are-conditionally-stable" title="Permalink to this headline">¶</a></h2>
-<p>Explicit methods are <strong>conditionally stable</strong>, with conditions that depend upon the gridblock size, the parameters of the system and the time step. The conditions on stability are (for one-dimensional diffusion): <span class="math">\begin{align}
-{\Delta t\over (\Delta x)^2}< {1\over 2 \max D} \label{7fv717}\\
-\end{align}</span> where <span class="math notranslate nohighlight">\(D\)</span> is the diffusion coefficient.</p>
+<p>Explicit methods are <strong>conditionally stable</strong>, with conditions that depend upon the gridblock size, the parameters of the system and the time step. The conditions on stability are (for one-dimensional diffusion):</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+{\Delta t\over (\Delta x)^2}&lt; {1\over 2 \max D} \label{7fv717}\\
+\end{align}</div><p>where <span class="math notranslate nohighlight">\(D\)</span> is the diffusion coefficient.</p>
 </div>
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>

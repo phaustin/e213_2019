@@ -80,4 +80,8 @@ notebooks/2D_Assignment_sparse/2D_Assignment_Transient_sparse.ipynb `2D_Assignme
 notebooks/9_finite_volume_f_diff_8.ipynb                            `9_finite_volume_f_diff_8_html`_                 `9_finite_volume_f_diff_8_py`_                 
 ------------------------------------------------------------------- ------------------------------------------------ ---------------------------------------------- 
 notebooks/class_intro_mar12.ipynb                                   `class_intro_mar12_html`_                        `class_intro_mar12_py`_                        
+------------------------------------------------------------------- ------------------------------------------------ ---------------------------------------------- 
+notebooks/solutions/8_finite_volume_by_hand_ans.ipynb               `8_finite_volume_by_hand_ans_html`_              `8_finite_volume_by_hand_ans_py`_              
+------------------------------------------------------------------- ------------------------------------------------ ---------------------------------------------- 
+notebooks/class_intro_solution.ipynb                                `class_intro_solution_html`_                     `class_intro_solution_py`_                     
 =================================================================== ================================================ ============================================== 

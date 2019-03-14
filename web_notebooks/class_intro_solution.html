@@ -124,7 +124,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/web_notebooks/class_intro_mar12.ipynb.txt"
+  <a href="../_sources/web_notebooks/class_intro_solution.ipynb.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -368,11 +368,13 @@ div.rendered_html tbody tr:hover {
 </li><li><p>5&nbsp;&nbsp;Instance methods</p>
 <ul class="toc-item"><li><p>5.1&nbsp;&nbsp;Passing self to instance methods</p>
 </li></ul></li><li><p>6&nbsp;&nbsp;Your turn</p>
-</li><li><p>7&nbsp;&nbsp;Solution</p>
-</li><li><p>8&nbsp;&nbsp;Summary</p>
-</li><li><p>9&nbsp;&nbsp;Appendix</p>
-<ul class="toc-item"><li><p>9.1&nbsp;&nbsp;Further reading</p>
-</li><li><p>9.2&nbsp;&nbsp;Internet sources for the definitions used in this notebook:</p>
+</li><li><p>7&nbsp;&nbsp;Solution – if you don’t know about class methods</p>
+<ul class="toc-item"><li><p>7.1&nbsp;&nbsp;this works, but suffers from code smell</p>
+</li></ul></li><li><p>8&nbsp;&nbsp;Solution – using class methods</p>
+</li><li><p>9&nbsp;&nbsp;Summary</p>
+</li><li><p>10&nbsp;&nbsp;Appendix</p>
+<ul class="toc-item"><li><p>10.1&nbsp;&nbsp;Further reading</p>
+</li><li><p>10.2&nbsp;&nbsp;Internet sources for the definitions used in this notebook:</p>
 </li></ul></li></ul></div><div class="section" id="Creating-user-defined-types">
 <h1>Creating user-defined types<a class="headerlink" href="#Creating-user-defined-types" title="Permalink to this headline">¶</a></h1>
 <p>This notebook shows how to use classes to compartmentalize information. The basic idea is to produce objects that can contain complex data (called <em>state</em>) but present a few simple, easily documented methods to access that data.</p>
@@ -386,7 +388,7 @@ div.rendered_html tbody tr:hover {
 <h2>Types and classes<a class="headerlink" href="#Types-and-classes" title="Permalink to this headline">¶</a></h2>
 <p>In python, a type and a class are essentially synonyms. Consider the following code example:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -421,7 +423,7 @@ div.rendered_html tbody tr:hover {
 <h2>Class variables<a class="headerlink" href="#Class-variables" title="Permalink to this headline">¶</a></h2>
 <p>Suppose we have some constants that we want to share among every instance of a class. We guarantee that every instance has the same set of constants by making them <strong>class variables</strong></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -443,8 +445,8 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <p>Note the difference between prob1.wx and prob2.wx:</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -456,20 +458,12 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-200.0 300000000.0 300 300000000.0
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="Instance-variables">
 <h2>Instance variables<a class="headerlink" href="#Instance-variables" title="Permalink to this headline">¶</a></h2>
 <p>The whole point of constructing instances is to have them carry unique information. Note that <code class="docutils literal notranslate"><span class="pre">__init__</span></code> has no return line. This is because it doesn’t return a value, instead it modifies the memory of the specific instance being constructed (called <code class="docutils literal notranslate"><span class="pre">self</span></code> ) by setting the instance variables to the values specified by the class constructor. The <code class="docutils literal notranslate"><span class="pre">__init__</span></code> constructor is a regular python function, so it can take default values like this:</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -494,20 +488,12 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-10
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="Instance-methods">
 <h2>Instance methods<a class="headerlink" href="#Instance-methods" title="Permalink to this headline">¶</a></h2>
 <p>A class can define functions (called <code class="docutils literal notranslate"><span class="pre">methods</span></code> when used in a class) in addition to its constructor. This essentially solves the problem of passing many arguments to a function. Consider this new method:</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -545,20 +531,6 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-inside critical_coef
-note that I only need self
-to use all the information inside
-the instance
-
-
-crit_condition=500.0
-</pre></div></div>
-</div>
 <div class="section" id="Passing-self-to-instance-methods">
 <h3>Passing self to instance methods<a class="headerlink" href="#Passing-self-to-instance-methods" title="Permalink to this headline">¶</a></h3>
 <p>Python made the design decision to require that all instance methods take self as their first parameter, even though it isn’t needed when you actually call the method. A language like C++ made a different decision – its version of <code class="docutils literal notranslate"><span class="pre">self</span></code>, called <code class="docutils literal notranslate"><span class="pre">this</span></code>, isn’t needed in c++ method signatures. This rationale for this difference is an example of this line from the <em>Zen of Python</em>:</p>
@@ -574,18 +546,119 @@ crit_condition=500.0
 <li>Test that you can <strong>round trip</strong> an instance of your class by saving it as a dict, then using that dict to construct a new class instance</li>
 <li>Note that <code class="docutils literal notranslate"><span class="pre">from_dict</span></code> doesn’t need any information from the instance in order to create a new object. This is outside the scope of this course, but if/when you learn more about object-oriented programming you’ll see that <code class="docutils literal notranslate"><span class="pre">from_dict</span></code> is an example of a function that should be written as a class method, not an instance method.</li>
 </ul>
+</div>
+<div class="section" id="Solution----if-you-don't-know-about-class-methods">
+<h2>Solution – if you don’t know about class methods<a class="headerlink" href="#Solution----if-you-don't-know-about-class-methods" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<span></span><span class="k">class</span> <span class="nc">Problem_Def</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    this class holds the specifcation for the domain,</span>
+<span class="sd">    including the value of the porosity</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">speed_of_light</span> <span class="o">=</span> <span class="mf">3.0e8</span>  <span class="c1"># m/s</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span> <span class="n">wx</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">wy</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nx</span> <span class="o">=</span> <span class="n">nx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ny</span> <span class="o">=</span> <span class="n">ny</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">poro</span> <span class="o">=</span> <span class="n">poro</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wx</span> <span class="o">=</span> <span class="n">wx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wy</span> <span class="o">=</span> <span class="n">wy</span>
+
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dict</span><span class="p">):</span>
+        <span class="n">nx</span> <span class="o">=</span> <span class="n">input_dict</span><span class="p">[</span><span class="s2">&quot;nx&quot;</span><span class="p">]</span>
+        <span class="n">ny</span> <span class="o">=</span> <span class="n">input_dict</span><span class="p">[</span><span class="s2">&quot;ny&quot;</span><span class="p">]</span>
+        <span class="n">poro</span> <span class="o">=</span> <span class="n">input_dict</span><span class="p">[</span><span class="s2">&quot;poro&quot;</span><span class="p">]</span>
+        <span class="n">wx</span> <span class="o">=</span> <span class="n">input_dict</span><span class="p">[</span><span class="s2">&quot;wx&quot;</span><span class="p">]</span>
+        <span class="n">wy</span> <span class="o">=</span> <span class="n">input_dict</span><span class="p">[</span><span class="s2">&quot;wy&quot;</span><span class="p">]</span>
+        <span class="c1">#</span>
+        <span class="c1"># works, with code smell -- see note 1 below</span>
+        <span class="c1">#</span>
+        <span class="k">return</span> <span class="n">Problem_Def</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span> <span class="n">wx</span><span class="p">,</span> <span class="n">wy</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">out_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">nx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ny</span><span class="p">,</span>
+                        <span class="n">poro</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">poro</span><span class="p">,</span> <span class="n">wx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">wx</span><span class="p">,</span> <span class="n">wy</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">wy</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out_dict</span>
+
+
+<span class="n">prob5</span> <span class="o">=</span> <span class="n">Problem_Def</span><span class="p">(</span><span class="n">n_x</span><span class="p">,</span> <span class="n">n_y</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span> <span class="n">width_x</span><span class="p">,</span> <span class="n">width_y</span><span class="p">)</span>
+<span class="n">dict5</span> <span class="o">=</span> <span class="n">prob5</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+<span class="c1">#</span>
+<span class="c1"># works, with code smell -- seen note 2 below</span>
+<span class="c1">#</span>
+<span class="n">prob6</span> <span class="o">=</span> <span class="n">prob5</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">dict5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="section" id="this-works,-but-suffers-from-code-smell">
+<h3>this works, but suffers from code smell<a class="headerlink" href="#this-works,-but-suffers-from-code-smell" title="Permalink to this headline">¶</a></h3>
+<p>What’s the problem with this?</p>
+<ol class="arabic simple">
+<li>We had to explicity type <code class="docutils literal notranslate"><span class="pre">Problem_Def</span></code> the return line above, limiting code reuse.</li>
+<li>To get object <code class="docutils literal notranslate"><span class="pre">prob6</span></code> using <code class="docutils literal notranslate"><span class="pre">from_dict</span></code>, we need to create an object <code class="docutils literal notranslate"><span class="pre">prob5</span></code> that has that method. We shouldn’t have to create an unnecessary object just to get the <code class="docutils literal notranslate"><span class="pre">from_dict</span></code> method.</li>
+</ol>
 </div>
-<div class="section" id="Solution">
-<h2>Solution<a class="headerlink" href="#Solution" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="Solution----using-class-methods">
+<h2>Solution – using class methods<a class="headerlink" href="#Solution----using-class-methods" title="Permalink to this headline">¶</a></h2>
+<p>Here is the correct way to write <code class="docutils literal notranslate"><span class="pre">from_dict</span></code> method using a &#64;classmethod decorator. Understanding the details of this aren’t necessary for this course, but it would be good to understand why this is different, and why the resulting usage pattern is better.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">class</span> <span class="nc">Problem_Def</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    this class holds the specifcation for the domain,</span>
+<span class="sd">    including the value of the porosity</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">speed_of_light</span> <span class="o">=</span> <span class="mf">3.0e8</span>  <span class="c1"># m/s</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span> <span class="n">wx</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">wy</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nx</span> <span class="o">=</span> <span class="n">nx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ny</span> <span class="o">=</span> <span class="n">ny</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">poro</span> <span class="o">=</span> <span class="n">poro</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wx</span> <span class="o">=</span> <span class="n">wx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wy</span> <span class="o">=</span> <span class="n">wy</span>
+<span class="c1">#</span>
+<span class="c1"># note 1 -- @classmethod is a &quot;decorator&quot; that changes</span>
+<span class="c1"># the meaning of the first argument in from_dict from</span>
+<span class="c1"># the instance (self) to the class (Problem_Def)</span>
+<span class="c1"># so this code will always work, even if we change the</span>
+<span class="c1"># name of the class to New_Problem at some point</span>
+<span class="c1">#</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">input_dict</span><span class="p">):</span>
+        <span class="n">nx</span> <span class="o">=</span> <span class="n">input_dict</span><span class="p">[</span><span class="s2">&quot;nx&quot;</span><span class="p">]</span>
+        <span class="n">ny</span> <span class="o">=</span> <span class="n">input_dict</span><span class="p">[</span><span class="s2">&quot;ny&quot;</span><span class="p">]</span>
+        <span class="n">poro</span> <span class="o">=</span> <span class="n">input_dict</span><span class="p">[</span><span class="s2">&quot;poro&quot;</span><span class="p">]</span>
+        <span class="n">wx</span> <span class="o">=</span> <span class="n">input_dict</span><span class="p">[</span><span class="s2">&quot;wx&quot;</span><span class="p">]</span>
+        <span class="n">wy</span> <span class="o">=</span> <span class="n">input_dict</span><span class="p">[</span><span class="s2">&quot;wy&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span> <span class="n">wx</span><span class="p">,</span> <span class="n">wy</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">out_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">nx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ny</span><span class="p">,</span>
+                        <span class="n">poro</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">poro</span><span class="p">,</span> <span class="n">wx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">wx</span><span class="p">,</span> <span class="n">wy</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">wy</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out_dict</span>
+
+
+<span class="n">prob5</span> <span class="o">=</span> <span class="n">Problem_Def</span><span class="p">(</span><span class="n">n_x</span><span class="p">,</span> <span class="n">n_y</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span> <span class="n">width_x</span><span class="p">,</span> <span class="n">width_y</span><span class="p">)</span>
+<span class="n">dict5</span> <span class="o">=</span> <span class="n">prob5</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+<span class="c1">#</span>
+<span class="c1"># note 2, below we are getting a new instance straight from</span>
+<span class="c1"># the class method, without having to construct prob5 just to call</span>
+<span class="c1"># from_dict</span>
+<span class="c1">#</span>
+<span class="n">prob6</span> <span class="o">=</span> <span class="n">Problem_Def</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">dict5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="Summary">
 <h2>Summary<a class="headerlink" href="#Summary" title="Permalink to this headline">¶</a></h2>

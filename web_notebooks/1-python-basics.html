@@ -473,22 +473,18 @@ div.rendered_html tbody tr:hover {
 <p>If we go up to the previous cell that calculated the rectangle area, what is the output?</p>
 <ul class="simple">
 <li>The calculated area corresponds to the <em>new</em> value of <code class="docutils literal notranslate"><span class="pre">width</span></code> (3.5) even though the cell immediately above shows <code class="docutils literal notranslate"><span class="pre">width</span></code> being assigned a value of 2.5</li>
-<li>Jupyter notebooks are nonlinear—a collection of cells that can be run out of order<ul>
+<li>Jupyter notebooks are nonlinear—a collection of cells that can be run out of order</li>
 <li>Need to be cautious when running cells out of order!</li>
 <li>It’s good practice to periodically restart the kernel and run all cells in order</li>
-</ul>
-</li>
 </ul>
 </div>
 <div class="section" id="Naming-Variables">
 <h1>Naming Variables<a class="headerlink" href="#Naming-Variables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li>Can only use letters, numbers and underscore <code class="docutils literal notranslate"><span class="pre">_</span></code></li>
-<li>Can’t start with a number<ul>
+<li>Can’t start with a number</li>
 <li><code class="docutils literal notranslate"><span class="pre">day1</span></code> is ok, but <code class="docutils literal notranslate"><span class="pre">1day</span></code> will cause an error</li>
-</ul>
-</li>
-<li>Use descriptive names and separate words with an underscore (e.g.&nbsp;<code class="docutils literal notranslate"><span class="pre">first_name</span></code>, <code class="docutils literal notranslate"><span class="pre">land_area</span></code>)</li>
+<li>Use descriptive names and separate words with an underscore (e.g. <code class="docutils literal notranslate"><span class="pre">first_name</span></code>, <code class="docutils literal notranslate"><span class="pre">land_area</span></code>)</li>
 </ul>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -751,10 +747,10 @@ div.rendered_html tbody tr:hover {
 <p><strong>d) Concatenating strings and integers</strong></p>
 <p>Assign a value of <code class="docutils literal notranslate"><span class="pre">2018</span></code> to the variable <code class="docutils literal notranslate"><span class="pre">year</span></code>. What happens if you use the <code class="docutils literal notranslate"><span class="pre">+</span></code> operator to add the string <code class="docutils literal notranslate"><span class="pre">'The</span> <span class="pre">year</span> <span class="pre">is</span> <span class="pre">'</span></code> with the variable <code class="docutils literal notranslate"><span class="pre">year</span></code>, as shown below? (<em>You’ll need to copy the code below into a cell in your notebook in order to run it.</em>)</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">observation</span> <span class="o">=</span> <span class="s1">&#39;The year is &#39;</span> <span class="o">+</span> <span class="n">year</span>
+
+<span class="n">You</span><span class="s1">&#39;ll find you get an error message because Python doesn&#39;</span><span class="n">t</span> <span class="n">know</span> <span class="n">how</span> <span class="n">to</span> <span class="n">add</span> <span class="n">an</span> <span class="n">integer</span> <span class="ow">and</span> <span class="n">a</span> <span class="n">string</span> <span class="n">together</span><span class="o">.</span>
 </pre></div>
 </div>
-<blockquote>
-<div>You’ll find you get an error message because Python doesn’t know how to add an integer and a string together.</div></blockquote>
 <p>You can use <em>typecasting</em> to change the type of an object in Python. For example, you can convert the integer <code class="docutils literal notranslate"><span class="pre">2018</span></code> to the string <code class="docutils literal notranslate"><span class="pre">'2018'</span></code> using the function <code class="docutils literal notranslate"><span class="pre">str()</span></code>. Try running the code below in your notebook and then display the value of the variable <code class="docutils literal notranslate"><span class="pre">observation</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">observation</span> <span class="o">=</span> <span class="s1">&#39;The year is &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
 </pre></div>
@@ -770,7 +766,7 @@ div.rendered_html tbody tr:hover {
 <li><code class="docutils literal notranslate"><span class="pre">10</span> <span class="pre">%</span> <span class="pre">3</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">11</span> <span class="pre">%</span> <span class="pre">3</span></code></li>
 </ul>
-<p>How about the above operations with the <code class="docutils literal notranslate"><span class="pre">%</span></code> operator replaced with the <code class="docutils literal notranslate"><span class="pre">//</span></code> operator (e.g.&nbsp;<code class="docutils literal notranslate"><span class="pre">9</span> <span class="pre">//</span> <span class="pre">3</span></code>)? Based on these results, what do you think the <code class="docutils literal notranslate"><span class="pre">%</span></code> and <code class="docutils literal notranslate"><span class="pre">//</span></code> operators do? <a class="reference external" href="https://jakevdp.github.io/WhirlwindTourOfPython/04-semantics-operators.html">(Hint)</a>.</p>
+<p>How about the above operations with the <code class="docutils literal notranslate"><span class="pre">%</span></code> operator replaced with the <code class="docutils literal notranslate"><span class="pre">//</span></code> operator (e.g. <code class="docutils literal notranslate"><span class="pre">9</span> <span class="pre">//</span> <span class="pre">3</span></code>)? Based on these results, what do you think the <code class="docutils literal notranslate"><span class="pre">%</span></code> and <code class="docutils literal notranslate"><span class="pre">//</span></code> operators do? <a class="reference external" href="https://jakevdp.github.io/WhirlwindTourOfPython/04-semantics-operators.html">(Hint)</a>.</p>
 <p><strong>f) Conditional statements</strong></p>
 <p>Create a conditional statement that prints <code class="docutils literal notranslate"><span class="pre">'Leap</span> <span class="pre">year'</span></code> if the value of the variable <code class="docutils literal notranslate"><span class="pre">year</span></code> is divisible by 4, and <code class="docutils literal notranslate"><span class="pre">'Not</span> <span class="pre">a</span> <span class="pre">leap</span> <span class="pre">year'</span></code> otherwise. Test your conditional statement by assigning different values to <code class="docutils literal notranslate"><span class="pre">year</span></code> and re-running the code.</p>
 </div>
@@ -779,14 +775,12 @@ div.rendered_html tbody tr:hover {
 <h1>Functions<a class="headerlink" href="#Functions" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li>Functions are bundles of code that can be re-used</li>
-<li>Python has many handy built-in functions, for example:<ul>
+<li>Python has many handy built-in functions, for example:</li>
 <li><code class="docutils literal notranslate"><span class="pre">print</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">type</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">round</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">abs</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">sum</span></code></li>
-</ul>
-</li>
 <li>You can also define your own functions</li>
 </ul>
 </div>
@@ -814,11 +808,9 @@ div.rendered_html tbody tr:hover {
 <ul class="simple">
 <li>Inputs to a function are called <strong>arguments</strong></li>
 <li>Arguments can be required or optional</li>
-<li>Functions <strong>return</strong> an output value or a <code class="docutils literal notranslate"><span class="pre">None</span></code> output<ul>
+<li>Functions <strong>return</strong> an output value or a <code class="docutils literal notranslate"><span class="pre">None</span></code> output</li>
 <li><code class="docutils literal notranslate"><span class="pre">round(3.14159)</span></code> returns <code class="docutils literal notranslate"><span class="pre">3</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">print('hello')</span></code> returns <code class="docutils literal notranslate"><span class="pre">None</span></code></li>
-</ul>
-</li>
 </ul>
 <p>Use <code class="docutils literal notranslate"><span class="pre">?</span></code> after the function name to see the documentation. (remove the # to try this)</p>
 <div class="nbinput nblast docutils container">
@@ -832,12 +824,10 @@ div.rendered_html tbody tr:hover {
 </div>
 <ul class="simple">
 <li>Python documentation is sometimes helpful and sometimes totally confusing, especially when you’re first learning the language</li>
-<li>Other online resources can be much more helpful and easier to understand, for example:<ul>
+<li>Other online resources can be much more helpful and easier to understand, for example:</li>
 <li>Tutorials</li>
 <li>Blog posts with examples and code</li>
 <li>Questions and answers posted on Stack Overflow and other forums</li>
-</ul>
-</li>
 <li>Think of Google search as an essential component in your Python workflow!</li>
 </ul>
 <div class="nbinput nblast docutils container">
@@ -1044,7 +1034,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="section" id="Methods">
 <h1>Methods<a class="headerlink" href="#Methods" title="Permalink to this headline">¶</a></h1>
-<p>A <strong>method</strong> is a function that is “attached” to a Python object - e.g.&nbsp;String methods: <code class="docutils literal notranslate"><span class="pre">upper</span></code>, <code class="docutils literal notranslate"><span class="pre">lower</span></code>, <code class="docutils literal notranslate"><span class="pre">capitalize</span></code>, <code class="docutils literal notranslate"><span class="pre">replace</span></code>, <code class="docutils literal notranslate"><span class="pre">strip</span></code>, and many more - We use <strong>dot notation</strong> to access an object’s methods</p>
+<p>A <strong>method</strong> is a function that is “attached” to a Python object - e.g. String methods: <code class="docutils literal notranslate"><span class="pre">upper</span></code>, <code class="docutils literal notranslate"><span class="pre">lower</span></code>, <code class="docutils literal notranslate"><span class="pre">capitalize</span></code>, <code class="docutils literal notranslate"><span class="pre">replace</span></code>, <code class="docutils literal notranslate"><span class="pre">strip</span></code>, and many more - We use <strong>dot notation</strong> to access an object’s methods</p>
 <blockquote>
 <div>Note: Methods are a feature of <em>object oriented programming</em>, which we won’t delve into here, but for more details, check out <a class="reference external" href="https://www.datacamp.com/community/tutorials/python-oop-tutorial">this tutorial</a>.</div></blockquote>
 <div class="nbinput nblast docutils container">
@@ -1342,10 +1332,8 @@ div.rendered_html tbody tr:hover {
 <ul class="simple">
 <li>Dictionaries work a lot like lists - except that they are indexed with <strong>keys</strong>.</li>
 <li>Think about a key as a unique identifier for a set of values in the dictionary.</li>
-<li>Keys can only have particular types - they have to be “hashable”.<ul>
+<li>Keys can only have particular types - they have to be “hashable”.</li>
 <li>Strings and numeric types are acceptable, but lists aren’t.</li>
-</ul>
-</li>
 </ul>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -1378,7 +1366,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p>Trying to use a non-existing key, e.g.&nbsp;from a typo, throws an error message.</p>
+<p>Trying to use a non-existing key, e.g. from a typo, throws an error message.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>

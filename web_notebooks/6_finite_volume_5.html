@@ -392,18 +392,18 @@ div.rendered_html tbody tr:hover {
 </div><p>We just developed the fundamental stencil for 1-D steady-state diffusion in terms of concentrations in gridblocks as:</p>
 <div class="section" id="1-D-steady---state-diffusion-stencil-(aligned-in-the-x-direction)">
 <h2>1-D steady - state diffusion stencil (aligned in the x direction)<a class="headerlink" href="#1-D-steady---state-diffusion-stencil-(aligned-in-the-x-direction)" title="Permalink to this headline">¶</a></h2>
-<p><span class="math">\begin{align}
-&\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) = 0 \label{eq651}\\
-\end{align}</span></p>
-<p>It is convenient to rearrange the stencil and collect terms that multiply <span class="math notranslate nohighlight">\(c_E\)</span>, <span class="math notranslate nohighlight">\(c_C\)</span> and <span class="math notranslate nohighlight">\(c_W\)</span>:</p>
-<p><span class="math">\begin{align}
-&\left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_E - \left(2 D\theta {\Delta y \Delta z \over \Delta x}\right) c_C + \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_W  = 0 \label{eq652}\\
-\end{align}</span></p>
-<p>If each gridblock is the same size, and porosity and the diffusion coefficient are everywhere the same (spatially homogeneous) then the stencil simplifies to:</p>
-<p><span class="math">\begin{align}
-& c_E -  2   c_C +  c_W  = 0 \label{eq653}\\
-\end{align}</span></p>
-</div>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) = 0 \label{eq651}\\
+\end{align}</div><p>It is convenient to rearrange the stencil and collect terms that multiply <span class="math notranslate nohighlight">\(c_E\)</span>, <span class="math notranslate nohighlight">\(c_C\)</span> and <span class="math notranslate nohighlight">\(c_W\)</span>:</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;\left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_E - \left(2 D\theta {\Delta y \Delta z \over \Delta x}\right) c_C + \left(D\theta {\Delta y \Delta z \over \Delta x}\right) c_W  = 0 \label{eq652}\\
+\end{align}</div><p>If each gridblock is the same size, and porosity and the diffusion coefficient are everywhere the same (spatially homogeneous) then the stencil simplifies to:</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp; c_E -  2   c_C +  c_W  = 0 \label{eq653}\\
+\end{align}</div></div>
 </div>
 <div class="section" id="5---gridblock-example">
 <h1>5 - gridblock example<a class="headerlink" href="#5---gridblock-example" title="Permalink to this headline">¶</a></h1>
@@ -411,29 +411,29 @@ div.rendered_html tbody tr:hover {
 <p>The total length of the domain is <span class="math notranslate nohighlight">\(2~m\)</span> in the <span class="math notranslate nohighlight">\(x\)</span> direction, each gridblock is the same size and porosity and diffusion coefficient are spatially homogeneous: * <span class="math notranslate nohighlight">\(\Delta x=0.5 m\)</span> * <span class="math notranslate nohighlight">\(\Delta y=0.3 m\)</span> * <span class="math notranslate nohighlight">\(\Delta z=0.5 m\)</span> * <span class="math notranslate nohighlight">\(D=2\times 10^{-10}~m^2/s\)</span> * <span class="math notranslate nohighlight">\(\theta = 0.25\)</span></p>
 <p>Note that the <em>nodes</em> of gridblock 1 and 5 are located on the boundary.</p>
 <p>The node is on the boundary where the concentration is prescribed, so the equation is simply</p>
-<p><span class="math">\begin{align}
-c_1&= 2000 \label{eq654}\\
-\end{align}</span></p>
-<p>Because each gridblock is the same size and <span class="math notranslate nohighlight">\(D\)</span> and <span class="math notranslate nohighlight">\(\theta\)</span> are spatially homogeneous, we can use the stencil in its simplest form <span class="math">\ref{eq653}</span> and the equation for gridblock 2 becomes:</p>
-<p><span class="math">\begin{align}
-c_1 -2c_2 + c_3 &= 0 \label{eq655}\\
-\end{align}</span></p>
-<p>The equation for gridblock 3:</p>
-<p><span class="math">\begin{align}
-c_2 -2c_3 + c_4 &= 0 \label{eq656}\\
-\end{align}</span></p>
-<p>The equation for gridblock 4:</p>
-<p><span class="math">\begin{align}
-c_3 -2c_4 + c_5  &= 0 \label{eq657}\\
-\end{align}</span></p>
-<p>The node is on the boundary where the concentration is prescribed, so the equation is simply</p>
-<p><span class="math">\begin{align}
-c_5&= 93 \label{eq658}\\
-\end{align}</span></p>
-<table border="1" class="docutils">
+<div class="math notranslate nohighlight">
+\begin{align}
+c_1&amp;= 2000 \label{eq654}\\
+\end{align}</div><p>Because each gridblock is the same size and <span class="math notranslate nohighlight">\(D\)</span> and <span class="math notranslate nohighlight">\(\theta\)</span> are spatially homogeneous, we can use the stencil in its simplest form <span class="math">\ref{eq653}</span> and the equation for gridblock 2 becomes:</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+c_1 -2c_2 + c_3 &amp;= 0 \label{eq655}\\
+\end{align}</div><p>The equation for gridblock 3:</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+c_2 -2c_3 + c_4 &amp;= 0 \label{eq656}\\
+\end{align}</div><p>The equation for gridblock 4:</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+c_3 -2c_4 + c_5  &amp;= 0 \label{eq657}\\
+\end{align}</div><p>The node is on the boundary where the concentration is prescribed, so the equation is simply</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+c_5&amp;= 93 \label{eq658}\\
+\end{align}</div><table border="1" class="docutils">
 <colgroup>
-<col width="23%" />
-<col width="78%" />
+<col width="27%" />
+<col width="73%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Gridblock</th>
@@ -472,21 +472,21 @@ c_5&= 93 \label{eq658}\\
 <h2>Simplify<a class="headerlink" href="#Simplify" title="Permalink to this headline">¶</a></h2>
 <p>We can use the equation for gridblock 1 to simplify the equation for gridblock 2 by substituting the known value of <span class="math notranslate nohighlight">\(c_1\)</span> into equation 2:</p>
 <p><span class="math notranslate nohighlight">\(2000 -2c_2 + c_3 = 0\)</span> or, bringing the known value to the right hand side,</p>
-<p><span class="math">\begin{align}
--2c_2 + c_3 &= -2000 \label{eq659}\\
-\end{align}</span></p>
-<p>Similarly for equation 4,</p>
-<p><span class="math">\begin{align}
-c_3 -2c_4&= -93 \label{eq6510}\\
-\end{align}</span></p>
-</div>
+<div class="math notranslate nohighlight">
+\begin{align}
+-2c_2 + c_3 &amp;= -2000 \label{eq659}\\
+\end{align}</div><p>Similarly for equation 4,</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+c_3 -2c_4&amp;= -93 \label{eq6510}\\
+\end{align}</div></div>
 <div class="section" id="Equations-for-unknown-concentrations">
 <h2>Equations for unknown concentrations<a class="headerlink" href="#Equations-for-unknown-concentrations" title="Permalink to this headline">¶</a></h2>
 <p>Finally collecting all the equations for the unknown concentrations <span class="math notranslate nohighlight">\(c_2\)</span>, <span class="math notranslate nohighlight">\(c_3\)</span>, <span class="math notranslate nohighlight">\(c_4\)</span> together:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="24%" />
-<col width="76%" />
+<col width="29%" />
+<col width="71%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Gridblock</th>

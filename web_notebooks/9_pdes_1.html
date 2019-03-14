@@ -434,19 +434,20 @@ div.rendered_html tbody tr:hover {
 </ol>
 <div class="section" id="2-d-transient-mass---balance-statement">
 <h2>2-d transient mass - balance statement<a class="headerlink" href="#2-d-transient-mass---balance-statement" title="Permalink to this headline">¶</a></h2>
-<p>We’ll do this in 2-d.&nbsp;From that we can easily go to either 3-d or 1-d.</p>
+<p>We’ll do this in 2-d. From that we can easily go to either 3-d or 1-d.</p>
 <p>We’ll consider the transient case, where mass is changing in time in the volume. Let’s consider the simple 2-d stencil, where the gridblock is of size <span class="math notranslate nohighlight">\(\Delta x\)</span>, <span class="math notranslate nohighlight">\(\Delta y\)</span>, <span class="math notranslate nohighlight">\(\Delta z\)</span> (where <span class="math notranslate nohighlight">\(\Delta z\)</span> is into the page in the figure below).</p>
-<p>Recall from notebook <code class="docutils literal notranslate"><span class="pre">5.1_finite_volume_2.ipynb</span></code> A transient conservation statement is * <strong>the change of the quanity in the volume over a time :math:`Delta t` = the net flux of the quantity into the volume over the time period :math:`Delta t`</strong>.</p>
+<p>Recall from notebook <code class="docutils literal notranslate"><span class="pre">5.1_finite_volume_2.ipynb</span></code> A transient conservation statement is * <a href="#id1"><span class="problematic" id="id2">**</span></a>the change of the quanity in the volume over a time <span class="math notranslate nohighlight">\(\Delta t\)</span> = the net flux of the quantity into the volume over the time period <span class="math notranslate nohighlight">\(\Delta t\)</span> <a href="#id3"><span class="problematic" id="id4">**</span></a>.</p>
 <p>To make things more concrete, let’s consider the case where the conserved quantity is mass <span class="math notranslate nohighlight">\(m\)</span>, such as sulfate.</p>
 <p>In one dimension, the transient conservation expression is (from <code class="docutils literal notranslate"><span class="pre">5.1_finite_volume_2.ipynb</span></code>):</p>
-<p><span class="math">\begin{align}
-\Delta m_C = m_C(t+\Delta t) - m_C(t) & = (J_E+J_W)\Delta t \label{1dcons}\\
-\end{align}</span></p>
-<p>where both sides of the equation have dimensions of mass: * <span class="math notranslate nohighlight">\(m_C(t)~\left[M\right]\)</span> is the mass in gridblock C at time <span class="math notranslate nohighlight">\(t\)</span> and <span class="math notranslate nohighlight">\(m_C(t+\Delta t)~\left[M\right]\)</span> is the mass in gridblock C at time <span class="math notranslate nohighlight">\(t+\Delta t\)</span> * <span class="math notranslate nohighlight">\((J_E+J_W)\Delta t~\left[M\right]\)</span> is the net mass that fluxed into volume over time period <span class="math notranslate nohighlight">\(\Delta t\)</span>.</p>
-<p>If we now go to 2-d and express this equation in terms of specific fluxes <span class="math notranslate nohighlight">\({j}\)</span>, and recall that <span class="math notranslate nohighlight">\({J}=jA\)</span> where we multiply the net specific flux by the area of the boundary of volume perpendicular to the flux component (<em>eg</em> for fluxes in the <span class="math notranslate nohighlight">\(x\)</span> direction, the area perpendicular is <span class="math notranslate nohighlight">\(\Delta y \Delta z\)</span>): <span class="math">\begin{align}
+<div class="math notranslate nohighlight">
+\begin{align}
+\Delta m_C = m_C(t+\Delta t) - m_C(t) &amp; = (J_E+J_W)\Delta t \label{1dcons}\\
+\end{align}</div><p>where both sides of the equation have dimensions of mass: * <span class="math notranslate nohighlight">\(m_C(t)~\left[M\right]\)</span> is the mass in gridblock C at time <span class="math notranslate nohighlight">\(t\)</span> and <span class="math notranslate nohighlight">\(m_C(t+\Delta t)~\left[M\right]\)</span> is the mass in gridblock C at time <span class="math notranslate nohighlight">\(t+\Delta t\)</span> * <span class="math notranslate nohighlight">\((J_E+J_W)\Delta t~\left[M\right]\)</span> is the net mass that fluxed into volume over time period <span class="math notranslate nohighlight">\(\Delta t\)</span>.</p>
+<p>If we now go to 2-d and express this equation in terms of specific fluxes <span class="math notranslate nohighlight">\({j}\)</span>, and recall that <span class="math notranslate nohighlight">\({J}=jA\)</span> where we multiply the net specific flux by the area of the boundary of volume perpendicular to the flux component (<em>eg</em> for fluxes in the <span class="math notranslate nohighlight">\(x\)</span> direction, the area perpendicular is <span class="math notranslate nohighlight">\(\Delta y \Delta z\)</span>):</p>
+<div class="math notranslate nohighlight">
+\begin{align}
 \left(m_C(t+\Delta t) - m_C(t)\right) = \left\{\left(j_{EC} + j_{WC}\right) \Delta y \Delta z +  \left(j_{NC} + j_{SC}\right) \Delta x \Delta z \right\}\Delta t \label{7pde1}\\
-\end{align}</span></p>
-</div>
+\end{align}</div></div>
 <div class="section" id="Sign-conventions">
 <h2>Sign conventions<a class="headerlink" href="#Sign-conventions" title="Permalink to this headline">¶</a></h2>
 <p>The next step is to re-express the fluxes in the discrete approximation such as <span class="math notranslate nohighlight">\(j_{EC}\)</span> in terms of components of a flux vector that varies continuously with location (here in 2-d) <span class="math notranslate nohighlight">\(\vec{j}= \left\{j_x, j_y\right\}\)</span> - the “true” flux that is approximated at gridblock edges by <span class="math notranslate nohighlight">\(j_{EC}\)</span>, etc. The only “trick” here is to be careful of the sign conventions.</p>
@@ -457,26 +458,30 @@ div.rendered_html tbody tr:hover {
 <li><span class="math notranslate nohighlight">\(j_{WC}\)</span> corresponds to <span class="math notranslate nohighlight">\(j_x(x,y,z)\)</span> because when <span class="math notranslate nohighlight">\(j_x\)</span> is positive, flux enters C, just like <span class="math notranslate nohighlight">\(j_{WC}\)</span></li>
 <li><span class="math notranslate nohighlight">\(j_{EC}\)</span> corresponds to <span class="math notranslate nohighlight">\(-j_x(x+\Delta x,y,z)\)</span> because when <span class="math notranslate nohighlight">\(-j_x\)</span> is positive flux enters C, just like <span class="math notranslate nohighlight">\(j_{EC}\)</span></li>
 </ul>
-<p>Example, for some hypothetical situation, <span class="math notranslate nohighlight">\(j_x(x,y,z) = 3~mg/(s\cdot m^2)\)</span> and <span class="math notranslate nohighlight">\(j_x(x+\Delta x,y,z) = -2.5~mg/(s\cdot m^2)\)</span>, then * on the W face, <span class="math notranslate nohighlight">\(j_x\)</span> is directed in the positive <span class="math notranslate nohighlight">\(x\)</span> direction, so is flowing into C, so <span class="math notranslate nohighlight">\(j_{WC} = j_x(x,y,z) = 3~ mg/(s\cdot m^2)\)</span> * on the E face, <span class="math notranslate nohighlight">\(j_x\)</span> is directed in the negative <span class="math notranslate nohighlight">\(x\)</span> direction, so is flowing into C, so <span class="math notranslate nohighlight">\(j_{EC} = -j_x(x+\Delta x,y,z) = 2.5 ~mg/(s\cdot m^2)\)</span></p>
+<blockquote>
+<div>Example, for some hypothetical situation, <span class="math notranslate nohighlight">\(j_x(x,y,z) = 3~mg/(s\cdot m^2)\)</span> and <span class="math notranslate nohighlight">\(j_x(x+\Delta x,y,z) = -2.5~mg/(s\cdot m^2)\)</span>, then * on the W face, <span class="math notranslate nohighlight">\(j_x\)</span> is directed in the positive <span class="math notranslate nohighlight">\(x\)</span> direction, so is flowing into C, so <span class="math notranslate nohighlight">\(j_{WC} = j_x(x,y,z) = 3~ mg/(s\cdot m^2)\)</span> * on the E face, <span class="math notranslate nohighlight">\(j_x\)</span> is directed in the negative <span class="math notranslate nohighlight">\(x\)</span> direction, so is flowing into C, so <span class="math notranslate nohighlight">\(j_{EC} = -j_x(x+\Delta x,y,z) = 2.5 ~mg/(s\cdot m^2)\)</span></div></blockquote>
 </div>
 <div class="section" id="Upshot">
 <h2>Upshot<a class="headerlink" href="#Upshot" title="Permalink to this headline">¶</a></h2>
 <p>In our conservation statement <span class="math">\ref{7pde1}</span>, we replace <span class="math notranslate nohighlight">\(j_{WC}\rightarrow j_x(x,y,z)\)</span> and <span class="math notranslate nohighlight">\(j_{EC} \rightarrow -j_x(x+\Delta x,y,z)\)</span>. Similarly, in the <span class="math notranslate nohighlight">\(y\)</span> direction <span class="math notranslate nohighlight">\(j_{SC}\rightarrow j_y(x,y,z)\)</span> and <span class="math notranslate nohighlight">\(j_{NC} \rightarrow -j_y(x,y+\Delta y,z)\)</span> The conservation statement <span class="math">\ref{7pde1}</span> becomes:</p>
-<p><span class="math">\begin{align}
+<div class="math notranslate nohighlight">
+\begin{align}
 m_C(t+\Delta t) - m_C(t) = \left\{\left(-j_x(x+\Delta x,y,z)+j_x(x,y,z) \right) \Delta y \Delta z +  \left(-j_y(x,y+\Delta y,z) + j_y(x,y,z)\right) \Delta x \Delta z \right\}\Delta t \label{7pde2}\\
-\end{align}</span></p>
-</div>
+\end{align}</div></div>
 <div class="section" id="Per-unit-volume,-per-unit-time">
 <h2>Per unit volume, per unit time<a class="headerlink" href="#Per-unit-volume,-per-unit-time" title="Permalink to this headline">¶</a></h2>
-<p>Next, divide the equation by the volume of the control volume (gridblock), <span class="math notranslate nohighlight">\((\Delta x)(\Delta y) (\Delta z)\)</span> and time interval <span class="math notranslate nohighlight">\((\Delta t)\)</span>: <span class="math">\begin{align}
-{m_C(t+\Delta t) - m_C(t)\over (\Delta t)(\Delta x)(\Delta y) (\Delta z)}
-= {-j_x(x+\Delta x,y,z)+j_x(x,y,z) \over  \Delta x} +  {-j_y(x,y+\Delta y,z) + j_y(x,y,z)\over  \Delta y}  \label{7pde3}\\
-\end{align}</span> Because concentration is mass over volume, in <span class="math">\ref{7pde3}</span> we can substitute concentration <span class="math notranslate nohighlight">\(c\)</span> for <span class="math notranslate nohighlight">\(m_C\)</span>, mass in the control volume C. If we substitute <span class="math notranslate nohighlight">\({m_C\over (\Delta x)(\Delta y) (\Delta z)}\rightarrow c\)</span>:</p>
-<p><span class="math">\begin{align}
+<blockquote>
+<div>Next, divide the equation by the volume of the control volume (gridblock), <span class="math notranslate nohighlight">\((\Delta x)(\Delta y) (\Delta z)\)</span> and time interval <span class="math notranslate nohighlight">\((\Delta t)\)</span>:</div></blockquote>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  {m_C(t+\Delta t) - m_C(t)\over (\Delta t)(\Delta x)(\Delta y) (\Delta z)}
+  = {-j_x(x+\Delta x,y,z)+j_x(x,y,z) \over  \Delta x} +  {-j_y(x,y+\Delta y,z) + j_y(x,y,z)\over  \Delta y}  \label{7pde3}\\
+  \end{align}\end{split}\\Because concentration is mass over volume, in :nbsphinx-math:`\ref{7pde3}` we can substitute concentration :math:`c` for :math:`m_C`, mass in the control volume C. If we substitute :math:`{m_C\over (\Delta x)(\Delta y) (\Delta z)}\rightarrow c`:\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\begin{align}
 { c(t+\Delta t) - c(t)\over \Delta t}
 = { -j_x(x+\Delta x,y,z)+j_x(x,y,z)  \over  \Delta x} +  { -j_y(x,y+\Delta y,z) + j_y(x,y,z) \over  \Delta y}  \label{7pde4}\\
-\end{align}</span></p>
-</div>
+\end{align}</div></div>
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
 <p>Answer the following questions in this cell:</p>
@@ -490,21 +495,27 @@ m_C(t+\Delta t) - m_C(t) = \left\{\left(-j_x(x+\Delta x,y,z)+j_x(x,y,z) \right) 
 <h2>Partial differential equation<a class="headerlink" href="#Partial-differential-equation" title="Permalink to this headline">¶</a></h2>
 <p>The conservation equation <span class="math">\ref{7pde4}</span> is an algebraic equation that applies to a finite-sized control volume C. When we divided by volume and time, we re-expressed the expression on a per unit volume, per unit time basis. Next, we are going to take limits and shrink the volume and time to infinitesimals. In the process, the equation will transform from an algebraic equation to a differential equation. Up to now, we have been considering finite-sized volumes and fluxes in and out
 over time periods, with a differential equation, we can think of fluxes in and out of mathematical points over instances in time.</p>
-<p>Recognize <span class="math">\begin{align}
-&\lim_{\Delta t, \Delta x,\Delta y,\Delta z \rightarrow 0} { c(t+\Delta t) - c(t)\over \Delta t} = {\partial c\over \partial t}\\
-&\\
-&\lim_{\Delta t, \Delta x,\Delta y,\Delta z \rightarrow 0}{-j_x(x+\Delta x,y,z)+j_x(x,y,z) \over  \Delta x}= -{\partial j_x\over \partial x}\\
-&\\
-&\lim_{\Delta t, \Delta x,\Delta y,\Delta z \rightarrow 0}{-j_y(x,y+\Delta y,z)+j_y(x,y,z) \over  \Delta y}= -{\partial j_y\over \partial y}\\
-\end{align}</span></p>
-<p>So the algebraic equation becomes the <strong>partial differential equation</strong> (pde) <span class="math">\begin{align}
-{\partial c\over \partial t} &= -{\partial j_x\over \partial x}-{\partial j_y\over \partial y} \label{7pde5}\\
-\end{align}</span> # Conservation of mass equation in 3 dimensions In three dimensions, (Cartesian coordinates): <span class="math">\begin{align}
-{\partial c\over \partial t} &= -{\partial j_x\over \partial x}-{\partial j_y\over \partial y}-{\partial j_z\over \partial z}  \label{7pde6}\\
-\end{align}</span> ## Interpretation You can interpret this pde just the way we interpreted our finite-volume conservation statements: <span class="math">\begin{align}
-\overbrace{\partial c\over \partial t}^\text{rate of mass change at point} &= \underbrace{-{\partial j_x\over \partial x}-{\partial j_y\over \partial y}-{\partial j_z\over \partial z}}_\text{net flux rate into a point}  \label{7pde7}\\
-\end{align}</span></p>
-<p>The left side is the rate of change of mass per unit volume at a point, and the right hand side (the sum of the terms) is the net rate at which mass is fluxing into the point per unit volume.</p>
+<p>Recognize</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  &amp;\lim_{\Delta t, \Delta x,\Delta y,\Delta z \rightarrow 0} { c(t+\Delta t) - c(t)\over \Delta t} = {\partial c\over \partial t}\\
+  &amp;\\
+  &amp;\lim_{\Delta t, \Delta x,\Delta y,\Delta z \rightarrow 0}{-j_x(x+\Delta x,y,z)+j_x(x,y,z) \over  \Delta x}= -{\partial j_x\over \partial x}\\
+  &amp;\\
+  &amp;\lim_{\Delta t, \Delta x,\Delta y,\Delta z \rightarrow 0}{-j_y(x,y+\Delta y,z)+j_y(x,y,z) \over  \Delta y}= -{\partial j_y\over \partial y}\\
+  \end{align}\end{split}\\So the algebraic equation becomes the **partial differential equation** (pde)\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  {\partial c\over \partial t} &amp;= -{\partial j_x\over \partial x}-{\partial j_y\over \partial y} \label{7pde5}\\
+  \end{align}\end{split}\\# Conservation of mass equation in 3 dimensions In three dimensions, (Cartesian coordinates):\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  {\partial c\over \partial t} &amp;= -{\partial j_x\over \partial x}-{\partial j_y\over \partial y}-{\partial j_z\over \partial z}  \label{7pde6}\\
+  \end{align}\end{split}\\## Interpretation You can interpret this pde just the way we interpreted our finite-volume conservation statements:\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\begin{align}
+\overbrace{\partial c\over \partial t}^\text{rate of mass change at point} &amp;= \underbrace{-{\partial j_x\over \partial x}-{\partial j_y\over \partial y}-{\partial j_z\over \partial z}}_\text{net flux rate into a point}  \label{7pde7}\\
+\end{align}</div><p>The left side is the rate of change of mass per unit volume at a point, and the right hand side (the sum of the terms) is the net rate at which mass is fluxing into the point per unit volume.</p>
 </div>
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
@@ -513,9 +524,11 @@ over time periods, with a differential equation, we can think of fluxes in and o
 </div>
 <div class="section" id="Divergence-of-a-vector">
 <h2>Divergence of a vector<a class="headerlink" href="#Divergence-of-a-vector" title="Permalink to this headline">¶</a></h2>
-<p>The <strong>divergence</strong> of a flux vector <span class="math notranslate nohighlight">\(\vec{j}=(j_x, j_y, j_z)\)</span> is a <strong>number</strong>, defined as <span class="math">\begin{align}
-\text{divergence of }\vec{j} &= {{\partial j_x\over \partial x}+{\partial j_y\over \partial y}+{\partial j_z\over \partial z}}  \label{7pde8}\\
-\end{align}</span> In pictures, the divergence is the rate per unit volume at which a flux is spreading <strong>out</strong> from a point. In the picture below, the lines indicate flux directions. On the left, flux is diverging from the point, so at that point it is <strong>positive</strong>. On the right, flux is converging to a point, so the divergence is <strong>negative</strong>.</p>
+<p>The <strong>divergence</strong> of a flux vector <span class="math notranslate nohighlight">\(\vec{j}=(j_x, j_y, j_z)\)</span> is a <strong>number</strong>, defined as</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  \text{divergence of }\vec{j} &amp;= {{\partial j_x\over \partial x}+{\partial j_y\over \partial y}+{\partial j_z\over \partial z}}  \label{7pde8}\\
+  \end{align}\end{split}\\In pictures, the divergence is the rate per unit volume at which a flux is spreading **out** from a point. In the picture below, the lines indicate flux directions. On the left, flux is diverging from the point, so at that point it is **positive**. On the right, flux is converging to a point, so the divergence is **negative**.\end{aligned}\end{align} \]</div>
 </div>
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
@@ -527,81 +540,112 @@ over time periods, with a differential equation, we can think of fluxes in and o
 </div>
 <div class="section" id="Vector-notation">
 <h1>Vector notation<a class="headerlink" href="#Vector-notation" title="Permalink to this headline">¶</a></h1>
-<p>The divergence is a concept from vector calculus and is found in most pdes that describe conservation laws. Accordingly it gets a special <em>nabla</em>, <span class="math notranslate nohighlight">\(\nabla\)</span>, notation (see <a class="reference external" href="https://en.wikipedia.org/wiki/Del">https://en.wikipedia.org/wiki/Del</a>): <span class="math">\begin{align}
-\vec{\nabla} \cdot \vec{j} = \text{div}~\vec{j} = \text{divergence of }\vec{j} &= {{\partial j_x\over \partial x}+{\partial j_y\over \partial y}+{\partial j_z\over \partial z}}  \label{7pde9}\\
-\end{align}</span> The nabla <span class="math notranslate nohighlight">\(\vec{\nabla}\)</span> is a vector - calculus operator: it takes action “operates” on an argument. In Cartesian coordinates, it is often written as a vector: <span class="math">\begin{align}
-\vec{\nabla}  &= \left({{\partial  \over \partial x},{\partial  \over \partial y},{\partial  \over \partial z}}\right)  \label{7pde10}\\
-\end{align}</span> <strong>Divergence of a flux</strong> : the nabla vector maps a flux vector to a scalar number, the divergence (the net flux rate per unit volume):</p>
-<p><span class="math">\begin{align}
-\vec{\nabla} \cdot \vec{j} =\left({{\partial  \over \partial x},{\partial  \over \partial y},{\partial  \over \partial z}}\right)  \cdot \left\{\begin{array}{c}
-j_x\\
-j_y\\
-j_z\\
-\end{array}\right\} = {{\partial j_x\over \partial x}+{\partial j_y\over \partial y}+{\partial j_z\over \partial z}}
-\label{7pde11}
-\end{align}</span> <strong>Gradient of a scalar</strong></p>
-<p>A scalar is a single-valued function: at each point it has one value, unlike a flux which is a vector function - at each point it has 3 components (in a 3-d system). The gradient operator takes a scalar function and produces a vector that points in the direction in which the function is increasing. The nabla notation is used for the gradient (here for the case of concentration <span class="math notranslate nohighlight">\(c\)</span>): <span class="math">\begin{align}
-\vec{\nabla} c &= \left({{\partial c \over \partial x},{\partial c \over \partial y},{\partial c \over \partial z}}\right)  \label{7pde12}\\
-\end{align}</span></p>
-<p>The latter is sometimes written as: <span class="math">\begin{equation}
+<p>The divergence is a concept from vector calculus and is found in most pdes that describe conservation laws. Accordingly it gets a special <em>nabla</em>, <span class="math notranslate nohighlight">\(\nabla\)</span>, notation (see <a class="reference external" href="https://en.wikipedia.org/wiki/Del">https://en.wikipedia.org/wiki/Del</a>):</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  \vec{\nabla} \cdot \vec{j} = \text{div}~\vec{j} = \text{divergence of }\vec{j} &amp;= {{\partial j_x\over \partial x}+{\partial j_y\over \partial y}+{\partial j_z\over \partial z}}  \label{7pde9}\\
+  \end{align}\end{split}\\The nabla :math:`\vec{\nabla}` is a vector - calculus operator: it takes action &quot;operates&quot; on an argument. In Cartesian coordinates, it is often written as a vector:\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  \vec{\nabla}  &amp;= \left({{\partial  \over \partial x},{\partial  \over \partial y},{\partial  \over \partial z}}\right)  \label{7pde10}\\
+  \end{align}\end{split}\\**Divergence of a flux** : the nabla vector maps a flux vector to a scalar number, the divergence (the net flux rate per unit volume):\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  \vec{\nabla} \cdot \vec{j} =\left({{\partial  \over \partial x},{\partial  \over \partial y},{\partial  \over \partial z}}\right)  \cdot \left\{\begin{array}{c}
+  j_x\\
+  j_y\\
+  j_z\\
+  \end{array}\right\} = {{\partial j_x\over \partial x}+{\partial j_y\over \partial y}+{\partial j_z\over \partial z}}
+  \label{7pde11}
+  \end{align}\end{split}\\**Gradient of a scalar**\end{aligned}\end{align} \]</div>
+<p>A scalar is a single-valued function: at each point it has one value, unlike a flux which is a vector function - at each point it has 3 components (in a 3-d system). The gradient operator takes a scalar function and produces a vector that points in the direction in which the function is increasing. The nabla notation is used for the gradient (here for the case of concentration <span class="math notranslate nohighlight">\(c\)</span>):</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+\vec{\nabla} c &amp;= \left({{\partial c \over \partial x},{\partial c \over \partial y},{\partial c \over \partial z}}\right)  \label{7pde12}\\
+\end{align}</div><p>The latter is sometimes written as:</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
 \vec{\nabla} c = \overrightarrow{\text{grad}} c
-\end{equation}</span> <strong>Fick’s law</strong></p>
-<p>Fick’s law of diffusion says that the diffusive flux <span class="math notranslate nohighlight">\(\vec{j}\)</span> is a vector that points in the opposite direction of the concentration gradient. We can now write Fick’s law in vector-calculus nabla notation: <span class="math">\begin{align}
-\vec{j} = -D \vec{\nabla} c &= \left({-D {\partial c \over \partial x},-D {\partial c \over \partial y},-D {\partial c \over \partial z}}\right)  \label{7pde13}\\
-\end{align}</span> where <span class="math notranslate nohighlight">\(D~\left[L^2/T\right]\)</span> is the diffusion coefficient. That is, each component of the diffusive flux is: <span class="math">\begin{align}
-j_x &= - D {\partial c \over \partial x}\\
-j_y &= - D {\partial c\over \partial y}\\
-j_z &= - D {\partial c\over \partial z}\\
-\end{align}</span> ## Why <span class="math notranslate nohighlight">\(\vec{\nabla}\)</span>?</p>
-<p>Why bother with the nabla notation? <strong>Clarity</strong>. Using the nabla notation, we clear up the clutter with partials here and there and make the connection to a conservation law very clear. Our conservation PDE becomes: <span class="math">\begin{align}
-{\partial c\over \partial t} &= -{\partial j_x\over \partial x}-{\partial j_y\over \partial y}-{\partial j_z\over \partial z}  \quad\quad\rightarrow\quad\quad {\partial c\over \partial t}= -\vec{\nabla} \cdot \vec{j}  \label{7pde14}\\
-\end{align}</span> In the righthand form of the equation, we can quickly see the divergence of a flux and “read” the equation quickly. If you see the divergence of a flux, then you are looking at a conservation statement.</p>
+\end{equation}</div><p><strong>Fick’s law</strong></p>
+<p>Fick’s law of diffusion says that the diffusive flux <span class="math notranslate nohighlight">\(\vec{j}\)</span> is a vector that points in the opposite direction of the concentration gradient. We can now write Fick’s law in vector-calculus nabla notation:</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+\vec{j} = -D \vec{\nabla} c &amp;= \left({-D {\partial c \over \partial x},-D {\partial c \over \partial y},-D {\partial c \over \partial z}}\right)  \label{7pde13}\\
+\end{align}</div><p>where <span class="math notranslate nohighlight">\(D~\left[L^2/T\right]\)</span> is the diffusion coefficient. That is, each component of the diffusive flux is:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  j_x &amp;= - D {\partial c \over \partial x}\\
+  j_y &amp;= - D {\partial c\over \partial y}\\
+  j_z &amp;= - D {\partial c\over \partial z}\\
+  \end{align}\end{split}\\## Why :math:`\vec{\nabla}`?\end{aligned}\end{align} \]</div>
+<p>Why bother with the nabla notation? <strong>Clarity</strong>. Using the nabla notation, we clear up the clutter with partials here and there and make the connection to a conservation law very clear. Our conservation PDE becomes:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  {\partial c\over \partial t} &amp;= -{\partial j_x\over \partial x}-{\partial j_y\over \partial y}-{\partial j_z\over \partial z}  \quad\quad\rightarrow\quad\quad {\partial c\over \partial t}= -\vec{\nabla} \cdot \vec{j}  \label{7pde14}\\
+  \end{align}\end{split}\\In the righthand form of the equation, we can quickly see the divergence of a flux and &quot;read&quot; the equation quickly. If you see the divergence of a flux, then you are looking at a conservation statement.\end{aligned}\end{align} \]</div>
 </div>
 <div class="section" id="Diffusion-equation">
 <h1>Diffusion equation<a class="headerlink" href="#Diffusion-equation" title="Permalink to this headline">¶</a></h1>
-<p>We can now put this all together to get the diffusion equation. That is, we substitute components of Fick’s law <span class="math">\ref{7pde13}</span> into the conservation of mass equation <span class="math">\ref{7pde6}</span>: <span class="math">\begin{align}
-&{\partial c\over \partial t} = {\partial \over \partial x}\left( D {\partial c \over \partial x}\right) + {\partial \over \partial y}\left( D {\partial c \over \partial y}\right)+ {\partial \over \partial z}\left( D {\partial c \over \partial z}\right)  \label{7pde15}\\
-\text{or}&\nonumber\\
-&{\partial c\over \partial t} = \vec{\nabla} \cdot (D \vec{\nabla} c)\label{7pde16}\\
-\end{align}</span></p>
-<p>which can also be written as <span class="math">\begin{equation}
+<p>We can now put this all together to get the diffusion equation. That is, we substitute components of Fick’s law <span class="math">\ref{7pde13}</span> into the conservation of mass equation <span class="math">\ref{7pde6}</span>:</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;{\partial c\over \partial t} = {\partial \over \partial x}\left( D {\partial c \over \partial x}\right) + {\partial \over \partial y}\left( D {\partial c \over \partial y}\right)+ {\partial \over \partial z}\left( D {\partial c \over \partial z}\right)  \label{7pde15}\\
+\text{or}&amp;\nonumber\\
+&amp;{\partial c\over \partial t} = \vec{\nabla} \cdot (D \vec{\nabla} c)\label{7pde16}\\
+\end{align}</div><p>which can also be written as</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
 \frac{\partial c}{\partial t} = \text{div} (D \overrightarrow{\text{grad}} c)
-\end{equation}</span></p>
-<p>These notations are used in everywhere the scientific literature, that’s why we are introducing them. But you should be able to make the link between them, and most importantly, relate to the mass-balance problem from which we have started them.</p>
+\end{equation}</div><p>These notations are used in everywhere the scientific literature, that’s why we are introducing them. But you should be able to make the link between them, and most importantly, relate to the mass-balance problem from which we have started them.</p>
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
-<p>Modify this transient 3-d diffusion equation into the steady-state 2-d (<span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> dimensions) equation: <span class="math">\begin{align}
-&{\partial c\over \partial t} = {\partial \over \partial x}\left( D {\partial c \over \partial x}\right) + {\partial \over \partial y}\left( D {\partial c \over \partial y}\right)+ {\partial \over \partial z}\left( D {\partial c \over \partial z}\right)  \label{7pde17}\\
-\end{align}</span></p>
-</div>
+<p>Modify this transient 3-d diffusion equation into the steady-state 2-d (<span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> dimensions) equation:</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;{\partial c\over \partial t} = {\partial \over \partial x}\left( D {\partial c \over \partial x}\right) + {\partial \over \partial y}\left( D {\partial c \over \partial y}\right)+ {\partial \over \partial z}\left( D {\partial c \over \partial z}\right)  \label{7pde17}\\
+\end{align}</div></div>
 <div class="section" id="Constant-diffusion-coefficient">
 <h2>Constant diffusion coefficient<a class="headerlink" href="#Constant-diffusion-coefficient" title="Permalink to this headline">¶</a></h2>
-<p>If the diffusion coefficient does not vary with position (is spatially homogeneous), we can simplify terms in the equation. For example by the chain rule: <span class="math">\begin{align}
-{\partial \over \partial x}\left( D {\partial c \over \partial x}\right)=  {\partial D \over \partial x}{\partial c \over \partial x} + D{\partial^2 c \over \partial x^2}= 0 + D {\partial^2 c\over \partial x^2}  \label{7pde18}\\
-\end{align}</span> since if <span class="math notranslate nohighlight">\(D\)</span> is homogeneous, it is not a function of <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, or <span class="math notranslate nohighlight">\(z\)</span> so <span class="math notranslate nohighlight">\({\partial D\over\partial x}= {\partial D\over\partial y}={\partial D\over\partial z}=0\)</span> and the equation becomes <span class="math">\begin{align}
-&{\partial c\over \partial t} = D{\partial^2 c \over \partial x^2}+ D{\partial^2 c\over \partial y^2}+ D{\partial^2 c\over \partial z^2}  \label{7pde19}\\
-\end{align}</span> This equation is sometimes written using nabla notation as:</p>
-<p><span class="math">\begin{align}
-&{\partial c\over \partial t} = D \nabla^2 c   \label{7pde20}\\
-\end{align}</span></p>
-</div>
+<p>If the diffusion coefficient does not vary with position (is spatially homogeneous), we can simplify terms in the equation. For example by the chain rule:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  {\partial \over \partial x}\left( D {\partial c \over \partial x}\right)=  {\partial D \over \partial x}{\partial c \over \partial x} + D{\partial^2 c \over \partial x^2}= 0 + D {\partial^2 c\over \partial x^2}  \label{7pde18}\\
+  \end{align}\end{split}\\since if :math:`D` is homogeneous, it is not a function of :math:`x`, :math:`y`, or :math:`z` so :math:`{\partial D\over\partial x}= {\partial D\over\partial y}={\partial D\over\partial z}=0` and the equation becomes\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  &amp;{\partial c\over \partial t} = D{\partial^2 c \over \partial x^2}+ D{\partial^2 c\over \partial y^2}+ D{\partial^2 c\over \partial z^2}  \label{7pde19}\\
+  \end{align}\end{split}\\This equation is sometimes written using nabla notation as:\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;{\partial c\over \partial t} = D \nabla^2 c   \label{7pde20}\\
+\end{align}</div></div>
 <div class="section" id="Diffusion-in-porous-media">
 <h2>Diffusion in porous media<a class="headerlink" href="#Diffusion-in-porous-media" title="Permalink to this headline">¶</a></h2>
-<p>Earlier in <code class="docutils literal notranslate"><span class="pre">5.1_finite_volume_3.ipynb</span></code> we saw that Fick’s law of diffusion in porous media is (given here in vector notation): <span class="math">\begin{align}
-\vec{j} = -D\theta\vec{\nabla} c c \label{7pde21}\\
-\end{align}</span> where <span class="math notranslate nohighlight">\(\theta\)</span> is the porosity. To develop the PDE for diffusion in porous media, we have to change the storage term. If the entire control volume is filled with water, then for a dissolved solute like sulfate, the mass of sulfate is the concentration <span class="math notranslate nohighlight">\(\times\)</span> volume of the control volume: <span class="math">\begin{align}
-m_C =c (\Delta x)(\Delta y)(\Delta z) \\
-\end{align}</span> However, in porous media, when the pores are fully saturated with water, the volume of water in the gridblock is porosity <span class="math notranslate nohighlight">\(\times\)</span> total volume: <span class="math notranslate nohighlight">\(\theta (\Delta x)(\Delta y)(\Delta z)\)</span>, so the mass of solute in the water in the gridblock is the volume of water <span class="math notranslate nohighlight">\(\times\)</span> the concentration in the water: <span class="math notranslate nohighlight">\(c \theta (\Delta x)(\Delta y)(\Delta z)\)</span>. Upshot: In our derivation above, wherever we have <span class="math notranslate nohighlight">\(m_C\)</span> we substitute
-<span class="math notranslate nohighlight">\(c\theta (\Delta x)(\Delta y)(\Delta z)\)</span> the result is in our PDE we make this change: <span class="math">\begin{align}
-&{\partial c\over \partial t} \rightarrow  {\partial \theta c\over \partial t}  \label{7pde201}\\
-\end{align}</span> And the equation for diffusion in porous media becomes: <span class="math">\begin{align}
-&{\partial \theta c\over \partial t} = {\partial \over \partial x}\left( D\theta {\partial c \over \partial x}\right) + {\partial \over \partial y}\left( D\theta  {\partial c \over \partial y}\right)+ {\partial \over \partial z}\left( D \theta {\partial c \over \partial z}\right)  \label{7pde22}\\
-\text{or}&\nonumber\\
-&{\partial \theta c\over \partial t} = \nabla \cdot (D \theta \nabla c)\label{7pde23}\\
-\end{align}</span> ## For homogeneous porosity If porosity is spatially homogeneous, much as above when the diffusion coefficient was homogeneous (constant in space and time) it is not a function of the independent variables <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(z\)</span> and <span class="math notranslate nohighlight">\(t\)</span> so we can pull it out of the derivatives:<span class="math notranslate nohighlight">\({\partial \theta c\over \partial t}\rightarrow \theta{\partial c\over \partial t}\)</span> and
-<span class="math notranslate nohighlight">\({\partial \over \partial x}\left( D\theta {\partial c \over \partial x}\right)\rightarrow \theta {\partial \over \partial x}\left( D {\partial c \over \partial x}\right)\)</span> and divide through both sides to get <span class="math">\begin{align}
-&{\partial c\over \partial t} = {\partial \over \partial x}\left( D {\partial c \over \partial x}\right) + {\partial \over \partial y}\left( D {\partial c \over \partial y}\right)+ {\partial \over \partial z}\left( D {\partial c \over \partial z}\right)  \label{7pde24}\\
-\end{align}</span> Surprise! For the case of homogeneous porosity, the equation is the same! However, if you are calculating fluxes between gridblocks, you have to use Fick’s law for porous media, <span class="math notranslate nohighlight">\(\vec{j} = -D\theta \nabla c\)</span>.</p>
+<p>Earlier in <code class="docutils literal notranslate"><span class="pre">5.1_finite_volume_3.ipynb</span></code> we saw that Fick’s law of diffusion in porous media is (given here in vector notation):</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  \vec{j} = -D\theta\vec{\nabla} c c \label{7pde21}\\
+  \end{align}\end{split}\\where :math:`\theta` is the porosity. To develop the PDE for diffusion in porous media, we have to change the storage term. If the entire control volume is filled with water, then for a dissolved solute like sulfate, the mass of sulfate is the concentration :math:`\times` volume of the control volume:\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  m_C =c (\Delta x)(\Delta y)(\Delta z) \\
+  \end{align}\end{split}\\However, in porous media, when the pores are fully saturated with water, the volume of water in the gridblock is porosity :math:`\times` total volume: :math:`\theta (\Delta x)(\Delta y)(\Delta z)`, so the mass of solute in the water in the gridblock is the volume of water :math:`\times` the concentration in the water: :math:`c \theta (\Delta x)(\Delta y)(\Delta z)`. Upshot: In our derivation above, wherever we have :math:`m_C` we substitute :math:`c\theta (\Delta x)(\Delta y)(\Delta z)` the\end{aligned}\end{align} \]</div>
+<p>result is in our PDE we make this change:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  &amp;{\partial c\over \partial t} \rightarrow  {\partial \theta c\over \partial t}  \label{7pde201}\\
+  \end{align}\end{split}\\And the equation for diffusion in porous media becomes:\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  &amp;{\partial \theta c\over \partial t} = {\partial \over \partial x}\left( D\theta {\partial c \over \partial x}\right) + {\partial \over \partial y}\left( D\theta  {\partial c \over \partial y}\right)+ {\partial \over \partial z}\left( D \theta {\partial c \over \partial z}\right)  \label{7pde22}\\
+  \text{or}&amp;\nonumber\\
+  &amp;{\partial \theta c\over \partial t} = \nabla \cdot (D \theta \nabla c)\label{7pde23}\\
+  \end{align}\end{split}\\## For homogeneous porosity If porosity is spatially homogeneous, much as above when the diffusion coefficient was homogeneous (constant in space and time) it is not a function of the independent variables :math:`x`, :math:`y`, :math:`z` and :math:`t` so we can pull it out of the derivatives:\ :math:`{\partial \theta c\over \partial t}\rightarrow \theta{\partial c\over \partial t}` and\end{aligned}\end{align} \]</div>
+<p><span class="math notranslate nohighlight">\({\partial \over \partial x}\left( D\theta {\partial c \over \partial x}\right)\rightarrow \theta {\partial \over \partial x}\left( D {\partial c \over \partial x}\right)\)</span> and divide through both sides to get</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  &amp;{\partial c\over \partial t} = {\partial \over \partial x}\left( D {\partial c \over \partial x}\right) + {\partial \over \partial y}\left( D {\partial c \over \partial y}\right)+ {\partial \over \partial z}\left( D {\partial c \over \partial z}\right)  \label{7pde24}\\
+  \end{align}\end{split}\\Surprise! For the case of homogeneous porosity, the equation is the same! However, if you are calculating fluxes between gridblocks, you have to use Fick's law for porous media, :math:`\vec{j} = -D\theta \nabla c`.\end{aligned}\end{align} \]</div>
 </div>
 </div>
 <div class="section" id="Solving-PDEs:-Boundary---value-problems">
@@ -617,21 +661,23 @@ m_C =c (\Delta x)(\Delta y)(\Delta z) \\
 </div>
 <div class="section" id="Equation">
 <h2>Equation<a class="headerlink" href="#Equation" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>This is a diffusion problem. We argued that because we were looking at a vertical profile in the middle of a large pond, the concentration only varies in one dimension (the vertical). Let’s say <span class="math notranslate nohighlight">\(z\)</span> is the vertical direction. Because the problems is steady, we know <span class="math notranslate nohighlight">\({\partial c\over\partial t} = 0\)</span>. So the equation for steady-state one-dimensional diffusion is: :nbsphinx-math:<a href="#id4"><span class="problematic" id="id5">`</span></a>begin{align}</dt>
-<dd>{partial over partial z}left( D {partial c over partial z}right) =0 label{7pde25}\</dd>
-</dl>
-<p>end{align}`</p>
-<dl class="docutils">
-<dt>Note that <span class="math notranslate nohighlight">\(c\)</span> varies with <span class="math notranslate nohighlight">\(z\)</span> only - it is one-dimensional and since it is steady, it does not vary with time. Therefore since in this case concentration is a function of one variable alone, we don’t need partials and can also write :nbsphinx-math:<a href="#id6"><span class="problematic" id="id7">`</span></a>begin{align}</dt>
-<dd>{dover d z}left( D {d c over d z}right) =0 label{7pde26}\</dd>
-<dt>end{align}` Because the diffusion coefficient is spatially homogeneous, we can pull it out of the derivative (as above): :nbsphinx-math:<a href="#id8"><span class="problematic" id="id9">`</span></a>begin{align}</dt>
-<dd>D{d^2 c over d z^2} =0 label{7pde27}\</dd>
-<dt>end{align}` Finally dividing both sides by the diffusion coefficient <span class="math notranslate nohighlight">\(D\)</span> we have: :nbsphinx-math:<a href="#id10"><span class="problematic" id="id11">`</span></a>begin{align}</dt>
-<dd>{d^2 c over d z^2} =0 label{7pde28}\</dd>
-</dl>
-<p>end{align}`</p>
-</div>
+<p>This is a diffusion problem. We argued that because we were looking at a vertical profile in the middle of a large pond, the concentration only varies in one dimension (the vertical). Let’s say <span class="math notranslate nohighlight">\(z\)</span> is the vertical direction. Because the problems is steady, we know <span class="math notranslate nohighlight">\({\partial c\over\partial t} = 0\)</span>. So the equation for steady-state one-dimensional diffusion is:</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+ {\partial \over \partial z}\left( D {\partial c \over \partial z}\right) =0 \label{7pde25}\\
+\end{align}</div><p>Note that <span class="math notranslate nohighlight">\(c\)</span> varies with <span class="math notranslate nohighlight">\(z\)</span> only - it is one-dimensional and since it is steady, it does not vary with time. Therefore since in this case concentration is a function of one variable alone, we don’t need partials and can also write</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+   {d\over d z}\left( D {d c \over d z}\right) =0 \label{7pde26}\\
+  \end{align}\end{split}\\Because the diffusion coefficient is spatially homogeneous, we can pull it out of the derivative (as above):\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+   D{d^2 c \over d z^2} =0 \label{7pde27}\\
+  \end{align}\end{split}\\Finally dividing both sides by the diffusion coefficient :math:`D` we have:\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\begin{align}
+ {d^2 c \over d z^2} =0 \label{7pde28}\\
+\end{align}</div></div>
 <div class="section" id="Domain">
 <h2>Domain<a class="headerlink" href="#Domain" title="Permalink to this headline">¶</a></h2>
 <p>The figure below shows the domain: the 1-D vertical profile under the middle of the pond:</p>
@@ -659,9 +705,10 @@ m_C =c (\Delta x)(\Delta y)(\Delta z) \\
 <ol class="arabic simple">
 <li>You are clever, and guess that the concentration profile varies linearly with depth. That is, the function is of the form</li>
 </ol>
-<p><span class="math">\begin{align}
-c(z) &= az + b\\
-\end{align}</span> where <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> are some coefficients. What are the values of <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> that satisfy the boundary - value problem? Common sense: the solution has to run linearly between the two boundary points. Solve for <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> and enter their values in the cell below for autograding, i.e.&nbsp;write two lines of python that set:</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+c(z) &amp;= az + b\\
+\end{align}</div><p>where <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> are some coefficients. What are the values of <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> that satisfy the boundary - value problem? Common sense: the solution has to run linearly between the two boundary points. Solve for <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> and enter their values in the cell below for autograding, i.e. write two lines of python that set:</p>
 <p>a= xxx b=xxx</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -726,34 +773,38 @@ c(z) &= az + b\\
 </div>
 <div class="section" id="2-Interpretation">
 <h1>2 Interpretation<a class="headerlink" href="#2-Interpretation" title="Permalink to this headline">¶</a></h1>
-<p>Heat moves by conduction from high temperature to low temperature according to Fourier’s law: <span class="math">\begin{align}
-\vec{q} = -\kappa\nabla u \label{7pde29}\\
-\end{align}</span> where * <span class="math notranslate nohighlight">\(u~\left[\Theta\right]\)</span> is the temperature (typical units of Kelvin)(note that <span class="math notranslate nohighlight">\(\Theta\)</span> is the dimension for temperature) * <span class="math notranslate nohighlight">\(q ~\left[{M \over T^3} \right]\)</span> is the specific heat flux (typical units are Watts per <span class="math notranslate nohighlight">\(m^2\)</span>) * <span class="math notranslate nohighlight">\(\kappa~\left[{M L\over T^3\Theta}\right]\)</span> is the thermal conductivity (typical units are Watts per <span class="math notranslate nohighlight">\(m\)</span> per Kelvin) * <span class="math notranslate nohighlight">\(\nabla u~\left[{\Theta\over L}\right]\)</span> is the temperature gradient (typical units are Kelvin
-per <span class="math notranslate nohighlight">\(m\)</span>).</p>
+<p>Heat moves by conduction from high temperature to low temperature according to Fourier’s law:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  \vec{q} = -\kappa\nabla u \label{7pde29}\\
+  \end{align}\end{split}\\where \* :math:`u~\left[\Theta\right]` is the temperature (typical units of Kelvin)(note that :math:`\Theta` is the dimension for temperature) \* :math:`q ~\left[{M \over T^3} \right]` is the specific heat flux (typical units are Watts per :math:`m^2`) \* :math:`\kappa~\left[{M L\over T^3\Theta}\right]` is the thermal conductivity (typical units are Watts per :math:`m` per Kelvin) \* :math:`\nabla u~\left[{\Theta\over L}\right]` is the temperature gradient (typical units are Kelvin per\end{aligned}\end{align} \]</div>
+<p><span class="math notranslate nohighlight">\(m\)</span>).</p>
 <div class="section" id="1.">
 <h2>1.<a class="headerlink" href="#1." title="Permalink to this headline">¶</a></h2>
 <p>Show that the dimensions of the left and right hand of Fourier’s law are the same:</p>
 <p>Dimensions of <span class="math notranslate nohighlight">\(q\)</span>: <span class="math notranslate nohighlight">\(\left[{M \over T^3} \right]\)</span>; Dimensions of <span class="math notranslate nohighlight">\(-\kappa\nabla u\)</span>: <span class="math notranslate nohighlight">\(\left[{\text{Your dimensions here}}\right]\)</span></p>
-<p>The partial differential equation that governs heat flow by conduction can be written in vector form <span class="math">\begin{align}
-&\rho c_p{\partial u\over \partial t} = \nabla \cdot (\kappa \nabla u)\label{7pde30}\\
-\end{align}</span> where <span class="math notranslate nohighlight">\(\rho~\left[{M\over L^3}\right]\)</span> is the density of the material through which heat is conducting. This equation is called <strong>the heat equation</strong>.</p>
+<p>The partial differential equation that governs heat flow by conduction can be written in vector form</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  &amp;\rho c_p{\partial u\over \partial t} = \nabla \cdot (\kappa \nabla u)\label{7pde30}\\
+  \end{align}\end{split}\\where :math:`\rho~\left[{M\over L^3}\right]` is the density of the material through which heat is conducting. This equation is called **the heat equation**.\end{aligned}\end{align} \]</div>
 </div>
 <div class="section" id="2.">
-<span id="section-1"></span><h2>2.<a class="headerlink" href="#2." title="Permalink to this headline">¶</a></h2>
+<h2>2.<a class="headerlink" href="#2." title="Permalink to this headline">¶</a></h2>
 <p>What are the dimensions of the specific heat capacity <span class="math notranslate nohighlight">\(c_p\)</span>?</p>
 <p><span class="math notranslate nohighlight">\(c_p~\left[{\text{Your dimensions here}}\right]\)</span></p>
 </div>
 <div class="section" id="3.">
-<span id="section-2"></span><h2>3.<a class="headerlink" href="#3." title="Permalink to this headline">¶</a></h2>
+<h2>3.<a class="headerlink" href="#3." title="Permalink to this headline">¶</a></h2>
 <p>What is the physical meaning of the the term <span class="math notranslate nohighlight">\(\rho c_p{\partial u\over \partial t}\)</span> in the heat equation <span class="math">\ref{7pde30}</span>?</p>
 </div>
 <div class="section" id="4.">
-<span id="section-3"></span><h2>4.<a class="headerlink" href="#4." title="Permalink to this headline">¶</a></h2>
+<h2>4.<a class="headerlink" href="#4." title="Permalink to this headline">¶</a></h2>
 <p>Write the transient heat equation in non-vector form in two dimensions (<span class="math notranslate nohighlight">\(x\)</span>, and <span class="math notranslate nohighlight">\(y\)</span>). Hint: look at diffusion equation examples above.</p>
-<p><span class="math">\begin{align}
+<div class="math notranslate nohighlight">
+\begin{align}
 \text{your equation here}
-\end{align}</span></p>
-</div>
+\end{align}</div></div>
 </div>
 
 

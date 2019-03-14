@@ -471,10 +471,10 @@ This is the <strong>conservation principle</strong>.</p>
 <div class="section" id="Simplest-conservation-statement">
 <h2>Simplest conservation statement<a class="headerlink" href="#Simplest-conservation-statement" title="Permalink to this headline">¶</a></h2>
 <p>If we define <span class="math notranslate nohighlight">\(\Delta m\)</span> <span class="math notranslate nohighlight">\(\left[{M}\right]\)</span> as the change in mass in the TMF over time <span class="math notranslate nohighlight">\(\Delta t\)</span> <span class="math notranslate nohighlight">\(\left[{T}\right]\)</span>, and <span class="math notranslate nohighlight">\(m_{in}\)</span> <span class="math notranslate nohighlight">\(\left[{M}\right]\)</span>, <span class="math notranslate nohighlight">\(m_{out}\)</span> <span class="math notranslate nohighlight">\(\left[{M}\right]\)</span> as the masses that entered and exited the TMF over <span class="math notranslate nohighlight">\(\Delta t\)</span>, then an expression for the conservation of mass over time <span class="math notranslate nohighlight">\(\Delta t\)</span> is</p>
-<p><span class="math">\begin{align}
-\Delta m  &= m_{in} - m_{out} \label{eq1} \\
-\end{align}</span></p>
-<p>Recall the square brackets notation <span class="math notranslate nohighlight">\(\left[ \cdot \right]\)</span> is used to indicate the dimension of the term preceding it. The basic dimensions are mass <span class="math notranslate nohighlight">\(M\)</span>, time <span class="math notranslate nohighlight">\(T\)</span>, length <span class="math notranslate nohighlight">\(L\)</span> and temperature <span class="math notranslate nohighlight">\(\Theta\)</span>. It is permissible to compare, equate, add or subtract only those physical quantities that have the same dimensions. In other words, every term in an expression describing a physical system must have the same dimesions.</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+\Delta m  &amp;= m_{in} - m_{out} \label{eq1} \\
+\end{align}</div><p>Recall the square brackets notation <span class="math notranslate nohighlight">\(\left[ \cdot \right]\)</span> is used to indicate the dimension of the term preceding it. The basic dimensions are mass <span class="math notranslate nohighlight">\(M\)</span>, time <span class="math notranslate nohighlight">\(T\)</span>, length <span class="math notranslate nohighlight">\(L\)</span> and temperature <span class="math notranslate nohighlight">\(\Theta\)</span>. It is permissible to compare, equate, add or subtract only those physical quantities that have the same dimensions. In other words, every term in an expression describing a physical system must have the same dimesions.</p>
 <p>In equation <span class="math notranslate nohighlight">\(\ref{eq1}\)</span>, each term is a <strong>mass</strong>. To take this concept further, it is useful to rewrite equation <span class="math notranslate nohighlight">\(\ref{eq1}\)</span> in terms of <strong>fluxes</strong> and <strong>rates</strong>. What the flux?</p>
 <p>A <strong>flux</strong> is something that flows through a surface or substance. In our example, we can conceive of the water (or sulfate) as flowing across the boundary of the TMF (our control volume). The rate at which the mass flows across the boundary is a <strong>mass flux</strong>.</p>
 <p>Fluxes are typically defined in two ways:</p>
@@ -485,10 +485,10 @@ This is the <strong>conservation principle</strong>.</p>
 <p><strong>Example</strong>: mass is entering a volume at the rate of <span class="math notranslate nohighlight">\(30~kg/s\)</span>. The area of the boundary that is crossed to enter the volume is <span class="math notranslate nohighlight">\(10~m^2\)</span>. Then: * the total flux <span class="math notranslate nohighlight">\(J=30~kg/s\)</span>. * the specific flux <span class="math notranslate nohighlight">\(j=3~kg/(s\cdot m^2)\)</span>.</p>
 <p>More generally, <span class="math notranslate nohighlight">\(J= {j A}\)</span>, where <span class="math notranslate nohighlight">\(A\)</span> is the area normal to the direction that a quantity enters the volume:</p>
 <p>So if over the time period <span class="math notranslate nohighlight">\(\Delta t\)</span> a mass of <span class="math notranslate nohighlight">\(m_{in}\)</span> flowed into the TMF, the <strong>total mass flux</strong>, $J_{m~{in}} ~ :nbsphinx-math:<a href="#id1"><span class="problematic" id="id2">`</span></a>left[{Mover T}right] <a href="#id3"><span class="problematic" id="id4">`</span></a>$ is</p>
-<p><span class="math">\begin{align}
-J_{m~in} &= {\Delta m_{in}\over \Delta t} \label{eq2}\\
-\end{align}</span></p>
-<ul class="simple">
+<div class="math notranslate nohighlight">
+\begin{align}
+J_{m~in} &amp;= {\Delta m_{in}\over \Delta t} \label{eq2}\\
+\end{align}</div><ul class="simple">
 <li><span class="math notranslate nohighlight">\({J}\)</span> is notation for the total flux.</li>
 <li><span class="math notranslate nohighlight">\(j\)</span> is notation for a specific flux.</li>
 <li><span class="math notranslate nohighlight">\({J_m}\)</span> is notation for a total <em>mass</em> flux.</li>
@@ -507,10 +507,10 @@ J_{m~in} &= {\Delta m_{in}\over \Delta t} \label{eq2}\\
 <p>As will be clearer later, fluxes, unlike mass, have magnitude and direction - they are vectors. The sign of the flux is used to indicate its direction.</p>
 <p>When we write our conservation expressions, we will use these conventions: * mass flux <strong>entering</strong> the control volume is <strong>positive</strong>; * mass flux <strong>leaving</strong> the volume is <strong>negative</strong>.</p>
 <p>Using this convention, we can write the conservation statement for a TMF as:</p>
-<p><span class="math">\begin{align}
-{\Delta m\over \Delta t}  &= \sum_{i=1}^n J_{i} \label{eq3}\\
-\end{align}</span></p>
-<p>Where the notation <span class="math notranslate nohighlight">\(\sum_{i=1}^n\)</span> means <em>“sum over mass fluxes :math:`i=1,2,ldots, n`”</em>. For example, we could decide to label the flux from the pit into the TMF <span class="math notranslate nohighlight">\(J_1\)</span> and flux at the discharge structure <span class="math notranslate nohighlight">\(J_2\)</span>. Because mass is entering the TMF from the pit, <span class="math notranslate nohighlight">\(J_1\)</span> will be greater than or equal to zero (<span class="math notranslate nohighlight">\(J_1\ge0\)</span>), and because mass is leaving at the discharge structure, <span class="math notranslate nohighlight">\(J_2\)</span> will be less than or equal to zero (<span class="math notranslate nohighlight">\(J_2\le0\)</span>).</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+{\Delta m\over \Delta t}  &amp;= \sum_{i=1}^n J_{i} \label{eq3}\\
+\end{align}</div><p>Where the notation <span class="math notranslate nohighlight">\(\sum_{i=1}^n\)</span> means <em>“sum over mass fluxes :math:`i=1,2,ldots, n`”</em>. For example, we could decide to label the flux from the pit into the TMF <span class="math notranslate nohighlight">\(J_1\)</span> and flux at the discharge structure <span class="math notranslate nohighlight">\(J_2\)</span>. Because mass is entering the TMF from the pit, <span class="math notranslate nohighlight">\(J_1\)</span> will be greater than or equal to zero (<span class="math notranslate nohighlight">\(J_1\ge0\)</span>), and because mass is leaving at the discharge structure, <span class="math notranslate nohighlight">\(J_2\)</span> will be less than or equal to zero (<span class="math notranslate nohighlight">\(J_2\le0\)</span>).</p>
 </div>
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
@@ -527,15 +527,15 @@ J_{m~in} &= {\Delta m_{in}\over \Delta t} \label{eq2}\\
 </div>
 <div class="section" id="Instantaneousness">
 <h2>Instantaneousness<a class="headerlink" href="#Instantaneousness" title="Permalink to this headline">¶</a></h2>
-<p>The simple conservation statement above applies over time period <span class="math notranslate nohighlight">\(\Delta t\)</span>. <strong>Does it apply at every instant in time?</strong> That is, what does the above equation become as <span class="math notranslate nohighlight">\(\Delta t\rightarrow 0\)</span></p>
+<p>The simple conservation statement above applies over time period <span class="math notranslate nohighlight">\(\Delta t\)</span>. <strong>Does it apply at every *instant* in time?</strong> That is, what does the above equation become as <span class="math notranslate nohighlight">\(\Delta t\rightarrow 0\)</span></p>
 </div>
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
 <p>Replace the ??? below with the correct term for the equation <span class="math notranslate nohighlight">\({\Delta m\over \Delta t} = \sum_{i=1}^n J_{i}\)</span> when <span class="math notranslate nohighlight">\(\Delta t\rightarrow 0\)</span>.</p>
-<p><span class="math">\begin{align}
-?? &= \sum_{i=1}^n J_{i} \label{eqfv4} \\
-\end{align}</span></p>
-</div>
+<div class="math notranslate nohighlight">
+\begin{align}
+?? &amp;= \sum_{i=1}^n J_{i} \label{eqfv4} \\
+\end{align}</div></div>
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
 <p>In this cell, write a statement in words that describes the behavior of the system when: 1. <span class="math notranslate nohighlight">\(\sum_{i=1}^n J_{i}=0\)</span> (the net flux entering the control volume is zero) 2. <span class="math notranslate nohighlight">\(\sum_{i=1}^n J_{i}&lt;0\)</span> (the net flux entering the control volume is less than zero) 3. <span class="math notranslate nohighlight">\(\sum_{i=1}^n J_{i}&gt;0\)</span> (the net flux entering the control volume is greater than zero)</p>

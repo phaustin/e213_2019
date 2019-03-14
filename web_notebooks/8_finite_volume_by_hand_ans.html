@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>One dimensional steady-state finite-volume approximation &#8212; E213</title>
+    <title>Assignment Finite volumes by hand - solution &#8212; E213</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -124,7 +124,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/web_notebooks/5.1_finite_volume_3.ipynb.txt"
+  <a href="../_sources/web_notebooks/8_finite_volume_by_hand_ans.ipynb.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -360,215 +360,121 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<h1><p>Table of Contents</p>
-</h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;One dimensional steady-state finite-volume approximation</p>
-<ul class="toc-item"><li><p>1.1&nbsp;&nbsp;Summary to this point</p>
-</li><li><p>1.2&nbsp;&nbsp;Fick’s law of diffusion</p>
-</li><li><p>1.3&nbsp;&nbsp;Your turn</p>
-</li><li><p>1.4&nbsp;&nbsp;Your turn</p>
-</li><li><p>1.5&nbsp;&nbsp;Your turn</p>
-</li><li><p>1.6&nbsp;&nbsp;Your turn</p>
-</li><li><p>1.7&nbsp;&nbsp;Fick’s law of diffusion of solutes in porous media</p>
-</li><li><p>1.8&nbsp;&nbsp;Your turn</p>
-<ul class="toc-item"><li><p>1.8.1&nbsp;&nbsp;Aside: Gradients in 3 dimensions</p>
-</li></ul></li><li><p>1.9&nbsp;&nbsp;Gridblock fluxes in terms of concentrations</p>
-<ul class="toc-item"><li><p>1.9.1&nbsp;&nbsp;1 Total fluxes as specific fluxes</p>
-</li></ul></li><li><p>1.10&nbsp;&nbsp;Your turn</p>
-</li><li><p>1.11&nbsp;&nbsp;Your turn</p>
-<ul class="toc-item"><li><p>1.11.1&nbsp;&nbsp;2 Specific fluxes in terms of Fick’s law</p>
-</li><li><p>1.11.2&nbsp;&nbsp;3 Discrete approximation for Fick’s law</p>
-</li><li><p>1.11.3&nbsp;&nbsp;What is a reasonable way to do this?</p>
-</li></ul></li><li><p>1.12&nbsp;&nbsp;Putting it all together</p>
-</li><li><p>1.13&nbsp;&nbsp;Reflection</p>
-</li></ul></li></ul></div><div class="section" id="One-dimensional-steady-state-finite-volume-approximation">
-<h1>One dimensional steady-state finite-volume approximation<a class="headerlink" href="#One-dimensional-steady-state-finite-volume-approximation" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="Summary-to-this-point">
-<h2>Summary to this point<a class="headerlink" href="#Summary-to-this-point" title="Permalink to this headline">¶</a></h2>
-<p>We have developed a 1-D stencil for a gridblock C to generate an steady-state equation for each interior gridblock:</p>
-<div class="math notranslate nohighlight">
-\begin{align*}
-\left(J_{EC}+J_{WC}\right) &amp;= 0 \\
-\end{align*}</div><p>where the gridblocks are sized <span class="math notranslate nohighlight">\(\Delta x\)</span>, <span class="math notranslate nohighlight">\(\Delta y\)</span>, <span class="math notranslate nohighlight">\(\Delta z\)</span></p>
-<p>We use the stencil to generate the equations for a simple 5 - gridblock example:</p>
-<p>We generated the following equations:</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="23%" />
-<col width="77%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Gridblock</th>
-<th class="head">Equation</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>1</td>
-<td><div class="first last math notranslate nohighlight">
-\[c_1 = 2000\]</div>
-</td>
-</tr>
-<tr class="row-odd"><td>2</td>
-<td><div class="first last math notranslate nohighlight">
-\[\left(J_{12}+J_{32}\right) = 0\]</div>
-</td>
-</tr>
-<tr class="row-even"><td>3</td>
-<td><div class="first last math notranslate nohighlight">
-\[\left(J_{23}+J_{43}\right) = 0\]</div>
-</td>
-</tr>
-<tr class="row-odd"><td>4</td>
-<td><div class="first last math notranslate nohighlight">
-\[\left(J_{34}+J_{54}\right) = 0\]</div>
-</td>
-</tr>
-<tr class="row-even"><td>5</td>
-<td><div class="first last math notranslate nohighlight">
-\[c_5 = 93\]</div>
-</td>
-</tr>
-</tbody>
-</table>
-<p>Recall, the equations for gridblock 1 and 5 came from the boundary conditions.</p>
-<p><strong>Next</strong>: we need to represent the fluxes such as <span class="math notranslate nohighlight">\(J_{12}\)</span> in terms of the dependent variable of interest - concentration. We do that with Fick’s law of diffusion.</p>
+<div class="section" id="Assignment-Finite-volumes-by-hand---solution">
+<h1>Assignment Finite volumes by hand - solution<a class="headerlink" href="#Assignment-Finite-volumes-by-hand---solution" title="Permalink to this headline">¶</a></h1>
 </div>
-<div class="section" id="Fick's-law-of-diffusion">
-<h2>Fick’s law of diffusion<a class="headerlink" href="#Fick's-law-of-diffusion" title="Permalink to this headline">¶</a></h2>
-<p><strong>Concept</strong>: solutes (dissolved substances) move from areas of high concentration to areas of low concentration. (Why?)</p>
-<p>Intuition: * rate of diffusion is proportional to gradient in concentration * mass flows from high concentrations towards lower concentrations</p>
-<div class="math notranslate nohighlight">
-\[flux \propto {dc\over dx}~\left[{M/L^3 \over L}\right]\]</div>
-<p><strong>*Fick’s law*</strong> (the x component)</p>
-<div class="math notranslate nohighlight">
-\begin{align*}
-j_x = - D {\partial c\over \partial x}\\
-\end{align*}</div><p>where * <span class="math notranslate nohighlight">\(j_x~\left[{M\over L^2 T}\right]\)</span> is the x-component of the <strong>specific mass flux</strong>, * <span class="math notranslate nohighlight">\(D\)</span> is the <strong>diffusion coefficient</strong> and * <span class="math notranslate nohighlight">\(\partial c\over \partial x\)</span> is the x-component of the gradient in concentration.</p>
-</div>
-<div class="section" id="Your-turn">
-<h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
-<p>Why the minus sign in Fick’s law?</p>
-<div class="admonition note">
-Your answer here</div>
-</div>
-<div class="section" id="Your-turn">
-<h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
-<p>What are the dimensions of the diffusion coefficient?</p>
-<div class="admonition note">
-Your answer here</div>
-</div>
-<div class="section" id="Your-turn">
-<h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
-<p>What is the magnitude (value) of the concentration gradient?</p>
-<div class="admonition note">
-Your answer here</div>
-</div>
-<div class="section" id="Your-turn">
-<h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic simple">
-<li>What is the direction of the concentration gradient?</li>
-<li>What is the direction in which solutes are diffusing?</li>
-</ol>
-<div class="admonition note">
-Your answer here</div>
-</div>
-<div class="section" id="Fick's-law-of-diffusion-of-solutes-in-porous-media">
-<h2>Fick’s law of diffusion of solutes in porous media<a class="headerlink" href="#Fick's-law-of-diffusion-of-solutes-in-porous-media" title="Permalink to this headline">¶</a></h2>
-<p>We have to modify Fick’s law slightly to apply to porous media. We need to introduce <strong>porosity</strong> to account for the fact that diffusion only occurs in the pore space.</p>
-<div class="math notranslate nohighlight">
-\begin{align*}
-j_x = - D \theta {\partial c \over \partial x}\\
-\end{align*}</div><p>where * <span class="math notranslate nohighlight">\(\theta ~\left[{\cdot}\right]\)</span> is the <strong>porosity</strong> (dimensionless)</p>
-</div>
-<div class="section" id="Your-turn">
-<h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
-<p>Now let’s compute the flux. Consider the same problem as above, where the diffusion coefficient is <span class="math notranslate nohighlight">\(D=10^{-10}~m^2/s\)</span>, and the porosity is <span class="math notranslate nohighlight">\(\theta = 0.3\)</span>.</p>
-<p>If the area perpendicular to this flux direction is <span class="math notranslate nohighlight">\(4\times10^4~m^2\)</span> (the area of the bottom of a modest tailings pond), how much mass is transported by diffusion in one day?</p>
-<p>Recall, that the specific flux <span class="math notranslate nohighlight">\(j\)</span> is the mass flux of solute per unit area per unit time and that <span class="math notranslate nohighlight">\(J=jA\)</span>, where <span class="math notranslate nohighlight">\(A\)</span> is the area normal to (perpendicular to) the component of flux.</p>
-<p>You can use the python cell below to compute the answer.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># here you can use python to compute the flux using the information given above</span>
-</pre></div>
-</div>
-</div>
-<div class="alert alert-warning"><div class="section" id="Aside:-Gradients-in-3-dimensions">
-<h3>Aside: Gradients in 3 dimensions<a class="headerlink" href="#Aside:-Gradients-in-3-dimensions" title="Permalink to this headline">¶</a></h3>
-<p>The gradient is a vector that points in the direction that a function is <em>increasing</em>. In Cartesian coordinates, it has <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span> and <span class="math notranslate nohighlight">\(z\)</span> components. The diffusive flux is a vector that points in the direction that concentration is <em>decreasing</em>. Hence the minus sign in Fick’s law. So the diffusive flux is also a vector:</p>
+<div class="section" id="The-problem">
+<h1>The problem<a class="headerlink" href="#The-problem" title="Permalink to this headline">¶</a></h1>
+<p>Consider the two-dimensional diffusion problem below. There are zero-flux boundary conditions on the top and bottom of the domain, and prescribed concentration (more generally known as Dirichlet or first-type boundary conditions)on the to sides. Each gridblock is the same dimension <span class="math notranslate nohighlight">\(\Delta x = \Delta y = 200~m\)</span>, and <span class="math notranslate nohighlight">\(\Delta z= 3~m\)</span> (out of the page). The gridblock node is placed at Dirichlet (prescribed concentration) boundaries. The diffusion coefficient in each gridblock is as
+shown in the figure and the porosity is <span class="math notranslate nohighlight">\(\theta = 0.25\)</span> is the same everywhere.</p>
+<div class="section" id="Q1-Write-your-2d-Stencil">
+<h2>Q1 Write your 2d Stencil<a class="headerlink" href="#Q1-Write-your-2d-Stencil" title="Permalink to this headline">¶</a></h2>
+<p>In the cell below, enter your stencil in markdown.</p>
 <div class="math notranslate nohighlight">
 \begin{align}
-j_x &amp;= - D\theta {\partial c \over \partial x}\\
-j_y &amp;= - D\theta {\partial c\over \partial y}\\
-j_z &amp;= - D\theta {\partial c\over \partial z}\\
-\end{align}</div><p>We’ve switched to partial derivatives only to indicate that the concentration is a function of several independent variables (<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, and <span class="math notranslate nohighlight">\(z\)</span>). We’ll be pretty loose with our partials and non-partials (impartials??!), but it is almost always clear from the context what is meant.</p>
-</div></div>
-</div>
-<div class="section" id="Gridblock-fluxes-in-terms-of-concentrations">
-<h2>Gridblock fluxes in terms of concentrations<a class="headerlink" href="#Gridblock-fluxes-in-terms-of-concentrations" title="Permalink to this headline">¶</a></h2>
-<p>We’ll do this in three steps: 1. We’ll write the total fluxes in terms of specific fluxes. 2. We’ll write specific fluxes in terms of Fick’s law. 3. We’ll introduce a discrete approximation for Fick’s law.</p>
-<div class="section" id="1-Total-fluxes-as-specific-fluxes">
-<h3>1 Total fluxes as specific fluxes<a class="headerlink" href="#1-Total-fluxes-as-specific-fluxes" title="Permalink to this headline">¶</a></h3>
-<p>Let’s look at our stencil equation:</p>
-<div class="math notranslate nohighlight">
-\[J_{WC}+J_{EC} =0\]</div>
-<p>First, let’s express the total fluxes in terms of specific fluxes:</p>
-<div class="math notranslate nohighlight">
-\[J_{WC}=j_{WC}A\]</div>
-</div>
-</div>
-<div class="section" id="Your-turn">
-<h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
-<p>What is the correct value of the area <span class="math notranslate nohighlight">\(A\)</span> to write <span class="math notranslate nohighlight">\(J_{WC}\)</span> in terms of <span class="math notranslate nohighlight">\(j_{WC}\)</span> for this example?</p>
-<div class="admonition note">
-<p class="admonition-title">Your answer here</p>
-<p>$A= $</p>
-</div>
-</div>
-<div class="section" id="Your-turn">
-<h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
-<p>What is the correct value of the area <span class="math notranslate nohighlight">\(A\)</span> to write <span class="math notranslate nohighlight">\(J_{WC}\)</span> in terms of <span class="math notranslate nohighlight">\(j_{WC}\)</span> for the general case above?</p>
-<div class="admonition note">
-<p class="admonition-title">Your answer here</p>
-<p>$A= $</p>
-<p>(remember to write <span class="math notranslate nohighlight">\(\Delta\)</span>, use <code class="docutils literal notranslate"><span class="pre">$\Delta</span> <span class="pre">$</span></code> - or don’t bother with math type.</p>
-</div>
-<div class="section" id="2-Specific-fluxes-in-terms-of-Fick's-law">
-<h3>2 Specific fluxes in terms of Fick’s law<a class="headerlink" href="#2-Specific-fluxes-in-terms-of-Fick's-law" title="Permalink to this headline">¶</a></h3>
-<p>For a gridblock C oriented as below, what is the appropriate component of Fick’s law?</p>
-<p>Choose one of (erase the two that are incorrect):</p>
+&amp;\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) +\left(D\theta {c_N - c_C \over \Delta y} +   D\theta {c_S - c_C \over \Delta y}   \right) (\Delta x) (\Delta z) =0 \label{8fvbh20}
+\end{align}</div><p>You may also want to simplify your stencil for the case of constant diffusion coefficient and constant gridblock dimensions.</p>
+<p>For constant diffusion and porosity, and <span class="math notranslate nohighlight">\(\Delta x = \Delta y\)</span>:</p>
 <div class="math notranslate nohighlight">
 \begin{align}
-j_x &amp;= - D\theta{\partial c \over \partial x}\\
-j_y &amp;= - D \theta{\partial c\over \partial y}\\
-j_z &amp;= - D\theta {\partial c\over \partial z}\\
+&amp;\left({c_E - c_C } +   {c_W - c_C }   \right)  +\left({c_N - c_C } +   {c_S - c_C }   \right)  =0 \label{8fvbh21}\\
+\Rightarrow\qquad&amp;c_N + c_S + c_E + c_W - 4 c_C = 0 \label{8fvbh22}
 \end{align}</div></div>
-<div class="section" id="3-Discrete-approximation-for-Fick's-law">
-<h3>3 Discrete approximation for Fick’s law<a class="headerlink" href="#3-Discrete-approximation-for-Fick's-law" title="Permalink to this headline">¶</a></h3>
-<p>We need a way to approximate specific fluxes such as <span class="math notranslate nohighlight">\(j_x = - D\theta {\partial c \over \partial x}\)</span> in terms of concentrations at nodal values in the centre of gridblocks as shown below.</p>
+<div class="section" id="The-equations-for-each-gridblock-in-the-mesh.">
+<h2>The equations for each gridblock in the mesh.<a class="headerlink" href="#The-equations-for-each-gridblock-in-the-mesh." title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>How many unknowns are there? In the 2-d problem above, we have 3 rows and 4 columns so <strong>12 unknowns</strong> in total.</div></blockquote>
+<p>Python is organized so that so-called <strong>row-major</strong> numbering is the most efficient. That means we should number our gridblocks as shown here:</p>
 </div>
-<div class="section" id="What-is-a-reasonable-way-to-do-this?">
-<h3>What is a reasonable way to do this?<a class="headerlink" href="#What-is-a-reasonable-way-to-do-this?" title="Permalink to this headline">¶</a></h3>
-<p>Describe in words how you would approach this.</p>
-</div>
-</div>
-<div class="section" id="Putting-it-all-together">
-<h2>Putting it all together<a class="headerlink" href="#Putting-it-all-together" title="Permalink to this headline">¶</a></h2>
-<p>Can you use the three steps above to re-write the stencil</p>
+<div class="section" id="Q3-Put-your-equations-into-the-matrix">
+<h2>Q3 Put your equations into the matrix<a class="headerlink" href="#Q3-Put-your-equations-into-the-matrix" title="Permalink to this headline">¶</a></h2>
+<p>I’ve put some of the easy ones in. You do the rest by replacing the zeros in the markdown array below with the correct coefficients from your equations.</p>
 <div class="math notranslate nohighlight">
-\[J_{WC}+J_{EC} =0\]</div>
-<p>In terms of concentration? We’ll reveal the answer next…</p>
-</div>
-<div class="section" id="Reflection">
-<h2>Reflection<a class="headerlink" href="#Reflection" title="Permalink to this headline">¶</a></h2>
-<p>What have you learned? What have you struggled with? Some thoughts below. Reflect on anything else you have learned or struggled with and write it here.</p>
+\begin{align*} \mathbf{Ac} &amp;= \mathbf{b}\\
+{\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0\\
+1 &amp; -3&amp; 1 &amp; 0 &amp; 0 &amp;1 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
+0 &amp; 1 &amp; -3&amp; 1 &amp; 0 &amp;0 &amp;1 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 1 &amp;-4&amp;1 &amp;0 &amp;0 &amp;1 &amp;0 &amp;0 \\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp;1 &amp;-4&amp;1 &amp;0 &amp;0 &amp;1 &amp;0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;1 &amp;0 &amp;0 &amp;0 &amp;0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;1 &amp;0 &amp;0 &amp;0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;1 &amp;0 &amp;0 &amp;1 &amp;-3&amp;1 &amp;0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;1 &amp;0 &amp;0 &amp;1 &amp;-3&amp;1 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;1 \\
+ \end{bmatrix}}
+\begin{bmatrix}
+c_0\\
+c_1\\
+c_2\\
+c_3\\
+c_4\\
+c_5\\
+c_6\\
+c_7\\
+c_8\\
+c_9\\
+c_{10}\\
+c_{11}\\
+\end{bmatrix}
+&amp;= \begin{bmatrix}
+64\\
+0\\
+0\\
+125\\
+64\\
+0\\
+0\\
+125\\
+64\\
+0\\
+0\\
+125\\
+\end{bmatrix} \end{align*}</div></div>
+<div class="section" id="Q4-Solve-the-system-of-equations">
+<h2>Q4 Solve the system of equations<a class="headerlink" href="#Q4-Solve-the-system-of-equations" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\begin{align}
+\begin{bmatrix}
+c_0\\
+c_1\\
+c_2\\
+c_3\\
+c_4\\
+c_5\\
+c_6\\
+c_7\\
+c_8\\
+c_9\\
+c_{10}\\
+c_{11}\\
+\end{bmatrix}
+&amp;= \begin{bmatrix}
+64\\
+84.333\\
+104.667\\
+125\\
+64\\
+84.333\\
+104.667\\
+125\\
+64\\
+84.333\\
+104.667\\
+125\\
+\end{bmatrix}
+\end{align}</div></div>
+<div class="section" id="Check-your-answer">
+<h2>Check your answer<a class="headerlink" href="#Check-your-answer" title="Permalink to this headline">¶</a></h2>
+<p>Take the equation for any gridblock and substitute in the concentrations you computed. Is the equation satisfied? Consider equation for gridblock 5: <span class="math notranslate nohighlight">\(c_1 + c_4 +c_6 + c_9 - 4 c_5 = 0\)</span>?</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<span></span><span class="mf">84.333333</span> <span class="o">+</span> <span class="mf">64.</span> <span class="o">+</span> <span class="mf">104.666667</span> <span class="o">+</span> <span class="mf">84.333333</span> <span class="o">-</span> <span class="mf">4.</span><span class="o">*</span> <span class="mf">84.333333</span>
 </pre></div>
 </div>
 </div>

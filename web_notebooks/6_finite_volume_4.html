@@ -374,48 +374,49 @@ div.rendered_html tbody tr:hover {
 </li></ul></li></ul></li><li><p>2&nbsp;&nbsp;1-D steady-state diffusion stencil</p>
 <ul class="toc-item"><li><ul class="toc-item"><li><p>2.0.1&nbsp;&nbsp;Your turn</p>
 </li></ul></li><li><p>2.1&nbsp;&nbsp;Reflection</p>
-</li></ul></li></ul></div><div class="section" id="One-dimensional-steady-state-finite-volume-approximation---cont’d">
-<h1>One-dimensional steady-state finite-volume approximation - cont’d<a class="headerlink" href="#One-dimensional-steady-state-finite-volume-approximation---cont’d" title="Permalink to this headline">¶</a></h1>
+</li></ul></li></ul></div><div class="section" id="One-dimensional-steady-state-finite-volume-approximation---cont'd">
+<h1>One-dimensional steady-state finite-volume approximation - cont’d<a class="headerlink" href="#One-dimensional-steady-state-finite-volume-approximation---cont'd" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="Summary-to-this-point">
 <h2>Summary to this point<a class="headerlink" href="#Summary-to-this-point" title="Permalink to this headline">¶</a></h2>
-<p>We want to express the fundamental 1-D steady-state stencil for an interior gridblock C, with neighbours E, W: <span class="math">\begin{align}
-\left(J_{EC}+J_{WC}\right) &= 0 \label{eq5141}\\
-\end{align}</span></p>
-<p>in terms of concentrations. We laid out a three-step program:</p>
+<p>We want to express the fundamental 1-D steady-state stencil for an interior gridblock C, with neighbours E, W:</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+\left(J_{EC}+J_{WC}\right) &amp;= 0 \label{eq5141}\\
+\end{align}</div><p>in terms of concentrations. We laid out a three-step program:</p>
 </div>
 <div class="section" id="1.-Write-the-total-fluxes-in-terms-of-specific-fluxes:">
 <h2>1. Write the total fluxes in terms of specific fluxes:<a class="headerlink" href="#1.-Write-the-total-fluxes-in-terms-of-specific-fluxes:" title="Permalink to this headline">¶</a></h2>
 <p>For a mesh with gridblocks of constant size <span class="math notranslate nohighlight">\(\Delta x\)</span>, <span class="math notranslate nohighlight">\(\Delta y\)</span>, <span class="math notranslate nohighlight">\(\Delta z\)</span> and fluxes along the x-coordinate direction, we can write:</p>
-<p><span class="math">\begin{align}
-&J_{EC}=j_{EC}(\Delta y) (\Delta z)\label{eq5143}\\
-&J_{WC}=j_{WC}(\Delta y) (\Delta z)\label{eq5142}\\
-\end{align}</span></p>
-<p>because the area of the face orthogonal to the <span class="math notranslate nohighlight">\(x\)</span> direction is <span class="math notranslate nohighlight">\((\Delta y)(\Delta z)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;J_{EC}=j_{EC}(\Delta y) (\Delta z)\label{eq5143}\\
+&amp;J_{WC}=j_{WC}(\Delta y) (\Delta z)\label{eq5142}\\
+\end{align}</div><p>because the area of the face orthogonal to the <span class="math notranslate nohighlight">\(x\)</span> direction is <span class="math notranslate nohighlight">\((\Delta y)(\Delta z)\)</span>.</p>
 <p>So in terms of specific fluxes the fundamental 1-D steady-state stencil becomes:</p>
-<p><span class="math">\begin{align}
-&\left(j_{EC}+j_{WC}\right) (\Delta y) (\Delta z) = 0 \label{eq5144}\\
-\end{align}</span></p>
-</div>
-<div class="section" id="2.-Write-specific-fluxes-in-terms-of-Fick’s-law.">
-<h2>2. Write specific fluxes in terms of Fick’s law.<a class="headerlink" href="#2.-Write-specific-fluxes-in-terms-of-Fick’s-law." title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;\left(j_{EC}+j_{WC}\right) (\Delta y) (\Delta z) = 0 \label{eq5144}\\
+\end{align}</div></div>
+<div class="section" id="2.-Write-specific-fluxes-in-terms-of-Fick's-law.">
+<h2>2. Write specific fluxes in terms of Fick’s law.<a class="headerlink" href="#2.-Write-specific-fluxes-in-terms-of-Fick's-law." title="Permalink to this headline">¶</a></h2>
 <p>Since both <span class="math notranslate nohighlight">\(j_{EC}\)</span> and <span class="math notranslate nohighlight">\(j_{WC}\)</span> are aligned with the <span class="math notranslate nohighlight">\(x\)</span> coordinate direction, the appropriate component of the flux vector is <span class="math notranslate nohighlight">\(j_x\)</span>:</p>
-<p><span class="math">\begin{align}
-j_x &= - D\theta{\partial c \over \partial x} \label{eq5145}\\
-\end{align}</span></p>
-</div>
-<div class="section" id="3.-Discrete-approximation-for-Fick’s-law">
-<h2>3. Discrete approximation for Fick’s law<a class="headerlink" href="#3.-Discrete-approximation-for-Fick’s-law" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\begin{align}
+j_x &amp;= - D\theta{\partial c \over \partial x} \label{eq5145}\\
+\end{align}</div></div>
+<div class="section" id="3.-Discrete-approximation-for-Fick's-law">
+<h2>3. Discrete approximation for Fick’s law<a class="headerlink" href="#3.-Discrete-approximation-for-Fick's-law" title="Permalink to this headline">¶</a></h2>
 <p>Consider the stencil below</p>
 <p>To approximate specific fluxes such as <span class="math notranslate nohighlight">\(j_x = - D\theta {\partial c \over \partial x}\)</span> in terms of concentrations at nodal values in the centre of gridblocks, we use <strong>finite-difference approximations</strong>, which are motivated by the definition of the derivative:</p>
-<p><span class="math">\begin{align}
-{\partial c \over \partial x} &= \lim_{\Delta x \rightarrow 0} {c(x+\Delta x) - c(x)\over \Delta x} \label{eq5146}\\
-\end{align}</span></p>
-<p>where <span class="math notranslate nohighlight">\(c(x+\Delta x)\)</span> is notation for “the concentration at the point <span class="math notranslate nohighlight">\(x+\Delta x, y, z\)</span>.”</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+{\partial c \over \partial x} &amp;= \lim_{\Delta x \rightarrow 0} {c(x+\Delta x) - c(x)\over \Delta x} \label{eq5146}\\
+\end{align}</div><p>where <span class="math notranslate nohighlight">\(c(x+\Delta x)\)</span> is notation for “the concentration at the point <span class="math notranslate nohighlight">\(x+\Delta x, y, z\)</span>.”</p>
 <p>We can use this idea to approximate the component of the gradient in <strong>Fick’s law</strong> <span class="math">\ref{eq5145}</span> and compute the fluxes <span class="math notranslate nohighlight">\(j_{EC}\)</span> and <span class="math notranslate nohighlight">\(j_{WC}\)</span> in terms of values of concentration located at the centers of gridblocks <strong>E, C, W</strong> as (here for the case where <span class="math notranslate nohighlight">\(\Delta x\)</span> are the same for each gridblock, so that the nodes are separated by a distance <span class="math notranslate nohighlight">\(\Delta x\)</span>):</p>
-<p><span class="math">\begin{align}
-j_{EC} &\approx D\theta {c_E - c_C \over \Delta x}  \label{eq5147}\\
-\end{align}</span></p>
-<p>Recall that by our convention, <span class="math notranslate nohighlight">\(J_{EC}\)</span> and <span class="math notranslate nohighlight">\(j_{EC}\)</span> are positive (<span class="math notranslate nohighlight">\(&gt;0\)</span>) when mass is entering gridblock C.</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+j_{EC} &amp;\approx D\theta {c_E - c_C \over \Delta x}  \label{eq5147}\\
+\end{align}</div><p>Recall that by our convention, <span class="math notranslate nohighlight">\(J_{EC}\)</span> and <span class="math notranslate nohighlight">\(j_{EC}\)</span> are positive (<span class="math notranslate nohighlight">\(&gt;0\)</span>) when mass is entering gridblock C.</p>
 </div>
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
@@ -464,10 +465,10 @@ j_{EC} &\approx D\theta {c_E - c_C \over \Delta x}  \label{eq5147}\\
 </div><div class="alert alert-info"></div>
 <div class="section" id="Your-turn">
 <h3>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h3>
-<p><span class="math">\begin{align}
-j_{WC} &\approx {????} \label{eq5148}\\
-\end{align}</span></p>
-<ol class="arabic simple">
+<div class="math notranslate nohighlight">
+\begin{align}
+j_{WC} &amp;\approx {????} \label{eq5148}\\
+\end{align}</div><ol class="arabic simple">
 <li>Is the sign of the flux <span class="math notranslate nohighlight">\(j_{WC}\)</span> computed using your expression positive for flux entering gridblock C?</li>
 <li>Assume values for <span class="math notranslate nohighlight">\(c_w\)</span> and <span class="math notranslate nohighlight">\(c_C\)</span>, and show that the sign works out.</li>
 </ol>
@@ -477,16 +478,16 @@ j_{WC} &\approx {????} \label{eq5148}\\
 <div class="section" id="1-D-steady-state-diffusion-stencil">
 <h1>1-D steady-state diffusion stencil<a class="headerlink" href="#1-D-steady-state-diffusion-stencil" title="Permalink to this headline">¶</a></h1>
 <p>Bringing it all together, the 1-D steady-state diffusion stencil in terms of specific fluxes</p>
-<p><span class="math">\begin{align*}
-&\left(j_{EC}+j_{WC}\right) (\Delta y) (\Delta z) = 0 \\
-\end{align*}</span></p>
-<p>becomes in terms of concentrations:</p>
+<div class="math notranslate nohighlight">
+\begin{align*}
+&amp;\left(j_{EC}+j_{WC}\right) (\Delta y) (\Delta z) = 0 \\
+\end{align*}</div><p>becomes in terms of concentrations:</p>
 <div class="admonition note">
 <p class="admonition-title">-replace <span class="math notranslate nohighlight">\(j_{WC}\)</span> with the correct expression in terms of concentration.</p>
-<p><span class="math">\begin{align}
-&\left(D\theta {c_E - c_C \over \Delta x} +   j_{WC}   \right) (\Delta y) (\Delta z) = 0 \label{eq5149}\\
-\end{align}</span></p>
-</div>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;\left(D\theta {c_E - c_C \over \Delta x} +   j_{WC}   \right) (\Delta y) (\Delta z) = 0 \label{eq5149}\\
+\end{align}</div></div>
 <div class="section" id="Reflection">
 <h2>Reflection<a class="headerlink" href="#Reflection" title="Permalink to this headline">¶</a></h2>
 <p>What have you learned? What have you struggled with? Reflect on anything else you have learned or struggled with and write it here.</p>

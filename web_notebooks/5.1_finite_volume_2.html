@@ -220,10 +220,10 @@
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
 <p>Write in words the meaning of the following equation</p>
-<p><span class="math">\begin{align}
-\Delta m_C = m_C(t+\Delta t) - m_C(t) & = (J_E+J_W)\Delta t \label{1dcons}\\
-\end{align}</span></p>
-<p>Your answer here</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+\Delta m_C = m_C(t+\Delta t) - m_C(t) &amp; = (J_E+J_W)\Delta t \label{1dcons}\\
+\end{align}</div><p>Your answer here</p>
 </div>
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
@@ -246,10 +246,10 @@
 <h3>Fluxes<a class="headerlink" href="#Fluxes" title="Permalink to this headline">¶</a></h3>
 <p>Define fluxes: * <span class="math notranslate nohighlight">\(J_{WC}~\left[M\over T\right]\)</span> as the total mass flux between the W and C gridblocks (positive if mass is entering C). * <span class="math notranslate nohighlight">\(J_{EC}~\left[M\over T\right]\)</span> as the total mass flux between the E and C gridblock (positive if mass is entering C).</p>
 <p>The mass conservation statement for gridblock C over time period <span class="math notranslate nohighlight">\(\Delta t\)</span> is then</p>
-<p><span class="math">\begin{align*}
-m_C(t+\Delta t) - m_C(t) & = \left(J_{EC}+J_{WC}\right)\Delta t \\
-\end{align*}</span></p>
-</div>
+<div class="math notranslate nohighlight">
+\begin{align*}
+m_C(t+\Delta t) - m_C(t) &amp; = \left(J_{EC}+J_{WC}\right)\Delta t \\
+\end{align*}</div></div>
 </div>
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
@@ -269,10 +269,10 @@ m_C(t+\Delta t) - m_C(t) & = \left(J_{EC}+J_{WC}\right)\Delta t \\
 <p>Consider a grid with 5 gridblocks. From your answer above, the steady-state 1-d finite volume equation for gridblock C is <span class="math notranslate nohighlight">\(J_{WC}+J_{EC}=0\)</span>.</p>
 <p>We can apply the stencil to the interior gridblocks of our 5 - gridblock example. Let’s start with gridblock 2. We align the stencil so that C corresponds to gridblock 2:</p>
 <p>You see then that in the stencil equation <span class="math notranslate nohighlight">\(J_{WC}+J_{EC}=0\)</span>, we replace C with 2, W with 1 and E with 3, so we have: #### Gridblock 2:</p>
-<p><span class="math">\begin{align}
+<div class="math notranslate nohighlight">
+\begin{align}
 J_{12} + J_{32} = 0\\
-\end{align}</span></p>
-</div>
+\end{align}</div></div>
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
 <p>Replace the steady-state finite volume stencil equation for gridblock C with the correct equation for gridblock 3, and gridblock 4.</p>

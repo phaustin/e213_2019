@@ -382,56 +382,62 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="1-D-steady---state-diffusion-stencil-(aligned-in-the-x-direction)">
 <h2>1-D steady - state diffusion stencil (aligned in the x direction)<a class="headerlink" href="#1-D-steady---state-diffusion-stencil-(aligned-in-the-x-direction)" title="Permalink to this headline">¶</a></h2>
 <p>For every cell (gridblock) within the domain (not on the boundary), we can write that (for the steady-state), the sum of all fluxes is zero.</p>
-<p><span class="math">\begin{align}
-&\left(D\theta \frac{c_E - c_C}{\Delta x} +   D\theta \frac{c_W - c_E}{ \Delta x}   \right) (\Delta y) (\Delta z) = 0 \\
-\end{align}</span></p>
-<p>For the cells corresponding to the boundary problem, the equations are simple:</p>
-<p><span class="math">\begin{equation}
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;\left(D\theta \frac{c_E - c_C}{\Delta x} +   D\theta \frac{c_W - c_E}{ \Delta x}   \right) (\Delta y) (\Delta z) = 0 \\
+\end{align}</div><p>For the cells corresponding to the boundary problem, the equations are simple:</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
 c_{\mathrm{left}} = \text{Specified value for the left side of the domain}
-\end{equation}</span> <span class="math">\begin{equation}
+\end{equation}\begin{equation}
 c_{\mathrm{right}} = \text{Specified value for the right side of the domain}
-\end{equation}</span></p>
-</div>
+\end{equation}</div></div>
 <div class="section" id="Translation-into-a-computational-problem">
 <h2>Translation into a computational problem<a class="headerlink" href="#Translation-into-a-computational-problem" title="Permalink to this headline">¶</a></h2>
 <p>We have seen that this stencil can be applied to any grid block and this lead to a system of <span class="math notranslate nohighlight">\(n\)</span> equations, where <span class="math notranslate nohighlight">\(n\)</span> is the number of gridblocks. These equations can be written in a matrix form</p>
-<p><span class="math">\begin{equation}
+<div class="math notranslate nohighlight">
+\begin{equation}
 Ac = b
-\end{equation}</span></p>
-<p>where A is a 2D matrix (<span class="math notranslate nohighlight">\(n \times n\)</span>), c is the solution vector (array of size <span class="math notranslate nohighlight">\(n\)</span>) and b is the right hand side (array of size <span class="math notranslate nohighlight">\(n\)</span>).</p>
+\end{equation}</div><p>where A is a 2D matrix (<span class="math notranslate nohighlight">\(n \times n\)</span>), c is the solution vector (array of size <span class="math notranslate nohighlight">\(n\)</span>) and b is the right hand side (array of size <span class="math notranslate nohighlight">\(n\)</span>).</p>
 <p>Apart from the boundary conditions, every line of this matrix represents the equation above:</p>
-<p><span class="math">\begin{equation}
+<div class="math notranslate nohighlight">
+\begin{equation}
 \left( -2  \frac{D\theta}{\Delta x} c_C + \frac{D\theta}{\Delta x}c_E + \frac{D\theta}{\Delta x} c_W \right) \Delta y \Delta z  = 0
-\end{equation}</span></p>
-<p>In a computational sense, this can be written as:</p>
-<p><span class="math">\begin{equation}
+\end{equation}</div><p>In a computational sense, this can be written as:</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
 \left( -2  \frac{D\theta}{\Delta x} c_{\left[i\right]}  + \frac{D\theta}{\Delta x}c_{\left[i-1\right]} +   \frac{D\theta}{\Delta x} c_{\left[i+1\right]} \right) \Delta y \Delta z  = 0
-\end{equation}</span></p>
-<p>Therefore, for line <span class="math notranslate nohighlight">\(i\)</span>, representing the <span class="math notranslate nohighlight">\(i^{th}\)</span> gridblock, the value for the <span class="math notranslate nohighlight">\(i-1\)</span> columnn of matrix <span class="math notranslate nohighlight">\(A\)</span> should be <span class="math">\begin{equation}
+\end{equation}</div><p>Therefore, for line <span class="math notranslate nohighlight">\(i\)</span>, representing the <span class="math notranslate nohighlight">\(i^{th}\)</span> gridblock, the value for the <span class="math notranslate nohighlight">\(i-1\)</span> columnn of matrix <span class="math notranslate nohighlight">\(A\)</span> should be</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
 A\left[i \right]\left[i-1 \right] = + \frac{D\theta}{\Delta x}\Delta y \Delta z
-\end{equation}</span></p>
-<p>The value representing the contribution from the cell on the right (<span class="math notranslate nohighlight">\(i+1\)</span> column) is <span class="math">\begin{equation}
+\end{equation}</div><p>The value representing the contribution from the cell on the right (<span class="math notranslate nohighlight">\(i+1\)</span> column) is</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
 A\left[i \right]\left[i+1 \right] = + \frac{D\theta}{\Delta x}\Delta y \Delta z
-\end{equation}</span></p>
-<p>And the term on the diagonal is <span class="math">\begin{equation}
+\end{equation}</div><p>And the term on the diagonal is</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
 A\left[i \right]\left[i\right] = -2 \frac{D\theta}{\Delta x}\Delta y \Delta z
-\end{equation}</span></p>
-<p>The boundary conditions will be written as:</p>
-<p><span class="math">\begin{equation}
+\end{equation}</div><p>The boundary conditions will be written as:</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
 c{\left[0\right]}   = c_{\text{left}}
-\end{equation}</span> <span class="math">\begin{equation}
+\end{equation}\begin{equation}
 c{\left[n-1\right]}   = c_{\text{right}}
-\end{equation}</span> So that means that the matrix A will have: <span class="math">\begin{equation}
+\end{equation}</div><p>So that means that the matrix A will have:</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
 A\left[0 \right]\left[0 \right] = 1
-\end{equation}</span> <span class="math">\begin{equation}
+\end{equation}\begin{equation}
 A\left[n-1 \right]\left[n-1 \right] = 1
-\end{equation}</span></p>
-<p>And the boundary conditions have to be in the vector <span class="math notranslate nohighlight">\(b\)</span> (the right-hand-side): <span class="math">\begin{equation}
+\end{equation}</div><p>And the boundary conditions have to be in the vector <span class="math notranslate nohighlight">\(b\)</span> (the right-hand-side):</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
 b{\left[0 \right]} = c_{\text{left}}
-\end{equation}</span> <span class="math">\begin{equation}
+\end{equation}\begin{equation}
 b{\left[n-1 \right]} = c_{\text{right}}
-\end{equation}</span></p>
-</div>
+\end{equation}</div></div>
 <div class="section" id="Building-these-matrixes">
 <h2>Building these matrixes<a class="headerlink" href="#Building-these-matrixes" title="Permalink to this headline">¶</a></h2>
 <p>In the cell below, we have defined a function which builds the matrix A and the vector b. A lot of comments are given. We strongly advise you to make the link between the code and the previous equation. We don’t need you to be able to write this alone, or by memory, but to be able to understand these lines and adapt them.</p>
@@ -582,8 +588,8 @@ b{\left[n-1 \right]} = c_{\text{right}}
 </div>
 </div>
 </div>
-<div class="section" id="Don’t-forget-that-you-can-always-get-help-to-know-what-a-function-does,">
-<h1>Don’t forget that you can always get help to know what a function does,<a class="headerlink" href="#Don’t-forget-that-you-can-always-get-help-to-know-what-a-function-does," title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Don't-forget-that-you-can-always-get-help-to-know-what-a-function-does,">
+<h1>Don’t forget that you can always get help to know what a function does,<a class="headerlink" href="#Don't-forget-that-you-can-always-get-help-to-know-what-a-function-does," title="Permalink to this headline">¶</a></h1>
 <p>help(build_1d_matrix)</p>
 </div>
 <div class="section" id="Assignment">
@@ -622,25 +628,26 @@ of sediments in <span class="math notranslate nohighlight">\(1~m^3\)</span> of p
 <div class="section" id="Add-the-source-term-to-the-discrete-approximation">
 <h2>Add the source term to the discrete approximation<a class="headerlink" href="#Add-the-source-term-to-the-discrete-approximation" title="Permalink to this headline">¶</a></h2>
 <p>To determine how to account for a source in our discrete approximation, recall our steady-state statement in its most fundamental (total flux) form:</p>
-<p><span class="math">\begin{align}
+<div class="math notranslate nohighlight">
+\begin{align}
 J_{EC}+J_{WC} = 0\\
-\end{align}</span></p>
-<p>In words, this equation says: the <em>rate</em> of mass fluxing (either in or out) from E, plus the <em>rate</em> of mass fluxing either in or out from W sums to zero. Both <span class="math notranslate nohighlight">\(J_{WC}\)</span> and <span class="math notranslate nohighlight">\(J_{EC}\)</span> have dimensions of <span class="math notranslate nohighlight">\(\left[M\over T\right]\)</span>.</p>
+\end{align}</div><p>In words, this equation says: the <em>rate</em> of mass fluxing (either in or out) from E, plus the <em>rate</em> of mass fluxing either in or out from W sums to zero. Both <span class="math notranslate nohighlight">\(J_{WC}\)</span> and <span class="math notranslate nohighlight">\(J_{EC}\)</span> have dimensions of <span class="math notranslate nohighlight">\(\left[M\over T\right]\)</span>.</p>
 <p>What if in addition to mass fluxing in and out by diffusion at rates <span class="math notranslate nohighlight">\(J_{WC}\)</span> and <span class="math notranslate nohighlight">\(J_{EC}\)</span>, mass is also being created inside C at some rate <span class="math notranslate nohighlight">\(Q~\left[M\over T\right]\)</span>? How does the fundamental equation change?</p>
 <p>If you get that, then you can follow the steps from earlier notebooks where we developed this stencil for the sitation where there is no source:</p>
-<p><span class="math">\begin{align}
-&\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x} \right) (\Delta y) (\Delta z) = 0 \\
-\end{align}</span></p>
-<p>We want you to write the equivalent stencil for the case where there is a source of mass <span class="math notranslate nohighlight">\(q ~ mg/(kg\cdot s)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x} \right) (\Delta y) (\Delta z) = 0 \\
+\end{align}</div><p>We want you to write the equivalent stencil for the case where there is a source of mass <span class="math notranslate nohighlight">\(q ~ mg/(kg\cdot s)\)</span>.</p>
 <p><strong>Enter your answer below</strong></p>
-<p>Replace the 1-D steady-state fundamental equation below with the appropriate 1-D steady-state fundamental equation with a source term: <span class="math">\begin{align}
+<p>Replace the 1-D steady-state fundamental equation below with the appropriate 1-D steady-state fundamental equation with a source term:</p>
+<div class="math notranslate nohighlight">
+\begin{align}
 J_{EC}+J_{WC} = 0\\
-\end{align}</span></p>
-<p>Replace the 1-D steady-state W-C-E stencil below with the appropriate 1-D steady-state W-C-E stencil with a source of mass per unit mass of sediment:</p>
-<p><span class="math">\begin{align}
-&\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x} \right) (\Delta y) (\Delta z) = 0 \\
-\end{align}</span></p>
-<div class="section" id="Question1:-Modify-the-code">
+\end{align}</div><p>Replace the 1-D steady-state W-C-E stencil below with the appropriate 1-D steady-state W-C-E stencil with a source of mass per unit mass of sediment:</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x} \right) (\Delta y) (\Delta z) = 0 \\
+\end{align}</div><div class="section" id="Question1:-Modify-the-code">
 <h3>Question1: Modify the code<a class="headerlink" href="#Question1:-Modify-the-code" title="Permalink to this headline">¶</a></h3>
 <p>What we want is for you to modify the function which we have given you to incorporate the source term Q and compute the concentration. Therefore, we want you to copy and paste the function above, change its name.</p>
 <p>Don’t forget you are defining a function, so it should start like: def NAME_OF_THE_FUNCTION(ARGUMENT1,ARGUMENT2,…):</p>
@@ -803,27 +810,30 @@ J_{EC}+J_{WC} = 0\\
 </div>
 <div class="section" id="Discrete-approximation-in-2-dimensions">
 <h2>Discrete approximation in 2 dimensions<a class="headerlink" href="#Discrete-approximation-in-2-dimensions" title="Permalink to this headline">¶</a></h2>
-<p>The fundamental equation in 2 dimensions is <span class="math">\begin{align}
+<p>The fundamental equation in 2 dimensions is</p>
+<div class="math notranslate nohighlight">
+\begin{align}
 J_{EC}+J_{WC}+J_{NC}+J_{SC} = 0\\
-\end{align}</span> where now our stencil is in the shape of a cross <code class="docutils literal notranslate"><span class="pre">+</span></code>, with North, South, East and West, and Centre.</p>
-<p>Adapt the 1-D, E-W equation to two dimensions <span class="math">\begin{align}
-&\left(D\theta \frac{c_E - c_C}{\Delta x} +   D\theta \frac{c_W - c_C}{\Delta x}   \right) (\Delta y) (\Delta z) = 0 \\
-\end{align}</span></p>
-<p>in 2D. Use N to denote North, and S to denote South.</p>
+\end{align}</div><p>where now our stencil is in the shape of a cross <code class="docutils literal notranslate"><span class="pre">+</span></code>, with North, South, East and West, and Centre.</p>
+<p>Adapt the 1-D, E-W equation to two dimensions</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;\left(D\theta \frac{c_E - c_C}{\Delta x} +   D\theta \frac{c_W - c_C}{\Delta x}   \right) (\Delta y) (\Delta z) = 0 \\
+\end{align}</div><p>in 2D. Use N to denote North, and S to denote South.</p>
 <p><img alt="image0" src="../_images/nsewc_stencil.png" /></p>
 <p>(if you can’t deal with math type, write is as understandably as possible!).</p>
 <div class="section" id="Question-3:-Write-a-2-D-steady-state-stencil">
 <h3>Question 3: Write a 2-D steady-state stencil<a class="headerlink" href="#Question-3:-Write-a-2-D-steady-state-stencil" title="Permalink to this headline">¶</a></h3>
 <p><strong>Your answer here</strong></p>
 <p>Replace the 1-D steady-state stencil below with the appropriate 2-D steady-state stencil:</p>
-<p><span class="math">\begin{align}
-&\left(D\theta \frac{c_E - c_C}{\Delta x} +   D\theta \frac{c_W - c_C}{\Delta x}   \right) (\Delta y) (\Delta z) = 0 \\
-\end{align}</span></p>
-<p>Bonus: can you write the 2-D steady-state stencil with a source (mass per mass of sediment per time)?</p>
-<p><span class="math">\begin{align}
-\left(D\theta {c_E - c_C \over \Delta x} +   D \theta \frac{c_W - c_C}{\Delta x}   \right) (\Delta y) (\Delta z) + \left(D\theta {c_N - c_C \over \Delta y} +   D \theta \frac{c_S - c_C}{\Delta y}   \right) (\Delta x) (\Delta z)&= 0\\
-\end{align}</span></p>
-</div>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;\left(D\theta \frac{c_E - c_C}{\Delta x} +   D\theta \frac{c_W - c_C}{\Delta x}   \right) (\Delta y) (\Delta z) = 0 \\
+\end{align}</div><p>Bonus: can you write the 2-D steady-state stencil with a source (mass per mass of sediment per time)?</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+\left(D\theta {c_E - c_C \over \Delta x} +   D \theta \frac{c_W - c_C}{\Delta x}   \right) (\Delta y) (\Delta z) + \left(D\theta {c_N - c_C \over \Delta y} +   D \theta \frac{c_S - c_C}{\Delta y}   \right) (\Delta x) (\Delta z)&amp;= 0\\
+\end{align}</div></div>
 </div>
 </div>
 

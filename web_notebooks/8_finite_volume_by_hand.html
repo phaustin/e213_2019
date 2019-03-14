@@ -392,14 +392,16 @@ shown in the figure and the porosity is <span class="math notranslate nohighligh
 <div class="section" id="2-D-discrete-approximation-stencil-for-steady-state-diffusion.">
 <h3>2-D discrete approximation stencil for steady-state diffusion.<a class="headerlink" href="#2-D-discrete-approximation-stencil-for-steady-state-diffusion." title="Permalink to this headline">¶</a></h3>
 <p>Recall the 1D stencil looks like this.</p>
-<p><span class="math">\begin{align}
-&\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) =0 \label{8fvbh1}\\
-\end{align}</span></p>
-<div class="section" id="2D-stencil">
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) =0 \label{8fvbh1}\\
+\end{align}</div><div class="section" id="2D-stencil">
 <h4>2D stencil<a class="headerlink" href="#2D-stencil" title="Permalink to this headline">¶</a></h4>
-<p>Change the following 1-D stencil to 2-D by adding the “N” and “S” terms. <span class="math">\begin{align}
-&\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) =0 \label{8fvbh2}\\
-\end{align}</span> You may also want to simplify your stencil for the case of constant diffusion coefficient and constant gridblock dimensions.</p>
+<p>Change the following 1-D stencil to 2-D by adding the “N” and “S” terms.</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
+  &amp;\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) =0 \label{8fvbh2}\\
+  \end{align}\end{split}\\You may also want to simplify your stencil for the case of constant diffusion coefficient and constant gridblock dimensions.\end{aligned}\end{align} \]</div>
 </div>
 </div>
 <div class="section" id="Q1-(2pts)-Write-your-2d-Stencil">
@@ -409,30 +411,32 @@ shown in the figure and the porosity is <span class="math notranslate nohighligh
 </div>
 <div class="section" id="The-equations-for-each-gridblock-in-the-mesh.">
 <h3>The equations for each gridblock in the mesh.<a class="headerlink" href="#The-equations-for-each-gridblock-in-the-mesh." title="Permalink to this headline">¶</a></h3>
-<p>How many unknowns are there? In the 2-d problem above, we have 3 rows and 4 columns so <strong>12 unknowns</strong> in total. <strong>Problem</strong> now our mesh is two dimensional - how can we number our gridblocks and unknowns? In 1-D, we just numbered one gridblock after another: We eventually want to put the system of equations into a matrix that looks like this (for a 5-gridblock 1-D problem with two boundary concentrations <span class="math notranslate nohighlight">\(bc_1\)</span> and <span class="math notranslate nohighlight">\(bc_5\)</span>) <span class="math">\begin{align*} \mathbf{Ac} &= \mathbf{b}\\ {
-\begin{bmatrix}
-1 & 0 & 0 & 0 & 0 \\
-1 & -2 & 1 & 0 & 0\\
-0 & 1 & -2 & 1 & 0\\
-0 & 0 & 1 & -2 & 1\\
-0 & 0 & 0 & 0 & 1\\
-\end{bmatrix}}
-\begin{bmatrix}
-c_1\\
-c_2\\
-c_3\\
-c_4\\
-c_5\\
-\end{bmatrix}
-&= \begin{bmatrix}
-bc_1\\
-0\\
-0\\
-0\\
-bc_5\\
-\end{bmatrix}
-\end{align*}</span> We will have a similar matrix structure for a 2, 3 or n-dimensional problem. For a multidimensional problem, the key is to number the gridblocks in an organized way. #### Row-major numbering Python is organized so that so-called <strong>row-major</strong> numbering is the most efficient. That means we should number our gridblocks as shown here:</p>
-<p>Where we used the python style and gave the first gridblock the index 0. This numbering can be considered a mapping of the row, column structure to a sequential, 1-D vector of indices. In the 2-D code you were given, we used the following function to map a gridblock index into row and column index that we used to assemble the equations in the algorithm.</p>
+<blockquote>
+<div>How many unknowns are there? In the 2-d problem above, we have 3 rows and 4 columns so <strong>12 unknowns</strong> in total. <strong>Problem</strong> now our mesh is two dimensional - how can we number our gridblocks and unknowns? In 1-D, we just numbered one gridblock after another: We eventually want to put the system of equations into a matrix that looks like this (for a 5-gridblock 1-D problem with two boundary concentrations <span class="math notranslate nohighlight">\(bc_1\)</span> and <span class="math notranslate nohighlight">\(bc_5\)</span>)</div></blockquote>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align*} \mathbf{Ac} &amp;= \mathbf{b}\\ {
+  \begin{bmatrix}
+  1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+  1 &amp; -2 &amp; 1 &amp; 0 &amp; 0\\
+  0 &amp; 1 &amp; -2 &amp; 1 &amp; 0\\
+  0 &amp; 0 &amp; 1 &amp; -2 &amp; 1\\
+  0 &amp; 0 &amp; 0 &amp; 0 &amp; 1\\
+  \end{bmatrix}}
+  \begin{bmatrix}
+  c_1\\
+  c_2\\
+  c_3\\
+  c_4\\
+  c_5\\
+  \end{bmatrix}
+  &amp;= \begin{bmatrix}
+  bc_1\\
+  0\\
+  0\\
+  0\\
+  bc_5\\
+  \end{bmatrix}
+  \end{align*}\end{split}\\We will have a similar matrix structure for a 2, 3 or n-dimensional problem. For a multidimensional problem, the key is to number the gridblocks in an organized way. #### Row-major numbering Python is organized so that so-called **row-major** numbering is the most efficient. That means we should number our gridblocks as shown here:\\Where we used the python style and gave the first gridblock the index 0. This numbering can be considered a mapping of the row, column structure to a sequential, 1-D vector of indices. In the 2-D code you were given, we used the following function to map a gridblock index into row and column index that we used to assemble the equations in the algorithm.\end{aligned}\end{align} \]</div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -472,12 +476,14 @@ bc_5\\
 </div>
 <div class="section" id="Q2-Writing-equations-for-each-gridblock">
 <h3>Q2 Writing equations for each gridblock<a class="headerlink" href="#Q2-Writing-equations-for-each-gridblock" title="Permalink to this headline">¶</a></h3>
-<p>Now, write your equations using your stencil, the gridblock dimensions, diffusion coefficient and boundary conditions. I’ll write a few (but not all) of the simple equations at the Dirichlet (specified concentration) boundaries: <span class="math">\begin{align*}
-&c_0 = 64\\
-&c_4 = 64\\
-&c_3= 125\\
-&c_7 = 125\\
-\end{align*}</span> Use your stencil and write the other equations here in markdown. <strong>Zero-flux boundaries</strong></p>
+<p>Now, write your equations using your stencil, the gridblock dimensions, diffusion coefficient and boundary conditions. I’ll write a few (but not all) of the simple equations at the Dirichlet (specified concentration) boundaries:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align*}
+  &amp;c_0 = 64\\
+  &amp;c_4 = 64\\
+  &amp;c_3= 125\\
+  &amp;c_7 = 125\\
+  \end{align*}\end{split}\\Use your stencil and write the other equations here in markdown. **Zero-flux boundaries**\end{aligned}\end{align} \]</div>
 <p>Hint: the 2-D stencil is basically just <span class="math notranslate nohighlight">\(J_{WC}+J_{EC}+J_{SC} + J_{NC}=0\)</span>. When the C gridblock is adjacent to a zero-flux boundary, one of the terms in the stencil is set to zero. For example in gridblock 1 above, we have this mapping of the stencil <span class="math notranslate nohighlight">\(\rightarrow\)</span> gridblock index: C <span class="math notranslate nohighlight">\(\rightarrow\)</span> 1, W <span class="math notranslate nohighlight">\(\rightarrow\)</span> 0, N <span class="math notranslate nohighlight">\(\rightarrow\)</span> 5, but to the S we have a zero-flux boundary. Accordingly, in the stencil for gridblock with index 1, <span class="math notranslate nohighlight">\(J_{SC}=0\)</span> and the stencil
 simplifies to <span class="math notranslate nohighlight">\(J_{WC}+J_{EC}+ J_{NC}=0\)</span>.</p>
 <div class="section" id="Q2-(2pts)-entry-cell-below">
@@ -488,20 +494,21 @@ simplifies to <span class="math notranslate nohighlight">\(J_{WC}+J_{EC}+ J_{NC}
 <div class="section" id="Q3-Put-your-equations-into-the-matrix">
 <h3>Q3 Put your equations into the matrix<a class="headerlink" href="#Q3-Put-your-equations-into-the-matrix" title="Permalink to this headline">¶</a></h3>
 <p>I’ve put some of the easy ones in. You do the rest by replacing the zeros in the markdown array below with the correct coefficients from your equations. Double click on this cell to get the raw latex formatting, then copy it below into the answer box and edit.</p>
-<p><span class="math">\begin{align*} \mathbf{Ac} &= \mathbf{b}\\
+<div class="math notranslate nohighlight">
+\begin{align*} \mathbf{Ac} &amp;= \mathbf{b}\\
 {\begin{bmatrix}
-1 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0\\
-0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
-0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
-0 & 0 & 0 & 1 & 0 &0 &0 &0 &0 &0 &0 &0 \\
-0 & 0 & 0 & 0 & 1 &0 &0 &0 &0 &0 &0 &0 \\
-0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
-0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
-0 & 0 & 0 & 0 & 0 &0 &0 &1 &0 &0 &0 &0 \\
-0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
-0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
-0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
-0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0\\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;1 &amp;0 &amp;0 &amp;0 &amp;0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
 \end{bmatrix}}
 \begin{bmatrix}
 c_0\\
@@ -517,7 +524,7 @@ c_9\\
 c_{10}\\
 c_{11}\\
 \end{bmatrix}
-&= \begin{bmatrix}
+&amp;= \begin{bmatrix}
 64\\
 0\\
 0\\
@@ -530,8 +537,7 @@ c_{11}\\
 0\\
 0\\
 0\\
-\end{bmatrix} \end{align*}</span></p>
-<div class="section" id="Q3-(4pts)-entry-cell-below">
+\end{bmatrix} \end{align*}</div><div class="section" id="Q3-(4pts)-entry-cell-below">
 <h4>Q3 (4pts) entry cell below<a class="headerlink" href="#Q3-(4pts)-entry-cell-below" title="Permalink to this headline">¶</a></h4>
 <p>YOUR ANSWER HERE</p>
 </div>

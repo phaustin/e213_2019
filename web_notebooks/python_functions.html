@@ -443,8 +443,8 @@ div.rendered_html tbody tr:hover {
 caught a TypeError -- won&#39;t work
 </pre></div></div>
 </div>
-<div class="section" id="Your-turn-–-rewrite-the-cell-above-with-a-cast-that-makes-it-work">
-<h4>Your turn – rewrite the cell above with a cast that makes it work<a class="headerlink" href="#Your-turn-–-rewrite-the-cell-above-with-a-cast-that-makes-it-work" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="Your-turn----rewrite-the-cell-above-with-a-cast-that-makes-it-work">
+<h4>Your turn – rewrite the cell above with a cast that makes it work<a class="headerlink" href="#Your-turn----rewrite-the-cell-above-with-a-cast-that-makes-it-work" title="Permalink to this headline">¶</a></h4>
 </div>
 </div>
 <div class="section" id="Example-of-dynamic-typing">
@@ -615,8 +615,8 @@ I got args=(10,) and kwargs={}
 </div>
 </div>
 </div>
-<div class="section" id="Number-1-python-“gotcha”">
-<h2>Number 1 python “gotcha”<a class="headerlink" href="#Number-1-python-“gotcha”" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Number-1-python-&quot;gotcha&quot;">
+<h2>Number 1 python “gotcha”<a class="headerlink" href="#Number-1-python-"gotcha"" title="Permalink to this headline">¶</a></h2>
 <p>As noted here, there is a subtle issue with using default arguments that are not numbers or strings. Bottom line, do not do this.</p>
 <p><a class="reference external" href="https://docs.python-guide.org/writing/gotchas/">https://docs.python-guide.org/writing/gotchas/</a></p>
 <p>Here’s an example of how you can get bitten:</p>
@@ -658,8 +658,8 @@ second time I call the function I get [12, 42]
 <h3>Note that the id of the default list is the same for each call!<a class="headerlink" href="#Note-that-the-id-of-the-default-list-is-the-same-for-each-call!" title="Permalink to this headline">¶</a></h3>
 <p>This is generally not what you expect, because you’ll get different behaviour with identical inputs. This violates “no side effects” and also “familiarity”</p>
 </div>
-<div class="section" id="The-preferred-approach-–-use-None-as-a-default-value">
-<h3>The preferred approach – use None as a default value<a class="headerlink" href="#The-preferred-approach-–-use-None-as-a-default-value" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="The-preferred-approach----use-None-as-a-default-value">
+<h3>The preferred approach – use None as a default value<a class="headerlink" href="#The-preferred-approach----use-None-as-a-default-value" title="Permalink to this headline">¶</a></h3>
 <p>If you want the list to be created fresh by default, then test for None and create it.</p>
 <p>Note that now the two lists have different ids.</p>
 <div class="nbinput docutils container">

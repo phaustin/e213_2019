@@ -402,16 +402,16 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Fundamental-1-d-steady-state-FV-equation">
 <h3>Fundamental 1-d steady-state FV equation<a class="headerlink" href="#Fundamental-1-d-steady-state-FV-equation" title="Permalink to this headline">¶</a></h3>
 <p>We developed the finite-volume approximations starting from the fundamental conservation equation which is already written in terms of fluxes:</p>
-<p><span class="math">\begin{align}
-\left(J_{EC}+J_{WC}\right) &= 0 \label{eq761}\\
-\end{align}</span></p>
-</div>
+<div class="math notranslate nohighlight">
+\begin{align}
+\left(J_{EC}+J_{WC}\right) &amp;= 0 \label{eq761}\\
+\end{align}</div></div>
 <div class="section" id="In-terms-of-specific-fluxes-and-areas-of-finite-volume-faces-(for-regular-retangular-gridblocks):">
 <h3>In terms of specific fluxes and areas of finite-volume faces (for regular retangular gridblocks):<a class="headerlink" href="#In-terms-of-specific-fluxes-and-areas-of-finite-volume-faces-(for-regular-retangular-gridblocks):" title="Permalink to this headline">¶</a></h3>
-<p><span class="math">\begin{align}
-&\left(j_{EC}+j_{WC}\right) (\Delta y) (\Delta z) = 0 \label{eq762}\\
-\end{align}</span></p>
-<p>If our gridblock C lies on the boundary, a <strong>prescribed flux boundary condition</strong> means that one fluxes entering the gridblock is prescribed (known).</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;\left(j_{EC}+j_{WC}\right) (\Delta y) (\Delta z) = 0 \label{eq762}\\
+\end{align}</div><p>If our gridblock C lies on the boundary, a <strong>prescribed flux boundary condition</strong> means that one fluxes entering the gridblock is prescribed (known).</p>
 </div>
 <div class="section" id="Location-of-flux-boundary-condition">
 <h3>Location of flux boundary condition<a class="headerlink" href="#Location-of-flux-boundary-condition" title="Permalink to this headline">¶</a></h3>
@@ -429,62 +429,68 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="section" id="Prescribed-flux-boundary-condition-in-a-discrete-approximation">
 <h3>Prescribed flux boundary condition in a discrete approximation<a class="headerlink" href="#Prescribed-flux-boundary-condition-in-a-discrete-approximation" title="Permalink to this headline">¶</a></h3>
-<p>Prescribing a flux boundary condition is equivalent to prescribing the value of <span class="math notranslate nohighlight">\(j_{WC}\)</span> or <span class="math notranslate nohighlight">\(j_{EC}\)</span> in a discrete approximation. So in our example above, for gridblock 1, the equation would look like: <span class="math">\begin{align}
-&\left(j_{EC}+j_{WC}\right) (\Delta y) (\Delta z) = 0 \label{eq763}\\
-&\left(j_{21}+0.37\times 10^{-8}\right) (\Delta y) (\Delta z) = 0 \label{eq764}\\
-\end{align}</span></p>
-<p>Be careful with the signs! Is the sign correct for the flux if it is entering gridblock 1?</p>
+<p>Prescribing a flux boundary condition is equivalent to prescribing the value of <span class="math notranslate nohighlight">\(j_{WC}\)</span> or <span class="math notranslate nohighlight">\(j_{EC}\)</span> in a discrete approximation. So in our example above, for gridblock 1, the equation would look like:</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;\left(j_{EC}+j_{WC}\right) (\Delta y) (\Delta z) = 0 \label{eq763}\\
+&amp;\left(j_{21}+0.37\times 10^{-8}\right) (\Delta y) (\Delta z) = 0 \label{eq764}\\
+\end{align}</div><p>Be careful with the signs! Is the sign correct for the flux if it is entering gridblock 1?</p>
 </div>
 <div class="section" id="In-terms-of-concentrations-in-gridblocks:">
 <h3>In terms of concentrations in gridblocks:<a class="headerlink" href="#In-terms-of-concentrations-in-gridblocks:" title="Permalink to this headline">¶</a></h3>
-<p>Below is the equation for a generic gridblock C in the middle of the mesh. Let’s see below how to modify it for a flux boundary condition. <span class="math">\begin{align}
-&\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) = 0 \label{eq765}\\
-\end{align}</span></p>
-</div>
+<p>Below is the equation for a generic gridblock C in the middle of the mesh. Let’s see below how to modify it for a flux boundary condition.</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) = 0 \label{eq765}\\
+\end{align}</div></div>
 </div>
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
-<p>For the 5-node example above, write the equation for gridblock 1, where <span class="math notranslate nohighlight">\(\Delta x=1~m\)</span>, <span class="math notranslate nohighlight">\(\Delta y = 1.5~m\)</span>, <span class="math notranslate nohighlight">\(\Delta z = 2.0~m\)</span>, <span class="math notranslate nohighlight">\(D\theta=10^{-9}~m^2/s\)</span> and the flux on the left edge of gridblock 1 is <span class="math notranslate nohighlight">\(j = 0.37\times 10^{-8}~ mg/(s\cdot m^2)\)</span>: <span class="math">\begin{align}
-&\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) = 0 \label{eq766}\\\end{align}</span></p>
-</div>
+<p>For the 5-node example above, write the equation for gridblock 1, where <span class="math notranslate nohighlight">\(\Delta x=1~m\)</span>, <span class="math notranslate nohighlight">\(\Delta y = 1.5~m\)</span>, <span class="math notranslate nohighlight">\(\Delta z = 2.0~m\)</span>, <span class="math notranslate nohighlight">\(D\theta=10^{-9}~m^2/s\)</span> and the flux on the left edge of gridblock 1 is <span class="math notranslate nohighlight">\(j = 0.37\times 10^{-8}~ mg/(s\cdot m^2)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) = 0 \label{eq766}\\\end{align}</div></div>
 <div class="section" id="Your-turn---general-case">
 <h2>Your turn - general case<a class="headerlink" href="#Your-turn---general-case" title="Permalink to this headline">¶</a></h2>
-<p>Modify the equation below for the general case where the flux from W is prescribed to be <span class="math notranslate nohighlight">\(j_{WC} = f\)</span>, <span class="math notranslate nohighlight">\(f&gt;0\)</span>. <span class="math">\begin{align}
-&\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) = 0 \label{eq767}\\\end{align}</span></p>
-</div>
+<p>Modify the equation below for the general case where the flux from W is prescribed to be <span class="math notranslate nohighlight">\(j_{WC} = f\)</span>, <span class="math notranslate nohighlight">\(f&gt;0\)</span>.</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) = 0 \label{eq767}\\\end{align}</div></div>
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
-<p>Modify the generic equation below for the case where the flux from E is prescribed to be <span class="math notranslate nohighlight">\(j_{EC} = 0\)</span>, (no-flux boundary condition): <span class="math">\begin{align}
-&\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) = 0 \label{eq768}\\
-\end{align}</span></p>
-</div>
+<p>Modify the generic equation below for the case where the flux from E is prescribed to be <span class="math notranslate nohighlight">\(j_{EC} = 0\)</span>, (no-flux boundary condition):</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) = 0 \label{eq768}\\
+\end{align}</div></div>
 </div>
 <div class="section" id="2-D-steady-state">
 <h1>2-D steady-state<a class="headerlink" href="#2-D-steady-state" title="Permalink to this headline">¶</a></h1>
-<p>In 2-D, the general stencils for an interior gridblock C in terms of total flux, specific flux and concentrations are: <span class="math">\begin{align}
-&\left(J_{EC}+J_{WC} + J_{NC}+J_{SC}\right) = 0 \label{eq769}\\
-\end{align}</span></p>
-<p><span class="math">\begin{align}
-&\left(j_{EC}+j_{WC}\right) (\Delta y) (\Delta z) +\left(j_{NC}+j_{SC}\right) (\Delta x) (\Delta z)  = 0 \label{eq7610}\\
-\end{align}</span></p>
-<p><span class="math">\begin{align}
-&\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z)
+<p>In 2-D, the general stencils for an interior gridblock C in terms of total flux, specific flux and concentrations are:</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+&amp;\left(J_{EC}+J_{WC} + J_{NC}+J_{SC}\right) = 0 \label{eq769}\\
+\end{align}</div><div class="math notranslate nohighlight">
+\begin{align}
+&amp;\left(j_{EC}+j_{WC}\right) (\Delta y) (\Delta z) +\left(j_{NC}+j_{SC}\right) (\Delta x) (\Delta z)  = 0 \label{eq7610}\\
+\end{align}</div><div class="math notranslate nohighlight">
+\begin{align}
+&amp;\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z)
 +\left(D\theta {c_N - c_C \over \Delta y} +   D\theta {c_S - c_C \over \Delta y}   \right) (\Delta x) (\Delta z)= 0 \label{eq7611}\\
-\end{align}</span></p>
-<div class="section" id="Your-turn">
+\end{align}</div><div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
 <p>Modify each of the three equations below for the situation where there is no flux to or from gridblocks N and S:</p>
-<p><span class="math">\begin{align}
+<div class="math notranslate nohighlight">
+\begin{align}
 \left(J_{EC}+J_{WC} + J_{NC}+J_{SC}\right) = 0 \label{eq7612}\\
-\end{align}</span></p>
-<p><span class="math">\begin{align}
+\end{align}</div><div class="math notranslate nohighlight">
+\begin{align}
 \left(j_{EC}+j_{WC}\right) (\Delta y) (\Delta z) +\left(j_{NC}+j_{SC}\right) (\Delta x) (\Delta z)  = 0 \label{eq7613}\\
-\end{align}</span></p>
-<p><span class="math">\begin{align}
-&\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z)
+\end{align}</div><div class="math notranslate nohighlight">
+\begin{align}
+&amp;\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z)
 +\left(D\theta {c_N - c_C \over \Delta y} +   D\theta {c_S - c_C \over \Delta y}   \right) (\Delta x) (\Delta z)= 0\label{eq7614}\\
-\end{align}</span></p>
-<div class="section" id="Question">
+\end{align}</div><div class="section" id="Question">
 <h3>Question<a class="headerlink" href="#Question" title="Permalink to this headline">¶</a></h3>
 <p>The result should be a familiar stencil. What is it?</p>
 </div>
@@ -501,7 +507,7 @@ div.rendered_html tbody tr:hover {
 <li>Write the equations for the unknowns in the problem.</li>
 <li>Solve the system of equations for the unknown concentrations. <em>(If you are doing this by hand, note that you can rescale any equation by dividing or multiplying all terms in the equation by the same number. Often it is convenient to divide all terms by the coefficient of the unknown on the “diagonal” - for equation number :math:`n`, the diagonal is the coefficient that multiplies :math:`c_n`.)</em></li>
 <li>In the cell below, report the concentration you computed in gridblock 1.</li>
-<li>In the cell after that, use concentration values to compute the magnitude (i.e.&nbsp;a positive number) of the specific flux (in <span class="math notranslate nohighlight">\(mg/(s\cdot m^2)\)</span>) between gridblocks 4 and 5.</li>
+<li>In the cell after that, use concentration values to compute the magnitude (i.e. a positive number) of the specific flux (in <span class="math notranslate nohighlight">\(mg/(s\cdot m^2)\)</span>) between gridblocks 4 and 5.</li>
 </ol>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:

@@ -369,26 +369,27 @@ div.rendered_html tbody tr:hover {
 </li></ul></div><div class="section" id="Introduction">
 <h1>Introduction<a class="headerlink" href="#Introduction" title="Permalink to this headline">¶</a></h1>
 <p>Let us recall that <span class="math notranslate nohighlight">\(J_{EC}\)</span> and <span class="math notranslate nohighlight">\(J_{WC}\)</span> represent the flux of mass [M/T] towards the center. If these are positive, the mass in the center will increase. If there is a source of mass in the center, the mass will increase as well. Therefore, the steady-state equation writes:</p>
-<p><span class="math">\begin{equation}
+<div class="math notranslate nohighlight">
+\begin{equation}
 J_{EC}+J_{WC} + Q = 0
-\end{equation}</span></p>
-<p>With Q being written in terms of mg/s (Q: [M/T]) . Therefore mass balance equation with a source term writes:</p>
-<p><span class="math">\begin{equation}
+\end{equation}</div><p>With Q being written in terms of mg/s (Q: [M/T]) . Therefore mass balance equation with a source term writes:</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
 \left( -2  \frac{D\theta}{\Delta x} c_{\left[i\right]}  + \frac{D\theta}{\Delta x}c_{\left[i-1\right]} +   \frac{D\theta}{\Delta x} c_{\left[i+1\right]} \right) \Delta y \Delta z  + q  \Delta x \Delta y \Delta z = 0
-\end{equation}</span></p>
-<p>with <span class="math notranslate nohighlight">\(q\)</span> being the volumetric source ([M/T/L:math:<cite>^3</cite>])</p>
+\end{equation}</div><p>with <span class="math notranslate nohighlight">\(q\)</span> being the volumetric source ([M/T/L:math:<cite>^3</cite>])</p>
 <p>We can rearrange the latter equation as:</p>
-<p><span class="math">\begin{equation}
+<div class="math notranslate nohighlight">
+\begin{equation}
 \left( 2\frac{D\theta}{\Delta x} c_{\left[i\right]}  - \frac{D\theta}{\Delta x}c_{\left[i-1\right]} -   \frac{D\theta}{\Delta x} c_{\left[i+1\right]} \right) \Delta y \Delta z  = q  \Delta x \Delta y \Delta z
-\end{equation}</span></p>
-<p>We can also divide everything by <span class="math notranslate nohighlight">\(\Delta x \Delta y \Delta z\)</span>:</p>
-<p><span class="math">\begin{equation}
+\end{equation}</div><p>We can also divide everything by <span class="math notranslate nohighlight">\(\Delta x \Delta y \Delta z\)</span>:</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
 \frac{1}{\Delta x} \left( 2\frac{D\theta}{\Delta x} c_{\left[i\right]}  - \frac{D\theta}{\Delta x}c_{\left[i-1\right]} -   \frac{D\theta}{\Delta x} c_{\left[i+1\right]} \right)   = q
-\end{equation}</span></p>
-<p>which gives <span class="math">\begin{equation}
+\end{equation}</div><p>which gives</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
 2\frac{D\theta}{\Delta x^2} c_{\left[i\right]}  - \frac{D\theta}{\Delta x^2}c_{\left[i-1\right]} -   \frac{D\theta}{\Delta x^2} c_{\left[i+1\right]}  = q
-\end{equation}</span></p>
-<div class="nbinput nblast docutils container">
+\end{equation}</div><div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
@@ -598,18 +599,18 @@ J_{EC}+J_{WC} + Q = 0
 <div class="section" id="Transient-behavior">
 <h1>Transient behavior<a class="headerlink" href="#Transient-behavior" title="Permalink to this headline">¶</a></h1>
 <p>The transient behavior that we have discussed in the previous notebook simply adds these terms to the previous equation.</p>
-<p><span class="math">\begin{equation}
+<div class="math notranslate nohighlight">
+\begin{equation}
 J_{EC}+J_{WC} + Q = \frac{dm}{dt}
-\end{equation}</span></p>
-<p>Using the same developements expressed before, using</p>
-<p><span class="math">\begin{equation}
+\end{equation}</div><p>Using the same developements expressed before, using</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
 \frac{d\theta c}{dt} = \theta \frac{c(t+\Delta t) - c(t)}{\Delta t}
-\end{equation}</span></p>
-<p>In the following equation, we will write <span class="math notranslate nohighlight">\(c(t+\Delta t)\)</span> as <span class="math notranslate nohighlight">\(c_i\)</span> (i being the subscript referring to the position index), while <span class="math notranslate nohighlight">\(c(t)\)</span> is the old concentration at the same point <span class="math notranslate nohighlight">\(c_{i}(\text{old})\)</span>.</p>
-<p><span class="math">\begin{equation}
+\end{equation}</div><p>In the following equation, we will write <span class="math notranslate nohighlight">\(c(t+\Delta t)\)</span> as <span class="math notranslate nohighlight">\(c_i\)</span> (i being the subscript referring to the position index), while <span class="math notranslate nohighlight">\(c(t)\)</span> is the old concentration at the same point <span class="math notranslate nohighlight">\(c_{i}(\text{old})\)</span>.</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
 \frac{\theta c_{i}}{\Delta t} + 2\frac{D\theta}{\Delta x^2} c_{i}  - \frac{D\theta}{\Delta x^2}c_{i-1} -   \frac{D\theta}{\Delta x^2} c_{i+1}  = q + \frac{\theta c_{i}(\text{old})}{\Delta t}
-\end{equation}</span></p>
-<p>So we can solve this problem by using the same matrixes used before, but we need to add extra terms.</p>
+\end{equation}</div><p>So we can solve this problem by using the same matrixes used before, but we need to add extra terms.</p>
 <p>Based on the previous assignment, most of these terms are already incorporated in the matrix A and b. There are only a couple of terms to add to be able to solve the transient problem. We will keep the structure of matrix A and b defined.</p>
 <p>You have got to modify the next cell (keep its original structure), and incorporate these new terms in the defined arrays Abis and Bbis.</p>
 <div class="nbinput nblast docutils container">
