@@ -122,6 +122,10 @@ Week 10  Mar 12/Mar 14
 
 * `class_intro_mar12_html`_
 
+* Solution to the by_hand assignment: `8_finite_volume_by_hand_ans_html`_
+
+* Solution to the class introduction notebook: `class_intro_solution_html`_
+
 General notes
 =============
 
@@ -134,4 +138,4 @@ General notes
 
   - `Python for data analysis <https://github.com/wesm/pydata-book>`_
 
-
+  
