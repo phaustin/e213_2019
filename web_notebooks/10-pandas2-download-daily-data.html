@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Download Environment Canada Daily Data &#8212; E213</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}, "extensions": ["color.js"]}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          Home</a>
+        <span class="navbar-text navbar-version pull-left"><b>2019Jan01</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-1-jan-3">1.1. Week 1  Jan 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-2-jan-8-jan-10">1.2. Week 2  Jan 8/Jan 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-3-jan-15-jan-17">1.3. Week 3  Jan 15/Jan 17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">1.4. Week 4  Jan 22/Jan 24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">1.5. Week 5  Jan 29/Jan 31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">1.6. Week 6  Feb 05/Feb 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-7-feb-19-feb-21">1.7. Week 7  Feb 19/Feb 21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-8-feb-26-feb-28">1.8. Week 8  Feb 26/Feb 28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-9-mar-05-mar-07">1.9. Week 9  Mar 05/Mar 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-10-mar-12-mar-14">1.10. Week 10  Mar 12/Mar 14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.11. General notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../solutions.html#week-2">2.1. Week 2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#math">3.1. Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#python">3.2. Python</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#python-introductory-texts">4.1. Python Introductory Texts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#moving-from-matlab-to-python">4.2. Moving from matlab to python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#cocalc">4.3. Cocalc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-shell-commands">5.1. Useful shell commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-git-commands">5.2. Useful git commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-debugger-commands">5.3. Useful debugger commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/web_notebooks/10-pandas2-download-daily-data.ipynb.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 7ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<h1><p>Table of Contents</p>
+</h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;Download Environment Canada Daily Data</p>
+<ul class="toc-item"><li><p>1.1&nbsp;&nbsp;Station Inventory</p>
+</li><li><p>1.2&nbsp;&nbsp;Info for Selected Station</p>
+<ul class="toc-item"><li><p>1.2.1&nbsp;&nbsp;Download Data</p>
+</li></ul></li></ul></li></ul></div><div class="section" id="Download-Environment-Canada-Daily-Data">
+<h1>Download Environment Canada Daily Data<a class="headerlink" href="#Download-Environment-Canada-Daily-Data" title="Permalink to this headline">¶</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Station-Inventory">
+<h2>Station Inventory<a class="headerlink" href="#Station-Inventory" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Instructions: copy and paste this url into a browser: (<a class="reference external" href="ftp://client_climate&#64;ftp.tor.ec.gc.ca/Pub/Get_More_Data_Plus_de_donnees/">ftp://client_climate&#64;ftp.tor.ec.gc.ca/Pub/Get_More_Data_Plus_de_donnees/</a>)</li>
+<li>To get the station inventory (1.3 Mbyte csv file), copy and paste this url into a browser (<code class="docutils literal notranslate"><span class="pre">%20</span></code> is the blank space character)</li>
+</ul>
+<p><a class="reference external" href="ftp://client_climate&#64;ftp.tor.ec.gc.ca/Pub/Get_More_Data_Plus_de_donnees/Station%20Inventory%20EN.csv">ftp://client_climate&#64;ftp.tor.ec.gc.ca/Pub/Get_More_Data_Plus_de_donnees/Station%20Inventory%20EN.csv</a></p>
+<p>We have saved a copy in <code class="docutils literal notranslate"><span class="pre">data/Station</span> <span class="pre">Inventory</span> <span class="pre">EN</span> <span class="pre">.csv</span></code></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#</span>
+<span class="c1"># note that whitespace (blanks, tabs, newlines) in a tuple are discarded</span>
+<span class="c1"># so we can split a long string up like this:</span>
+<span class="c1">#</span>
+<span class="n">f</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;ftp://client_climate@ftp.tor.ec.gc.ca/Pub/&quot;</span>
+    <span class="s2">&quot;Get_More_Data_Plus_de_donnees/Station%20Inventory</span><span class="si">%20E</span><span class="s2">N.csv&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">inventory_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;data/Station Inventory EN.csv&quot;</span><span class="p">)</span>
+<span class="n">inventory</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">inventory_file</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># Rename some of the columns to more convenient labels</span>
+<span class="n">cols_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;TC ID&quot;</span><span class="p">:</span> <span class="s2">&quot;Airport Code&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Station ID&quot;</span><span class="p">:</span> <span class="s2">&quot;Env Canada ID&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Latitude (Decimal Degrees)&quot;</span><span class="p">:</span> <span class="s2">&quot;Latitude (deg)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Longitude (Decimal Degrees)&quot;</span><span class="p">:</span> <span class="s2">&quot;Longitude (deg)&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">inventory</span> <span class="o">=</span> <span class="n">inventory</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">cols_dict</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">inventory</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">inventory</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(8756, 19)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Province</th>
+      <th>Climate ID</th>
+      <th>Env Canada ID</th>
+      <th>WMO ID</th>
+      <th>Airport Code</th>
+      <th>Latitude (deg)</th>
+      <th>Longitude (deg)</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Elevation (m)</th>
+      <th>First Year</th>
+      <th>Last Year</th>
+      <th>HLY First Year</th>
+      <th>HLY Last Year</th>
+      <th>DLY First Year</th>
+      <th>DLY Last Year</th>
+      <th>MLY First Year</th>
+      <th>MLY Last Year</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ACTIVE PASS</td>
+      <td>BRITISH COLUMBIA</td>
+      <td>1010066</td>
+      <td>14</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>48.87</td>
+      <td>-123.28</td>
+      <td>485200000</td>
+      <td>-1231700000</td>
+      <td>4.0</td>
+      <td>1984</td>
+      <td>1996</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1984.0</td>
+      <td>1996.0</td>
+      <td>1984.0</td>
+      <td>1996.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ALBERT HEAD</td>
+      <td>BRITISH COLUMBIA</td>
+      <td>1010235</td>
+      <td>15</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>48.40</td>
+      <td>-123.48</td>
+      <td>482400000</td>
+      <td>-1232900000</td>
+      <td>17.0</td>
+      <td>1971</td>
+      <td>1995</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1971.0</td>
+      <td>1995.0</td>
+      <td>1971.0</td>
+      <td>1995.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>BAMBERTON OCEAN CEMENT</td>
+      <td>BRITISH COLUMBIA</td>
+      <td>1010595</td>
+      <td>16</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>48.58</td>
+      <td>-123.52</td>
+      <td>483500000</td>
+      <td>-1233100000</td>
+      <td>85.3</td>
+      <td>1961</td>
+      <td>1980</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1961.0</td>
+      <td>1980.0</td>
+      <td>1961.0</td>
+      <td>1980.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>BEAR CREEK</td>
+      <td>BRITISH COLUMBIA</td>
+      <td>1010720</td>
+      <td>17</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>48.50</td>
+      <td>-124.00</td>
+      <td>483000000</td>
+      <td>-1240000000</td>
+      <td>350.5</td>
+      <td>1910</td>
+      <td>1971</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1910.0</td>
+      <td>1971.0</td>
+      <td>1910.0</td>
+      <td>1971.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>BEAVER LAKE</td>
+      <td>BRITISH COLUMBIA</td>
+      <td>1010774</td>
+      <td>18</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>48.50</td>
+      <td>-123.35</td>
+      <td>483000000</td>
+      <td>-1232100000</td>
+      <td>61.0</td>
+      <td>1894</td>
+      <td>1952</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1894.0</td>
+      <td>1952.0</td>
+      <td>1894.0</td>
+      <td>1952.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+<div class="section" id="Info-for-Selected-Station">
+<h2>Info for Selected Station<a class="headerlink" href="#Info-for-Selected-Station" title="Permalink to this headline">¶</a></h2>
+<p>To download data for Vancouver Airport station (airport code YVR), we need the ID codes used by Environment Canada for this station. Here is how we find the numerical code ‘YVR’. Note that it has changed at some point from 889 to 51442</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">station</span> <span class="o">=</span> <span class="s2">&quot;YVR&quot;</span>
+
+<span class="c1"># Extract the inventory row(s) corresponding to this station</span>
+<span class="n">station_info</span> <span class="o">=</span> <span class="n">inventory</span><span class="p">[</span><span class="n">inventory</span><span class="p">[</span><span class="s2">&quot;Airport Code&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">station</span><span class="p">]</span>
+<span class="n">station_info</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Province</th>
+      <th>Climate ID</th>
+      <th>Env Canada ID</th>
+      <th>WMO ID</th>
+      <th>Airport Code</th>
+      <th>Latitude (deg)</th>
+      <th>Longitude (deg)</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Elevation (m)</th>
+      <th>First Year</th>
+      <th>Last Year</th>
+      <th>HLY First Year</th>
+      <th>HLY Last Year</th>
+      <th>DLY First Year</th>
+      <th>DLY Last Year</th>
+      <th>MLY First Year</th>
+      <th>MLY Last Year</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>996</th>
+      <td>VANCOUVER INTL A</td>
+      <td>BRITISH COLUMBIA</td>
+      <td>1108395</td>
+      <td>51442</td>
+      <td>71892.0</td>
+      <td>YVR</td>
+      <td>49.19</td>
+      <td>-123.18</td>
+      <td>491141000</td>
+      <td>-1231102000</td>
+      <td>4.3</td>
+      <td>2013</td>
+      <td>2019</td>
+      <td>2013.0</td>
+      <td>2019.0</td>
+      <td>2013.0</td>
+      <td>2019.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1008</th>
+      <td>VANCOUVER INT'L A</td>
+      <td>BRITISH COLUMBIA</td>
+      <td>1108447</td>
+      <td>889</td>
+      <td>NaN</td>
+      <td>YVR</td>
+      <td>49.20</td>
+      <td>-123.18</td>
+      <td>491142000</td>
+      <td>-1231055000</td>
+      <td>4.3</td>
+      <td>1937</td>
+      <td>2013</td>
+      <td>1953.0</td>
+      <td>2013.0</td>
+      <td>1937.0</td>
+      <td>2013.0</td>
+      <td>1937.0</td>
+      <td>2013.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="section" id="Download-Data">
+<h3>Download Data<a class="headerlink" href="#Download-Data" title="Permalink to this headline">¶</a></h3>
+<p>First, define a function to download the CSV data using the Environment Canada API:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">download_daily_raw</span><span class="p">(</span><span class="n">env_canada_id</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">savefile</span><span class="o">=</span><span class="s2">&quot;test.csv&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Download CSV file of daily data for selected station and year&quot;&quot;&quot;</span>
+
+    <span class="c1"># URL endpoint and query parameters</span>
+    <span class="n">url_endpoint</span> <span class="o">=</span> <span class="s2">&quot;http://climate.weather.gc.ca/climate_data/bulk_data_e.html&quot;</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;csv&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;stationID&quot;</span><span class="p">:</span> <span class="n">env_canada_id</span><span class="p">,</span>
+        <span class="s2">&quot;Year&quot;</span><span class="p">:</span> <span class="n">year</span><span class="p">,</span>
+        <span class="s2">&quot;Month&quot;</span><span class="p">:</span> <span class="s2">&quot;01&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Day&quot;</span><span class="p">:</span> <span class="s2">&quot;01&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timeframe&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;submit&quot;</span><span class="p">:</span> <span class="s2">&quot; Download Data&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Send GET request</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_endpoint</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="c1"># Download CSV file</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Saving to {savefile}&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">savefile</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="bp">None</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Sub-folder to save the data files</span>
+<span class="n">datadir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;data/raw/&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p><em>Note: The code below uses `f-strings &lt;https://realpython.com/python-f-strings/&gt;`__ to substitute variable values into a string</em></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Early data (1937 to mid 2013)</span>
+<span class="n">stn_id_early</span> <span class="o">=</span> <span class="mi">889</span>  <span class="c1"># station id for YVR airport</span>
+<span class="n">years_early</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1937</span><span class="p">,</span> <span class="mi">2014</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">years_early</span><span class="p">:</span>
+    <span class="n">savefile</span> <span class="o">=</span> <span class="n">datadir</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;weather_daily_{station}_{stn_id_early}_{year}.csv&quot;</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1"># create the data directory if it doesn&#39;t exist</span>
+    <span class="c1">#</span>
+    <span class="n">savefile</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">download_daily_raw</span><span class="p">(</span><span class="n">stn_id_early</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">savefile</span><span class="o">=</span><span class="n">savefile</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Saving to data/raw/weather_daily_YVR_889_1937.csv
+Saving to data/raw/weather_daily_YVR_889_1938.csv
+Saving to data/raw/weather_daily_YVR_889_1939.csv
+Saving to data/raw/weather_daily_YVR_889_1940.csv
+Saving to data/raw/weather_daily_YVR_889_1941.csv
+Saving to data/raw/weather_daily_YVR_889_1942.csv
+Saving to data/raw/weather_daily_YVR_889_1943.csv
+Saving to data/raw/weather_daily_YVR_889_1944.csv
+Saving to data/raw/weather_daily_YVR_889_1945.csv
+Saving to data/raw/weather_daily_YVR_889_1946.csv
+Saving to data/raw/weather_daily_YVR_889_1947.csv
+Saving to data/raw/weather_daily_YVR_889_1948.csv
+Saving to data/raw/weather_daily_YVR_889_1949.csv
+Saving to data/raw/weather_daily_YVR_889_1950.csv
+Saving to data/raw/weather_daily_YVR_889_1951.csv
+Saving to data/raw/weather_daily_YVR_889_1952.csv
+Saving to data/raw/weather_daily_YVR_889_1953.csv
+Saving to data/raw/weather_daily_YVR_889_1954.csv
+Saving to data/raw/weather_daily_YVR_889_1955.csv
+Saving to data/raw/weather_daily_YVR_889_1956.csv
+Saving to data/raw/weather_daily_YVR_889_1957.csv
+Saving to data/raw/weather_daily_YVR_889_1958.csv
+Saving to data/raw/weather_daily_YVR_889_1959.csv
+Saving to data/raw/weather_daily_YVR_889_1960.csv
+Saving to data/raw/weather_daily_YVR_889_1961.csv
+Saving to data/raw/weather_daily_YVR_889_1962.csv
+Saving to data/raw/weather_daily_YVR_889_1963.csv
+Saving to data/raw/weather_daily_YVR_889_1964.csv
+Saving to data/raw/weather_daily_YVR_889_1965.csv
+Saving to data/raw/weather_daily_YVR_889_1966.csv
+Saving to data/raw/weather_daily_YVR_889_1967.csv
+Saving to data/raw/weather_daily_YVR_889_1968.csv
+Saving to data/raw/weather_daily_YVR_889_1969.csv
+Saving to data/raw/weather_daily_YVR_889_1970.csv
+Saving to data/raw/weather_daily_YVR_889_1971.csv
+Saving to data/raw/weather_daily_YVR_889_1972.csv
+Saving to data/raw/weather_daily_YVR_889_1973.csv
+Saving to data/raw/weather_daily_YVR_889_1974.csv
+Saving to data/raw/weather_daily_YVR_889_1975.csv
+Saving to data/raw/weather_daily_YVR_889_1976.csv
+Saving to data/raw/weather_daily_YVR_889_1977.csv
+Saving to data/raw/weather_daily_YVR_889_1978.csv
+Saving to data/raw/weather_daily_YVR_889_1979.csv
+Saving to data/raw/weather_daily_YVR_889_1980.csv
+Saving to data/raw/weather_daily_YVR_889_1981.csv
+Saving to data/raw/weather_daily_YVR_889_1982.csv
+Saving to data/raw/weather_daily_YVR_889_1983.csv
+Saving to data/raw/weather_daily_YVR_889_1984.csv
+Saving to data/raw/weather_daily_YVR_889_1985.csv
+Saving to data/raw/weather_daily_YVR_889_1986.csv
+Saving to data/raw/weather_daily_YVR_889_1987.csv
+Saving to data/raw/weather_daily_YVR_889_1988.csv
+Saving to data/raw/weather_daily_YVR_889_1989.csv
+Saving to data/raw/weather_daily_YVR_889_1990.csv
+Saving to data/raw/weather_daily_YVR_889_1991.csv
+Saving to data/raw/weather_daily_YVR_889_1992.csv
+Saving to data/raw/weather_daily_YVR_889_1993.csv
+Saving to data/raw/weather_daily_YVR_889_1994.csv
+Saving to data/raw/weather_daily_YVR_889_1995.csv
+Saving to data/raw/weather_daily_YVR_889_1996.csv
+Saving to data/raw/weather_daily_YVR_889_1997.csv
+Saving to data/raw/weather_daily_YVR_889_1998.csv
+Saving to data/raw/weather_daily_YVR_889_1999.csv
+Saving to data/raw/weather_daily_YVR_889_2000.csv
+Saving to data/raw/weather_daily_YVR_889_2001.csv
+Saving to data/raw/weather_daily_YVR_889_2002.csv
+Saving to data/raw/weather_daily_YVR_889_2003.csv
+Saving to data/raw/weather_daily_YVR_889_2004.csv
+Saving to data/raw/weather_daily_YVR_889_2005.csv
+Saving to data/raw/weather_daily_YVR_889_2006.csv
+Saving to data/raw/weather_daily_YVR_889_2007.csv
+Saving to data/raw/weather_daily_YVR_889_2008.csv
+Saving to data/raw/weather_daily_YVR_889_2009.csv
+Saving to data/raw/weather_daily_YVR_889_2010.csv
+Saving to data/raw/weather_daily_YVR_889_2011.csv
+Saving to data/raw/weather_daily_YVR_889_2012.csv
+Saving to data/raw/weather_daily_YVR_889_2013.csv
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Recent data (mid 2013 to 2019)</span>
+<span class="n">stn_id_recent</span> <span class="o">=</span> <span class="mi">51442</span>
+<span class="n">years_recent</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2013</span><span class="p">,</span> <span class="mi">2020</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">years_recent</span><span class="p">:</span>
+    <span class="n">savefile</span> <span class="o">=</span> <span class="n">datadir</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;weather_daily_{station}_{stn_id_recent}_{year}.csv&quot;</span><span class="p">)</span>
+    <span class="n">download_daily_raw</span><span class="p">(</span><span class="n">stn_id_recent</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">savefile</span><span class="o">=</span><span class="n">savefile</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Saving to data/raw/weather_daily_YVR_51442_2013.csv
+Saving to data/raw/weather_daily_YVR_51442_2014.csv
+Saving to data/raw/weather_daily_YVR_51442_2015.csv
+Saving to data/raw/weather_daily_YVR_51442_2016.csv
+Saving to data/raw/weather_daily_YVR_51442_2017.csv
+Saving to data/raw/weather_daily_YVR_51442_2018.csv
+Saving to data/raw/weather_daily_YVR_51442_2019.csv
+</pre></div></div>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2019, Philip Austin.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

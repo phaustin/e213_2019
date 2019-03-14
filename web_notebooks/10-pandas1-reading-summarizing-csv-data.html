@@ -1,0 +1,2897 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Reading &amp; Summarizing CSV Data &#8212; E213</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}, "extensions": ["color.js"]}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          Home</a>
+        <span class="navbar-text navbar-version pull-left"><b>2019Jan01</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-1-jan-3">1.1. Week 1  Jan 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-2-jan-8-jan-10">1.2. Week 2  Jan 8/Jan 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-3-jan-15-jan-17">1.3. Week 3  Jan 15/Jan 17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">1.4. Week 4  Jan 22/Jan 24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">1.5. Week 5  Jan 29/Jan 31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">1.6. Week 6  Feb 05/Feb 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-7-feb-19-feb-21">1.7. Week 7  Feb 19/Feb 21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-8-feb-26-feb-28">1.8. Week 8  Feb 26/Feb 28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-9-mar-05-mar-07">1.9. Week 9  Mar 05/Mar 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-10-mar-12-mar-14">1.10. Week 10  Mar 12/Mar 14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.11. General notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../solutions.html#week-2">2.1. Week 2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#math">3.1. Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#python">3.2. Python</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#python-introductory-texts">4.1. Python Introductory Texts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#moving-from-matlab-to-python">4.2. Moving from matlab to python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#cocalc">4.3. Cocalc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-shell-commands">5.1. Useful shell commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-git-commands">5.2. Useful git commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-debugger-commands">5.3. Useful debugger commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/web_notebooks/10-pandas1-reading-summarizing-csv-data.ipynb.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 7ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<h1><p>Table of Contents</p>
+</h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;Learning objects</p>
+</li><li><p>2&nbsp;&nbsp;Pandas dataframes vs. numpy arrays</p>
+</li><li><p>3&nbsp;&nbsp;Intro to Pandas</p>
+</li><li><p>4&nbsp;&nbsp;Why Pandas?</p>
+</li><li><p>5&nbsp;&nbsp;Reading a CSV file</p>
+<ul class="toc-item"><li><p>5.1&nbsp;&nbsp;The pathlib module</p>
+</li></ul></li><li><p>6&nbsp;&nbsp;Data at a Glance</p>
+<ul class="toc-item"><li><p>6.1&nbsp;&nbsp;Number of rows and columns:</p>
+</li><li><p>6.2&nbsp;&nbsp;Simple Summary Statistics</p>
+</li></ul></li><li><p>7&nbsp;&nbsp;Exercise</p>
+<ul class="toc-item"><li><p>7.1&nbsp;&nbsp;Data Overview</p>
+</li><li><p>7.2&nbsp;&nbsp;Bonus exercises</p>
+</li></ul></li></ul></div><div class="section" id="Reading-&amp;-Summarizing-CSV-Data">
+<h1>Reading &amp; Summarizing CSV Data<a class="headerlink" href="#Reading-&-Summarizing-CSV-Data" title="Permalink to this headline">¶</a></h1>
+<p>Credit: the notebooks in this folder are lightly modified versions of work by Jennifer Walker presented at the EOAS python workshop in October, 2018: <a class="reference external" href="https://github.com/jenfly/eoas-python">https://github.com/jenfly/eoas-python</a></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Learning-objects">
+<h2>Learning objects<a class="headerlink" href="#Learning-objects" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Learn how to read, process and write data in csv/xlsx/tabular format using pandas</li>
+<li>In parts 2 and parts 3:</li>
+<li>Learn how to download tabular data from websites with a “restful api”:<ul>
+<li><a class="reference external" href="https://stackoverflow.com/questions/671118/what-exactly-is-restful-programming">https://stackoverflow.com/questions/671118/what-exactly-is-restful-programming</a></li>
+</ul>
+</li>
+<li>Learn how to clean data by filtering missing values, renaming columns, and writing out processed files for further work</li>
+</ul>
+</div>
+<div class="section" id="Pandas-dataframes-vs.-numpy-arrays">
+<h2>Pandas dataframes vs. numpy arrays<a class="headerlink" href="#Pandas-dataframes-vs.-numpy-arrays" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Dataframes are <strong>column oriented</strong>, arrays are <strong>row oriented</strong></li>
+<li>Array items are all of the same dtype (i.e. numpy.float32), dataframe columns can have different types (e.g.strings vs. integers)</li>
+<li>Dataframe columns can be indexed by name (e.g. “Total area of basin”) or by integer index</li>
+<li>Dataframe rows can be indexed by number of by a special index (e.g. postal code)</li>
+<li>Dataframe objects have dozens of methods to summarize and manipulate the data they hold, making them similar in features to a lightweight relational database.</li>
+</ul>
+</div>
+<div class="section" id="Intro-to-Pandas">
+<h2>Intro to Pandas<a class="headerlink" href="#Intro-to-Pandas" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">pandas</span></code> = <a class="reference external" href="https://pandas.pydata.org/">Python Data Analysis Library</a></p>
+</li>
+<li><p class="first">Best book: <a class="reference external" href="https://github.com/wesm/pydata-book">Python for data analysis</a> by Wes McKinney</p>
+</li>
+<li><p class="first">Jennifer Walker’s <a class="reference external" href="pandas-cheatsheet.ipynb">Pandas cheatsheet</a></p>
+</li>
+<li><p class="first">Library for working with <strong>labelled</strong> tabular data (1-D and 2-D)</p>
+</li>
+<li><p class="first">Data formats include: comma separated values (CSV) and other text files, Excel spreadsheets, HDF5, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/io.html">and others</a></p>
+</li>
+<li><p class="first">With <code class="docutils literal notranslate"><span class="pre">pandas</span></code> you can do pretty much everything you would in a spreadsheet, plus a whole lot more!</p>
+<blockquote>
+<div><p>If you’re working with higher dimensional data and/or netCDF files, check out the excellent <a class="reference external" href="http://xarray.pydata.org/en/stable/">xarray library</a>, which brings the labelled data power of <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to N-dimensional arrays</p>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="Why-Pandas?">
+<h2>Why Pandas?<a class="headerlink" href="#Why-Pandas?" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Working with large data files and complex calculations</li>
+<li>Dealing with messy and missing data</li>
+<li>Merging data from multiple files</li>
+<li>Timeseries analysis</li>
+<li>Automate repetitive tasks</li>
+<li>Combine with other Python libraries to create beautiful and fully customized visualizations</li>
+</ul>
+</div>
+<div class="section" id="Reading-a-CSV-file">
+<h2>Reading a CSV file<a class="headerlink" href="#Reading-a-CSV-file" title="Permalink to this headline">¶</a></h2>
+<p>We’ll be working with the file <code class="docutils literal notranslate"><span class="pre">weather_YVR.csv</span></code> in the <code class="docutils literal notranslate"><span class="pre">data</span></code> sub-folder. - Environment Canada daily weather measurements at Vancouver Airport from 1938-2017.</p>
+<p>Now let’s read the CSV file into our notebook with the function <code class="docutils literal notranslate"><span class="pre">read_csv</span></code> from the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> library. - To access functions in the library, we use dot notation again: <code class="docutils literal notranslate"><span class="pre">pandas.read_csv()</span></code> - Our input to the read_csv function is the file path as a string: <code class="docutils literal notranslate"><span class="pre">'data/weather_YVR.csv'</span></code></p>
+<p>We’ll store the data as a dataframe called <code class="docutils literal notranslate"><span class="pre">weather</span></code>.</p>
+<div class="section" id="The-pathlib-module">
+<h3>The pathlib module<a class="headerlink" href="#The-pathlib-module" title="Permalink to this headline">¶</a></h3>
+<p>The cell below constructs a <a class="reference external" href="https://realpython.com/python-pathlib/">Path object</a>. Note the direction of the “/” separate. This would not be the way that we would specify a file on windows (that would be ‘<a class="reference external" href="data:nbsphinx-math">data:nbsphinx-math</a>:<cite>weather</cite>_YVR.csv’ – Path objects hide this complexity by understanding whether we are working on windows, linux or macos and just doing the right thing.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">weather_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;data/weather_YVR.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">weather</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">weather_file</span><span class="p">)</span>
+
+
+
+
+<span class="n">Pro</span> <span class="n">Tips</span><span class="o">!</span> - Try typing <span class="sb">``</span>pandas.re<span class="sb">``</span> and <span class="k">then</span> press Tab and <span class="k">select</span> <span class="sb">``</span>read_csv<span class="sb">``</span> from the auto-complete options - Auto-complete even works <span class="k">for</span> file paths inside a string!
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">weather</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Day</th>
+      <th>T_mean (C)</th>
+      <th>T_high (C)</th>
+      <th>T_low (C)</th>
+      <th>Rain (mm)</th>
+      <th>Snow (cm)</th>
+      <th>Total Precip (mm)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1938-01-01</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4.4</td>
+      <td>9.4</td>
+      <td>-0.6</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1938-01-02</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>2</td>
+      <td>4.5</td>
+      <td>7.2</td>
+      <td>1.7</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1938-01-03</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>3</td>
+      <td>1.7</td>
+      <td>7.2</td>
+      <td>-3.9</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1938-01-04</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>4</td>
+      <td>2.2</td>
+      <td>7.2</td>
+      <td>-2.8</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1938-01-05</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>5</td>
+      <td>2.2</td>
+      <td>7.2</td>
+      <td>-2.8</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1938-01-06</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>6</td>
+      <td>2.3</td>
+      <td>5.6</td>
+      <td>-1.1</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>1938-01-07</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>7</td>
+      <td>2.2</td>
+      <td>4.4</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>1938-01-08</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>8</td>
+      <td>2.5</td>
+      <td>6.7</td>
+      <td>-1.7</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1938-01-09</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>9</td>
+      <td>4.2</td>
+      <td>5.6</td>
+      <td>2.8</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.3</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1938-01-10</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>10</td>
+      <td>5.8</td>
+      <td>7.2</td>
+      <td>4.4</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.6</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>1938-01-11</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>11</td>
+      <td>4.2</td>
+      <td>6.7</td>
+      <td>1.7</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>1938-01-12</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>12</td>
+      <td>7.8</td>
+      <td>10.6</td>
+      <td>5.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>5.3</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>1938-01-13</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>13</td>
+      <td>6.1</td>
+      <td>8.3</td>
+      <td>3.9</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>28.7</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>1938-01-14</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>14</td>
+      <td>6.7</td>
+      <td>8.3</td>
+      <td>5.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>18.3</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>1938-01-15</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>15</td>
+      <td>4.5</td>
+      <td>8.3</td>
+      <td>0.6</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>1938-01-16</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>16</td>
+      <td>4.5</td>
+      <td>6.7</td>
+      <td>2.2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>6.6</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>1938-01-17</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>17</td>
+      <td>2.8</td>
+      <td>7.2</td>
+      <td>-1.7</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>1938-01-18</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>18</td>
+      <td>4.8</td>
+      <td>7.8</td>
+      <td>1.7</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>5.8</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>1938-01-19</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>19</td>
+      <td>3.4</td>
+      <td>6.7</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>1938-01-20</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>20</td>
+      <td>2.8</td>
+      <td>6.1</td>
+      <td>-0.6</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>8.9</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>1938-01-21</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>21</td>
+      <td>5.0</td>
+      <td>8.3</td>
+      <td>1.7</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2.5</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>1938-01-22</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>22</td>
+      <td>3.1</td>
+      <td>8.3</td>
+      <td>-2.2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.8</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>1938-01-23</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>23</td>
+      <td>2.8</td>
+      <td>7.8</td>
+      <td>-2.2</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>1938-01-24</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>24</td>
+      <td>3.4</td>
+      <td>6.7</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>1938-01-25</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>25</td>
+      <td>4.8</td>
+      <td>7.8</td>
+      <td>1.7</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>1938-01-26</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>26</td>
+      <td>0.3</td>
+      <td>3.9</td>
+      <td>-3.3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>1938-01-27</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>27</td>
+      <td>2.8</td>
+      <td>6.1</td>
+      <td>-0.6</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>1938-01-28</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>28</td>
+      <td>4.5</td>
+      <td>6.7</td>
+      <td>2.2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>8.9</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>1938-01-29</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>29</td>
+      <td>1.7</td>
+      <td>7.8</td>
+      <td>-4.4</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>1938-01-30</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>30</td>
+      <td>-2.3</td>
+      <td>1.1</td>
+      <td>-5.6</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>5.6</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>29160</th>
+      <td>2017-12-02</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>2</td>
+      <td>5.3</td>
+      <td>6.8</td>
+      <td>3.7</td>
+      <td>5.2</td>
+      <td>0.0</td>
+      <td>5.2</td>
+    </tr>
+    <tr>
+      <th>29161</th>
+      <td>2017-12-03</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>3</td>
+      <td>3.6</td>
+      <td>6.0</td>
+      <td>1.1</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29162</th>
+      <td>2017-12-04</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>4</td>
+      <td>3.5</td>
+      <td>5.8</td>
+      <td>1.1</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29163</th>
+      <td>2017-12-05</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>5</td>
+      <td>2.6</td>
+      <td>6.3</td>
+      <td>-1.2</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29164</th>
+      <td>2017-12-06</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>6</td>
+      <td>2.2</td>
+      <td>5.8</td>
+      <td>-1.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29165</th>
+      <td>2017-12-07</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>7</td>
+      <td>2.9</td>
+      <td>4.2</td>
+      <td>1.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29166</th>
+      <td>2017-12-08</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>8</td>
+      <td>1.9</td>
+      <td>3.5</td>
+      <td>0.2</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29167</th>
+      <td>2017-12-09</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>9</td>
+      <td>1.9</td>
+      <td>4.5</td>
+      <td>-0.8</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29168</th>
+      <td>2017-12-10</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>10</td>
+      <td>4.1</td>
+      <td>7.7</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29169</th>
+      <td>2017-12-11</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>11</td>
+      <td>3.8</td>
+      <td>8.9</td>
+      <td>-1.3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29170</th>
+      <td>2017-12-12</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>12</td>
+      <td>4.8</td>
+      <td>7.6</td>
+      <td>1.9</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29171</th>
+      <td>2017-12-13</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>13</td>
+      <td>4.4</td>
+      <td>7.9</td>
+      <td>0.8</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29172</th>
+      <td>2017-12-14</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>14</td>
+      <td>3.0</td>
+      <td>6.5</td>
+      <td>-0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29173</th>
+      <td>2017-12-15</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>15</td>
+      <td>4.2</td>
+      <td>6.9</td>
+      <td>1.4</td>
+      <td>0.8</td>
+      <td>0.0</td>
+      <td>0.8</td>
+    </tr>
+    <tr>
+      <th>29174</th>
+      <td>2017-12-16</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>16</td>
+      <td>4.1</td>
+      <td>6.5</td>
+      <td>1.6</td>
+      <td>5.8</td>
+      <td>0.0</td>
+      <td>5.8</td>
+    </tr>
+    <tr>
+      <th>29175</th>
+      <td>2017-12-17</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>17</td>
+      <td>6.0</td>
+      <td>7.4</td>
+      <td>4.6</td>
+      <td>40.6</td>
+      <td>0.0</td>
+      <td>40.6</td>
+    </tr>
+    <tr>
+      <th>29176</th>
+      <td>2017-12-18</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>18</td>
+      <td>6.2</td>
+      <td>7.3</td>
+      <td>5.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>29177</th>
+      <td>2017-12-19</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>19</td>
+      <td>2.8</td>
+      <td>5.4</td>
+      <td>0.1</td>
+      <td>42.6</td>
+      <td>1.0</td>
+      <td>44.2</td>
+    </tr>
+    <tr>
+      <th>29178</th>
+      <td>2017-12-20</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>20</td>
+      <td>1.7</td>
+      <td>5.0</td>
+      <td>-1.7</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29179</th>
+      <td>2017-12-21</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>21</td>
+      <td>-0.2</td>
+      <td>2.3</td>
+      <td>-2.7</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29180</th>
+      <td>2017-12-22</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>22</td>
+      <td>1.5</td>
+      <td>5.5</td>
+      <td>-2.6</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29181</th>
+      <td>2017-12-23</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>23</td>
+      <td>-1.5</td>
+      <td>2.8</td>
+      <td>-5.8</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29182</th>
+      <td>2017-12-24</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>24</td>
+      <td>-2.0</td>
+      <td>0.9</td>
+      <td>-4.9</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29183</th>
+      <td>2017-12-25</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>25</td>
+      <td>-0.3</td>
+      <td>1.0</td>
+      <td>-1.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29184</th>
+      <td>2017-12-26</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>26</td>
+      <td>-0.4</td>
+      <td>0.7</td>
+      <td>-1.4</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29185</th>
+      <td>2017-12-27</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>27</td>
+      <td>0.0</td>
+      <td>1.9</td>
+      <td>-1.9</td>
+      <td>3.0</td>
+      <td>0.2</td>
+      <td>3.2</td>
+    </tr>
+    <tr>
+      <th>29186</th>
+      <td>2017-12-28</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>28</td>
+      <td>3.4</td>
+      <td>5.7</td>
+      <td>1.1</td>
+      <td>20.8</td>
+      <td>0.0</td>
+      <td>20.8</td>
+    </tr>
+    <tr>
+      <th>29187</th>
+      <td>2017-12-29</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>29</td>
+      <td>2.8</td>
+      <td>4.7</td>
+      <td>0.9</td>
+      <td>27.6</td>
+      <td>0.0</td>
+      <td>27.6</td>
+    </tr>
+    <tr>
+      <th>29188</th>
+      <td>2017-12-30</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>30</td>
+      <td>1.3</td>
+      <td>4.3</td>
+      <td>-1.8</td>
+      <td>2.2</td>
+      <td>0.0</td>
+      <td>2.2</td>
+    </tr>
+    <tr>
+      <th>29189</th>
+      <td>2017-12-31</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>31</td>
+      <td>-0.1</td>
+      <td>3.8</td>
+      <td>-3.9</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>29190 rows × 10 columns</p>
+</div></div>
+</div>
+<ul class="simple">
+<li>Only the first 30 and last 30 rows are displayed (but the data is all there in our <code class="docutils literal notranslate"><span class="pre">weather</span></code> variable)</li>
+<li>You may notice some weird <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values—these represent missing data (<code class="docutils literal notranslate"><span class="pre">NaN</span></code> = “not a number”)</li>
+</ul>
+<p>What type of object is <code class="docutils literal notranslate"><span class="pre">weather</span></code>?</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">type</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>pandas.core.frame.DataFrame
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">weather</span></code> is a <strong>DataFrame</strong>, a data structure from the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> library</li>
+<li>A DataFrame is a 2-dimensional array (organized into rows and columns, like a table in a spreadsheet)</li>
+<li>When we display <code class="docutils literal notranslate"><span class="pre">weather</span></code>, the integer numbers in bold on the left are the DataFrame’s <strong>index</strong></li>
+<li>In this case, the index is simply a range of integers corresponding with the row numbers</li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">weather</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Day</th>
+      <th>T_mean (C)</th>
+      <th>T_high (C)</th>
+      <th>T_low (C)</th>
+      <th>Rain (mm)</th>
+      <th>Snow (cm)</th>
+      <th>Total Precip (mm)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1938-01-01</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4.4</td>
+      <td>9.4</td>
+      <td>-0.6</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1938-01-02</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>2</td>
+      <td>4.5</td>
+      <td>7.2</td>
+      <td>1.7</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1938-01-03</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>3</td>
+      <td>1.7</td>
+      <td>7.2</td>
+      <td>-3.9</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1938-01-04</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>4</td>
+      <td>2.2</td>
+      <td>7.2</td>
+      <td>-2.8</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1938-01-05</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>5</td>
+      <td>2.2</td>
+      <td>7.2</td>
+      <td>-2.8</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1938-01-06</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>6</td>
+      <td>2.3</td>
+      <td>5.6</td>
+      <td>-1.1</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>1938-01-07</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>7</td>
+      <td>2.2</td>
+      <td>4.4</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>1938-01-08</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>8</td>
+      <td>2.5</td>
+      <td>6.7</td>
+      <td>-1.7</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1938-01-09</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>9</td>
+      <td>4.2</td>
+      <td>5.6</td>
+      <td>2.8</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.3</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1938-01-10</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>10</td>
+      <td>5.8</td>
+      <td>7.2</td>
+      <td>4.4</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.6</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>1938-01-11</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>11</td>
+      <td>4.2</td>
+      <td>6.7</td>
+      <td>1.7</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>1938-01-12</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>12</td>
+      <td>7.8</td>
+      <td>10.6</td>
+      <td>5.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>5.3</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>1938-01-13</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>13</td>
+      <td>6.1</td>
+      <td>8.3</td>
+      <td>3.9</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>28.7</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>1938-01-14</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>14</td>
+      <td>6.7</td>
+      <td>8.3</td>
+      <td>5.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>18.3</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>1938-01-15</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>15</td>
+      <td>4.5</td>
+      <td>8.3</td>
+      <td>0.6</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>1938-01-16</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>16</td>
+      <td>4.5</td>
+      <td>6.7</td>
+      <td>2.2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>6.6</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>1938-01-17</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>17</td>
+      <td>2.8</td>
+      <td>7.2</td>
+      <td>-1.7</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>1938-01-18</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>18</td>
+      <td>4.8</td>
+      <td>7.8</td>
+      <td>1.7</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>5.8</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>1938-01-19</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>19</td>
+      <td>3.4</td>
+      <td>6.7</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>1938-01-20</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>20</td>
+      <td>2.8</td>
+      <td>6.1</td>
+      <td>-0.6</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>8.9</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>1938-01-21</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>21</td>
+      <td>5.0</td>
+      <td>8.3</td>
+      <td>1.7</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2.5</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>1938-01-22</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>22</td>
+      <td>3.1</td>
+      <td>8.3</td>
+      <td>-2.2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.8</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>1938-01-23</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>23</td>
+      <td>2.8</td>
+      <td>7.8</td>
+      <td>-2.2</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>1938-01-24</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>24</td>
+      <td>3.4</td>
+      <td>6.7</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>1938-01-25</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>25</td>
+      <td>4.8</td>
+      <td>7.8</td>
+      <td>1.7</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>1938-01-26</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>26</td>
+      <td>0.3</td>
+      <td>3.9</td>
+      <td>-3.3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>1938-01-27</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>27</td>
+      <td>2.8</td>
+      <td>6.1</td>
+      <td>-0.6</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>1938-01-28</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>28</td>
+      <td>4.5</td>
+      <td>6.7</td>
+      <td>2.2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>8.9</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>1938-01-29</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>29</td>
+      <td>1.7</td>
+      <td>7.8</td>
+      <td>-4.4</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>1938-01-30</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>30</td>
+      <td>-2.3</td>
+      <td>1.1</td>
+      <td>-5.6</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>5.6</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>29160</th>
+      <td>2017-12-02</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>2</td>
+      <td>5.3</td>
+      <td>6.8</td>
+      <td>3.7</td>
+      <td>5.2</td>
+      <td>0.0</td>
+      <td>5.2</td>
+    </tr>
+    <tr>
+      <th>29161</th>
+      <td>2017-12-03</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>3</td>
+      <td>3.6</td>
+      <td>6.0</td>
+      <td>1.1</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29162</th>
+      <td>2017-12-04</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>4</td>
+      <td>3.5</td>
+      <td>5.8</td>
+      <td>1.1</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29163</th>
+      <td>2017-12-05</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>5</td>
+      <td>2.6</td>
+      <td>6.3</td>
+      <td>-1.2</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29164</th>
+      <td>2017-12-06</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>6</td>
+      <td>2.2</td>
+      <td>5.8</td>
+      <td>-1.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29165</th>
+      <td>2017-12-07</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>7</td>
+      <td>2.9</td>
+      <td>4.2</td>
+      <td>1.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29166</th>
+      <td>2017-12-08</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>8</td>
+      <td>1.9</td>
+      <td>3.5</td>
+      <td>0.2</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29167</th>
+      <td>2017-12-09</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>9</td>
+      <td>1.9</td>
+      <td>4.5</td>
+      <td>-0.8</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29168</th>
+      <td>2017-12-10</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>10</td>
+      <td>4.1</td>
+      <td>7.7</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29169</th>
+      <td>2017-12-11</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>11</td>
+      <td>3.8</td>
+      <td>8.9</td>
+      <td>-1.3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29170</th>
+      <td>2017-12-12</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>12</td>
+      <td>4.8</td>
+      <td>7.6</td>
+      <td>1.9</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29171</th>
+      <td>2017-12-13</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>13</td>
+      <td>4.4</td>
+      <td>7.9</td>
+      <td>0.8</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29172</th>
+      <td>2017-12-14</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>14</td>
+      <td>3.0</td>
+      <td>6.5</td>
+      <td>-0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29173</th>
+      <td>2017-12-15</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>15</td>
+      <td>4.2</td>
+      <td>6.9</td>
+      <td>1.4</td>
+      <td>0.8</td>
+      <td>0.0</td>
+      <td>0.8</td>
+    </tr>
+    <tr>
+      <th>29174</th>
+      <td>2017-12-16</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>16</td>
+      <td>4.1</td>
+      <td>6.5</td>
+      <td>1.6</td>
+      <td>5.8</td>
+      <td>0.0</td>
+      <td>5.8</td>
+    </tr>
+    <tr>
+      <th>29175</th>
+      <td>2017-12-17</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>17</td>
+      <td>6.0</td>
+      <td>7.4</td>
+      <td>4.6</td>
+      <td>40.6</td>
+      <td>0.0</td>
+      <td>40.6</td>
+    </tr>
+    <tr>
+      <th>29176</th>
+      <td>2017-12-18</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>18</td>
+      <td>6.2</td>
+      <td>7.3</td>
+      <td>5.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>29177</th>
+      <td>2017-12-19</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>19</td>
+      <td>2.8</td>
+      <td>5.4</td>
+      <td>0.1</td>
+      <td>42.6</td>
+      <td>1.0</td>
+      <td>44.2</td>
+    </tr>
+    <tr>
+      <th>29178</th>
+      <td>2017-12-20</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>20</td>
+      <td>1.7</td>
+      <td>5.0</td>
+      <td>-1.7</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29179</th>
+      <td>2017-12-21</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>21</td>
+      <td>-0.2</td>
+      <td>2.3</td>
+      <td>-2.7</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29180</th>
+      <td>2017-12-22</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>22</td>
+      <td>1.5</td>
+      <td>5.5</td>
+      <td>-2.6</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29181</th>
+      <td>2017-12-23</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>23</td>
+      <td>-1.5</td>
+      <td>2.8</td>
+      <td>-5.8</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29182</th>
+      <td>2017-12-24</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>24</td>
+      <td>-2.0</td>
+      <td>0.9</td>
+      <td>-4.9</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29183</th>
+      <td>2017-12-25</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>25</td>
+      <td>-0.3</td>
+      <td>1.0</td>
+      <td>-1.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29184</th>
+      <td>2017-12-26</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>26</td>
+      <td>-0.4</td>
+      <td>0.7</td>
+      <td>-1.4</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29185</th>
+      <td>2017-12-27</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>27</td>
+      <td>0.0</td>
+      <td>1.9</td>
+      <td>-1.9</td>
+      <td>3.0</td>
+      <td>0.2</td>
+      <td>3.2</td>
+    </tr>
+    <tr>
+      <th>29186</th>
+      <td>2017-12-28</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>28</td>
+      <td>3.4</td>
+      <td>5.7</td>
+      <td>1.1</td>
+      <td>20.8</td>
+      <td>0.0</td>
+      <td>20.8</td>
+    </tr>
+    <tr>
+      <th>29187</th>
+      <td>2017-12-29</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>29</td>
+      <td>2.8</td>
+      <td>4.7</td>
+      <td>0.9</td>
+      <td>27.6</td>
+      <td>0.0</td>
+      <td>27.6</td>
+    </tr>
+    <tr>
+      <th>29188</th>
+      <td>2017-12-30</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>30</td>
+      <td>1.3</td>
+      <td>4.3</td>
+      <td>-1.8</td>
+      <td>2.2</td>
+      <td>0.0</td>
+      <td>2.2</td>
+    </tr>
+    <tr>
+      <th>29189</th>
+      <td>2017-12-31</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>31</td>
+      <td>-0.1</td>
+      <td>3.8</td>
+      <td>-3.9</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>29190 rows × 10 columns</p>
+</div></div>
+</div>
+<p>For large DataFrames, it’s often useful to display just the first few or last few rows:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">weather</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Day</th>
+      <th>T_mean (C)</th>
+      <th>T_high (C)</th>
+      <th>T_low (C)</th>
+      <th>Rain (mm)</th>
+      <th>Snow (cm)</th>
+      <th>Total Precip (mm)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1938-01-01</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4.4</td>
+      <td>9.4</td>
+      <td>-0.6</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1938-01-02</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>2</td>
+      <td>4.5</td>
+      <td>7.2</td>
+      <td>1.7</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1938-01-03</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>3</td>
+      <td>1.7</td>
+      <td>7.2</td>
+      <td>-3.9</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1938-01-04</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>4</td>
+      <td>2.2</td>
+      <td>7.2</td>
+      <td>-2.8</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1938-01-05</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>5</td>
+      <td>2.2</td>
+      <td>7.2</td>
+      <td>-2.8</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">head</span></code> method returns a new DataFrame consisting of the first <code class="docutils literal notranslate"><span class="pre">n</span></code> rows (default 5)</p>
+<blockquote>
+<div>Pro Tips! - To display the documentation for this method, you can run the command <code class="docutils literal notranslate"><span class="pre">weather.head?</span></code> in your Jupyter notebook - To see other methods available for the DataFrame, type <code class="docutils literal notranslate"><span class="pre">weather.</span></code> followed by Tab for auto-complete options</div></blockquote>
+<p>First two rows:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">weather</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Day</th>
+      <th>T_mean (C)</th>
+      <th>T_high (C)</th>
+      <th>T_low (C)</th>
+      <th>Rain (mm)</th>
+      <th>Snow (cm)</th>
+      <th>Total Precip (mm)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1938-01-01</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4.4</td>
+      <td>9.4</td>
+      <td>-0.6</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1938-01-02</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>2</td>
+      <td>4.5</td>
+      <td>7.2</td>
+      <td>1.7</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.5</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Last four rows:</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">weather</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Day</th>
+      <th>T_mean (C)</th>
+      <th>T_high (C)</th>
+      <th>T_low (C)</th>
+      <th>Rain (mm)</th>
+      <th>Snow (cm)</th>
+      <th>Total Precip (mm)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>29186</th>
+      <td>2017-12-28</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>28</td>
+      <td>3.4</td>
+      <td>5.7</td>
+      <td>1.1</td>
+      <td>20.8</td>
+      <td>0.0</td>
+      <td>20.8</td>
+    </tr>
+    <tr>
+      <th>29187</th>
+      <td>2017-12-29</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>29</td>
+      <td>2.8</td>
+      <td>4.7</td>
+      <td>0.9</td>
+      <td>27.6</td>
+      <td>0.0</td>
+      <td>27.6</td>
+    </tr>
+    <tr>
+      <th>29188</th>
+      <td>2017-12-30</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>30</td>
+      <td>1.3</td>
+      <td>4.3</td>
+      <td>-1.8</td>
+      <td>2.2</td>
+      <td>0.0</td>
+      <td>2.2</td>
+    </tr>
+    <tr>
+      <th>29189</th>
+      <td>2017-12-31</td>
+      <td>2017</td>
+      <td>12</td>
+      <td>31</td>
+      <td>-0.1</td>
+      <td>3.8</td>
+      <td>-3.9</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section" id="Data-at-a-Glance">
+<h2>Data at a Glance<a class="headerlink" href="#Data-at-a-Glance" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> provides many ways to quickly and easily summarize your data: - How many rows and columns are there? - What are all the column names and what type of data is in each column?</p>
+<ul class="simple">
+<li>Numerical data: What is the average and range of the values?</li>
+<li>Text data: What are the unique values and how often does each occur?</li>
+<li>How many values are missing in each column or row?</li>
+</ul>
+<div class="section" id="Number-of-rows-and-columns:">
+<h3>Number of rows and columns:<a class="headerlink" href="#Number-of-rows-and-columns:" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">weather</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>(29190, 10)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># - The DataFrame `weather` has 29190 rows and 10 columns</span>
+<span class="c1"># - The index does not count as a column</span>
+<span class="c1"># - Notice there are no parentheses at the end of `weather.shape`</span>
+<span class="c1"># - `shape` is a **data attribute** of the variable `weather`</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">type</span><span class="p">(</span><span class="n">weather</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>tuple
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># The data in the `shape` attribute is stored as a **tuple**, which is similar to a list.</span>
+<span class="c1">#</span>
+<span class="c1"># - Items in a tuple are enclosed in `()` instead of `[]`</span>
+<span class="c1"># - Tuples are immutable - you can&#39;t modify individual items inside a tuple</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li>Within a column of a DataFrame, the data must all be of the same type</li>
+<li>We can find out the names and data types of each column from the <code class="docutils literal notranslate"><span class="pre">dtypes</span></code> attribute:</li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">weather</span><span class="o">.</span><span class="n">dtypes</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Date                  object
+Year                   int64
+Month                  int64
+Day                    int64
+T_mean (C)           float64
+T_high (C)           float64
+T_low (C)            float64
+Rain (mm)            float64
+Snow (cm)            float64
+Total Precip (mm)    float64
+dtype: object
+</pre></div>
+</div>
+</div>
+<p>In a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> DataFrame, a column containing text data (or containing a mix of text and numbers) is assigned a <code class="docutils literal notranslate"><span class="pre">dtype</span></code> of <code class="docutils literal notranslate"><span class="pre">object</span></code> and is treated as a column of strings.</p>
+<p><code class="docutils literal notranslate"><span class="pre">int64</span></code> and <code class="docutils literal notranslate"><span class="pre">float64</span></code> are integer and float, respectively. - The 64 at the end means that they are stored as 64-bit numbers in memory - These data types are equivalent to <code class="docutils literal notranslate"><span class="pre">int</span></code> and <code class="docutils literal notranslate"><span class="pre">float</span></code> in Python (<code class="docutils literal notranslate"><span class="pre">pandas</span></code> is a just a bit more explicit in how it names them)</p>
+<p>If we just want a list of the column names, we can use the <code class="docutils literal notranslate"><span class="pre">columns</span></code> attribute:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">weather</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Index([&#39;Date&#39;, &#39;Year&#39;, &#39;Month&#39;, &#39;Day&#39;, &#39;T_mean (C)&#39;, &#39;T_high (C)&#39;, &#39;T_low (C)&#39;,
+       &#39;Rain (mm)&#39;, &#39;Snow (cm)&#39;, &#39;Total Precip (mm)&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Simple-Summary-Statistics">
+<h3>Simple Summary Statistics<a class="headerlink" href="#Simple-Summary-Statistics" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">describe</span></code> method computes simple summary statistics and returns them as a DataFrame:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">weather</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Day</th>
+      <th>T_mean (C)</th>
+      <th>T_high (C)</th>
+      <th>T_low (C)</th>
+      <th>Rain (mm)</th>
+      <th>Snow (cm)</th>
+      <th>Total Precip (mm)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>29190.000000</td>
+      <td>29190.000000</td>
+      <td>29190.000000</td>
+      <td>29167.000000</td>
+      <td>29169.000000</td>
+      <td>29180.000000</td>
+      <td>29126.000000</td>
+      <td>29138.000000</td>
+      <td>29166.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>1977.479753</td>
+      <td>6.522336</td>
+      <td>15.729222</td>
+      <td>10.133692</td>
+      <td>13.780767</td>
+      <td>6.440062</td>
+      <td>2.985731</td>
+      <td>0.121779</td>
+      <td>3.107351</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>23.093891</td>
+      <td>3.448584</td>
+      <td>8.801167</td>
+      <td>5.803549</td>
+      <td>6.408815</td>
+      <td>5.514129</td>
+      <td>6.231114</td>
+      <td>1.146298</td>
+      <td>6.325946</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>1938.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>-14.500000</td>
+      <td>-11.100000</td>
+      <td>-17.800000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>1957.000000</td>
+      <td>4.000000</td>
+      <td>8.000000</td>
+      <td>5.900000</td>
+      <td>8.900000</td>
+      <td>2.600000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>1977.000000</td>
+      <td>7.000000</td>
+      <td>16.000000</td>
+      <td>10.000000</td>
+      <td>13.300000</td>
+      <td>6.700000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>1997.750000</td>
+      <td>10.000000</td>
+      <td>23.000000</td>
+      <td>15.000000</td>
+      <td>18.900000</td>
+      <td>11.100000</td>
+      <td>3.200000</td>
+      <td>0.000000</td>
+      <td>3.400000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>2017.000000</td>
+      <td>12.000000</td>
+      <td>31.000000</td>
+      <td>28.400000</td>
+      <td>34.400000</td>
+      <td>22.400000</td>
+      <td>91.600000</td>
+      <td>41.000000</td>
+      <td>91.600000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">describe</span></code> method is a way to quickly summarize the averages, extremes, and variability of each numerical data column.</p>
+<p>You can look at each statistic individually with methods such as <code class="docutils literal notranslate"><span class="pre">mean</span></code>, <code class="docutils literal notranslate"><span class="pre">median</span></code>, <code class="docutils literal notranslate"><span class="pre">min</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code>,<code class="docutils literal notranslate"><span class="pre">std</span></code>, and <code class="docutils literal notranslate"><span class="pre">count</span></code></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">weather</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Year                 1977.479753
+Month                   6.522336
+Day                    15.729222
+T_mean (C)             10.133692
+T_high (C)             13.780767
+T_low (C)               6.440062
+Rain (mm)               2.985731
+Snow (cm)               0.121779
+Total Precip (mm)       3.107351
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Exercise">
+<h2>Exercise<a class="headerlink" href="#Exercise" title="Permalink to this headline">¶</a></h2>
+<p>For this exercise, we will explore data about countries around the world, combined from multiple sources by the <a class="reference external" href="https://www.gapminder.org/about-gapminder/">Gapminder foundation</a>.</p>
+<p>Gapminder is an independent Swedish foundation that fights devastating misconceptions about global development and promotes a fact-based world view through the production of free teaching and data exploration resources.</p>
+<div class="section" id="Data-Overview">
+<h3>Data Overview<a class="headerlink" href="#Data-Overview" title="Permalink to this headline">¶</a></h3>
+<p>The columns of <code class="docutils literal notranslate"><span class="pre">data/gapminder_world_data_2018.csv</span></code> are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="39%" />
+<col width="61%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Column</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>country</td>
+<td>Country name</td>
+</tr>
+<tr class="row-odd"><td>population</td>
+<td>Population in the country</td>
+</tr>
+<tr class="row-even"><td>region</td>
+<td>Continent the country belongs to</td>
+</tr>
+<tr class="row-odd"><td>sub_region</td>
+<td>Sub regions as defined by</td>
+</tr>
+<tr class="row-even"><td>income_group</td>
+<td>Income group <a class="reference external" href="https://datahelpdesk.worldbank.org/knowledgebase/articles/378833-how-are-the-income-group-thresholds-determined">as specified by the world bank</a></td>
+</tr>
+<tr class="row-odd"><td>life_expectancy</td>
+<td>The average number of years a newborn child would live if mortality patterns were to stay the same</td>
+</tr>
+<tr class="row-even"><td>gdp_per_capita</td>
+<td>GDP per capita (in USD) adjusted for differences in purchasing power</td>
+</tr>
+<tr class="row-odd"><td>children_per_woman</td>
+<td>Number of children born to each woman</td>
+</tr>
+<tr class="row-even"><td>child_mortality</td>
+<td>Deaths of children under 5 years of age per 1000 live births</td>
+</tr>
+<tr class="row-odd"><td>pop_density</td>
+<td>Average number of people per km<span class="math notranslate nohighlight">\(^2\)</span></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<div>You may want to refer to the <a class="reference external" href="pandas-cheatsheet.ipynb">Pandas cheatsheet</a> as you work through the exercises.</div></blockquote>
+<p><strong>a)</strong> Read the file <code class="docutils literal notranslate"><span class="pre">data/gapminder_world_data_2018.csv</span></code> into a new DataFrame <code class="docutils literal notranslate"><span class="pre">world</span></code> and display the first 10 rows.</p>
+<p><strong>b)</strong> How many rows and columns does <code class="docutils literal notranslate"><span class="pre">world</span></code> have?</p>
+<p><strong>c)</strong> Display the names and data types of each column.</p>
+<p><strong>d)</strong> Display summary statistics with the <code class="docutils literal notranslate"><span class="pre">describe</span></code> method. What are the lowest and highest populations? How about lowest/highest population densities? Any guesses which countries these might be? (We’ll find out the answers in Lesson 4!)</p>
+</div>
+<div class="section" id="Bonus-exercises">
+<h3>Bonus exercises<a class="headerlink" href="#Bonus-exercises" title="Permalink to this headline">¶</a></h3>
+<p><strong>e) Data wrangling - dealing with header rows</strong></p>
+<p>The file <code class="docutils literal notranslate"><span class="pre">data/raw/weather_YVR_1938.csv</span></code> contains the daily weather data for 1938, in the original format downloaded from Environment Canada. Open this file in the JupyterLab CSV viewer to see what it looks like.</p>
+<blockquote>
+<div>Note that the CSV viewer isn’t able to parse the data correctly because of the extra header rows at the beginning.</div></blockquote>
+<ul class="simple">
+<li>Now try reading the file into your notebook with <code class="docutils literal notranslate"><span class="pre">pandas.read_csv</span></code> and see what happens.</li>
+</ul>
+<p>If you look at the documentation for <code class="docutils literal notranslate"><span class="pre">pandas.read_csv</span></code>, you’ll see a <code class="docutils literal notranslate"><span class="pre">skiprows</span></code> input buried amongst a few dozen other inputs for this function. This input tells <code class="docutils literal notranslate"><span class="pre">read_csv</span></code> how many rows to skip at the beginning of the file. - Try reading <code class="docutils literal notranslate"><span class="pre">data/raw/weather_YVR_1938.csv</span></code> again, but this time using a value of <code class="docutils literal notranslate"><span class="pre">24</span></code> for the <code class="docutils literal notranslate"><span class="pre">skiprows</span></code> keyword argument, and display the first 5 rows of the resulting DataFrame.</p>
+<p><strong>f) Importing a library from a ``.py`` file</strong></p>
+<p>In the pandas folder, you’ll see a file called <code class="docutils literal notranslate"><span class="pre">ecweather.py</span></code>. It is a Python <em>module</em>, which is a library contained in a single <code class="docutils literal notranslate"><span class="pre">.py</span></code> file (as opposed to a package, which is multiple <code class="docutils literal notranslate"><span class="pre">.py</span></code> files bundled together).</p>
+<p>You can import a library from a local <code class="docutils literal notranslate"><span class="pre">.py</span></code> file with the same syntax as any other library. The library name is just the file name minus the <code class="docutils literal notranslate"><span class="pre">.py</span></code> extension, so to import this library the syntax is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ecweather</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Import <code class="docutils literal notranslate"><span class="pre">ecweather</span></code> into your notebook, and call the function <code class="docutils literal notranslate"><span class="pre">ecweather.welcome()</span></code> to test it. If everything worked ok, it should print a welcome message.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2019, Philip Austin.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

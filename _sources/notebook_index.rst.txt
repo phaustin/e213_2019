@@ -84,4 +84,10 @@ notebooks/class_intro_mar12.ipynb                                   `class_intro
 notebooks/solutions/8_finite_volume_by_hand_ans.ipynb               `8_finite_volume_by_hand_ans_html`_              `8_finite_volume_by_hand_ans_py`_              
 ------------------------------------------------------------------- ------------------------------------------------ ---------------------------------------------- 
 notebooks/class_intro_solution.ipynb                                `class_intro_solution_html`_                     `class_intro_solution_py`_                     
+------------------------------------------------------------------- ------------------------------------------------ ---------------------------------------------- 
+notebooks/pandas/10-pandas1-reading-summarizing-csv-data.ipynb      `10-pandas1-reading-summarizing-csv-data_html`_  `10-pandas1-reading-summarizing-csv-data_py`_  
+------------------------------------------------------------------- ------------------------------------------------ ---------------------------------------------- 
+notebooks/pandas/10-pandas2-download-daily-data.ipynb               `10-pandas2-download-daily-data_html`_           `10-pandas2-download-daily-data_py`_           
+------------------------------------------------------------------- ------------------------------------------------ ---------------------------------------------- 
+notebooks/pandas/10-pandas3-process-daily-data.ipynb                `10-pandas3-process-daily-data_html`_            `10-pandas3-process-daily-data_py`_            
 =================================================================== ================================================ ============================================== 
