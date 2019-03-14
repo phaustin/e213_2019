@@ -1,0 +1,200 @@
+\documentclass{article}
+
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{multicol}
+%%%<
+\usepackage{verbatim}
+%\usepackage[active,tightpage]{preview}
+%%\PreviewEnvironment{tikzpicture}
+%\setlength\PreviewBorder{5pt}%
+%%%>
+
+\definecolor{dark-green}{rgb}{0.0, 0.5, 0.0}
+\newcommand{\ans}[1]{\textcolor{dark-green}{#1}}
+
+
+\begin{document}
+\pagestyle{empty}
+
+\large{EOSC 213 Quiz 3} \hspace{10cm} \large{March 14$^{\textrm{th}}$, 2019}
+
+\large{Name: } \hspace{12cm} \large{ID: }
+\begin{center}
+\Huge{EOSC 213 - Quiz}
+\end{center}
+
+\rule{\textwidth}{1pt}
+
+\large{\textbf{Instructions (20 points in total)}}
+\begin{multicols}{2}
+\begin{itemize}
+\item Read the examination before beginning.
+\item Calculators are allowed (if you don't have one, just give the expression to type in a calculator).
+\item You have exactly 30 minutes for the examination.
+\item Be as precise and clear as possible.
+\item This is a closed book examination.
+\item If you get stuck, make an assumption, state what it is and try to carry on.
+\end{itemize} 
+\end{multicols}
+
+
+\rule{\textwidth}{1pt}
+
+
+Let us consider the continuity equation \ref{eq:continuity}
+
+\begin{equation}
+\frac{\partial c}{\partial t} + \overrightarrow{\nabla} \cdot \overrightarrow{j} = Q, \label{eq:continuity}
+\end{equation} Fick's law of diffusion
+\begin{equation}
+\overrightarrow{j_{\mathrm{diff}}} = - D \overrightarrow{\nabla} c, \label{eq:fick}
+\end{equation} and the advective flux (with Darcy-velocity $\overrightarrow{u}$)
+
+\begin{equation}
+\overrightarrow{j_{\mathrm{adv}}} = c \overrightarrow{u} . \label{eq:adv}
+\end{equation}
+\begin{description}
+\item [Q1] Describe equation \ref{eq:continuity} (dimensions, physical meaning of each term, ...) 
+
+\ans{Equation \ref{eq:continuity} is a conservation equation which states the the evolution of the concentration (mass) at one point in time is the result of the balance between the creation of mass at that point (Source term $Q$ in mg/L/s) and the different fluxes $j$ which come in and out. $j$ represents a specific flux (mg/m$^2$/s, either from diffusion or advection), $D$ is the diffusion coefficient (m$^2$/s), $c$ is the concentration (mg/L), $\overrightarrow{\nabla} \cdot \overrightarrow{j}$ represents the divergence of $j$: it is positve if the different fluxes leave the considered point (volume), and negative when fluxes are getting in. This way, a negative divergence increases the concentration.}
+
+\end{description}
+
+
+\begin{description}
+\item [Q2] Describe the \textbf{physical meaning} of $ \frac{\partial c}{\partial t}  = Q$ ? \textbf{[2 points]}
+\ans{This corresponds to a box model, or a situation where no fluxes occur (no advection, $D = 0$, ...). In this sense, the concentration simply evolves from the potential source term. If $Q = 0$, then the concentration is constant.}
+
+\item [Q3] Write the appropriate equation that would describe a 1D diffusion problem \textbf{[2 points]}
+
+\ans{$\frac{\partial c}{\partial t} = \frac{\partial}{\partial x} \left( D \frac{\partial c}{\partial x}  \right) + Q, $ which can become $\frac{\partial c}{\partial t} = D  \frac{\partial^2 c}{\partial x^2} $, if diffusion is homogeneous and $Q = 0$ }
+\item [Q4] Write the appropriate equation that would describe a 1D \textbf{steady-state} diffusion problem \textbf{[2 points]}
+\ans{$0 = \frac{\partial}{\partial x} \left( D \frac{\partial c}{\partial x}  \right) + Q, $ which can become $ \frac{\partial^2 c}{\partial x^2} = 0 $ (Laplace equation), if homogeneous diffusion and $Q = 0$ }
+\end{description}
+
+We will now consider that $Q=0$ and that we work in a \textbf{closed system} between -5 and 5 meters. 
+
+
+\begin{description}
+\item [Q5] Describe this new problem (equation, variable and domain) \textbf{[2 points]}
+
+\ans{$\frac{\partial c}{\partial t} = D  \frac{\partial^2 c}{\partial x^2}   $ with $x$ between -5 and 5 m (1D problem). }
+
+
+\item [Q6] Can you describe in words and/or mathematically the boundary conditions which describe this \textbf{closed} system? \textbf{[2 points]}
+
+\ans{A closed system implies that no flux can go out. This means that the spatial derivatives of $c$ at the boundaries have to be 0: $\frac{dc}{dx} = 0$ at $x = -5$ and $x = 5$. This means that the concentration profiles have to be flat at the boundary (this physically represents a barrier on which particle bounces)}
+
+\item [Q7] Concentrations were measured at three different times and are represented in the graph below. The messy person who did the measurements does not remember at which time these measurements were taken. Can you help him, using your physical intuition? Give the temporal sequence of the three curves.  \textbf{[2 points]}  
+
+\end{description}
+
+\begin{tikzpicture}
+\begin{axis}[width = 6cm, xmin=-5,xmax = 5, height = 6cm, grid = both, xlabel = {x-axis}, ylabel = {$c$}, legend pos = outer north east]
+\addplot[red, densely dotted, line width = 2pt] table [x=x, y=c1]{diff.txt}; \addlegendentry{(b)}
+\addplot[blue, line width = 2pt] table [x=x, y=c0]{diff.txt}; \addlegendentry{(a)}
+
+\addplot[black, dotted, = 2pt] table [x=x, y=c2]{diff.txt}; \addlegendentry{(c)}
+
+\addplot[dark-green, line width = 2pt] table [x=x, y=cf]{diff.txt}; \addlegendentry{Asymptotic}
+\end{axis}
+\end{tikzpicture} 
+
+\ans{First (a), then (b), then (c), because diffusion leads solutes to go from high concentration to lower concentration}
+%\scalebox{0.83}{\input{diffu.tex}}
+%\includegraphics[width = 7cm]{quizzEx2}
+
+\begin{description}
+\item [Q8] Give the asymptotic solution to this problem and draw it on the previous graph  \textbf{[2 points]}
+
+\ans{This is a closed system. So nothing can go out of it. If initial, 1kg of solutes was inside the system, in the end, the same 1 kg will be in the system. And in the end, since both derivatives at the boundaries have to be zero, the spatial derivative everywhere needs to be zero: so it has to be a line. And the steady-state/asymptotic is reached when the concentration is flat! }
+
+\item[Bonus Question] Can you provide the value for the exact asymptotic concentration at some place of your choice between -5 and 5 m ? \textbf{[2 BONUS points]}
+\ans{The total mass has to be conserved. Since concentration is initially at 1 between x = -1 and x = 1 (a fifth of the domain), in the end, the dilution will lead the concentration to be everywhere at 0.2 }
+
+\end{description}
+
+
+\newpage
+\textbf{Python Questions}
+
+
+This is a question about the following code:
+
+%\hline 
+\rule{15cm}{0.75pt}
+
+
+\begin{verbatim}
+class Problem_Def:
+    """
+    this class holds the specifcation for the domain,
+    including the value of the porosity
+    """
+
+    def __init__(self, nx, ny, poro, wx, wy):
+        self.nx = nx
+        self.ny = ny
+        self.poro = poro
+        self.wx = wx
+        self.wy = wy
+
+
+def get_spacing(nx=4, ny=3, poro=0.4, wx=10, wy=20):
+    the_prob = Problem_Def(nx, ny, poro, wx, wy)
+    delx = the_prob.wx / the_prob.nx
+    dely = the_prob.wy / the_prob.ny
+    return delx, dely
+\end{verbatim}
+
+%\hline 
+\rule{15cm}{0.75pt}
+
+\begin{description}
+
+\item[Q9] Given the code above, what does the following python statement print?
+  \textbf{[2 points]}
+  
+\verb+print(f"{get_spacing(nx=6)}")+
+
+\ans{1.66667, 6.66667}
+  
+\end{description}
+
+
+\begin{description}  
+
+  
+\item[Q10] modify the \verb+Problem_Def+ class to
+  incorporate \verb+get_spacing+ as an instance method \textbf{[2 points]}
+
+  That is, create a version of \verb+Problem_Def+ for which the following will work::
+
+\begin{verbatim}
+
+     the_instance = Problem_Def()
+     delx, dely = the_instance.get_spacing()
+
+\end{verbatim}
+
+where the new constructor has the signature::
+
+\begin{verbatim}
+      def __init__(self,nx=4,ny=3,poro=0.4,wx=10,wy=20):
+         ...
+\end{verbatim}
+
+  
+\end{description}  
+
+\ans{See website}
+
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
