@@ -9,3 +9,7 @@ rst_out.json
 1-python-basics.ipynb
 *.ipynb
 temp.md
+*/data/raw*
+notebooks/pandas/data/raw
+notebooks/pandas/data/processed/
+notebooks/pandas/python/data/raw
