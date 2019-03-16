@@ -36,6 +36,7 @@
 #     toc_section_display: true
 #     toc_window_display: true
 # ---
+
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"><li><span><a href="#Exploring-Environment-Canada-Weather-Data-with-Python-and-Jupyter-Notebooks" data-toc-modified-id="Exploring-Environment-Canada-Weather-Data-with-Python-and-Jupyter-Notebooks-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Exploring Environment Canada Weather Data with Python and Jupyter Notebooks</a></span><ul class="toc-item"><li><span><a href="#Updates:" data-toc-modified-id="Updates:-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Updates:</a></span></li></ul></li><li><span><a href="#Part-I:-Data-Extraction-&amp;-Cleaning" data-toc-modified-id="Part-I:-Data-Extraction-&amp;-Cleaning-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Part I: Data Extraction &amp; Cleaning</a></span><ul class="toc-item"><li><span><a href="#Function-for-calling-the-Environment-Canada-API" data-toc-modified-id="Function-for-calling-the-Environment-Canada-API-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Function for calling the Environment Canada API</a></span></li><li><span><a href="#How-to-download-data-between-a-specified-date-range" data-toc-modified-id="How-to-download-data-between-a-specified-date-range-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>How to download data between a specified date range</a></span></li><li><span><a href="#Plot-average-data-and-a-rolling-average" data-toc-modified-id="Plot-average-data-and-a-rolling-average-2.3"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>Plot average data and a rolling average</a></span></li><li><span><a href="#Fix-missing-data-points-by-interpolation" data-toc-modified-id="Fix-missing-data-points-by-interpolation-2.4"><span class="toc-item-num">2.4&nbsp;&nbsp;</span>Fix missing data points by interpolation</a></span></li><li><span><a href="#For-convenience:-Scrape-StationIDs-to-lookup-cities" data-toc-modified-id="For-convenience:-Scrape-StationIDs-to-lookup-cities-2.5"><span class="toc-item-num">2.5&nbsp;&nbsp;</span>For convenience: Scrape StationIDs to lookup cities</a></span></li><li><span><a href="#Parsing-the-Environment-Canada-page-with-Beautiful-Soup" data-toc-modified-id="Parsing-the-Environment-Canada-page-with-Beautiful-Soup-2.6"><span class="toc-item-num">2.6&nbsp;&nbsp;</span>Parsing the Environment Canada page with Beautiful Soup</a></span></li><li><span><a href="#Filtering-Station-Data" data-toc-modified-id="Filtering-Station-Data-2.7"><span class="toc-item-num">2.7&nbsp;&nbsp;</span>Filtering Station Data</a></span></li><li><span><a href="#Looking-up-stations" data-toc-modified-id="Looking-up-stations-2.8"><span class="toc-item-num">2.8&nbsp;&nbsp;</span>Looking up stations</a></span></li><li><span><a href="#Download-Weather-Data" data-toc-modified-id="Download-Weather-Data-2.9"><span class="toc-item-num">2.9&nbsp;&nbsp;</span>Download Weather Data</a></span></li><li><span><a href="#Let's-plot-the-data-for-Whistler" data-toc-modified-id="Let's-plot-the-data-for-Whistler-2.10"><span class="toc-item-num">2.10&nbsp;&nbsp;</span>Let's plot the data for Whistler</a></span></li><li><span><a href="#How-to-fix-missing-data-points-with-interpolation" data-toc-modified-id="How-to-fix-missing-data-points-with-interpolation-2.11"><span class="toc-item-num">2.11&nbsp;&nbsp;</span>How to fix missing data points with interpolation</a></span></li></ul></li><li><span><a href="#Exporting-Data" data-toc-modified-id="Exporting-Data-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Exporting Data</a></span></li></ul></div>
@@ -57,11 +58,11 @@
 # %% [markdown]
 # # Part I: Data Extraction & Cleaning
 # %%
-import datetime
+import datetime as dt
 import re
-from datetime import datetime
-from datetime import timedelta
 
+from pandas.plotting import register_matplotlib_converters
+register_matplotlib_converters()
 import matplotlib.pyplot as plt
 import pandas as pd
 import requests
@@ -91,8 +92,8 @@ def getHourlyData(stationID, year, month):
 
 # %%
 stationID = 51442
-start_date = datetime.strptime("Jun2015", "%b%Y")
-end_date = datetime.strptime("Jun2016", "%b%Y")
+start_date = dt.datetime.strptime("Jun2015", "%b%Y")
+end_date = dt.datetime.strptime("Jun2016", "%b%Y")
 
 frames = []
 for dt in rrule.rrule(rrule.MONTHLY, dtstart=start_date, until=end_date):
@@ -108,7 +109,6 @@ weather_data["Temp (°C)"] = pd.to_numeric(weather_data["Temp (°C)"])
 # Notice the broken lines, they indicate missing data points.
 
 # %%
-# %matplotlib inline
 sns.set_style("whitegrid")
 fig = plt.figure(figsize=(15, 5))
 plt.plot(
@@ -122,7 +122,6 @@ plt.plot(
 )
 plt.ylabel("Temp (°C)")
 plt.xlabel("Time")
-plt.show()
 
 # %% [markdown]
 # ## Fix missing data points by interpolation
@@ -135,7 +134,6 @@ weather_data["Temp (°C)"] = weather_data["Temp (°C)"].interpolate()
 # Then plot the data again:
 
 # %% {"scrolled": true}
-# %matplotlib inline
 sns.set_style("whitegrid")
 fig = plt.figure(figsize=(15, 5))
 plt.plot(
@@ -149,7 +147,6 @@ plt.plot(
 )
 plt.ylabel("Temp (°C)")
 plt.xlabel("Time")
-plt.show()
 
 # %% [markdown]
 # ## For convenience: Scrape StationIDs to lookup cities
@@ -223,7 +220,7 @@ for soup in soup_frames:  # For each soup
             # Store the data in an array
             data = [station, name, intervals, min_year, max_year]
             station_data.append(data)
-        except:
+        except IndexError:
             pass
 
 # Create a pandas dataframe using the collected data and give it the appropriate column names
@@ -272,8 +269,8 @@ hourly_stations[
 # %%
 # Get Whistler weather data for November 2016 to November 2017
 stationID = 43443
-start_date = datetime.strptime("Nov2016", "%b%Y")
-end_date = datetime.strptime("Nov2017", "%b%Y")
+start_date = dt.strptime("Nov2016", "%b%Y")
+end_date = dt.strptime("Nov2017", "%b%Y")
 
 frames = []
 for dt in rrule.rrule(rrule.MONTHLY, dtstart=start_date, until=end_date):
@@ -289,7 +286,6 @@ whistler.head()
 # ## Let's plot the data for Whistler
 
 # %%
-# %matplotlib inline
 sns.set_style("whitegrid")
 fig = plt.figure(figsize=(15, 5))
 plt.plot(whistler["Date/Time"], whistler["Temp (°C)"], "-o", alpha=0.8, markersize=2)
@@ -301,7 +297,6 @@ plt.plot(
 )
 plt.ylabel("Temp (°C)")
 plt.xlabel("Time")
-plt.show()
 
 # %% [markdown]
 # ## How to fix missing data points with interpolation
@@ -325,7 +320,6 @@ print("Missing data rows: ", whistler.loc[(whistler["Temp (°C)"].isnull())].sha
 # Re-plot the data
 
 # %% {"scrolled": true}
-# %matplotlib inline
 sns.set_style("whitegrid")
 fig = plt.figure(figsize=(15, 5))
 plt.plot(whistler["Date/Time"], whistler["Temp (°C)"], "-o", alpha=0.8, markersize=2)
@@ -337,7 +331,6 @@ plt.plot(
 )
 plt.ylabel("Temp (°C)")
 plt.xlabel("Time")
-plt.show()
 
 # %% [markdown]
 # # Exporting Data

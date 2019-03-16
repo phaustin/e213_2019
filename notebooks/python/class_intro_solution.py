@@ -38,7 +38,6 @@
 #     toc_section_display: true
 #     toc_window_display: true
 # ---
-
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"><li><span><a href="#Learning-objectives" data-toc-modified-id="Learning-objectives-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Learning objectives</a></span></li><li><span><a href="#Types-and-classes" data-toc-modified-id="Types-and-classes-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Types and classes</a></span></li><li><span><a href="#Class-variables" data-toc-modified-id="Class-variables-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Class variables</a></span></li><li><span><a href="#Instance-variables" data-toc-modified-id="Instance-variables-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Instance variables</a></span></li><li><span><a href="#Instance-methods" data-toc-modified-id="Instance-methods-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Instance methods</a></span><ul class="toc-item"><li><span><a href="#Passing-self-to-instance-methods" data-toc-modified-id="Passing-self-to-instance-methods-5.1"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>Passing self to instance methods</a></span></li></ul></li><li><span><a href="#Your-turn" data-toc-modified-id="Your-turn-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Your turn</a></span></li><li><span><a href="#Solution----if-you-don't-know-about-class-methods" data-toc-modified-id="Solution----if-you-don't-know-about-class-methods-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>Solution -- if you don't know about class methods</a></span><ul class="toc-item"><li><span><a href="#this-works,-but-suffers-from-code-smell" data-toc-modified-id="this-works,-but-suffers-from-code-smell-7.1"><span class="toc-item-num">7.1&nbsp;&nbsp;</span>this works, but suffers from code smell</a></span></li></ul></li><li><span><a href="#Solution----using-class-methods" data-toc-modified-id="Solution----using-class-methods-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>Solution -- using class methods</a></span></li><li><span><a href="#Summary" data-toc-modified-id="Summary-9"><span class="toc-item-num">9&nbsp;&nbsp;</span>Summary</a></span></li><li><span><a href="#Appendix" data-toc-modified-id="Appendix-10"><span class="toc-item-num">10&nbsp;&nbsp;</span>Appendix</a></span><ul class="toc-item"><li><span><a href="#Further-reading" data-toc-modified-id="Further-reading-10.1"><span class="toc-item-num">10.1&nbsp;&nbsp;</span>Further reading</a></span></li><li><span><a href="#Internet-sources-for-the-definitions-used-in-this-notebook:" data-toc-modified-id="Internet-sources-for-the-definitions-used-in-this-notebook:-10.2"><span class="toc-item-num">10.2&nbsp;&nbsp;</span>Internet sources for the definitions used in this notebook:</a></span></li></ul></li></ul></div>
@@ -260,8 +259,7 @@ class Problem_Def:
         return Problem_Def(nx, ny, poro, wx, wy)
 
     def to_dict(self):
-        out_dict = dict(nx=self.nx, ny=self.ny, 
-                        poro=self.poro, wx=self.wx, wy=self.wy)
+        out_dict = dict(nx=self.nx, ny=self.ny, poro=self.poro, wx=self.wx, wy=self.wy)
         return out_dict
 
 
@@ -276,11 +274,11 @@ prob6 = prob5.from_dict(dict5)
 # %% [markdown]
 # ### this works, but suffers from code smell
 #
-# What's the problem with this?  
+# What's the problem with this?
 #
 # 1. We had to explicity type `Problem_Def` the return line above,
 #    limiting code reuse.
-#     
+#
 # 1. To get object `prob6` using `from_dict`, we need to create
 #    an object `prob5` that has that method.  We shouldn't have
 #    to create an unnecessary object just to get the `from_dict` method.
@@ -288,8 +286,8 @@ prob6 = prob5.from_dict(dict5)
 # %% [markdown]
 # ## Solution -- using class methods
 #
-# Here is the correct way to write `from_dict` method using a 
-# @classmethod decorator.  Understanding the details of this aren't 
+# Here is the correct way to write `from_dict` method using a
+# @classmethod decorator.  Understanding the details of this aren't
 # necessary for this course, but it would be good to understand
 # why this is different, and why the resulting usage pattern
 # is better.
@@ -309,13 +307,14 @@ class Problem_Def:
         self.poro = poro
         self.wx = wx
         self.wy = wy
-#
-# note 1 -- @classmethod is a "decorator" that changes
-# the meaning of the first argument in from_dict from
-# the instance (self) to the class (Problem_Def)
-# so this code will always work, even if we change the
-# name of the class to New_Problem at some point
-#
+
+    #
+    # note 1 -- @classmethod is a "decorator" that changes
+    # the meaning of the first argument in from_dict from
+    # the instance (self) to the class (Problem_Def)
+    # so this code will always work, even if we change the
+    # name of the class to New_Problem at some point
+    #
     @classmethod
     def from_dict(cls, input_dict):
         nx = input_dict["nx"]
@@ -326,8 +325,7 @@ class Problem_Def:
         return cls(nx, ny, poro, wx, wy)
 
     def to_dict(self):
-        out_dict = dict(nx=self.nx, ny=self.ny,
-                        poro=self.poro, wx=self.wx, wy=self.wy)
+        out_dict = dict(nx=self.nx, ny=self.ny, poro=self.poro, wx=self.wx, wy=self.wy)
         return out_dict
 
 

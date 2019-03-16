@@ -40,5 +40,16 @@
         "2D_assignment_restart",
         "9_pdes_1",
         "install_conda_howto"
+    ],
+    "week 10": [
+        "2D_Assignment_Transient_sparse",
+        "9_finite_volume_f_diff_8",
+        "class_intro_mar12",
+        "8_finite_volume_by_hand_ans",
+        "class_intro_solution",
+        "10-pandas1-reading-summarizing-csv-data",
+        "10-pandas2-download-daily-data",
+        "10-pandas3-process-daily-data",
+        "pandas-cheatsheet"
     ]
 }

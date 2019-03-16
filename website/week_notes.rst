@@ -60,7 +60,7 @@ Week 5  Jan 29/Jan 31
 - Here are the instructions for seeing your
   :ref:`assignment_handbacks`
 
-- `5.1_finite_volume_1_
+- `5.1_finite_volume_1_html`_
 
 - `5.1_finite_volume_2_html`_
 
@@ -73,8 +73,6 @@ Week 6  Feb 05/Feb 07
 - `6_finite_volume_4_html`_
 
 - `6_finite_volume_5_html`_
-
-- `6_finite_volume_6_html`_
 
 - `Quiz 1 answer key <http://clouds.eoas.ubc.ca/~phil/Downloads/e213_solutions/Quiz1_answers.pdf>`_
 
@@ -111,7 +109,27 @@ Week 9  Mar 05/Mar 07
 
 - `install_conda_howto_html`_
 
+Week 10  Mar 12/Mar 14
+=====================
 
+- `9_finite_volume_f_diff_8_html`_
+
+- `2D_Assignment_Transient_sparse_html`_
+
+- `module_2D.py <https://github.com/phaustin/eosc213_students/blob/march12/notebooks/2D_Assignment_sparse/module_2D.py>`_ 
+
+* `class_intro_mar12_html`_
+
+* Solution to the by_hand assignment: `8_finite_volume_by_hand_ans_html`_
+
+* Solution to the class introduction notebook: `class_intro_solution_html`_
+
+* Getting started with pandas
+  
+  - `10-pandas1-reading-summarizing-csv-data_html`_
+  - `10-pandas2-download-daily-data_html`_
+  - `10-pandas3-process-daily-data_html`_
+    
 General notes
 =============
 
@@ -124,4 +142,4 @@ General notes
 
   - `Python for data analysis <https://github.com/wesm/pydata-book>`_
 
-
+  
