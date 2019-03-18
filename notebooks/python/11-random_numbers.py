@@ -25,6 +25,7 @@
 #     toc_section_display: true
 #     toc_window_display: true
 # ---
+
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"><li><span><a href="#Create-1000-uniformly-distributed-random-numbers-in-the-inteval-[0,1)" data-toc-modified-id="Create-1000-uniformly-distributed-random-numbers-in-the-inteval-[0,1)-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Create 1000 uniformly distributed random numbers in the inteval [0,1)</a></span></li><li><span><a href="#Repeat-for-a-normal-distribution-with-$\mu=10$,-$\sigma=4$" data-toc-modified-id="Repeat-for-a-normal-distribution-with-$\mu=10$,-$\sigma=4$-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Repeat for a normal distribution with $\mu=10$, $\sigma=4$</a></span></li><li><span><a href="#lognormal-random-numbers-with-$\mu=1$,-$\log-\sigma=0.1$" data-toc-modified-id="lognormal-random-numbers-with-$\mu=1$,-$\log-\sigma=0.1$-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>lognormal random numbers with $\mu=1$, $\log \sigma=0.1$</a></span></li><li><span><a href="#Correlated-random-numbers" data-toc-modified-id="Correlated-random-numbers-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Correlated random numbers</a></span></li><li><span><a href="#Functions-of-random-variables" data-toc-modified-id="Functions-of-random-variables-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Functions of random variables</a></span></li></ul></div>
