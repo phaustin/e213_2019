@@ -129,6 +129,11 @@ Week 10  Mar 12/Mar 14
   - `10-pandas1-reading-summarizing-csv-data_html`_
   - `10-pandas2-download-daily-data_html`_
   - `10-pandas3-process-daily-data_html`_
+
+Week 11 Mar19/Mar 
+================
+
+* Class slides <https://www.dropbox.com/s/l1haaa10r14y69f/Lect_1903.pdf?dl=0`_
     
 General notes
 =============
