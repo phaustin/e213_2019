@@ -62,12 +62,12 @@ def main(args=None):
         for notebook in weeklist:
             py_name = f"{notebook}.py"
             nb_name = f"{notebook}.ipynb"
-            print(f"processing {nb_name} in folder {context.student_dir}")
             try:
                 nb_file = list(context.student_dir.glob(f"**/{nb_name}"))[0]
             except IndexError:
                 print(f"error locating {context.student_dir} / {nb_name}")
                 sys.exit(1)
+            print(f"processing {nb_file} in folder {context.student_dir}")
             try:
                 py_file = list(context.student_dir.glob(f"**/{py_name}"))[0]
             except IndexError:

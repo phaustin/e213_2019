@@ -8,11 +8,14 @@
 #       format_name: percent
 #       format_version: '1.2'
 #       jupytext_version: 1.0.3
+#   nbsphinx:
+#       execute: never
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
 #     name: python3
 # ---
+
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"><li><span><a href="#Test-Calcs-(Single-Year)" data-toc-modified-id="Test-Calcs-(Single-Year)-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Test Calcs (Single Year)</a></span></li><li><span><a href="#Process-All-Years" data-toc-modified-id="Process-All-Years-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Process All Years</a></span></li><li><span><a href="#Create-a-subset-of-the-data" data-toc-modified-id="Create-a-subset-of-the-data-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Create a subset of the data</a></span></li></ul></div>
@@ -31,17 +34,18 @@ from pathlib import Path
 import pandas as pd
 
 # %%
-station = "YVR"
-datadir = Path("data/raw/")
-savedir = Path("data/processed/")
+import context
+
+# %%
 
 # %% [markdown]
 # ## Test Calcs (Single Year)
 
 # %%
+station = "YVR"
 stn_id = 51442
 year = 2013
-datafile = datadir / Path(f"weather_daily_{station}_{stn_id}_{year}.csv")
+datafile = context.raw_dir / Path(f"weather_daily_{station}_{stn_id}_{year}.csv")
 
 # %%
 df_in = pd.read_csv(datafile, skiprows=24, index_col=0, parse_dates=True)
@@ -126,13 +130,13 @@ years_early = range(1938, 2014)
 
 # Recent data (mid 2013 to 2017)
 stn_id_recent = 51442
-years_recent = range(2013, 2018)
+years_recent = range(2013, 2020)
 
 # Loop over station IDs and years, using Python's zip function
 for stn, years_list in zip([stn_id_early, stn_id_recent], [years_early, years_recent]):
     for year in years_list:
-        filenm = datadir / Path(f"weather_daily_{station}_{stn}_{year}.csv")
-        data_in = process_data(filenm)
+        filename = context.raw_dir / Path(f"weather_daily_{station}_{stn}_{year}.csv")
+        data_in = process_data(filename)
 
         # Use the append method to append the new data
         data_all = data_all.append(data_in)
@@ -149,11 +153,8 @@ data_all.shape
 # %%
 # Save the full set of concatenated data to file
 year_min, year_max = data_all["Year"].min(), data_all["Year"].max()
-savefile = savedir / Path(f"weather_daily_{station}_{year_min}-{year_max}_all.csv")
-#
-# create the processed folder if it doesn't exist
-#
-savefile.parent.mkdir(parents=True, exist_ok=True)
+savefile = (context.processed_dir 
+             / Path(f"weather_daily_{station}_{year_min}-{year_max}_all.csv"))
 print(f"Saving to {savefile}")
 data_all.to_csv(savefile)
 
@@ -189,7 +190,7 @@ data_subset.index.name = "Date"
 data_subset.head()
 
 # %%
-savefile2 = savedir / Path(f"weather_{station}.csv")
+savefile2 = context.processed_dir / Path(f"weather_{station}.csv")
 print(f"Saving to {savefile2}")
 data_subset.to_csv(savefile2)
 

@@ -100,3 +100,9 @@
 .. _pandas-cheatsheet_ipynb: notebooks/pandas/pandas-cheatsheet.ipynb
 .. _pandas-cheatsheet_html: web_notebooks/pandas-cheatsheet.ipynb
 .. _pandas-cheatsheet_py: https://github.com/phaustin/eosc213_students/blob/master/python/pandas-cheatsheet.py
+.. _11-pandas4-process-seasonal_ipynb: notebooks/pandas/11-pandas4-process-seasonal.ipynb
+.. _11-pandas4-process-seasonal_html: web_notebooks/11-pandas4-process-seasonal.ipynb
+.. _11-pandas4-process-seasonal_py: https://github.com/phaustin/eosc213_students/blob/master/python/11-pandas4-process-seasonal.py
+.. _11-random_numbers_ipynb: notebooks/11-random_numbers.ipynb
+.. _11-random_numbers_html: web_notebooks/11-random_numbers.ipynb
+.. _11-random_numbers_py: https://github.com/phaustin/eosc213_students/blob/master/python/11-random_numbers.py

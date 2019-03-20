@@ -8,6 +8,8 @@
 #       format_name: percent
 #       format_version: '1.2'
 #       jupytext_version: 1.0.3
+#   nbsphinx:
+#       execute: never
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -28,9 +30,9 @@
 
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#Learning-objectives" data-toc-modified-id="Learning-objectives-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Learning objectives</a></span></li><li><span><a href="#Introduction" data-toc-modified-id="Introduction-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Introduction</a></span></li><li><span><a href="#The-context-module" data-toc-modified-id="The-context-module-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>The context module</a></span></li><li><span><a href="#Reading-the-processed-data" data-toc-modified-id="Reading-the-processed-data-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Reading the processed data</a></span></li><li><span><a href="#Metadata-is-data-about-data" data-toc-modified-id="Metadata-is-data-about-data-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Metadata is data about data</a></span></li><li><span><a href="#Read-weather_YVR.csv-into-a-dataframe" data-toc-modified-id="Read-weather_YVR.csv-into-a-dataframe-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Read weather_YVR.csv into a dataframe</a></span></li><li><span><a href="#Use-apply-to-tag-the-29,190-days-with-their-season" data-toc-modified-id="Use-apply-to-tag-the-29,190-days-with-their-season-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>Use apply to tag the 29,190 days with their season</a></span><ul class="toc-item"><li><span><a href="#creating-a-new-column-with-apply" data-toc-modified-id="creating-a-new-column-with-apply-7.1"><span class="toc-item-num">7.1&nbsp;&nbsp;</span>creating a new column with apply</a></span></li></ul></li><li><span><a href="#Grouping-the-data-by-season" data-toc-modified-id="Grouping-the-data-by-season-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>Grouping the data by season</a></span><ul class="toc-item"><li><span><a href="#Use-a-dictionary-comprehension-put-the-dataframes-into-a-dictionary" data-toc-modified-id="Use-a-dictionary-comprehension-put-the-dataframes-into-a-dictionary-8.1"><span class="toc-item-num">8.1&nbsp;&nbsp;</span>Use a dictionary comprehension put the dataframes into a dictionary</a></span></li></ul></li><li><span><a href="#Fitting-the-distributions" data-toc-modified-id="Fitting-the-distributions-9"><span class="toc-item-num">9&nbsp;&nbsp;</span>Fitting the distributions</a></span><ul class="toc-item"><li><span><a href="#Daily-average-temperature" data-toc-modified-id="Daily-average-temperature-9.1"><span class="toc-item-num">9.1&nbsp;&nbsp;</span>Daily average temperature</a></span></li><li><span><a href="#Daily-average-total-precipitation" data-toc-modified-id="Daily-average-total-precipitation-9.2"><span class="toc-item-num">9.2&nbsp;&nbsp;</span>Daily average total precipitation</a></span></li></ul></li><li><span><a href="#Saving-the-fit-parameters" data-toc-modified-id="Saving-the-fit-parameters-10"><span class="toc-item-num">10&nbsp;&nbsp;</span>Saving the fit parameters</a></span></li></ul></div>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Learning-objectives" data-toc-modified-id="Learning-objectives-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Learning objectives</a></span></li><li><span><a href="#Introduction" data-toc-modified-id="Introduction-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Introduction</a></span></li><li><span><a href="#The-context-module-(repeated-from-10-pandas1)" data-toc-modified-id="The-context-module-(repeated-from-10-pandas1)-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>The context module (repeated from 10-pandas1)</a></span></li><li><span><a href="#Reading-the-processed-data" data-toc-modified-id="Reading-the-processed-data-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Reading the processed data</a></span></li><li><span><a href="#Metadata-is-data-about-data" data-toc-modified-id="Metadata-is-data-about-data-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Metadata is data about data</a></span></li><li><span><a href="#Read-weather_YVR.csv-into-a-dataframe" data-toc-modified-id="Read-weather_YVR.csv-into-a-dataframe-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Read weather_YVR.csv into a dataframe</a></span></li><li><span><a href="#Use-apply-to-tag-the-29,190-days-with-their-season" data-toc-modified-id="Use-apply-to-tag-the-29,190-days-with-their-season-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>Use apply to tag the 29,190 days with their season</a></span><ul class="toc-item"><li><span><a href="#creating-a-new-column-with-apply" data-toc-modified-id="creating-a-new-column-with-apply-7.1"><span class="toc-item-num">7.1&nbsp;&nbsp;</span>creating a new column with apply</a></span></li></ul></li><li><span><a href="#Grouping-the-data-by-season" data-toc-modified-id="Grouping-the-data-by-season-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>Grouping the data by season</a></span><ul class="toc-item"><li><span><a href="#Use-a-dictionary-comprehension-put-the-dataframes-into-a-dictionary" data-toc-modified-id="Use-a-dictionary-comprehension-put-the-dataframes-into-a-dictionary-8.1"><span class="toc-item-num">8.1&nbsp;&nbsp;</span>Use a dictionary comprehension put the dataframes into a dictionary</a></span></li></ul></li><li><span><a href="#Fitting-the-distributions" data-toc-modified-id="Fitting-the-distributions-9"><span class="toc-item-num">9&nbsp;&nbsp;</span>Fitting the distributions</a></span><ul class="toc-item"><li><span><a href="#Daily-average-temperature" data-toc-modified-id="Daily-average-temperature-9.1"><span class="toc-item-num">9.1&nbsp;&nbsp;</span>Daily average temperature</a></span></li><li><span><a href="#Daily-average-total-precipitation" data-toc-modified-id="Daily-average-total-precipitation-9.2"><span class="toc-item-num">9.2&nbsp;&nbsp;</span>Daily average total precipitation</a></span></li></ul></li><li><span><a href="#Saving-the-fit-parameters" data-toc-modified-id="Saving-the-fit-parameters-10"><span class="toc-item-num">10&nbsp;&nbsp;</span>Saving the fit parameters</a></span></li></ul></div>
 # %% [markdown]
-# # Generating random precip and temperature data
+# # Analyzing precip and temperature data
 #
 # ## Learning objectives
 #
@@ -48,8 +50,9 @@
 #    and temperature data, assuming that temperature and precipitation are
 #    independent of each other.
 #
-# 1. Use those parameters to generate random data that simulate daily precipitation
-#    and temperature at YVR airport
+# 1. Use groupby to find the median temperature for each decade and each season
+#    and determine whether the seasonal temperatures have increased at YVR
+#    since the 1930's
 #
 # ## Introduction
 #
@@ -90,9 +93,11 @@ import context
 import pandas as pd
 import scipy.stats as st
 from matplotlib import pyplot as plt
+import pprint
+import numpy as np
 
 # %% [markdown]
-# ## The context module
+# ## The context module (repeated from 10-pandas1)
 #
 # As our project grows more complicated, it's good to have a central
 # module that keeps track of important files and sets your scripts
@@ -126,9 +131,11 @@ print(context.processed_dir)
 # [this optional tutorial](https://realpython.com/python-pathlib/) for more information).
 
 # %%
-all_files = context.processed_dir.glob("**/*csv")
-all_files = list(all_files)
-all_files
+yvr_files = list(context.processed_dir.glob("**/*YVR*csv"))
+print(f"yvr files: \n{pprint.pformat(yvr_files)}")
+
+# %%
+yvr_file = context.processed_dir / "weather_YVR.csv"
 
 # %% [markdown]
 # ## Metadata is data about data
@@ -175,7 +182,7 @@ with open(history_file, "w") as f:
 # Here's the dataframe produced by 10-pandas3
 
 # %%
-yvr_df = pd.read_csv(all_files[1])
+yvr_df = pd.read_csv(yvr_file)
 yvr_df.fillna(0.0, inplace=True)
 print(f"there are {len(yvr_df)} days in the dataframe")
 yvr_df.head()
@@ -354,3 +361,67 @@ data_dict["precip"] = precip_params
 fit_file = context.processed_dir / "fit_metadata.json"
 with open(fit_file, "w") as f:
     json.dump(data_dict, f, indent=4)
+
+
+# %%
+def find_decade(row):
+    """
+    given a row from an Environment Canada dataframe
+    return the first 3 digits of the year as an integer
+    
+    i.e. turn "2010" into the number 201
+    """
+    year_string=f"{row['Year']:4d}"
+    return int(year_string[:3])
+
+
+def decadal_groups(season_df):
+    """
+    given a season dataframe produced by groupby('season'), add
+    a column called 'decade' with the 3 digit decade
+    and return a groupby dictionary of decade dataframes for that
+    season with the decade as key
+    """
+    #
+    # add the decade column to the dataframe using apply
+    #
+    decade=season_df.apply(find_decade,axis=1)
+    season_df['decade']=decade
+    #
+    # do the groupby and turn into a dictionary
+    #
+    decade_groups=season_df.groupby('decade')
+    decade_dict={key:value for key,value in decade_groups}
+    return decade_dict
+
+def median_temps(decade_dict):
+    """
+    given a decade_dict produced by the decadal_temp function
+    return a 2-column numpy array.  The first column should be the
+    integer decade (193,194,etc.) and the second column should be
+    the median temperature for that decade
+    """
+    values=list()
+    for the_decade,the_df in decade_dict.items():
+        T_median=the_df['T_mean (C)'].median()
+        values.append((the_decade,T_median))
+    result=np.array(values)
+    return result
+
+season_temps=dict()
+for season_key,season_df in season_dict.items():
+    decade_dict=decadal_groups(season_df)
+    temp_array=median_temps(decade_dict)
+    season_temps[season_key]=temp_array   
+
+# %%
+fig, ax_array = plt.subplots(2, 2, figsize=(8, 8))
+ax_list = ax_array.flatten()
+for index,key in enumerate(key_list):
+    temps=season_temps[key]
+    the_ax=ax_list[index]
+    the_ax.plot(temps[:,0],temps[:,1])
+    the_ax.grid(True)
+    the_ax.set(title=key)
+    if index > 1:
+        the_ax.set(xlabel='median decadal temp (C)')

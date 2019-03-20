@@ -7,39 +7,18 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.2'
-#       jupytext_version: 1.0.3
+#       jupytext_version: 1.0.2
+#   nbsphinx:
+#       execute: never
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
 #     name: python3
-#   language_info:
-#     codemirror_mode:
-#       name: ipython
-#       version: 3
-#     file_extension: .py
-#     mimetype: text/x-python
-#     name: python
-#     nbconvert_exporter: python
-#     pygments_lexer: ipython3
-#     version: 3.6.7
-#   nbsphinx:
-#     execute: never
-#   toc:
-#     base_numbering: 1
-#     nav_menu: {}
-#     number_sections: true
-#     sideBar: true
-#     skip_h1_title: true
-#     title_cell: Table of Contents
-#     title_sidebar: Contents
-#     toc_cell: true
-#     toc_position: {}
-#     toc_section_display: true
-#     toc_window_display: true
 # ---
+
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#Learning-objects" data-toc-modified-id="Learning-objects-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Learning objects</a></span></li><li><span><a href="#Pandas-dataframes-vs.-numpy-arrays" data-toc-modified-id="Pandas-dataframes-vs.-numpy-arrays-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Pandas dataframes vs. numpy arrays</a></span></li><li><span><a href="#Intro-to-Pandas" data-toc-modified-id="Intro-to-Pandas-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Intro to Pandas</a></span></li><li><span><a href="#Why-Pandas?" data-toc-modified-id="Why-Pandas?-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Why Pandas?</a></span></li><li><span><a href="#Reading-a-CSV-file" data-toc-modified-id="Reading-a-CSV-file-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Reading a CSV file</a></span><ul class="toc-item"><li><span><a href="#The-pathlib-module" data-toc-modified-id="The-pathlib-module-5.1"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>The pathlib module</a></span></li></ul></li><li><span><a href="#Data-at-a-Glance" data-toc-modified-id="Data-at-a-Glance-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Data at a Glance</a></span><ul class="toc-item"><li><span><a href="#Number-of-rows-and-columns:" data-toc-modified-id="Number-of-rows-and-columns:-6.1"><span class="toc-item-num">6.1&nbsp;&nbsp;</span>Number of rows and columns:</a></span></li><li><span><a href="#Simple-Summary-Statistics" data-toc-modified-id="Simple-Summary-Statistics-6.2"><span class="toc-item-num">6.2&nbsp;&nbsp;</span>Simple Summary Statistics</a></span></li></ul></li><li><span><a href="#Exercise" data-toc-modified-id="Exercise-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>Exercise</a></span><ul class="toc-item"><li><span><a href="#Data-Overview" data-toc-modified-id="Data-Overview-7.1"><span class="toc-item-num">7.1&nbsp;&nbsp;</span>Data Overview</a></span></li><li><span><a href="#Bonus-exercises" data-toc-modified-id="Bonus-exercises-7.2"><span class="toc-item-num">7.2&nbsp;&nbsp;</span>Bonus exercises</a></span></li></ul></li></ul></div>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Learning-objectives" data-toc-modified-id="Learning-objectives-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Learning objectives</a></span></li><li><span><a href="#Folder-setup" data-toc-modified-id="Folder-setup-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Folder setup</a></span><ul class="toc-item"><li><span><a href="#Subfolder-creation" data-toc-modified-id="Subfolder-creation-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Subfolder creation</a></span></li></ul></li><li><span><a href="#Pandas-dataframes-vs.-numpy-arrays" data-toc-modified-id="Pandas-dataframes-vs.-numpy-arrays-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Pandas dataframes vs. numpy arrays</a></span></li><li><span><a href="#Intro-to-Pandas" data-toc-modified-id="Intro-to-Pandas-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Intro to Pandas</a></span></li><li><span><a href="#Why-Pandas?" data-toc-modified-id="Why-Pandas?-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Why Pandas?</a></span></li><li><span><a href="#Reading-a-CSV-file" data-toc-modified-id="Reading-a-CSV-file-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Reading a CSV file</a></span><ul class="toc-item"><li><span><a href="#The-pathlib-module" data-toc-modified-id="The-pathlib-module-6.1"><span class="toc-item-num">6.1&nbsp;&nbsp;</span>The pathlib module</a></span></li></ul></li><li><span><a href="#Data-at-a-Glance" data-toc-modified-id="Data-at-a-Glance-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>Data at a Glance</a></span><ul class="toc-item"><li><span><a href="#Number-of-rows-and-columns:" data-toc-modified-id="Number-of-rows-and-columns:-7.1"><span class="toc-item-num">7.1&nbsp;&nbsp;</span>Number of rows and columns:</a></span></li><li><span><a href="#Simple-Summary-Statistics" data-toc-modified-id="Simple-Summary-Statistics-7.2"><span class="toc-item-num">7.2&nbsp;&nbsp;</span>Simple Summary Statistics</a></span></li></ul></li><li><span><a href="#Exercise" data-toc-modified-id="Exercise-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>Exercise</a></span><ul class="toc-item"><li><span><a href="#Data-Overview" data-toc-modified-id="Data-Overview-8.1"><span class="toc-item-num">8.1&nbsp;&nbsp;</span>Data Overview</a></span></li><li><span><a href="#Bonus-exercises" data-toc-modified-id="Bonus-exercises-8.2"><span class="toc-item-num">8.2&nbsp;&nbsp;</span>Bonus exercises</a></span></li></ul></li></ul></div>
 # %% [markdown]
 # # Reading & Summarizing CSV Data
 #
@@ -53,7 +32,7 @@ from pathlib import Path
 import pandas
 
 # %% [markdown]
-# ## Learning objects
+# ## Learning objectives
 #
 # * Learn how to read, process and write data in csv/xlsx/tabular format using pandas
 #
@@ -64,7 +43,33 @@ import pandas
 #
 #   * Learn how to clean data by filtering missing values, renaming columns, and writing out
 #     processed files for further work
+# %% [markdown]
+# ## Folder setup
+#
+# As our project grows more complicated, it's good to have a central
+# module that keeps track of important files and sets your scripts
+# up so that they can import functions and classes from you modules.
+# If you were planning to distribute your project using conda, then
+# you would need to write an installation script, which is a fair
+# amount of work.   At this stage, it's easier and more flexible to
+# store that information in a file that travels along with your notebook.
+# We set the "context" for this notebook by importing:
+# [context_pandas1.py](https://github.com/phaustin/eosc213_students/blob/master/notebooks/pandas/context_pandas1.py)
+#
 
+# %%
+import context_pandas1
+# %% [markdown]
+# ### Subfolder creation
+#
+# Subsequent notebooks are going to need a place to put raw and processed data.
+# We create those folders in the cell below
+
+# %% {"scrolled": true}
+processed_dir = context_pandas1.data_dir / "processed"
+raw_dir = context_pandas1.data_dir / "raw"
+processed_dir.mkdir(parents=True, exist_ok=True)
+raw_dir.mkdir(parents=True, exist_ok=True)
 # %% [markdown]
 # ## Pandas dataframes vs. numpy arrays
 #
@@ -115,7 +120,7 @@ import pandas
 # ### The pathlib module
 #
 # The cell below constructs a [Path object](https://realpython.com/python-pathlib/).  Note the
-# direction of the "/" separate.  This would not be the way that we would
+# direction of the "/" separator.  This would not be the way that we would
 # specify a file on windows (that would be 'data\weather_YVR.csv' -- Path objects
 # hide this complexity by understanding whether we are working on windows, linux or macos and
 # just doing the right thing.

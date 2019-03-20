@@ -8,14 +8,17 @@
 #       format_name: percent
 #       format_version: '1.2'
 #       jupytext_version: 1.0.3
+#   nbsphinx:
+#       execute: never
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
 #     name: python3
 # ---
+
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#Station-Inventory" data-toc-modified-id="Station-Inventory-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Station Inventory</a></span></li><li><span><a href="#Info-for-Selected-Station" data-toc-modified-id="Info-for-Selected-Station-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Info for Selected Station</a></span><ul class="toc-item"><li><span><a href="#Download-Data" data-toc-modified-id="Download-Data-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Download Data</a></span></li></ul></li></ul></div>
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Set-the-context-for-this-notebook" data-toc-modified-id="Set-the-context-for-this-notebook-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Set the context for this notebook</a></span></li><li><span><a href="#Station-Inventory" data-toc-modified-id="Station-Inventory-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Station Inventory</a></span></li><li><span><a href="#Info-for-Selected-Station" data-toc-modified-id="Info-for-Selected-Station-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Info for Selected Station</a></span><ul class="toc-item"><li><span><a href="#Download-Data" data-toc-modified-id="Download-Data-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Download Data</a></span></li></ul></li></ul></div>
 # %% [markdown]
 # # Download Environment Canada Daily Data
 # %%
@@ -23,6 +26,16 @@ from pathlib import Path
 
 import pandas as pd
 import requests
+
+# %% [markdown]
+# ## Set the context for this notebook
+#
+# Importing the context module will check to see whether
+# `data/processed` and `data/raw` exist and complain if
+# it can't find them
+
+# %%
+import context
 
 # %% [markdown]
 # ## Station Inventory
@@ -48,7 +61,7 @@ f = (
 
 
 # %%
-inventory_file = Path("data/Station Inventory EN.csv")
+inventory_file = context.data_dir / "Station Inventory EN.csv"
 inventory = pd.read_csv(inventory_file, skiprows=3)
 
 # Rename some of the columns to more convenient labels
@@ -110,10 +123,6 @@ def download_daily_raw(env_canada_id, year, savefile="test.csv", verbose=True):
     return None
 
 
-# %%
-# Sub-folder to save the data files
-datadir = Path("data/raw/")
-
 # %% [markdown]
 # *Note: The code below uses [f-strings](https://realpython.com/python-f-strings/) to substitute variable values into a string*
 
@@ -123,7 +132,7 @@ stn_id_early = 889  # station id for YVR airport
 years_early = range(1937, 2014)
 
 for year in years_early:
-    savefile = datadir / Path(f"weather_daily_{station}_{stn_id_early}_{year}.csv")
+    savefile = context.raw_dir / Path(f"weather_daily_{station}_{stn_id_early}_{year}.csv")
     download_daily_raw(stn_id_early, year, savefile=savefile)
 
 # %%
@@ -132,5 +141,6 @@ stn_id_recent = 51442
 years_recent = range(2013, 2020)
 
 for year in years_recent:
-    savefile = datadir / Path(f"weather_daily_{station}_{stn_id_recent}_{year}.csv")
+    savefile = (context.raw_dir / 
+                Path(f"weather_daily_{station}_{stn_id_recent}_{year}.csv"))
     download_daily_raw(stn_id_recent, year, savefile=savefile)
