@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Pandas Cheatsheet &#8212; E213</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}, "extensions": ["color.js"]}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          Home</a>
+        <span class="navbar-text navbar-version pull-left"><b>2019Jan01</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-1-jan-3">1.1. Week 1  Jan 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-2-jan-8-jan-10">1.2. Week 2  Jan 8/Jan 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-3-jan-15-jan-17">1.3. Week 3  Jan 15/Jan 17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">1.4. Week 4  Jan 22/Jan 24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">1.5. Week 5  Jan 29/Jan 31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">1.6. Week 6  Feb 05/Feb 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-7-feb-19-feb-21">1.7. Week 7  Feb 19/Feb 21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-8-feb-26-feb-28">1.8. Week 8  Feb 26/Feb 28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-9-mar-05-mar-07">1.9. Week 9  Mar 05/Mar 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-10-mar-12-mar-14">1.10. Week 10  Mar 12/Mar 14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-11-mar19-mar">1.11. Week 11 Mar19/Mar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.12. General notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../solutions.html#week-2">2.1. Week 2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#math">3.1. Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#python">3.2. Python</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#python-introductory-texts">4.1. Python Introductory Texts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#moving-from-matlab-to-python">4.2. Moving from matlab to python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#cocalc">4.3. Cocalc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-shell-commands">5.1. Useful shell commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-git-commands">5.2. Useful git commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-debugger-commands">5.3. Useful debugger commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/web_notebooks/pandas-cheatsheet.ipynb.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <h1><p>Table of Contents</p>
+</h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;Importing pandas Library</p>
+</li><li><p>2&nbsp;&nbsp;DataFrames and Series</p>
+</li><li><p>3&nbsp;&nbsp;Reading a CSV File</p>
+</li><li><p>4&nbsp;&nbsp;Saving to a CSV File</p>
+</li><li><p>5&nbsp;&nbsp;Quick and Easy Summaries of a DataFrame</p>
+<ul class="toc-item"><li><p>5.1&nbsp;&nbsp;Summary Statistics</p>
+</li></ul></li><li><p>6&nbsp;&nbsp;Working with DataFrame Columns</p>
+<ul class="toc-item"><li><p>6.1&nbsp;&nbsp;Single Columns</p>
+</li><li><p>6.2&nbsp;&nbsp;Multiple Columns</p>
+</li></ul></li><li><p>7&nbsp;&nbsp;Plots</p>
+</li><li><p>8&nbsp;&nbsp;Unique Values &amp; Counting</p>
+</li><li><p>9&nbsp;&nbsp;Sorting</p>
+</li><li><p>10&nbsp;&nbsp;Filtering</p>
+</li><li><p>11&nbsp;&nbsp;Aggregation</p>
+</li><li><p>12&nbsp;&nbsp;Setting the Index of a DataFrame</p>
+</li><li><p>13&nbsp;&nbsp;Anatomy of a DataFrame</p>
+</li><li><p>14&nbsp;&nbsp;Selection Methods</p>
+<ul class="toc-item"><li><p>14.1&nbsp;&nbsp;1. Using only square brackets</p>
+</li><li><p>14.2&nbsp;&nbsp;2. Positional indexing with iloc</p>
+</li><li><p>14.3&nbsp;&nbsp;3. Label-based indexing with loc</p>
+</li></ul></li></ul></div><div class="section" id="Pandas-Cheatsheet">
+<h1>Pandas Cheatsheet<a class="headerlink" href="#Pandas-Cheatsheet" title="Permalink to this headline">¶</a></h1>
+<p>Downloaded from <a class="reference external" href="https://github.com/jenfly/eoas-python">https://github.com/jenfly/eoas-python</a> by Jennifer Walker</p>
+<div class="section" id="Importing-pandas-Library">
+<h2>Importing <code class="docutils literal notranslate"><span class="pre">pandas</span></code> Library<a class="headerlink" href="#Importing-pandas-Library" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span>
+
+<span class="n">In</span> <span class="n">general</span><span class="p">,</span> <span class="n">it</span><span class="s1">&#39;s good practice to collect all your ``import`` commands together and put them at the start of the notebook.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="DataFrames-and-Series">
+<h2>DataFrames and Series<a class="headerlink" href="#DataFrames-and-Series" title="Permalink to this headline">¶</a></h2>
+<p>Data in <code class="docutils literal notranslate"><span class="pre">pandas</span></code> is organized into DataFrames and Series.</p>
+<ul class="simple">
+<li><strong>DataFrame:</strong> 2-dimensional array, like a table in a spreadsheet</li>
+<li>The rows are axis 0</li>
+<li>The columns are axis 1</li>
+<li><strong>Series:</strong> 1-dimensional array, like a single column or row in a spreadsheet</li>
+<li>Each individual column or row of a DataFrame is represented as a Series</li>
+</ul>
+</div>
+<div class="section" id="Reading-a-CSV-File">
+<h2>Reading a CSV File<a class="headerlink" href="#Reading-a-CSV-File" title="Permalink to this headline">¶</a></h2>
+<p>To read a CSV file and store it as a DataFrame variable:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;some_cool_data.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Missing data in a DataFrame or Series is represented as <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (“not a number”).</p>
+</div>
+<div class="section" id="Saving-to-a-CSV-File">
+<h2>Saving to a CSV File<a class="headerlink" href="#Saving-to-a-CSV-File" title="Permalink to this headline">¶</a></h2>
+<p>To save a DataFrame to a CSV file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;cool_output.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>To include the DataFrame’s index as a column in the CSV file, omit the <code class="docutils literal notranslate"><span class="pre">index=False</span></code> keyword argument.</li>
+</ul>
+</div>
+<div class="section" id="Quick-and-Easy-Summaries-of-a-DataFrame">
+<h2>Quick and Easy Summaries of a DataFrame<a class="headerlink" href="#Quick-and-Easy-Summaries-of-a-DataFrame" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="66%" />
+<col width="34%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><strong>feature</strong></th>
+<th class="head">dataframe attribute/method</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>Useful Attributes</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Number of rows and columns (rows first, columns second)</td>
+<td><code class="docutils literal notranslate"><span class="pre">df.shape</span></code></td>
+</tr>
+<tr class="row-even"><td>Names and data types of each column</td>
+<td><code class="docutils literal notranslate"><span class="pre">df.dtypes</span></code></td>
+</tr>
+<tr class="row-odd"><td>Just the names of each column</td>
+<td><code class="docutils literal notranslate"><span class="pre">df.columns</span></code></td>
+</tr>
+<tr class="row-even"><td><strong>Rows at a Glance</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>First <code class="docutils literal notranslate"><span class="pre">n</span></code> rows (default 5)</td>
+<td><code class="docutils literal notranslate"><span class="pre">df.head(n)</span></code></td>
+</tr>
+<tr class="row-even"><td>Last <code class="docutils literal notranslate"><span class="pre">n</span></code> rows (default 5)</td>
+<td><code class="docutils literal notranslate"><span class="pre">df.tail(n)</span></code></td>
+</tr>
+<tr class="row-odd"><td>A random sampling of <code class="docutils literal notranslate"><span class="pre">n</span></code> rows (default 1)</td>
+<td><code class="docutils literal notranslate"><span class="pre">df.sample(n)</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="Summary-Statistics">
+<h3>Summary Statistics<a class="headerlink" href="#Summary-Statistics" title="Permalink to this headline">¶</a></h3>
+<p>Full set of summary statistics (min, max, mean, standard deviation, etc.) for each numerical column of a DataFrame:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Mean value of each column:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>And similarly for other summary statistics: <code class="docutils literal notranslate"><span class="pre">df.min()</span></code>, <code class="docutils literal notranslate"><span class="pre">df.max()</span></code>, <code class="docutils literal notranslate"><span class="pre">df.median()</span></code>, <code class="docutils literal notranslate"><span class="pre">df.std()</span></code></p>
+</div>
+</div>
+<div class="section" id="Working-with-DataFrame-Columns">
+<h2>Working with DataFrame Columns<a class="headerlink" href="#Working-with-DataFrame-Columns" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Single-Columns">
+<h3>Single Columns<a class="headerlink" href="#Single-Columns" title="Permalink to this headline">¶</a></h3>
+<p>Each column of a DataFrame is a Series.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">series_X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Most DataFrame methods can be applied to a Series, for example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Basic calculations with a Series and adding a new column to a DataFrame:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Double X&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Multiple-Columns">
+<h3>Multiple Columns<a class="headerlink" href="#Multiple-Columns" title="Permalink to this headline">¶</a></h3>
+<p>Use a list of column names to select several columns of a DataFrame, in a specified order:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df_subset</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Plots">
+<h2>Plots<a class="headerlink" href="#Plots" title="Permalink to this headline">¶</a></h2>
+<p>Create quick and easy plots of Series and DataFrames with the <code class="docutils literal notranslate"><span class="pre">plot</span></code> method, for example: - Line plot of one column of a DataFrame:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first">Line plot of column <code class="docutils literal notranslate"><span class="pre">'B'</span></code> vs. column <code class="docutils literal notranslate"><span class="pre">'A'</span></code> of a DataFrame:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Histogram of one column of a DataFrame:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Plot all columns of a DataFrame, with each column as a line on the same plot:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Plot bar charts of each column of a DataFrame, with a separate subplot for each column:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">subplots</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Plots can be adjusted with keyword arguments such as <code class="docutils literal notranslate"><span class="pre">figsize</span></code>, <code class="docutils literal notranslate"><span class="pre">fontsize</span></code>, <code class="docutils literal notranslate"><span class="pre">title</span></code>, <code class="docutils literal notranslate"><span class="pre">colormap</span></code>. - To adjust the size of a graph, use the <code class="docutils literal notranslate"><span class="pre">figsize</span></code> keyword argument to the <code class="docutils literal notranslate"><span class="pre">plot</span></code> method, where <code class="docutils literal notranslate"><span class="pre">figsize</span></code> is a tuple of (width, height). For example to create 6” wide by 8” tall figure with subplots:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">subplots</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Unique-Values-&amp;-Counting">
+<h2>Unique Values &amp; Counting<a class="headerlink" href="#Unique-Values-&-Counting" title="Permalink to this headline">¶</a></h2>
+<p>For a column <code class="docutils literal notranslate"><span class="pre">df['A']</span></code> which contains many repeated values (such as categories), some useful summary methods are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="51%" />
+<col width="49%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><strong>feature</strong></th>
+<th class="head">method</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Unique values</td>
+<td><code class="docutils literal notranslate"><span class="pre">df['A'].unique()</span></code></td>
+</tr>
+<tr class="row-odd"><td>Number of unique values</td>
+<td><code class="docutils literal notranslate"><span class="pre">df['A'].nunique()</span></code></td>
+</tr>
+<tr class="row-even"><td>Counts of each unique value</td>
+<td><code class="docutils literal notranslate"><span class="pre">df['A'].value_counts()</span></code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<div>Note: The <code class="docutils literal notranslate"><span class="pre">unique</span></code>, <code class="docutils literal notranslate"><span class="pre">nunique</span></code>, and <code class="docutils literal notranslate"><span class="pre">value_counts</span></code> methods can only be applied to a Series (not a DataFrame)</div></blockquote>
+</div>
+<div class="section" id="Sorting">
+<h2>Sorting<a class="headerlink" href="#Sorting" title="Permalink to this headline">¶</a></h2>
+<p>Sorting a DataFrame based on the values in the column <code class="docutils literal notranslate"><span class="pre">'B'</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To sort in descending order, use the keyword argument <code class="docutils literal notranslate"><span class="pre">ascending=False</span></code>.</p>
+<p>Sorting a Series:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">series_a</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Filtering">
+<h2>Filtering<a class="headerlink" href="#Filtering" title="Permalink to this headline">¶</a></h2>
+<p>To select a subset of rows with a filter: - Create a filter (Boolean Series) using a comparison operator or other functions (such as the <code class="docutils literal notranslate"><span class="pre">isnull</span></code> method) - Use the filter to extract the desired rows from the DataFrame</p>
+<p>Example: comparison operator</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">warm</span> <span class="o">=</span> <span class="n">weather_data</span><span class="p">[</span><span class="s1">&#39;Temperature (C)&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">25</span>
+<span class="n">weather_warm</span> <span class="o">=</span> <span class="n">weather_data</span><span class="p">[</span><span class="n">warm</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>You can also use Boolean Series and DataFrames to count occurrences of specified criteria, for example: count the missing values in each column of a DataFrame with <code class="docutils literal notranslate"><span class="pre">df.isnull().sum()</span></code></p>
+</div>
+<div class="section" id="Aggregation">
+<h2>Aggregation<a class="headerlink" href="#Aggregation" title="Permalink to this headline">¶</a></h2>
+<p>For basic aggregation operations, use the <code class="docutils literal notranslate"><span class="pre">groupby</span></code> method chained with an aggregation method (e.g., <code class="docutils literal notranslate"><span class="pre">sum</span></code>, <code class="docutils literal notranslate"><span class="pre">mean</span></code>, <code class="docutils literal notranslate"><span class="pre">sum</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code>, etc.).</p>
+<p>For example, to find the sum totals of column <code class="docutils literal notranslate"><span class="pre">'population'</span></code> grouped by column <code class="docutils literal notranslate"><span class="pre">'region'</span></code>: `</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;region&#39;</span><span class="p">)[</span><span class="s1">&#39;population&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You can also group by multiple columns:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;region&#39;</span><span class="p">,</span> <span class="s1">&#39;income_group&#39;</span><span class="p">])[</span><span class="s1">&#39;population&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For more complex aggregations, you can use the <code class="docutils literal notranslate"><span class="pre">agg</span></code> method. - Specify a list of aggregation statistics, for example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;region&#39;</span><span class="p">)[</span><span class="s1">&#39;population&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Use a dictionary to specify different aggregation statistics for different columns, for example:</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">agg_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;population&#39;</span> <span class="p">:</span> <span class="s1">&#39;sum&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;life_expectancy&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">]}</span>
+<span class="n">world</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;region&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">agg_dict</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="Setting-the-Index-of-a-DataFrame">
+<h2>Setting the Index of a DataFrame<a class="headerlink" href="#Setting-the-Index-of-a-DataFrame" title="Permalink to this headline">¶</a></h2>
+<p>The index of a DataFrame can be set with the <code class="docutils literal notranslate"><span class="pre">set_index</span></code> method. For example, to set the column <code class="docutils literal notranslate"><span class="pre">'country'</span></code> as the index of DataFrame <code class="docutils literal notranslate"><span class="pre">world</span></code> and save the output as a new DataFrame:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">world_new</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Anatomy-of-a-DataFrame">
+<h2>Anatomy of a DataFrame<a class="headerlink" href="#Anatomy-of-a-DataFrame" title="Permalink to this headline">¶</a></h2>
+<p><img alt="dataframe3" src="web_notebooks/img/dataframe3.png" /></p>
+<ul class="simple">
+<li>Each cell in a DataFrame is associated with:</li>
+<li>A row position and column position (integers, starting from 0), and</li>
+<li>A row label and column label</li>
+<li>Row and column labels are part of the DataFrame’s metadata, stored in attributes:</li>
+<li><code class="docutils literal notranslate"><span class="pre">df.index</span></code> contains the labels for the DataFrame’s rows</li>
+<li><code class="docutils literal notranslate"><span class="pre">df.columns</span></code> contains the labels for the DataFrame’s columns</li>
+<li><code class="docutils literal notranslate"><span class="pre">df.values</span></code> contains the underlying data array</li>
+</ul>
+</div>
+<div class="section" id="Selection-Methods">
+<h2>Selection Methods<a class="headerlink" href="#Selection-Methods" title="Permalink to this headline">¶</a></h2>
+<p>There are three main ways of selecting subsets of a DataFrame (or Series):</p>
+<ol><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;li&gt;Using only square brackets `[]`&lt;/li&gt;
+&lt;li&gt;Positional indexing with `.iloc[]`&lt;/li&gt;
+&lt;li&gt;Label-based indexing with `.loc[]`&lt;/li&gt;
+</pre></div>
+</div>
+</ol><div class="section" id="1.-Using-only-square-brackets">
+<h3>1. Using only square brackets<a class="headerlink" href="#1.-Using-only-square-brackets" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="45%" />
+<col width="55%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Bracket indexing</th>
+<th class="head">&#160;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Use a Boolean Series to
+select rows matching some
+criteria</td>
+<td><code class="docutils literal notranslate"><span class="pre">df[bool_series]</span></code></td>
+</tr>
+<tr class="row-odd"><td>Use a list of column names
+to select several columns
+in a specified order</td>
+<td><code class="docutils literal notranslate"><span class="pre">df[['E',</span> <span class="pre">'A',</span> <span class="pre">'C']]</span></code></td>
+</tr>
+<tr class="row-even"><td>Select a single column (as
+a Series)</td>
+<td><code class="docutils literal notranslate"><span class="pre">series_A</span> <span class="pre">=</span> <span class="pre">df['A']</span></code></td>
+</tr>
+<tr class="row-odd"><td>Select a single column (as
+a DataFrame)</td>
+<td><code class="docutils literal notranslate"><span class="pre">df_A</span> <span class="pre">=</span> <span class="pre">df[['A']]</span></code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="2.-Positional-indexing-with-iloc">
+<h3>2. Positional indexing with <code class="docutils literal notranslate"><span class="pre">iloc</span></code><a class="headerlink" href="#2.-Positional-indexing-with-iloc" title="Permalink to this headline">¶</a></h3>
+<p>With <code class="docutils literal notranslate"><span class="pre">iloc</span></code>, we specify the row selection first, followed by column selection, separated by a comma. For example, selecting a single cell at row 2, column 4:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>With <code class="docutils literal notranslate"><span class="pre">iloc</span></code> can select: - A single cell - A single row or column - Slices of rows and/or columns - As with Python lists, <code class="docutils literal notranslate"><span class="pre">iloc</span></code> slices are inclusive of the start bound and exclusive of the stop bound - Multiple rows and/or columns in arbitrary order, using a list of positions</p>
+<p>A few examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">100</span><span class="p">:</span><span class="mi">201</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">3</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">175</span><span class="p">:,</span> <span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="3.-Label-based-indexing-with-loc">
+<h3>3. Label-based indexing with <code class="docutils literal notranslate"><span class="pre">loc</span></code><a class="headerlink" href="#3.-Label-based-indexing-with-loc" title="Permalink to this headline">¶</a></h3>
+<p>As with <code class="docutils literal notranslate"><span class="pre">iloc</span></code>, we specify the row selection first, followed by column selection, separated by a comma, but using the row and column labels instead of their positions. For example, selecting a single cell at a row labelled <code class="docutils literal notranslate"><span class="pre">'Algeria'</span></code> and a column labelled <code class="docutils literal notranslate"><span class="pre">'life_expectancy'</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">world_new</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Algeria&#39;</span><span class="p">,</span> <span class="s1">&#39;life_expectancy&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Similar to <code class="docutils literal notranslate"><span class="pre">iloc</span></code>, with <code class="docutils literal notranslate"><span class="pre">loc</span></code> we can select: - A single cell - A single row or column - Slices of rows and/or columns - However, unlike <code class="docutils literal notranslate"><span class="pre">iloc</span></code> and Python list slicing, <code class="docutils literal notranslate"><span class="pre">loc</span></code> slices are inclusive of the start bound but also <strong>inclusive</strong> of the stop bound. - Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">world_new</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Canada&#39;</span><span class="p">:</span><span class="s1">&#39;Denmark&#39;</span><span class="p">,</span> <span class="s1">&#39;income_group&#39;</span><span class="p">:</span><span class="s1">&#39;gdp_per_capita&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Multiple rows and/or columns in arbitrary order, using a list of labels</li>
+</ul>
+<p>We can also select rows and/or columns with a Boolean Series, and mix and match these with the other selection options listed above, for example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">densely_populated</span> <span class="o">=</span> <span class="n">world_new</span><span class="p">[</span><span class="s1">&#39;pop_density&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">500</span>
+<span class="n">world_new</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">densely_populated</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;region&#39;</span><span class="p">,</span> <span class="s1">&#39;pop_density&#39;</span><span class="p">,</span> <span class="s1">&#39;population&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2019, Philip Austin.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

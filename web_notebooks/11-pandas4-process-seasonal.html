@@ -1,0 +1,1707 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Analyzing precip and temperature data &#8212; E213</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}, "extensions": ["color.js"]}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          Home</a>
+        <span class="navbar-text navbar-version pull-left"><b>2019Jan01</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-1-jan-3">1.1. Week 1  Jan 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-2-jan-8-jan-10">1.2. Week 2  Jan 8/Jan 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-3-jan-15-jan-17">1.3. Week 3  Jan 15/Jan 17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">1.4. Week 4  Jan 22/Jan 24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">1.5. Week 5  Jan 29/Jan 31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">1.6. Week 6  Feb 05/Feb 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-7-feb-19-feb-21">1.7. Week 7  Feb 19/Feb 21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-8-feb-26-feb-28">1.8. Week 8  Feb 26/Feb 28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-9-mar-05-mar-07">1.9. Week 9  Mar 05/Mar 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-10-mar-12-mar-14">1.10. Week 10  Mar 12/Mar 14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.11. General notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../solutions.html#week-2">2.1. Week 2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#math">3.1. Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#python">3.2. Python</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#python-introductory-texts">4.1. Python Introductory Texts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#moving-from-matlab-to-python">4.2. Moving from matlab to python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#cocalc">4.3. Cocalc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-shell-commands">5.1. Useful shell commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-git-commands">5.2. Useful git commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-debugger-commands">5.3. Useful debugger commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/web_notebooks/11-pandas4-process-seasonal.ipynb.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 7ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<h1><p>Table of Contents</p>
+</h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;Learning objectives</p>
+</li><li><p>2&nbsp;&nbsp;Introduction</p>
+</li><li><p>3&nbsp;&nbsp;The context module (repeated from 10-pandas1)</p>
+</li><li><p>4&nbsp;&nbsp;Reading the processed data</p>
+</li><li><p>5&nbsp;&nbsp;Metadata is data about data</p>
+</li><li><p>6&nbsp;&nbsp;Read weather_YVR.csv into a dataframe</p>
+<ul class="toc-item"><li><p>6.1&nbsp;&nbsp;Handling missing data</p>
+</li></ul></li><li><p>7&nbsp;&nbsp;Use apply to tag the 29,190 days with their season</p>
+<ul class="toc-item"><li><p>7.1&nbsp;&nbsp;creating a new column with apply</p>
+</li></ul></li><li><p>8&nbsp;&nbsp;Grouping the data by season</p>
+<ul class="toc-item"><li><p>8.1&nbsp;&nbsp;Use a dictionary comprehension put the dataframes into a dictionary</p>
+</li></ul></li><li><p>9&nbsp;&nbsp;Fitting the distributions</p>
+<ul class="toc-item"><li><p>9.1&nbsp;&nbsp;Daily average temperature</p>
+</li><li><p>9.2&nbsp;&nbsp;Daily average total precipitation</p>
+</li></ul></li><li><p>10&nbsp;&nbsp;Saving the fit parameters</p>
+</li><li><p>11&nbsp;&nbsp;Grouping by decade</p>
+</li><li><p>12&nbsp;&nbsp;Finding the median temperature</p>
+</li><li><p>13&nbsp;&nbsp;Assignment</p>
+</li></ul></div><div class="section" id="Analyzing-precip-and-temperature-data">
+<h1>Analyzing precip and temperature data<a class="headerlink" href="#Analyzing-precip-and-temperature-data" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Learning-objectives">
+<h2>Learning objectives<a class="headerlink" href="#Learning-objectives" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Document your project data by capturing important information as metadata in a json file</li>
+<li>Use the groupby method for a pandas dataframe to group observations by season</li>
+<li>Find the probability density function (histogram) of temperature and precipitation data and determine possible statistical models (normal distribution, exponential distribution) that best describe the variation in the data</li>
+<li>Find best fit parameters for statistical models that describe the precipitation and temperature data, assuming that temperature and precipitation are independent of each other.</li>
+<li>Use groupby to find the median temperature for each decade and each season and determine whether the seasonal temperatures have increased at YVR since the 1930’s</li>
+</ol>
+</div>
+<div class="section" id="Introduction">
+<h2>Introduction<a class="headerlink" href="#Introduction" title="Permalink to this headline">¶</a></h2>
+<p>We have about 30,000 days worth of YVR precipitation and temperature data generated by the 10-pandas1, 10-pandas2, and 10-pandas3 notebooks, these gave you a new csv file: data/processed/weather_YVR.csv. We will use that data set to estimate statistical distributions that could produce realistic simulated rainfall and temperature inputs to a model. It makes use of several new python modules/methods:</p>
+<ol class="arabic simple">
+<li>The <strong>context</strong> module: We will write a new module called context.py that will be used to locate folders and libraries associated with a project, such as <code class="docutils literal notranslate"><span class="pre">weather_YVR.csv</span></code>.</li>
+<li><strong>The json module</strong>. This reads and writes files written in “javascript object notation” i.e. <a class="reference external" href="https://en.wikipedia.org/wiki/JSON">json</a>. We will use it to save “metadata” or data about our data.</li>
+<li><strong>pandas.DataFrame.groupby</strong> We will use groupby to split the dataframe into 4 seasons, each corresponding to 3 months of the year: winter (month initials djf), spring (mam), summer (jja), and fall (son). This is the tip of the iceberg of what you can do with pandas split/apply/combine functions. For more examples see <a class="reference external" href="https://github.com/jakevdp/PythonDataScienceHandbook/blob/master/notebooks/03.08-Aggregation-and-Grouping.ipynb">the Python Data Science Handbook</a></li>
+<li>The <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html">scipy.stats</a> module. As you will see below, the temperature data is best fit with a a Gaussian (normal) distribution using the norm.fit:</li>
+</ol>
+<ul class="simple">
+<li><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html#scipy.stats.norm">scipy.stats.norm.fit</a></li>
+</ul>
+<p>Precipitation, on the other hand, follows an exponential distribution, which can be fit with: - <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.expon.html#scipy.stats.expon">scipy.stats.expon.fit</a></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">import</span> <span class="nn">context</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="kn">as</span> <span class="nn">st</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+in context.py, setting root_dir to /Users/phil/repos/eosc213_students/notebooks/pandas
+******************************
+context imported. Front of path:
+/Users/phil/repos/eosc213_students/notebooks/pandas
+/Users/phil/mini37/envs/e213/lib/python36.zip
+******************************
+
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="The-context-module-(repeated-from-10-pandas1)">
+<h2>The context module (repeated from 10-pandas1)<a class="headerlink" href="#The-context-module-(repeated-from-10-pandas1)" title="Permalink to this headline">¶</a></h2>
+<p>As your project grows more complicated, it’s good to have a central module that keeps track of important files and sets your scripts up so that they can import functions and classes from you modules. If you were planning to distribute your project using conda, then you would need to write an installation script, which is a fair amount of work. At this stage, it’s easier and more flexible to store that information in a file that travels along with your notebook. By convention, this file is
+called: <a class="reference external" href="https://github.com/phaustin/eosc213_students/blob/master/notebooks/pandas/context.py">context.py</a></p>
+<p>Clicking on that link shows you the source – the code is executed when you do <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">context</span></code> and does the following:</p>
+<ol class="arabic simple">
+<li>Defines Path objects that give the location of the raw and processed data folders</li>
+<li>Puts the notebooks/pandas folder on python’s list of places to look for library modules (sys.path). We will use this when we start extracting code from notebooks into libraries</li>
+</ol>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#</span>
+<span class="c1"># Here is the path to the processed csv file</span>
+<span class="c1">#</span>
+<span class="k">print</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">processed_dir</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/Users/phil/repos/eosc213_students/notebooks/pandas/data/processed
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Reading-the-processed-data">
+<h2>Reading the processed data<a class="headerlink" href="#Reading-the-processed-data" title="Permalink to this headline">¶</a></h2>
+<p>The next cell uses <a class="reference external" href="https://en.wikipedia.org/wiki/Glob_(programming)">“globbing”</a> to find every csv file in all folders below <code class="docutils literal notranslate"><span class="pre">data/processed</span></code>. (See <a class="reference external" href="https://realpython.com/python-pathlib/">this optional tutorial</a> for more information).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">yvr_files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">processed_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;**/*YVR*csv&quot;</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;yvr files: </span><span class="se">\n</span><span class="s2">{pprint.pformat(yvr_files)}&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+yvr files:
+[PosixPath(&#39;/Users/phil/repos/eosc213_students/notebooks/pandas/data/processed/weather_daily_YVR_1938-2017_all.csv&#39;),
+ PosixPath(&#39;/Users/phil/repos/eosc213_students/notebooks/pandas/data/processed/weather_daily_YVR_1938-2019_all.csv&#39;),
+ PosixPath(&#39;/Users/phil/repos/eosc213_students/notebooks/pandas/data/processed/weather_YVR.csv&#39;)]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">yvr_file</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">processed_dir</span> <span class="o">/</span> <span class="s2">&quot;weather_YVR.csv&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Metadata-is-data-about-data">
+<h2>Metadata is data about data<a class="headerlink" href="#Metadata-is-data-about-data" title="Permalink to this headline">¶</a></h2>
+<p>Since we care about this dataset, it’s a good idea to save details for future reference. We can’t put this kind of information into a csv file, but there are many file formats that can store this type of descriptive metadata – one of the most popular is <a class="reference external" href="https://en.wikipedia.org/wiki/JSON">json</a>. In the next cell we write the data into a nested dictionary called meta_dict, and dump that information into a new json file called metadata.json</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">meta_data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+<span class="n">file_info</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="n">file_info</span><span class="p">[</span><span class="s2">&quot;written_by&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;10-pandas3-process-daily-data.ipynb&quot;</span>
+<span class="n">file_info</span><span class="p">[</span><span class="s2">&quot;contact&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;paustin@eoas.ubc.ca&quot;</span>
+<span class="n">file_info</span><span class="p">[</span>
+    <span class="s2">&quot;description&quot;</span>
+<span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;EC canada YVR data downloaded by 10-pandas2-download-daily-data.ipynb&quot;</span>
+
+<span class="n">meta_data</span><span class="p">[</span><span class="s2">&quot;weather_daily_YVR_1938-2017_all.csv&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_info</span>
+
+<span class="n">file_info</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="n">file_info</span><span class="p">[</span><span class="s2">&quot;written_by&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;10-pandas3-process-daily-data.ipynb&quot;</span>
+<span class="n">file_info</span><span class="p">[</span><span class="s2">&quot;contact&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;paustin@eoas.ubc.ca&quot;</span>
+<span class="n">file_info</span><span class="p">[</span>
+    <span class="s2">&quot;description&quot;</span>
+<span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Reduced YVR data subsetted by 10-pandas3-process-daily-data.ipynb&quot;</span>
+
+<span class="n">meta_data</span><span class="p">[</span><span class="s2">&quot;weather_YVR.csv&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_info</span>
+
+<span class="n">history_file</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">processed_dir</span> <span class="o">/</span> <span class="s2">&quot;history_metadata.json&quot;</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">history_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">meta_data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Take a minute and look at history_metadata.json with jupyter to see how the metadata is written out.</p>
+</div>
+<div class="section" id="Read-weather_YVR.csv-into-a-dataframe">
+<h2>Read weather_YVR.csv into a dataframe<a class="headerlink" href="#Read-weather_YVR.csv-into-a-dataframe" title="Permalink to this headline">¶</a></h2>
+<p>Here’s the dataframe produced by 10-pandas3</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">yvr_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">yvr_file</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;there are {len(yvr_df)} days in the dataframe&quot;</span><span class="p">)</span>
+<span class="n">yvr_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+there are 29632 days in the dataframe
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Day</th>
+      <th>T_mean (C)</th>
+      <th>T_high (C)</th>
+      <th>T_low (C)</th>
+      <th>Rain (mm)</th>
+      <th>Snow (cm)</th>
+      <th>Total Precip (mm)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1938-01-01</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4.4</td>
+      <td>9.4</td>
+      <td>-0.6</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1938-01-02</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>2</td>
+      <td>4.5</td>
+      <td>7.2</td>
+      <td>1.7</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1938-01-03</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>3</td>
+      <td>1.7</td>
+      <td>7.2</td>
+      <td>-3.9</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1938-01-04</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>4</td>
+      <td>2.2</td>
+      <td>7.2</td>
+      <td>-2.8</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1938-01-05</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>5</td>
+      <td>2.2</td>
+      <td>7.2</td>
+      <td>-2.8</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="section" id="Handling-missing-data">
+<h3>Handling missing data<a class="headerlink" href="#Handling-missing-data" title="Permalink to this headline">¶</a></h3>
+<p>What should we do about missing vlaues like the Rain and Snow totals for Jan./Feb. 1938? This is a judgement call – we could through away the whole row, or do something more complicated like masking the missing values in calculations where they are referenced. For this notebook we’ll fill the NaNs with zeros – not a great idea since 0 is an actual temperature, but we can see if that makes a difference later</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">yvr_df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Use-apply-to-tag-the-29,190-days-with-their-season">
+<h2>Use apply to tag the 29,190 days with their season<a class="headerlink" href="#Use-apply-to-tag-the-29,190-days-with-their-season" title="Permalink to this headline">¶</a></h2>
+<p>We know that the seasons are quite different, and if we are interested in generating daily data we have to take that into account. In the next cell we set up a lookup table (dictionary) called season_table that maps the month number to one of four seasons. With this table we can write a function called find_season that takes a row of the dataframe and returns the season for that row</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">season_table</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]:</span>
+        <span class="c1"># winter</span>
+        <span class="n">season_table</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;djf&quot;</span>
+    <span class="k">elif</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]:</span>
+        <span class="c1"># spring</span>
+        <span class="n">season_table</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;mam&quot;</span>
+    <span class="k">elif</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]:</span>
+        <span class="c1"># summer</span>
+        <span class="n">season_table</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;jja&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># fall</span>
+        <span class="n">season_table</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;son&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">find_season</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">season_table</span><span class="p">):</span>
+    <span class="n">month</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;Month&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">season_table</span><span class="p">[</span><span class="n">month</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="creating-a-new-column-with-apply">
+<h3>creating a new column with apply<a class="headerlink" href="#creating-a-new-column-with-apply" title="Permalink to this headline">¶</a></h3>
+<p>One of the most useful pandas dataframe methods is <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.apply.html">apply</a>. This method has lots of bells and whistles, all we need here is to apply the <code class="docutils literal notranslate"><span class="pre">find_season</span></code> function to every row of the dataframe, which means that we want to return a new column with the same number of rows as the other columns. We do that by tell apply that we want to return <code class="docutils literal notranslate"><span class="pre">axis=1</span></code> (rows are axis=0)</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">season</span> <span class="o">=</span> <span class="n">yvr_df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">find_season</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">season_table</span><span class="p">,),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Now add that column to the dataframe</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">yvr_df</span><span class="p">[</span><span class="s2">&quot;season&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">season</span>
+<span class="n">yvr_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Day</th>
+      <th>T_mean (C)</th>
+      <th>T_high (C)</th>
+      <th>T_low (C)</th>
+      <th>Rain (mm)</th>
+      <th>Snow (cm)</th>
+      <th>Total Precip (mm)</th>
+      <th>season</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1938-01-01</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4.4</td>
+      <td>9.4</td>
+      <td>-0.6</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>djf</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1938-01-02</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>2</td>
+      <td>4.5</td>
+      <td>7.2</td>
+      <td>1.7</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>djf</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1938-01-03</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>3</td>
+      <td>1.7</td>
+      <td>7.2</td>
+      <td>-3.9</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>djf</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1938-01-04</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>4</td>
+      <td>2.2</td>
+      <td>7.2</td>
+      <td>-2.8</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>djf</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1938-01-05</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>5</td>
+      <td>2.2</td>
+      <td>7.2</td>
+      <td>-2.8</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>djf</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section" id="Grouping-the-data-by-season">
+<h2>Grouping the data by season<a class="headerlink" href="#Grouping-the-data-by-season" title="Permalink to this headline">¶</a></h2>
+<p>The next cell uses the groupby method to sort all of the rows into 4 seasons. The resulting group object (<code class="docutils literal notranslate"><span class="pre">seasons</span></code>) has 4 dataframes inside it, keyed by the season marker djf, mam, etc.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">seasons</span> <span class="o">=</span> <span class="n">yvr_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;season&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#</span>
+<span class="c1"># this creates a new object of type DataFrameGroupBy</span>
+<span class="c1">#</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">seasons</span><span class="p">))</span>
+<span class="n">seasons</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;class &#39;pandas.core.groupby.generic.DataFrameGroupBy&#39;&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Day</th>
+      <th>T_mean (C)</th>
+      <th>T_high (C)</th>
+      <th>T_low (C)</th>
+      <th>Rain (mm)</th>
+      <th>Snow (cm)</th>
+      <th>Total Precip (mm)</th>
+      <th>season</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1938-01-01</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4.4</td>
+      <td>9.4</td>
+      <td>-0.6</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>djf</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1938-01-02</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>2</td>
+      <td>4.5</td>
+      <td>7.2</td>
+      <td>1.7</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>djf</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1938-01-03</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>3</td>
+      <td>1.7</td>
+      <td>7.2</td>
+      <td>-3.9</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>djf</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1938-01-04</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>4</td>
+      <td>2.2</td>
+      <td>7.2</td>
+      <td>-2.8</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>djf</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1938-01-05</td>
+      <td>1938</td>
+      <td>1</td>
+      <td>5</td>
+      <td>2.2</td>
+      <td>7.2</td>
+      <td>-2.8</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>djf</td>
+    </tr>
+    <tr>
+      <th>59</th>
+      <td>1938-03-01</td>
+      <td>1938</td>
+      <td>3</td>
+      <td>1</td>
+      <td>5.0</td>
+      <td>9.4</td>
+      <td>0.6</td>
+      <td>3.6</td>
+      <td>0.0</td>
+      <td>3.6</td>
+      <td>mam</td>
+    </tr>
+    <tr>
+      <th>60</th>
+      <td>1938-03-02</td>
+      <td>1938</td>
+      <td>3</td>
+      <td>2</td>
+      <td>4.7</td>
+      <td>8.3</td>
+      <td>1.1</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>mam</td>
+    </tr>
+    <tr>
+      <th>61</th>
+      <td>1938-03-03</td>
+      <td>1938</td>
+      <td>3</td>
+      <td>3</td>
+      <td>8.1</td>
+      <td>12.8</td>
+      <td>3.3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>mam</td>
+    </tr>
+    <tr>
+      <th>62</th>
+      <td>1938-03-04</td>
+      <td>1938</td>
+      <td>3</td>
+      <td>4</td>
+      <td>8.6</td>
+      <td>13.3</td>
+      <td>3.9</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>mam</td>
+    </tr>
+    <tr>
+      <th>63</th>
+      <td>1938-03-05</td>
+      <td>1938</td>
+      <td>3</td>
+      <td>5</td>
+      <td>6.2</td>
+      <td>10.6</td>
+      <td>1.7</td>
+      <td>1.3</td>
+      <td>0.0</td>
+      <td>1.3</td>
+      <td>mam</td>
+    </tr>
+    <tr>
+      <th>151</th>
+      <td>1938-06-01</td>
+      <td>1938</td>
+      <td>6</td>
+      <td>1</td>
+      <td>11.7</td>
+      <td>18.9</td>
+      <td>4.4</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>jja</td>
+    </tr>
+    <tr>
+      <th>152</th>
+      <td>1938-06-02</td>
+      <td>1938</td>
+      <td>6</td>
+      <td>2</td>
+      <td>13.6</td>
+      <td>20.0</td>
+      <td>7.2</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>jja</td>
+    </tr>
+    <tr>
+      <th>153</th>
+      <td>1938-06-03</td>
+      <td>1938</td>
+      <td>6</td>
+      <td>3</td>
+      <td>14.7</td>
+      <td>21.1</td>
+      <td>8.3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>jja</td>
+    </tr>
+    <tr>
+      <th>154</th>
+      <td>1938-06-04</td>
+      <td>1938</td>
+      <td>6</td>
+      <td>4</td>
+      <td>16.7</td>
+      <td>25.0</td>
+      <td>8.3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>jja</td>
+    </tr>
+    <tr>
+      <th>155</th>
+      <td>1938-06-05</td>
+      <td>1938</td>
+      <td>6</td>
+      <td>5</td>
+      <td>16.4</td>
+      <td>22.2</td>
+      <td>10.6</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>jja</td>
+    </tr>
+    <tr>
+      <th>243</th>
+      <td>1938-09-01</td>
+      <td>1938</td>
+      <td>9</td>
+      <td>1</td>
+      <td>16.2</td>
+      <td>20.6</td>
+      <td>11.7</td>
+      <td>1.3</td>
+      <td>0.0</td>
+      <td>1.3</td>
+      <td>son</td>
+    </tr>
+    <tr>
+      <th>244</th>
+      <td>1938-09-02</td>
+      <td>1938</td>
+      <td>9</td>
+      <td>2</td>
+      <td>15.3</td>
+      <td>18.9</td>
+      <td>11.7</td>
+      <td>2.3</td>
+      <td>0.0</td>
+      <td>2.3</td>
+      <td>son</td>
+    </tr>
+    <tr>
+      <th>245</th>
+      <td>1938-09-03</td>
+      <td>1938</td>
+      <td>9</td>
+      <td>3</td>
+      <td>15.0</td>
+      <td>19.4</td>
+      <td>10.6</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>son</td>
+    </tr>
+    <tr>
+      <th>246</th>
+      <td>1938-09-04</td>
+      <td>1938</td>
+      <td>9</td>
+      <td>4</td>
+      <td>14.8</td>
+      <td>17.8</td>
+      <td>11.7</td>
+      <td>3.3</td>
+      <td>0.0</td>
+      <td>3.3</td>
+      <td>son</td>
+    </tr>
+    <tr>
+      <th>247</th>
+      <td>1938-09-05</td>
+      <td>1938</td>
+      <td>9</td>
+      <td>5</td>
+      <td>15.6</td>
+      <td>19.4</td>
+      <td>11.7</td>
+      <td>1.3</td>
+      <td>0.0</td>
+      <td>1.3</td>
+      <td>son</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="section" id="Use-a-dictionary-comprehension-put-the-dataframes-into-a-dictionary">
+<h3>Use a dictionary comprehension put the dataframes into a dictionary<a class="headerlink" href="#Use-a-dictionary-comprehension-put-the-dataframes-into-a-dictionary" title="Permalink to this headline">¶</a></h3>
+<p>In the next cell we create a new dictionary by iterating over the DataFrameGroupBy object. We will use a <a class="reference external" href="https://jakevdp.github.io/WhirlwindTourOfPython/11-list-comprehensions.html">dictionary comprehension</a>, to simplify the loop – note that we wind up with 4 dataframes in the dictionary, one for each season. We do this because a dictionary of dataframes is simpler to work with than the DataFrameGroupBy object, which somewhat obscures the season keys.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">season_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">seasons</span><span class="p">}</span>
+<span class="n">season_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>dict_keys([&#39;djf&#39;, &#39;jja&#39;, &#39;mam&#39;, &#39;son&#39;])
+</pre></div>
+</div>
+</div>
+<p>Here is how you get the fall (son) dataframe from the dictionary</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">season_dict</span><span class="p">[</span><span class="s2">&quot;son&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Day</th>
+      <th>T_mean (C)</th>
+      <th>T_high (C)</th>
+      <th>T_low (C)</th>
+      <th>Rain (mm)</th>
+      <th>Snow (cm)</th>
+      <th>Total Precip (mm)</th>
+      <th>season</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>243</th>
+      <td>1938-09-01</td>
+      <td>1938</td>
+      <td>9</td>
+      <td>1</td>
+      <td>16.2</td>
+      <td>20.6</td>
+      <td>11.7</td>
+      <td>1.3</td>
+      <td>0.0</td>
+      <td>1.3</td>
+      <td>son</td>
+    </tr>
+    <tr>
+      <th>244</th>
+      <td>1938-09-02</td>
+      <td>1938</td>
+      <td>9</td>
+      <td>2</td>
+      <td>15.3</td>
+      <td>18.9</td>
+      <td>11.7</td>
+      <td>2.3</td>
+      <td>0.0</td>
+      <td>2.3</td>
+      <td>son</td>
+    </tr>
+    <tr>
+      <th>245</th>
+      <td>1938-09-03</td>
+      <td>1938</td>
+      <td>9</td>
+      <td>3</td>
+      <td>15.0</td>
+      <td>19.4</td>
+      <td>10.6</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>son</td>
+    </tr>
+    <tr>
+      <th>246</th>
+      <td>1938-09-04</td>
+      <td>1938</td>
+      <td>9</td>
+      <td>4</td>
+      <td>14.8</td>
+      <td>17.8</td>
+      <td>11.7</td>
+      <td>3.3</td>
+      <td>0.0</td>
+      <td>3.3</td>
+      <td>son</td>
+    </tr>
+    <tr>
+      <th>247</th>
+      <td>1938-09-05</td>
+      <td>1938</td>
+      <td>9</td>
+      <td>5</td>
+      <td>15.6</td>
+      <td>19.4</td>
+      <td>11.7</td>
+      <td>1.3</td>
+      <td>0.0</td>
+      <td>1.3</td>
+      <td>son</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section" id="Fitting-the-distributions">
+<h2>Fitting the distributions<a class="headerlink" href="#Fitting-the-distributions" title="Permalink to this headline">¶</a></h2>
+<p>What does it mean to “fit” a distribution? We want to be able to generate a series of random numbers that resemble temperatures and precip amounts that we might see at YVR during a particular season. We need to find two things:</p>
+<ol class="arabic simple">
+<li>A probability density function (pdf) that has a similar shape to the histogram we get from the data.</li>
+<li>The best choice of parameters for that pdf that getting it “closest” in some statistical sense to the data.</li>
+</ol>
+<p>You’ll see below that temperature is best fit with a Gaussin (normal) distribution, whilc precipitation more closely follows an exponential distribution. Both the normal and exponential distributions are functions of two parameters. For the normal distribution, the best estimate (maximum likelihood values) of those parameters is provided by the mean and the standard deviation of the temperature data. For the exponential distribution, they are given by the minimum value and the mean.</p>
+<div class="section" id="Daily-average-temperature">
+<h3>Daily average temperature<a class="headerlink" href="#Daily-average-temperature" title="Permalink to this headline">¶</a></h3>
+<p>The next cell shows histograms temperature for each of the seasons. We use <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html#scipy.stats.norm">scipy.stats.norm.fit</a> to find the mean and standard deviation (called the <code class="docutils literal notranslate"><span class="pre">loc</span></code> and <code class="docutils literal notranslate"><span class="pre">scale</span></code> here) of the data and then shows that fitted distribution as a red line. Specifically, for temperatures x the red line is a plot of:</p>
+<div class="math notranslate nohighlight">
+\begin{align*}
+f(y) &amp;= \frac{\exp(-y^2/2)}{\sqrt{2\pi}} \\
+y &amp;= (x - loc) / scale
+\end{align*}</div><p>The four plots show that a normal distribution give as pretty good representation of each of the seasons.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">key_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;djf&quot;</span><span class="p">,</span> <span class="s2">&quot;mam&quot;</span><span class="p">,</span> <span class="s2">&quot;jja&quot;</span><span class="p">,</span> <span class="s2">&quot;son&quot;</span><span class="p">]</span>
+<span class="n">df_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">season_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">key_list</span><span class="p">]</span>
+<span class="c1">#</span>
+<span class="c1"># set up a 2 row, 2 column grid of figures, and</span>
+<span class="c1"># turn the ax_array 2-d array into a list</span>
+<span class="c1">#</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax_array</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">ax_list</span> <span class="o">=</span> <span class="n">ax_array</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+<span class="c1">#</span>
+<span class="c1"># here is the variable we want to histogram</span>
+<span class="c1">#</span>
+<span class="n">var</span> <span class="o">=</span> <span class="s2">&quot;T_mean (C)&quot;</span>
+<span class="c1">#</span>
+<span class="c1"># store the fit parameters in a dictionary</span>
+<span class="c1"># called temp_params for future reference</span>
+<span class="c1">#</span>
+<span class="n">temp_params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="c1">#</span>
+<span class="c1">#  loop over the four seasons in key_list</span>
+<span class="c1">#  getting the figure axis and the dataframe</span>
+<span class="c1">#  for that season.</span>
+<span class="c1">#</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">key_list</span><span class="p">):</span>
+    <span class="n">the_ax</span> <span class="o">=</span> <span class="n">ax_list</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+    <span class="n">the_df</span> <span class="o">=</span> <span class="n">df_list</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+    <span class="n">the_temps</span> <span class="o">=</span> <span class="n">the_df</span><span class="p">[</span><span class="n">var</span><span class="p">]</span>
+    <span class="c1">#</span>
+    <span class="c1"># find the mean and standard deviation to</span>
+    <span class="c1"># set the pdf mu, sigma parameters</span>
+    <span class="c1">#</span>
+    <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">the_temps</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1"># save the parameter pair for that season</span>
+    <span class="c1">#</span>
+    <span class="n">temp_params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1"># get the histogram values, the bin edges and the plotting</span>
+    <span class="c1"># bars (patches) for the histogram, specifying 20 bins</span>
+    <span class="c1"># note that we can specify the histogram variable by it&#39;s dataframe</span>
+    <span class="c1"># column name when we pass the dataframe to matplotlib via</span>
+    <span class="c1"># the data keyword</span>
+    <span class="c1">#</span>
+    <span class="n">vals</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">patches</span> <span class="o">=</span> <span class="n">the_ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">the_df</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1"># turn the bin edges into bin centers by averaging the right + left</span>
+    <span class="c1"># edge of every bin</span>
+    <span class="c1">#</span>
+    <span class="n">bin_centers</span> <span class="o">=</span> <span class="p">(</span><span class="n">bins</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">bins</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="c1">#</span>
+    <span class="c1"># plot the pdf function on top of the histogram as a red line</span>
+    <span class="c1">#</span>
+    <span class="n">the_ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bin_centers</span><span class="p">,</span> <span class="n">st</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">bin_centers</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">),</span> <span class="s2">&quot;r-&quot;</span><span class="p">)</span>
+    <span class="n">the_ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">the_ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1"># label the xaxis for the bottom two plots (2 and 3)</span>
+    <span class="c1"># and the yaxis for the left plots (0 and 2)</span>
+    <span class="c1">#</span>
+    <span class="k">if</span> <span class="n">index</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">the_ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="n">var</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">index</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]:</span>
+        <span class="n">the_ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;relative frequency&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_11-pandas4-process-seasonal_29_0.png" src="../_images/web_notebooks_11-pandas4-process-seasonal_29_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Daily-average-total-precipitation">
+<h3>Daily average total precipitation<a class="headerlink" href="#Daily-average-total-precipitation" title="Permalink to this headline">¶</a></h3>
+<p>Precipitation data is a different story. Because negative precipitation is impossible, there is no way a normal distribution is going to work to represent the variablity. Instead we use <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.expon.html#scipy.stats.expon">scipy.stats.expon.fit</a> to fit an exponential distribution.</p>
+<div class="math notranslate nohighlight">
+\begin{align*}
+f(y) &amp;= \exp(-y)\\
+y &amp;= (x - loc) / scale
+\end{align*}</div><p>where <code class="docutils literal notranslate"><span class="pre">loc</span></code> is the minimum of the data and <code class="docutils literal notranslate"><span class="pre">scale</span></code> is the distance between the minimum and the mean.</p>
+<p>The fits are not quite as good – but do capture the one-sided nature of the variability. No comments on this one, but it’s a copy and paste of the temperature grid plot above.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax_array</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">ax_list</span> <span class="o">=</span> <span class="n">ax_array</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+<span class="n">var</span> <span class="o">=</span> <span class="s2">&quot;Total Precip (mm)&quot;</span>
+<span class="n">precip_params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">key_list</span><span class="p">):</span>
+    <span class="n">the_ax</span> <span class="o">=</span> <span class="n">ax_list</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+    <span class="n">the_df</span> <span class="o">=</span> <span class="n">df_list</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+    <span class="n">the_precip</span> <span class="o">=</span> <span class="n">the_df</span><span class="p">[</span><span class="n">var</span><span class="p">]</span>
+    <span class="n">loc</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">expon</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">the_precip</span><span class="p">)</span>
+    <span class="n">precip_params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
+    <span class="n">vals</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">patches</span> <span class="o">=</span> <span class="n">the_ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">the_df</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">bin_centers</span> <span class="o">=</span> <span class="p">(</span><span class="n">bins</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">bins</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">the_ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bin_centers</span><span class="p">,</span> <span class="n">st</span><span class="o">.</span><span class="n">expon</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">bin_centers</span><span class="p">,</span> <span class="n">loc</span><span class="p">,</span> <span class="n">scale</span><span class="p">),</span> <span class="s2">&quot;r-&quot;</span><span class="p">)</span>
+    <span class="n">the_ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">the_ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1"># label the xaxis for the bottom two plots (2 and 3)</span>
+    <span class="c1"># and the yaxis for the left plots (0 and 2)</span>
+    <span class="c1">#</span>
+    <span class="k">if</span> <span class="n">index</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">the_ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="n">var</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">index</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]:</span>
+        <span class="n">the_ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;relative frequency&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_11-pandas4-process-seasonal_31_0.png" src="../_images/web_notebooks_11-pandas4-process-seasonal_31_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Saving-the-fit-parameters">
+<h2>Saving the fit parameters<a class="headerlink" href="#Saving-the-fit-parameters" title="Permalink to this headline">¶</a></h2>
+<p>We have two new dictionaries: <code class="docutils literal notranslate"><span class="pre">temp_params</span></code> and <code class="docutils literal notranslate"><span class="pre">precip_params</span></code> that we should save for the future.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="n">data_dict</span><span class="p">[</span>
+    <span class="s2">&quot;metadata&quot;</span>
+<span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">          loc,scale tuples for daily average temperature (deg C)</span>
+<span class="s2">          and precipitation (mm) produced by 11-pandas4 for YVR</span>
+<span class="s2">          &quot;&quot;&quot;</span>
+<span class="n">data_dict</span><span class="p">[</span><span class="s2">&quot;temp&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp_params</span>
+<span class="n">data_dict</span><span class="p">[</span><span class="s2">&quot;precip&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">precip_params</span>
+<span class="n">fit_file</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">processed_dir</span> <span class="o">/</span> <span class="s2">&quot;fit_metadata.json&quot;</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fit_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data_dict</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;wrote the fit coefficients to {fit_file}&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+wrote the fit coefficients to /Users/phil/repos/eosc213_students/notebooks/pandas/data/processed/fit_metadata.json
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#</span>
+<span class="c1"># here&#39;s what the file looks like:</span>
+<span class="c1">#</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fit_file</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{
+    &#34;metadata&#34;: &#34;\n          loc,scale tuples for daily average temperature (deg C)\n          and precipitation (mm) produced by 11-pandas4 for YVR\n          &#34;,
+    &#34;temp&#34;: {
+        &#34;djf&#34;: [
+            3.84256591465072,
+            3.595365405560527
+        ],
+        &#34;mam&#34;: [
+            9.356482721671577,
+            3.4789191637037504
+        ],
+        &#34;jja&#34;: [
+            16.88648212846009,
+            2.324995343255562
+        ],
+        &#34;son&#34;: [
+            10.308878631550368,
+            4.372545963729551
+        ]
+    },
+    &#34;precip&#34;: {
+        &#34;djf&#34;: [
+            0.0,
+            4.8432998097309055
+        ],
+        &#34;mam&#34;: [
+            0.0,
+            2.6093758371283147
+        ],
+        &#34;jja&#34;: [
+            0.0,
+            1.2523918301531844
+        ],
+        &#34;son&#34;: [
+            0.0,
+            3.770662503393972
+        ]
+    }
+}
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Grouping-by-decade">
+<h2>Grouping by decade<a class="headerlink" href="#Grouping-by-decade" title="Permalink to this headline">¶</a></h2>
+<p>The two functions below take a season dataframe and create a new column with the decade that each day belongs to. For example if a measurement in taken in 1941, then its decade is 194. We can use that see whether the temperature at the airport has been increasing since the 1930’s and whether that increase depends on season</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">find_decade</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    given a row from an Environment Canada dataframe</span>
+<span class="sd">    return the first 3 digits of the year as an integer</span>
+
+<span class="sd">    i.e. turn &quot;2010&quot; into the number 201</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">year_string</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;{row[&#39;Year&#39;]:4d}&quot;</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">year_string</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">decadal_groups</span><span class="p">(</span><span class="n">season_df</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    given a season dataframe produced by groupby(&#39;season&#39;), add</span>
+<span class="sd">    a column called &#39;decade&#39; with the 3 digit decade</span>
+<span class="sd">    and return a groupby dictionary of decade dataframes for that</span>
+<span class="sd">    season with the decade as key</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#</span>
+    <span class="c1"># add the decade column to the dataframe using apply</span>
+    <span class="c1">#</span>
+    <span class="n">decade</span><span class="o">=</span><span class="n">season_df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">find_decade</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">season_df</span><span class="p">[</span><span class="s1">&#39;decade&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">decade</span>
+    <span class="c1">#</span>
+    <span class="c1"># do the groupby and turn into a dictionary</span>
+    <span class="c1">#</span>
+    <span class="n">decade_groups</span><span class="o">=</span><span class="n">season_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;decade&#39;</span><span class="p">)</span>
+    <span class="n">decade_dict</span><span class="o">=</span><span class="p">{</span><span class="n">key</span><span class="p">:</span><span class="n">value</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span><span class="n">value</span> <span class="ow">in</span> <span class="n">decade_groups</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">decade_dict</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Finding-the-median-temperature">
+<h2>Finding the median temperature<a class="headerlink" href="#Finding-the-median-temperature" title="Permalink to this headline">¶</a></h2>
+<p>Once we have the dictionary that has the decade as key and the dataframe for that decade as value, we can find the median value of the daily average temperature for each decade using the <code class="docutils literal notranslate"><span class="pre">median_temps</span></code> function below.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">median_temps</span><span class="p">(</span><span class="n">decade_dict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    given a decade_dict produced by the decadal_temp function</span>
+<span class="sd">    return a 2-column numpy array.  The first column should be the</span>
+<span class="sd">    integer decade (193,194,etc.) and the second column should be</span>
+<span class="sd">    the median temperature for that decade</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">values</span><span class="o">=</span><span class="nb">list</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">the_decade</span><span class="p">,</span><span class="n">the_df</span> <span class="ow">in</span> <span class="n">decade_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">T_median</span><span class="o">=</span><span class="n">the_df</span><span class="p">[</span><span class="s1">&#39;T_mean (C)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+        <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">the_decade</span><span class="p">,</span><span class="n">T_median</span><span class="p">))</span>
+    <span class="n">result</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Assignment">
+<h2>Assignment<a class="headerlink" href="#Assignment" title="Permalink to this headline">¶</a></h2>
+<p>Using the functions above, calculate the median temperature for each decade and save your (decade, temperature) lists into a dictionary with a key for each season. Use that dictionary to make a 2 x 2 plot of temperature vs. decade for each of the four seasons, using the 4 box plotting code above. (My solution is 14 lines long)</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># YOUR CODE HERE</span>
+<span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NotImplementedError</span>                       Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-21-15b94d1fa268&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># YOUR CODE HERE</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">raise</span> NotImplementedError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NotImplementedError</span>:
+</pre></div></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2019, Philip Austin.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

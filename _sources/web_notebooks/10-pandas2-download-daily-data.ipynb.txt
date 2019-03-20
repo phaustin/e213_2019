@@ -8,7 +8,7 @@
    },
    "source": [
     "<h1>Table of Contents<span class=\"tocSkip\"></span></h1>\n",
-    "<div class=\"toc\"><ul class=\"toc-item\"><li><span><a href=\"#Download-Environment-Canada-Daily-Data\" data-toc-modified-id=\"Download-Environment-Canada-Daily-Data-1\"><span class=\"toc-item-num\">1&nbsp;&nbsp;</span>Download Environment Canada Daily Data</a></span><ul class=\"toc-item\"><li><span><a href=\"#Station-Inventory\" data-toc-modified-id=\"Station-Inventory-1.1\"><span class=\"toc-item-num\">1.1&nbsp;&nbsp;</span>Station Inventory</a></span></li><li><span><a href=\"#Info-for-Selected-Station\" data-toc-modified-id=\"Info-for-Selected-Station-1.2\"><span class=\"toc-item-num\">1.2&nbsp;&nbsp;</span>Info for Selected Station</a></span><ul class=\"toc-item\"><li><span><a href=\"#Download-Data\" data-toc-modified-id=\"Download-Data-1.2.1\"><span class=\"toc-item-num\">1.2.1&nbsp;&nbsp;</span>Download Data</a></span></li></ul></li></ul></li></ul></div>"
+    "<div class=\"toc\"><ul class=\"toc-item\"><li><span><a href=\"#Download-Environment-Canada-Daily-Data\" data-toc-modified-id=\"Download-Environment-Canada-Daily-Data-1\"><span class=\"toc-item-num\">1&nbsp;&nbsp;</span>Download Environment Canada Daily Data</a></span><ul class=\"toc-item\"><li><span><a href=\"#Set-the-context-for-this-notebook\" data-toc-modified-id=\"Set-the-context-for-this-notebook-1.1\"><span class=\"toc-item-num\">1.1&nbsp;&nbsp;</span>Set the context for this notebook</a></span></li><li><span><a href=\"#Station-Inventory\" data-toc-modified-id=\"Station-Inventory-1.2\"><span class=\"toc-item-num\">1.2&nbsp;&nbsp;</span>Station Inventory</a></span></li><li><span><a href=\"#Info-for-Selected-Station\" data-toc-modified-id=\"Info-for-Selected-Station-1.3\"><span class=\"toc-item-num\">1.3&nbsp;&nbsp;</span>Info for Selected Station</a></span><ul class=\"toc-item\"><li><span><a href=\"#Download-Data\" data-toc-modified-id=\"Download-Data-1.3.1\"><span class=\"toc-item-num\">1.3.1&nbsp;&nbsp;</span>Download Data</a></span></li></ul></li></ul></li></ul></div>"
    ]
   },
   {
@@ -36,6 +36,40 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
+    "## Set the context for this notebook\n",
+    "\n",
+    "Importing the context module will check to see whether\n",
+    "`data/processed` and `data/raw` exist and complain if\n",
+    "it can't find them"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "in context.py, setting root_dir to /Users/phil/repos/eosc213_students/notebooks/pandas\n",
+      "******************************\n",
+      "context imported. Front of path:\n",
+      "/Users/phil/repos/eosc213_students/notebooks/pandas\n",
+      "/Users/phil/mini37/lib/python36.zip\n",
+      "******************************\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "import context"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
     "## Station Inventory\n",
     "\n",
     "* Instructions: copy and paste this url into a browser: (ftp://client_climate@ftp.tor.ec.gc.ca/Pub/Get_More_Data_Plus_de_donnees/)\n",
@@ -50,7 +84,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": 3,
    "metadata": {
     "lines_to_next_cell": 2
    },
@@ -68,7 +102,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [
     {
@@ -265,13 +299,13 @@
        "4          1894.0         1952.0          1894.0         1952.0  "
       ]
      },
-     "execution_count": 3,
+     "execution_count": 4,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "inventory_file = Path(\"data/Station Inventory EN.csv\")\n",
+    "inventory_file = context.data_dir / \"Station Inventory EN.csv\"\n",
     "inventory = pd.read_csv(inventory_file, skiprows=3)\n",
     "\n",
     "# Rename some of the columns to more convenient labels\n",
@@ -299,7 +333,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [
     {
@@ -411,7 +445,7 @@
        "1008          1937.0         2013.0          1937.0         2013.0  "
       ]
      },
-     "execution_count": 4,
+     "execution_count": 5,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -435,7 +469,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 5,
+   "execution_count": 6,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -467,16 +501,6 @@
    ]
   },
   {
-   "cell_type": "code",
-   "execution_count": 6,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "# Sub-folder to save the data files\n",
-    "datadir = Path(\"data/raw/\")"
-   ]
-  },
-  {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
@@ -492,83 +516,83 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "Saving to data/raw/weather_daily_YVR_889_1937.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1938.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1939.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1940.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1941.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1942.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1943.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1944.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1945.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1946.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1947.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1948.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1949.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1950.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1951.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1952.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1953.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1954.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1955.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1956.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1957.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1958.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1959.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1960.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1961.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1962.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1963.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1964.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1965.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1966.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1967.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1968.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1969.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1970.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1971.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1972.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1973.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1974.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1975.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1976.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1977.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1978.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1979.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1980.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1981.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1982.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1983.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1984.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1985.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1986.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1987.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1988.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1989.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1990.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1991.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1992.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1993.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1994.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1995.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1996.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1997.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1998.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_1999.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_2000.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_2001.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_2002.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_2003.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_2004.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_2005.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_2006.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_2007.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_2008.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_2009.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_2010.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_2011.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_2012.csv\n",
-      "Saving to data/raw/weather_daily_YVR_889_2013.csv\n"
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1937.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1938.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1939.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1940.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1941.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1942.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1943.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1944.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1945.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1946.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1947.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1948.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1949.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1950.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1951.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1952.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1953.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1954.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1955.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1956.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1957.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1958.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1959.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1960.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1961.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1962.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1963.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1964.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1965.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1966.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1967.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1968.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1969.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1970.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1971.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1972.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1973.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1974.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1975.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1976.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1977.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1978.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1979.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1980.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1981.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1982.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1983.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1984.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1985.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1986.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1987.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1988.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1989.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1990.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1991.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1992.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1993.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1994.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1995.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1996.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1997.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1998.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1999.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2000.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2001.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2002.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2003.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2004.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2005.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2006.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2007.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2008.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2009.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2010.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2011.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2012.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2013.csv\n"
      ]
     }
    ],
@@ -578,11 +602,7 @@
     "years_early = range(1937, 2014)\n",
     "\n",
     "for year in years_early:\n",
-    "    savefile = datadir / Path(f\"weather_daily_{station}_{stn_id_early}_{year}.csv\")\n",
-    "    #\n",
-    "    # create the data directory if it doesn't exist\n",
-    "    #\n",
-    "    savefile.parent.mkdir(parents=True, exist_ok=True)\n",
+    "    savefile = context.raw_dir / Path(f\"weather_daily_{station}_{stn_id_early}_{year}.csv\")\n",
     "    download_daily_raw(stn_id_early, year, savefile=savefile)"
    ]
   },
@@ -595,13 +615,13 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "Saving to data/raw/weather_daily_YVR_51442_2013.csv\n",
-      "Saving to data/raw/weather_daily_YVR_51442_2014.csv\n",
-      "Saving to data/raw/weather_daily_YVR_51442_2015.csv\n",
-      "Saving to data/raw/weather_daily_YVR_51442_2016.csv\n",
-      "Saving to data/raw/weather_daily_YVR_51442_2017.csv\n",
-      "Saving to data/raw/weather_daily_YVR_51442_2018.csv\n",
-      "Saving to data/raw/weather_daily_YVR_51442_2019.csv\n"
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_51442_2013.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_51442_2014.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_51442_2015.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_51442_2016.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_51442_2017.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_51442_2018.csv\n",
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_51442_2019.csv\n"
      ]
     }
    ],
@@ -611,7 +631,8 @@
     "years_recent = range(2013, 2020)\n",
     "\n",
     "for year in years_recent:\n",
-    "    savefile = datadir / Path(f\"weather_daily_{station}_{stn_id_recent}_{year}.csv\")\n",
+    "    savefile = (context.raw_dir / \n",
+    "                Path(f\"weather_daily_{station}_{stn_id_recent}_{year}.csv\"))\n",
     "    download_daily_raw(stn_id_recent, year, savefile=savefile)"
    ]
   }
@@ -619,7 +640,13 @@
  "metadata": {
   "jupytext": {
    "cell_metadata_filter": "all",
-   "notebook_metadata_filter": "-language_info"
+   "notebook_metadata_filter": "-language_info",
+   "text_representation": {
+    "extension": ".py",
+    "format_name": "percent",
+    "format_version": "1.2",
+    "jupytext_version": "1.0.3"
+   }
   },
   "kernelspec": {
    "display_name": "Python 3",
@@ -637,6 +664,9 @@
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
    "version": "3.6.7"
+  },
+  "nbsphinx": {
+   "execute": "never"
   },
   "toc": {
    "base_numbering": 1,

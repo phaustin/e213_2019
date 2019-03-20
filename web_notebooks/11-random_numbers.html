@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Random number generation &#8212; E213</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}, "extensions": ["color.js"]}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          Home</a>
+        <span class="navbar-text navbar-version pull-left"><b>2019Jan01</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-1-jan-3">1.1. Week 1  Jan 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-2-jan-8-jan-10">1.2. Week 2  Jan 8/Jan 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-3-jan-15-jan-17">1.3. Week 3  Jan 15/Jan 17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">1.4. Week 4  Jan 22/Jan 24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">1.5. Week 5  Jan 29/Jan 31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">1.6. Week 6  Feb 05/Feb 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-7-feb-19-feb-21">1.7. Week 7  Feb 19/Feb 21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-8-feb-26-feb-28">1.8. Week 8  Feb 26/Feb 28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-9-mar-05-mar-07">1.9. Week 9  Mar 05/Mar 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-10-mar-12-mar-14">1.10. Week 10  Mar 12/Mar 14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.11. General notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../solutions.html#week-2">2.1. Week 2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#math">3.1. Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#python">3.2. Python</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#python-introductory-texts">4.1. Python Introductory Texts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#moving-from-matlab-to-python">4.2. Moving from matlab to python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#cocalc">4.3. Cocalc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-shell-commands">5.1. Useful shell commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-git-commands">5.2. Useful git commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-debugger-commands">5.3. Useful debugger commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/web_notebooks/11-random_numbers.ipynb.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 7ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<h1><p>Table of Contents</p>
+</h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;Learning objectives</p>
+</li><li><p>2&nbsp;&nbsp;Making random numbers</p>
+<ul class="toc-item"><li><p>2.1&nbsp;&nbsp;Create 1000 uniformly distributed random numbers in the inteval [0,1)</p>
+</li><li><p>2.2&nbsp;&nbsp;Repeat for a normal distribution with <span class="math notranslate nohighlight">\(\mu\)</span>, and <span class="math notranslate nohighlight">\(\sigma\)</span> from 11-pandas4</p>
+<ul class="toc-item"><li><p>2.2.1&nbsp;&nbsp;First read in the <span class="math notranslate nohighlight">\(\mu\)</span>, <span class="math notranslate nohighlight">\(\sigma\)</span> values from fit_metadata.json</p>
+</li><li><p>2.2.2&nbsp;&nbsp;Now pull the mean and standard deviation for spring</p>
+</li></ul></li></ul></li><li><p>3&nbsp;&nbsp;lognormal random numbers with <span class="math notranslate nohighlight">\(\mu=1\)</span>, <span class="math notranslate nohighlight">\(\log \sigma=0.1\)</span></p>
+</li><li><p>4&nbsp;&nbsp;Correlated random numbers</p>
+</li><li><p>5&nbsp;&nbsp;Your turn</p>
+</li></ul></div><div class="section" id="Random-number-generation">
+<h1>Random number generation<a class="headerlink" href="#Random-number-generation" title="Permalink to this headline">¶</a></h1>
+<p>Some examples demonstrating how to generate random numbers using <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/routines.random.html">https://docs.scipy.org/doc/numpy/reference/routines.random.html</a></p>
+<div class="section" id="Learning-objectives">
+<h2>Learning objectives<a class="headerlink" href="#Learning-objectives" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Demonstrate random number utilities in numpy.random and scipy.stats</li>
+<li>Use the paramter estimates generated by the 11-pandas4 notebook to generate seasonal precipitation and temperature data that fits the observed normal (temperature) and exponential (precipitation) data at YVR airport</li>
+</ol>
+</div>
+<div class="section" id="Making-random-numbers">
+<h2>Making random numbers<a class="headerlink" href="#Making-random-numbers" title="Permalink to this headline">¶</a></h2>
+<p>For this notebook, <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">context</span></code> defines the Path object for <code class="docutils literal notranslate"><span class="pre">notebooks/pandas/data/processed</span></code> so that we can find the <code class="docutils literal notranslate"><span class="pre">fit_metadata.json</span></code> file written by 11-pandas4</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy.random</span> <span class="kn">as</span> <span class="nn">rn</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">colors</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">context</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+in context.py, found /Users/phil/repos/eosc213_students/notebooks/pandas/data/processed
+</pre></div></div>
+</div>
+<div class="section" id="Create-1000-uniformly-distributed-random-numbers-in-the-inteval-[0,1)">
+<h3>Create 1000 uniformly distributed random numbers in the inteval [0,1)<a class="headerlink" href="#Create-1000-uniformly-distributed-random-numbers-in-the-inteval-[0,1)" title="Permalink to this headline">¶</a></h3>
+<p>It’s a good idea to set a seed, so the random numbers will be identical each time you run the notebook</p>
+<p>The generator <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.rand.html">numpy.random.rand</a> generates evenly distributed random numbers between 0 and 1. Below we make 1000 draws and histogram the result.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">my_seed</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">rn</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">my_seed</span><span class="p">)</span>
+<span class="n">uni_dist</span> <span class="o">=</span> <span class="n">rn</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">uni_dist</span><span class="p">,</span> <span class="s2">&quot;b.&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;uniform distribution&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;index&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">uni_dist</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;histogram of uniform dist&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;value&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_11-random_numbers_8_0.png" src="../_images/web_notebooks_11-random_numbers_8_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Repeat-for-a-normal-distribution-with-\mu,-and-\sigma-from-11-pandas4">
+<h3>Repeat for a normal distribution with <span class="math notranslate nohighlight">\(\mu\)</span>, and <span class="math notranslate nohighlight">\(\sigma\)</span> from 11-pandas4<a class="headerlink" href="#Repeat-for-a-normal-distribution-with-\mu,-and-\sigma-from-11-pandas4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="First-read-in-the-\mu,-\sigma-values-from-fit_metadata.json">
+<h4>First read in the <span class="math notranslate nohighlight">\(\mu\)</span>, <span class="math notranslate nohighlight">\(\sigma\)</span> values from <code class="docutils literal notranslate"><span class="pre">fit_metadata.json</span></code><a class="headerlink" href="#First-read-in-the-\mu,-\sigma-values-from-fit_metadata.json" title="Permalink to this headline">¶</a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">json_file</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">weather_processed_dir</span> <span class="o">/</span> <span class="s1">&#39;fit_metadata.json&#39;</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">json_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">fit_dict</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">fit_dict</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>{&#39;metadata&#39;: &#39;\n          loc,scale tuples for daily average temperature (deg C)\n          and precipitation (mm) produced by 11-pandas4 for YVR\n          &#39;,
+ &#39;temp&#39;: {&#39;djf&#39;: [3.84256591465072, 3.595365405560527],
+  &#39;mam&#39;: [9.356482721671577, 3.4789191637037504],
+  &#39;jja&#39;: [16.88648212846009, 2.324995343255562],
+  &#39;son&#39;: [10.308878631550368, 4.372545963729551]},
+ &#39;precip&#39;: {&#39;djf&#39;: [0.0, 4.8432998097309055],
+  &#39;mam&#39;: [0.0, 2.6093758371283147],
+  &#39;jja&#39;: [0.0, 1.2523918301531844],
+  &#39;son&#39;: [0.0, 3.770662503393972]}}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Now-pull-the-mean-and-standard-deviation-for-spring">
+<h4>Now pull the mean and standard deviation for spring<a class="headerlink" href="#Now-pull-the-mean-and-standard-deviation-for-spring" title="Permalink to this headline">¶</a></h4>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="n">fit_dict</span><span class="p">[</span><span class="s1">&#39;temp&#39;</span><span class="p">][</span><span class="s1">&#39;mam&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">normal_dist</span> <span class="o">=</span> <span class="n">rn</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="p">(</span><span class="mi">1000</span><span class="p">,))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">normal_dist</span><span class="p">,</span> <span class="s2">&quot;b.&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;temperatures (C) for mam&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;index&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">normal_dist</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;temperature histogram&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;daily mean temp (C)&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_11-random_numbers_13_0.png" src="../_images/web_notebooks_11-random_numbers_13_0.png" />
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="lognormal-random-numbers-with-\mu=1,-\log-\sigma=0.1">
+<h2>lognormal random numbers with <span class="math notranslate nohighlight">\(\mu=1\)</span>, <span class="math notranslate nohighlight">\(\log \sigma=0.1\)</span><a class="headerlink" href="#lognormal-random-numbers-with-\mu=1,-\log-\sigma=0.1" title="Permalink to this headline">¶</a></h2>
+<p>Note that there are dozens of distributions defined by <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/routines.random.html">numpy.random</a></p>
+<p>Here is an example for lognormal statistics</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">log_normal_dist</span> <span class="o">=</span> <span class="n">rn</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="p">(</span><span class="mi">1000</span><span class="p">,))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">log_normal_dist</span><span class="p">,</span> <span class="s2">&quot;b.&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;lognormal distribution&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;index&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">log_normal_dist</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;histogram of lognormal dist&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;value&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_11-random_numbers_15_0.png" src="../_images/web_notebooks_11-random_numbers_15_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Correlated-random-numbers">
+<h2>Correlated random numbers<a class="headerlink" href="#Correlated-random-numbers" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">makeRandom</span><span class="p">(</span>
+    <span class="n">meanx</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">stdx</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">meany</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">stdy</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">numpoints</span><span class="o">=</span><span class="mi">100000</span>
+<span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    return a tuple with two vectors (xvec,yvec) giving the</span>
+<span class="sd">    coordinates of numpoints chosen from a two dimensional</span>
+<span class="sd">    Gaussian distribution</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    meanx: float -- mean in x direction</span>
+<span class="sd">    stdx:  float -- standard deviation in x direction</span>
+<span class="sd">    meany: float -- mean in y direction</span>
+<span class="sd">    stdy:  float -- standar deviation in y direction</span>
+<span class="sd">    rho:   float -- correlation coefficient</span>
+<span class="sd">    numpoints:  length of returned xvec and yvec</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    (xvec, yvec): tuple of ndarray vectors containing</span>
+<span class="sd">                  correlated random variables,</span>
+<span class="sd">                  each vector of length numpoints</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    invalues={&#39;meanx&#39;:450.,</span>
+<span class="sd">              &#39;stdx&#39;:50,</span>
+<span class="sd">              &#39;meany&#39;:-180,</span>
+<span class="sd">              &#39;stdy&#39;:40,</span>
+<span class="sd">              &#39;rho&#39;:0.8}</span>
+
+<span class="sd">    chanx,chany=makeRandom(**invalues)</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">stdx</span> <span class="o">**</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">stdx</span> <span class="o">*</span> <span class="n">stdy</span><span class="p">,</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">stdx</span> <span class="o">*</span> <span class="n">stdy</span><span class="p">,</span> <span class="n">stdy</span> <span class="o">**</span> <span class="mf">2.0</span><span class="p">])</span>
+    <span class="n">sigma</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+    <span class="n">meanvec</span> <span class="o">=</span> <span class="p">[</span><span class="n">meanx</span><span class="p">,</span> <span class="n">meany</span><span class="p">]</span>
+    <span class="n">outRandom</span> <span class="o">=</span> <span class="n">rn</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">meanvec</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="p">[</span><span class="n">numpoints</span><span class="p">])</span>
+    <span class="n">chan1</span> <span class="o">=</span> <span class="n">outRandom</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">chan2</span> <span class="o">=</span> <span class="n">outRandom</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">chan1</span><span class="p">,</span> <span class="n">chan2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">invalues</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;meanx&quot;</span><span class="p">:</span> <span class="mf">450.0</span><span class="p">,</span>
+    <span class="s2">&quot;stdx&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+    <span class="s2">&quot;meany&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">180</span><span class="p">,</span>
+    <span class="s2">&quot;stdy&quot;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
+    <span class="s2">&quot;rho&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>
+    <span class="s2">&quot;numpoints&quot;</span><span class="p">:</span> <span class="mi">25000</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">chanx</span><span class="p">,</span> <span class="n">chany</span> <span class="o">=</span> <span class="n">makeRandom</span><span class="p">(</span><span class="o">**</span><span class="n">invalues</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># https://matplotlib.org/gallery/statistics/hist.html</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">chanx</span><span class="p">,</span> <span class="n">chany</span><span class="p">,</span> <span class="s2">&quot;b.&quot;</span><span class="p">)</span>
+<span class="n">h</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">im</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">hist2d</span><span class="p">(</span><span class="n">chanx</span><span class="p">,</span> <span class="n">chany</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">norm</span><span class="o">=</span><span class="n">colors</span><span class="o">.</span><span class="n">LogNorm</span><span class="p">())</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_11-random_numbers_19_0.png" src="../_images/web_notebooks_11-random_numbers_19_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Your-turn">
+<h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Generate a precipitation dataset for YVR springtime using <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.exponential.html#numpy.random.exponential">numpy.random.exponential</a></li>
+<li>We have been assuming that precipitation and temperature are independent random variables. Make a scatterplot and 2D histogram of one of the YVR seasonal precipitation, temperature dataframes. Do you see any correlation? What does <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.correlate.html">numpy.correlate</a> say?</li>
+</ol>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2019, Philip Austin.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

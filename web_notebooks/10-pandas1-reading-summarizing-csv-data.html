@@ -361,18 +361,20 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <h1><p>Table of Contents</p>
-</h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;Learning objects</p>
-</li><li><p>2&nbsp;&nbsp;Pandas dataframes vs. numpy arrays</p>
-</li><li><p>3&nbsp;&nbsp;Intro to Pandas</p>
-</li><li><p>4&nbsp;&nbsp;Why Pandas?</p>
-</li><li><p>5&nbsp;&nbsp;Reading a CSV file</p>
-<ul class="toc-item"><li><p>5.1&nbsp;&nbsp;The pathlib module</p>
-</li></ul></li><li><p>6&nbsp;&nbsp;Data at a Glance</p>
-<ul class="toc-item"><li><p>6.1&nbsp;&nbsp;Number of rows and columns:</p>
-</li><li><p>6.2&nbsp;&nbsp;Simple Summary Statistics</p>
-</li></ul></li><li><p>7&nbsp;&nbsp;Exercise</p>
-<ul class="toc-item"><li><p>7.1&nbsp;&nbsp;Data Overview</p>
-</li><li><p>7.2&nbsp;&nbsp;Bonus exercises</p>
+</h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;Learning objectives</p>
+</li><li><p>2&nbsp;&nbsp;Folder setup</p>
+<ul class="toc-item"><li><p>2.1&nbsp;&nbsp;Subfolder creation</p>
+</li></ul></li><li><p>3&nbsp;&nbsp;Pandas dataframes vs. numpy arrays</p>
+</li><li><p>4&nbsp;&nbsp;Intro to Pandas</p>
+</li><li><p>5&nbsp;&nbsp;Why Pandas?</p>
+</li><li><p>6&nbsp;&nbsp;Reading a CSV file</p>
+<ul class="toc-item"><li><p>6.1&nbsp;&nbsp;The pathlib module</p>
+</li></ul></li><li><p>7&nbsp;&nbsp;Data at a Glance</p>
+<ul class="toc-item"><li><p>7.1&nbsp;&nbsp;Number of rows and columns:</p>
+</li><li><p>7.2&nbsp;&nbsp;Simple Summary Statistics</p>
+</li></ul></li><li><p>8&nbsp;&nbsp;Exercise</p>
+<ul class="toc-item"><li><p>8.1&nbsp;&nbsp;Data Overview</p>
+</li><li><p>8.2&nbsp;&nbsp;Bonus exercises</p>
 </li></ul></li></ul></div><div class="section" id="Reading-&amp;-Summarizing-CSV-Data">
 <h1>Reading &amp; Summarizing CSV Data<a class="headerlink" href="#Reading-&-Summarizing-CSV-Data" title="Permalink to this headline">¶</a></h1>
 <p>Credit: the notebooks in this folder are lightly modified versions of work by Jennifer Walker presented at the EOAS python workshop in October, 2018: <a class="reference external" href="https://github.com/jenfly/eoas-python">https://github.com/jenfly/eoas-python</a></p>
@@ -387,8 +389,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="section" id="Learning-objects">
-<h2>Learning objects<a class="headerlink" href="#Learning-objects" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Learning-objectives">
+<h2>Learning objectives<a class="headerlink" href="#Learning-objectives" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Learn how to read, process and write data in csv/xlsx/tabular format using pandas</li>
 <li>In parts 2 and parts 3:</li>
@@ -398,6 +400,48 @@ div.rendered_html tbody tr:hover {
 </li>
 <li>Learn how to clean data by filtering missing values, renaming columns, and writing out processed files for further work</li>
 </ul>
+</div>
+<div class="section" id="Folder-setup">
+<h2>Folder setup<a class="headerlink" href="#Folder-setup" title="Permalink to this headline">¶</a></h2>
+<p>As our project grows more complicated, it’s good to have a central module that keeps track of important files and sets your scripts up so that they can import functions and classes from you modules. If you were planning to distribute your project using conda, then you would need to write an installation script, which is a fair amount of work. At this stage, it’s easier and more flexible to store that information in a file that travels along with your notebook. We set the “context” for this
+notebook by importing: <a class="reference external" href="https://github.com/phaustin/eosc213_students/blob/master/notebooks/pandas/context_pandas1.py">context_pandas1.py</a></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">context_pandas1</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+in context_pandas1.py, setting root_dir to
+/Users/phil/repos/eosc213_students/notebooks/pandas
+setting data_dir to
+/Users/phil/repos/eosc213_students/notebooks/pandas/data
+
+</pre></div></div>
+</div>
+<div class="section" id="Subfolder-creation">
+<h3>Subfolder creation<a class="headerlink" href="#Subfolder-creation" title="Permalink to this headline">¶</a></h3>
+<p>Subsequent notebooks are going to need a place to put raw and processed data. We create those folders in the cell below</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">processed_dir</span> <span class="o">=</span> <span class="n">context_pandas1</span><span class="o">.</span><span class="n">data_dir</span> <span class="o">/</span> <span class="s2">&quot;processed&quot;</span>
+<span class="n">raw_dir</span> <span class="o">=</span> <span class="n">context_pandas1</span><span class="o">.</span><span class="n">data_dir</span> <span class="o">/</span> <span class="s2">&quot;raw&quot;</span>
+<span class="n">processed_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">raw_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="Pandas-dataframes-vs.-numpy-arrays">
 <h2>Pandas dataframes vs. numpy arrays<a class="headerlink" href="#Pandas-dataframes-vs.-numpy-arrays" title="Permalink to this headline">¶</a></h2>
@@ -416,7 +460,7 @@ div.rendered_html tbody tr:hover {
 </li>
 <li><p class="first">Best book: <a class="reference external" href="https://github.com/wesm/pydata-book">Python for data analysis</a> by Wes McKinney</p>
 </li>
-<li><p class="first">Jennifer Walker’s <a class="reference external" href="pandas-cheatsheet.ipynb">Pandas cheatsheet</a></p>
+<li><p class="first">Jennifer Walker’s <a class="reference internal" href="pandas-cheatsheet.html"><span class="doc">Pandas cheatsheet</span></a></p>
 </li>
 <li><p class="first">Library for working with <strong>labelled</strong> tabular data (1-D and 2-D)</p>
 </li>
@@ -447,18 +491,18 @@ div.rendered_html tbody tr:hover {
 <p>We’ll store the data as a dataframe called <code class="docutils literal notranslate"><span class="pre">weather</span></code>.</p>
 <div class="section" id="The-pathlib-module">
 <h3>The pathlib module<a class="headerlink" href="#The-pathlib-module" title="Permalink to this headline">¶</a></h3>
-<p>The cell below constructs a <a class="reference external" href="https://realpython.com/python-pathlib/">Path object</a>. Note the direction of the “/” separate. This would not be the way that we would specify a file on windows (that would be ‘<a class="reference external" href="data:nbsphinx-math">data:nbsphinx-math</a>:<cite>weather</cite>_YVR.csv’ – Path objects hide this complexity by understanding whether we are working on windows, linux or macos and just doing the right thing.</p>
+<p>The cell below constructs a <a class="reference external" href="https://realpython.com/python-pathlib/">Path object</a>. Note the direction of the “/” separator. This would not be the way that we would specify a file on windows (that would be ‘<a class="reference external" href="data:nbsphinx-math">data:nbsphinx-math</a>:<cite>weather</cite>_YVR.csv’ – Path objects hide this complexity by understanding whether we are working on windows, linux or macos and just doing the right thing.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">weather_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;data/weather_YVR.csv&quot;</span><span class="p">)</span>
+<span></span><span class="n">weather_file</span> <span class="o">=</span> <span class="n">context_pandas1</span><span class="o">.</span><span class="n">data_dir</span> <span class="o">/</span> <span class="s2">&quot;weather_YVR.csv&quot;</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -472,7 +516,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -481,7 +525,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1320,7 +1364,7 @@ div.rendered_html tbody tr:hover {
 </ul>
 <p>What type of object is <code class="docutils literal notranslate"><span class="pre">weather</span></code>?</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1329,7 +1373,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -1344,7 +1388,7 @@ div.rendered_html tbody tr:hover {
 <li>In this case, the index is simply a range of integers corresponding with the row numbers</li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1353,7 +1397,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -2188,7 +2232,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>For large DataFrames, it’s often useful to display just the first few or last few rows:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2197,7 +2241,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -2306,7 +2350,7 @@ div.rendered_html tbody tr:hover {
 <div>Pro Tips! - To display the documentation for this method, you can run the command <code class="docutils literal notranslate"><span class="pre">weather.head?</span></code> in your Jupyter notebook - To see other methods available for the DataFrame, type <code class="docutils literal notranslate"><span class="pre">weather.</span></code> followed by Tab for auto-complete options</div></blockquote>
 <p>First two rows:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2315,7 +2359,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -2381,7 +2425,7 @@ div.rendered_html tbody tr:hover {
 </div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2390,7 +2434,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2399,7 +2443,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -2503,7 +2547,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Number-of-rows-and-columns:">
 <h3>Number of rows and columns:<a class="headerlink" href="#Number-of-rows-and-columns:" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2512,7 +2556,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -2521,7 +2565,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2533,7 +2577,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2542,7 +2586,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -2551,7 +2595,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2567,7 +2611,7 @@ div.rendered_html tbody tr:hover {
 <li>We can find out the names and data types of each column from the <code class="docutils literal notranslate"><span class="pre">dtypes</span></code> attribute:</li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2576,7 +2620,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -2598,7 +2642,7 @@ dtype: object
 <p><code class="docutils literal notranslate"><span class="pre">int64</span></code> and <code class="docutils literal notranslate"><span class="pre">float64</span></code> are integer and float, respectively. - The 64 at the end means that they are stored as 64-bit numbers in memory - These data types are equivalent to <code class="docutils literal notranslate"><span class="pre">int</span></code> and <code class="docutils literal notranslate"><span class="pre">float</span></code> in Python (<code class="docutils literal notranslate"><span class="pre">pandas</span></code> is a just a bit more explicit in how it names them)</p>
 <p>If we just want a list of the column names, we can use the <code class="docutils literal notranslate"><span class="pre">columns</span></code> attribute:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2607,7 +2651,7 @@ dtype: object
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -2622,7 +2666,7 @@ dtype: object
 <h3>Simple Summary Statistics<a class="headerlink" href="#Simple-Summary-Statistics" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">describe</span></code> method computes simple summary statistics and returns them as a DataFrame:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2631,7 +2675,7 @@ dtype: object
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -2768,7 +2812,7 @@ dtype: object
 <p>The <code class="docutils literal notranslate"><span class="pre">describe</span></code> method is a way to quickly summarize the averages, extremes, and variability of each numerical data column.</p>
 <p>You can look at each statistic individually with methods such as <code class="docutils literal notranslate"><span class="pre">mean</span></code>, <code class="docutils literal notranslate"><span class="pre">median</span></code>, <code class="docutils literal notranslate"><span class="pre">min</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code>,<code class="docutils literal notranslate"><span class="pre">std</span></code>, and <code class="docutils literal notranslate"><span class="pre">count</span></code></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2777,7 +2821,7 @@ dtype: object
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -2847,8 +2891,8 @@ dtype: float64
 </tbody>
 </table>
 <blockquote>
-<div>You may want to refer to the <a class="reference external" href="pandas-cheatsheet.ipynb">Pandas cheatsheet</a> as you work through the exercises.</div></blockquote>
-<p><strong>a)</strong> Read the file <code class="docutils literal notranslate"><span class="pre">data/gapminder_world_data_2018.csv</span></code> into a new DataFrame <code class="docutils literal notranslate"><span class="pre">world</span></code> and display the first 10 rows.</p>
+<div>You may want to refer to the <a class="reference internal" href="pandas-cheatsheet.html"><span class="doc">Pandas cheatsheet</span></a> as you work through the exercises.</div></blockquote>
+<p><strong>a)</strong> Read the file <code class="docutils literal notranslate"><span class="pre">context_pandas1.data_dir</span> <span class="pre">/</span> <span class="pre">&quot;gapminder_world_data_2018.csv&quot;</span></code> into a new DataFrame <code class="docutils literal notranslate"><span class="pre">world</span></code> and display the first 10 rows.</p>
 <p><strong>b)</strong> How many rows and columns does <code class="docutils literal notranslate"><span class="pre">world</span></code> have?</p>
 <p><strong>c)</strong> Display the names and data types of each column.</p>
 <p><strong>d)</strong> Display summary statistics with the <code class="docutils literal notranslate"><span class="pre">describe</span></code> method. What are the lowest and highest populations? How about lowest/highest population densities? Any guesses which countries these might be? (We’ll find out the answers in Lesson 4!)</p>
@@ -2856,22 +2900,13 @@ dtype: float64
 <div class="section" id="Bonus-exercises">
 <h3>Bonus exercises<a class="headerlink" href="#Bonus-exercises" title="Permalink to this headline">¶</a></h3>
 <p><strong>e) Data wrangling - dealing with header rows</strong></p>
-<p>The file <code class="docutils literal notranslate"><span class="pre">data/raw/weather_YVR_1938.csv</span></code> contains the daily weather data for 1938, in the original format downloaded from Environment Canada. Open this file in the JupyterLab CSV viewer to see what it looks like.</p>
+<p>The file <code class="docutils literal notranslate"><span class="pre">raw_dir</span> <span class="pre">/</span> <span class="pre">&quot;weather_YVR_1938.csv&quot;</span></code> contains the daily weather data for 1938, in the original format downloaded from Environment Canada. Open this file in cocalc.</p>
 <blockquote>
-<div>Note that the CSV viewer isn’t able to parse the data correctly because of the extra header rows at the beginning.</div></blockquote>
+<div>Note that a CSV viewer wouldn’t able to parse the data correctly because of the extra header rows at the beginning.</div></blockquote>
 <ul class="simple">
 <li>Now try reading the file into your notebook with <code class="docutils literal notranslate"><span class="pre">pandas.read_csv</span></code> and see what happens.</li>
 </ul>
 <p>If you look at the documentation for <code class="docutils literal notranslate"><span class="pre">pandas.read_csv</span></code>, you’ll see a <code class="docutils literal notranslate"><span class="pre">skiprows</span></code> input buried amongst a few dozen other inputs for this function. This input tells <code class="docutils literal notranslate"><span class="pre">read_csv</span></code> how many rows to skip at the beginning of the file. - Try reading <code class="docutils literal notranslate"><span class="pre">data/raw/weather_YVR_1938.csv</span></code> again, but this time using a value of <code class="docutils literal notranslate"><span class="pre">24</span></code> for the <code class="docutils literal notranslate"><span class="pre">skiprows</span></code> keyword argument, and display the first 5 rows of the resulting DataFrame.</p>
-<p><strong>f) Importing a library from a ``.py`` file</strong></p>
-<p>In the pandas folder, you’ll see a file called <code class="docutils literal notranslate"><span class="pre">ecweather.py</span></code>. It is a Python <em>module</em>, which is a library contained in a single <code class="docutils literal notranslate"><span class="pre">.py</span></code> file (as opposed to a package, which is multiple <code class="docutils literal notranslate"><span class="pre">.py</span></code> files bundled together).</p>
-<p>You can import a library from a local <code class="docutils literal notranslate"><span class="pre">.py</span></code> file with the same syntax as any other library. The library name is just the file name minus the <code class="docutils literal notranslate"><span class="pre">.py</span></code> extension, so to import this library the syntax is:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ecweather</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li>Import <code class="docutils literal notranslate"><span class="pre">ecweather</span></code> into your notebook, and call the function <code class="docutils literal notranslate"><span class="pre">ecweather.welcome()</span></code> to test it. If everything worked ok, it should print a welcome message.</li>
-</ul>
 </div>
 </div>
 </div>

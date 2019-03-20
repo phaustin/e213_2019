@@ -362,9 +362,10 @@ div.rendered_html tbody tr:hover {
 </style>
 <h1><p>Table of Contents</p>
 </h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;Download Environment Canada Daily Data</p>
-<ul class="toc-item"><li><p>1.1&nbsp;&nbsp;Station Inventory</p>
-</li><li><p>1.2&nbsp;&nbsp;Info for Selected Station</p>
-<ul class="toc-item"><li><p>1.2.1&nbsp;&nbsp;Download Data</p>
+<ul class="toc-item"><li><p>1.1&nbsp;&nbsp;Set the context for this notebook</p>
+</li><li><p>1.2&nbsp;&nbsp;Station Inventory</p>
+</li><li><p>1.3&nbsp;&nbsp;Info for Selected Station</p>
+<ul class="toc-item"><li><p>1.3.1&nbsp;&nbsp;Download Data</p>
 </li></ul></li></ul></li></ul></div><div class="section" id="Download-Environment-Canada-Daily-Data">
 <h1>Download Environment Canada Daily Data<a class="headerlink" href="#Download-Environment-Canada-Daily-Data" title="Permalink to this headline">¶</a></h1>
 <div class="nbinput nblast docutils container">
@@ -379,6 +380,33 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="section" id="Set-the-context-for-this-notebook">
+<h2>Set the context for this notebook<a class="headerlink" href="#Set-the-context-for-this-notebook" title="Permalink to this headline">¶</a></h2>
+<p>Importing the context module will check to see whether <code class="docutils literal notranslate"><span class="pre">data/processed</span></code> and <code class="docutils literal notranslate"><span class="pre">data/raw</span></code> exist and complain if it can’t find them</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">context</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+in context.py, setting root_dir to /Users/phil/repos/eosc213_students/notebooks/pandas
+******************************
+context imported. Front of path:
+/Users/phil/repos/eosc213_students/notebooks/pandas
+/Users/phil/mini37/lib/python36.zip
+******************************
+
+</pre></div></div>
+</div>
+</div>
 <div class="section" id="Station-Inventory">
 <h2>Station Inventory<a class="headerlink" href="#Station-Inventory" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -388,7 +416,7 @@ div.rendered_html tbody tr:hover {
 <p><a class="reference external" href="ftp://client_climate&#64;ftp.tor.ec.gc.ca/Pub/Get_More_Data_Plus_de_donnees/Station%20Inventory%20EN.csv">ftp://client_climate&#64;ftp.tor.ec.gc.ca/Pub/Get_More_Data_Plus_de_donnees/Station%20Inventory%20EN.csv</a></p>
 <p>We have saved a copy in <code class="docutils literal notranslate"><span class="pre">data/Station</span> <span class="pre">Inventory</span> <span class="pre">EN</span> <span class="pre">.csv</span></code></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -404,11 +432,11 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">inventory_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;data/Station Inventory EN.csv&quot;</span><span class="p">)</span>
+<span></span><span class="n">inventory_file</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">data_dir</span> <span class="o">/</span> <span class="s2">&quot;Station Inventory EN.csv&quot;</span>
 <span class="n">inventory</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">inventory_file</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 
 <span class="c1"># Rename some of the columns to more convenient labels</span>
@@ -434,7 +462,7 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -597,7 +625,7 @@ div.rendered_html tbody tr:hover {
 <h2>Info for Selected Station<a class="headerlink" href="#Info-for-Selected-Station" title="Permalink to this headline">¶</a></h2>
 <p>To download data for Vancouver Airport station (airport code YVR), we need the ID codes used by Environment Canada for this station. Here is how we find the numerical code ‘YVR’. Note that it has changed at some point from 889 to 51442</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -610,7 +638,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -706,7 +734,7 @@ div.rendered_html tbody tr:hover {
 <h3>Download Data<a class="headerlink" href="#Download-Data" title="Permalink to this headline">¶</a></h3>
 <p>First, define a function to download the CSV data using the Environment Canada API:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -738,16 +766,6 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># Sub-folder to save the data files</span>
-<span class="n">datadir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;data/raw/&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 <p><em>Note: The code below uses `f-strings &lt;https://realpython.com/python-f-strings/&gt;`__ to substitute variable values into a string</em></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
@@ -759,11 +777,7 @@ div.rendered_html tbody tr:hover {
 <span class="n">years_early</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1937</span><span class="p">,</span> <span class="mi">2014</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">years_early</span><span class="p">:</span>
-    <span class="n">savefile</span> <span class="o">=</span> <span class="n">datadir</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;weather_daily_{station}_{stn_id_early}_{year}.csv&quot;</span><span class="p">)</span>
-    <span class="c1">#</span>
-    <span class="c1"># create the data directory if it doesn&#39;t exist</span>
-    <span class="c1">#</span>
-    <span class="n">savefile</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">savefile</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">raw_dir</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;weather_daily_{station}_{stn_id_early}_{year}.csv&quot;</span><span class="p">)</span>
     <span class="n">download_daily_raw</span><span class="p">(</span><span class="n">stn_id_early</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">savefile</span><span class="o">=</span><span class="n">savefile</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -773,83 +787,83 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Saving to data/raw/weather_daily_YVR_889_1937.csv
-Saving to data/raw/weather_daily_YVR_889_1938.csv
-Saving to data/raw/weather_daily_YVR_889_1939.csv
-Saving to data/raw/weather_daily_YVR_889_1940.csv
-Saving to data/raw/weather_daily_YVR_889_1941.csv
-Saving to data/raw/weather_daily_YVR_889_1942.csv
-Saving to data/raw/weather_daily_YVR_889_1943.csv
-Saving to data/raw/weather_daily_YVR_889_1944.csv
-Saving to data/raw/weather_daily_YVR_889_1945.csv
-Saving to data/raw/weather_daily_YVR_889_1946.csv
-Saving to data/raw/weather_daily_YVR_889_1947.csv
-Saving to data/raw/weather_daily_YVR_889_1948.csv
-Saving to data/raw/weather_daily_YVR_889_1949.csv
-Saving to data/raw/weather_daily_YVR_889_1950.csv
-Saving to data/raw/weather_daily_YVR_889_1951.csv
-Saving to data/raw/weather_daily_YVR_889_1952.csv
-Saving to data/raw/weather_daily_YVR_889_1953.csv
-Saving to data/raw/weather_daily_YVR_889_1954.csv
-Saving to data/raw/weather_daily_YVR_889_1955.csv
-Saving to data/raw/weather_daily_YVR_889_1956.csv
-Saving to data/raw/weather_daily_YVR_889_1957.csv
-Saving to data/raw/weather_daily_YVR_889_1958.csv
-Saving to data/raw/weather_daily_YVR_889_1959.csv
-Saving to data/raw/weather_daily_YVR_889_1960.csv
-Saving to data/raw/weather_daily_YVR_889_1961.csv
-Saving to data/raw/weather_daily_YVR_889_1962.csv
-Saving to data/raw/weather_daily_YVR_889_1963.csv
-Saving to data/raw/weather_daily_YVR_889_1964.csv
-Saving to data/raw/weather_daily_YVR_889_1965.csv
-Saving to data/raw/weather_daily_YVR_889_1966.csv
-Saving to data/raw/weather_daily_YVR_889_1967.csv
-Saving to data/raw/weather_daily_YVR_889_1968.csv
-Saving to data/raw/weather_daily_YVR_889_1969.csv
-Saving to data/raw/weather_daily_YVR_889_1970.csv
-Saving to data/raw/weather_daily_YVR_889_1971.csv
-Saving to data/raw/weather_daily_YVR_889_1972.csv
-Saving to data/raw/weather_daily_YVR_889_1973.csv
-Saving to data/raw/weather_daily_YVR_889_1974.csv
-Saving to data/raw/weather_daily_YVR_889_1975.csv
-Saving to data/raw/weather_daily_YVR_889_1976.csv
-Saving to data/raw/weather_daily_YVR_889_1977.csv
-Saving to data/raw/weather_daily_YVR_889_1978.csv
-Saving to data/raw/weather_daily_YVR_889_1979.csv
-Saving to data/raw/weather_daily_YVR_889_1980.csv
-Saving to data/raw/weather_daily_YVR_889_1981.csv
-Saving to data/raw/weather_daily_YVR_889_1982.csv
-Saving to data/raw/weather_daily_YVR_889_1983.csv
-Saving to data/raw/weather_daily_YVR_889_1984.csv
-Saving to data/raw/weather_daily_YVR_889_1985.csv
-Saving to data/raw/weather_daily_YVR_889_1986.csv
-Saving to data/raw/weather_daily_YVR_889_1987.csv
-Saving to data/raw/weather_daily_YVR_889_1988.csv
-Saving to data/raw/weather_daily_YVR_889_1989.csv
-Saving to data/raw/weather_daily_YVR_889_1990.csv
-Saving to data/raw/weather_daily_YVR_889_1991.csv
-Saving to data/raw/weather_daily_YVR_889_1992.csv
-Saving to data/raw/weather_daily_YVR_889_1993.csv
-Saving to data/raw/weather_daily_YVR_889_1994.csv
-Saving to data/raw/weather_daily_YVR_889_1995.csv
-Saving to data/raw/weather_daily_YVR_889_1996.csv
-Saving to data/raw/weather_daily_YVR_889_1997.csv
-Saving to data/raw/weather_daily_YVR_889_1998.csv
-Saving to data/raw/weather_daily_YVR_889_1999.csv
-Saving to data/raw/weather_daily_YVR_889_2000.csv
-Saving to data/raw/weather_daily_YVR_889_2001.csv
-Saving to data/raw/weather_daily_YVR_889_2002.csv
-Saving to data/raw/weather_daily_YVR_889_2003.csv
-Saving to data/raw/weather_daily_YVR_889_2004.csv
-Saving to data/raw/weather_daily_YVR_889_2005.csv
-Saving to data/raw/weather_daily_YVR_889_2006.csv
-Saving to data/raw/weather_daily_YVR_889_2007.csv
-Saving to data/raw/weather_daily_YVR_889_2008.csv
-Saving to data/raw/weather_daily_YVR_889_2009.csv
-Saving to data/raw/weather_daily_YVR_889_2010.csv
-Saving to data/raw/weather_daily_YVR_889_2011.csv
-Saving to data/raw/weather_daily_YVR_889_2012.csv
-Saving to data/raw/weather_daily_YVR_889_2013.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1937.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1938.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1939.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1940.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1941.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1942.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1943.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1944.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1945.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1946.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1947.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1948.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1949.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1950.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1951.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1952.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1953.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1954.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1955.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1956.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1957.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1958.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1959.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1960.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1961.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1962.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1963.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1964.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1965.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1966.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1967.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1968.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1969.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1970.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1971.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1972.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1973.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1974.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1975.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1976.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1977.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1978.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1979.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1980.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1981.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1982.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1983.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1984.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1985.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1986.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1987.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1988.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1989.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1990.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1991.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1992.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1993.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1994.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1995.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1996.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1997.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1998.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_1999.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2000.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2001.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2002.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2003.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2004.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2005.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2006.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2007.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2008.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2009.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2010.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2011.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2012.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_889_2013.csv
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -862,7 +876,8 @@ Saving to data/raw/weather_daily_YVR_889_2013.csv
 <span class="n">years_recent</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2013</span><span class="p">,</span> <span class="mi">2020</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">years_recent</span><span class="p">:</span>
-    <span class="n">savefile</span> <span class="o">=</span> <span class="n">datadir</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;weather_daily_{station}_{stn_id_recent}_{year}.csv&quot;</span><span class="p">)</span>
+    <span class="n">savefile</span> <span class="o">=</span> <span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">raw_dir</span> <span class="o">/</span>
+                <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;weather_daily_{station}_{stn_id_recent}_{year}.csv&quot;</span><span class="p">))</span>
     <span class="n">download_daily_raw</span><span class="p">(</span><span class="n">stn_id_recent</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">savefile</span><span class="o">=</span><span class="n">savefile</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -872,13 +887,13 @@ Saving to data/raw/weather_daily_YVR_889_2013.csv
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Saving to data/raw/weather_daily_YVR_51442_2013.csv
-Saving to data/raw/weather_daily_YVR_51442_2014.csv
-Saving to data/raw/weather_daily_YVR_51442_2015.csv
-Saving to data/raw/weather_daily_YVR_51442_2016.csv
-Saving to data/raw/weather_daily_YVR_51442_2017.csv
-Saving to data/raw/weather_daily_YVR_51442_2018.csv
-Saving to data/raw/weather_daily_YVR_51442_2019.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_51442_2013.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_51442_2014.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_51442_2015.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_51442_2016.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_51442_2017.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_51442_2018.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/raw/weather_daily_YVR_51442_2019.csv
 </pre></div></div>
 </div>
 </div>

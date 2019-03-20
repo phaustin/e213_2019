@@ -361,11 +361,11 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <h1><p>Table of Contents</p>
-</h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;Process Daily Data</p>
-<ul class="toc-item"><li><p>1.1&nbsp;&nbsp;Test Calcs (Single Year)</p>
-</li><li><p>1.2&nbsp;&nbsp;Process All Years</p>
-</li><li><p>1.3&nbsp;&nbsp;Create a subset of the data</p>
-</li></ul></li></ul></div><div class="section" id="Process-Daily-Data">
+</h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;Test Calcs (Single Year)</p>
+</li><li><p>2&nbsp;&nbsp;Process All Years</p>
+</li><li><p>3&nbsp;&nbsp;Create a subset of the data</p>
+</li><li><p>4&nbsp;&nbsp;Write the subset out to a csv file</p>
+</li></ul></div><div class="section" id="Process-Daily-Data">
 <h1>Process Daily Data<a class="headerlink" href="#Process-Daily-Data" title="Permalink to this headline">¶</a></h1>
 <p>Concatenate the raw data csv files into a single dataframe for all years, doing some quality control. We’ll be focussing on the YVR airport station.</p>
 <ul class="simple">
@@ -383,16 +383,28 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">station</span> <span class="o">=</span> <span class="s2">&quot;YVR&quot;</span>
-<span class="n">datadir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;data/raw/&quot;</span><span class="p">)</span>
-<span class="n">savedir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;data/processed/&quot;</span><span class="p">)</span>
+<span></span><span class="kn">import</span> <span class="nn">context</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+in context.py, setting root_dir to /Users/phil/repos/eosc213_students/notebooks/pandas
+******************************
+context imported. Front of path:
+/Users/phil/repos/eosc213_students/notebooks/pandas
+/Users/phil/mini37/lib/python36.zip
+******************************
+
+</pre></div></div>
 </div>
 <div class="section" id="Test-Calcs-(Single-Year)">
 <h2>Test Calcs (Single Year)<a class="headerlink" href="#Test-Calcs-(Single-Year)" title="Permalink to this headline">¶</a></h2>
@@ -401,9 +413,10 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">stn_id</span> <span class="o">=</span> <span class="mi">51442</span>
+<span></span><span class="n">station</span> <span class="o">=</span> <span class="s2">&quot;YVR&quot;</span>
+<span class="n">stn_id</span> <span class="o">=</span> <span class="mi">51442</span>
 <span class="n">year</span> <span class="o">=</span> <span class="mi">2013</span>
-<span class="n">datafile</span> <span class="o">=</span> <span class="n">datadir</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;weather_daily_{station}_{stn_id}_{year}.csv&quot;</span><span class="p">)</span>
+<span class="n">datafile</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">raw_dir</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;weather_daily_{station}_{stn_id}_{year}.csv&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1360,13 +1373,13 @@ dtype: bool
 
 <span class="c1"># Recent data (mid 2013 to 2017)</span>
 <span class="n">stn_id_recent</span> <span class="o">=</span> <span class="mi">51442</span>
-<span class="n">years_recent</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2013</span><span class="p">,</span> <span class="mi">2018</span><span class="p">)</span>
+<span class="n">years_recent</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2013</span><span class="p">,</span> <span class="mi">2020</span><span class="p">)</span>
 
 <span class="c1"># Loop over station IDs and years, using Python&#39;s zip function</span>
 <span class="k">for</span> <span class="n">stn</span><span class="p">,</span> <span class="n">years_list</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="n">stn_id_early</span><span class="p">,</span> <span class="n">stn_id_recent</span><span class="p">],</span> <span class="p">[</span><span class="n">years_early</span><span class="p">,</span> <span class="n">years_recent</span><span class="p">]):</span>
     <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">years_list</span><span class="p">:</span>
-        <span class="n">filenm</span> <span class="o">=</span> <span class="n">datadir</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;weather_daily_{station}_{stn}_{year}.csv&quot;</span><span class="p">)</span>
-        <span class="n">data_in</span> <span class="o">=</span> <span class="n">process_data</span><span class="p">(</span><span class="n">filenm</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">raw_dir</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;weather_daily_{station}_{stn}_{year}.csv&quot;</span><span class="p">)</span>
+        <span class="n">data_in</span> <span class="o">=</span> <span class="n">process_data</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 
         <span class="c1"># Use the append method to append the new data</span>
         <span class="n">data_all</span> <span class="o">=</span> <span class="n">data_all</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_in</span><span class="p">)</span>
@@ -1587,40 +1600,40 @@ dtype: bool
   </thead>
   <tbody>
     <tr>
-      <th>2017-12-30</th>
-      <td>2017</td>
-      <td>12</td>
-      <td>30</td>
+      <th>2019-03-17</th>
+      <td>2019</td>
+      <td>3</td>
+      <td>17</td>
       <td>NaN</td>
-      <td>4.3</td>
+      <td>11.9</td>
       <td>NaN</td>
-      <td>-1.8</td>
+      <td>1.4</td>
       <td>NaN</td>
-      <td>1.3</td>
+      <td>6.7</td>
       <td>NaN</td>
       <td>...</td>
       <td>0.0</td>
       <td>NaN</td>
-      <td>2.2</td>
+      <td>0.0</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>28.0</td>
       <td>NaN</td>
-      <td>46</td>
       <td>NaN</td>
+      <td>NaN</td>
+      <td>M</td>
     </tr>
     <tr>
-      <th>2017-12-31</th>
-      <td>2017</td>
-      <td>12</td>
-      <td>31</td>
+      <th>2019-03-18</th>
+      <td>2019</td>
+      <td>3</td>
+      <td>18</td>
       <td>NaN</td>
-      <td>3.8</td>
+      <td>14.0</td>
       <td>NaN</td>
-      <td>-3.9</td>
+      <td>1.2</td>
       <td>NaN</td>
-      <td>-0.1</td>
+      <td>7.6</td>
       <td>NaN</td>
       <td>...</td>
       <td>0.0</td>
@@ -1629,10 +1642,10 @@ dtype: bool
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>32.0</td>
       <td>NaN</td>
-      <td>32</td>
+      <td>M</td>
       <td>NaN</td>
+      <td>M</td>
     </tr>
   </tbody>
 </table>
@@ -1653,7 +1666,7 @@ dtype: bool
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>(29190, 26)
+<span></span>(29632, 26)
 </pre></div>
 </div>
 </div>
@@ -1664,11 +1677,8 @@ dtype: bool
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Save the full set of concatenated data to file</span>
 <span class="n">year_min</span><span class="p">,</span> <span class="n">year_max</span> <span class="o">=</span> <span class="n">data_all</span><span class="p">[</span><span class="s2">&quot;Year&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">data_all</span><span class="p">[</span><span class="s2">&quot;Year&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-<span class="n">savefile</span> <span class="o">=</span> <span class="n">savedir</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;weather_daily_{station}_{year_min}-{year_max}_all.csv&quot;</span><span class="p">)</span>
-<span class="c1">#</span>
-<span class="c1"># create the processed folder if it doesn&#39;t exist</span>
-<span class="c1">#</span>
-<span class="n">savefile</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">savefile</span> <span class="o">=</span> <span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">processed_dir</span>
+             <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;weather_daily_{station}_{year_min}-{year_max}_all.csv&quot;</span><span class="p">))</span>
 <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Saving to {savefile}&quot;</span><span class="p">)</span>
 <span class="n">data_all</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">savefile</span><span class="p">)</span>
 </pre></div>
@@ -1679,7 +1689,7 @@ dtype: bool
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Saving to data/processed/weather_daily_YVR_1938-2017_all.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/processed/weather_daily_YVR_1938-2019_all.csv
 </pre></div></div>
 </div>
 </div>
@@ -1829,12 +1839,15 @@ Saving to data/processed/weather_daily_YVR_1938-2017_all.csv
 </table>
 </div></div>
 </div>
+</div>
+<div class="section" id="Write-the-subset-out-to-a-csv-file">
+<h2>Write the subset out to a csv file<a class="headerlink" href="#Write-the-subset-out-to-a-csv-file" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">savefile2</span> <span class="o">=</span> <span class="n">savedir</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;weather_{station}.csv&quot;</span><span class="p">)</span>
+<span></span><span class="n">savefile2</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">processed_dir</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;weather_{station}.csv&quot;</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Saving to {savefile2}&quot;</span><span class="p">)</span>
 <span class="n">data_subset</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">savefile2</span><span class="p">)</span>
 </pre></div>
@@ -1845,7 +1858,7 @@ Saving to data/processed/weather_daily_YVR_1938-2017_all.csv
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Saving to data/processed/weather_YVR.csv
+Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/processed/weather_YVR.csv
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">

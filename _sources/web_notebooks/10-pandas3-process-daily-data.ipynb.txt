@@ -8,7 +8,7 @@
    },
    "source": [
     "<h1>Table of Contents<span class=\"tocSkip\"></span></h1>\n",
-    "<div class=\"toc\"><ul class=\"toc-item\"><li><span><a href=\"#Process-Daily-Data\" data-toc-modified-id=\"Process-Daily-Data-1\"><span class=\"toc-item-num\">1&nbsp;&nbsp;</span>Process Daily Data</a></span><ul class=\"toc-item\"><li><span><a href=\"#Test-Calcs-(Single-Year)\" data-toc-modified-id=\"Test-Calcs-(Single-Year)-1.1\"><span class=\"toc-item-num\">1.1&nbsp;&nbsp;</span>Test Calcs (Single Year)</a></span></li><li><span><a href=\"#Process-All-Years\" data-toc-modified-id=\"Process-All-Years-1.2\"><span class=\"toc-item-num\">1.2&nbsp;&nbsp;</span>Process All Years</a></span></li><li><span><a href=\"#Create-a-subset-of-the-data\" data-toc-modified-id=\"Create-a-subset-of-the-data-1.3\"><span class=\"toc-item-num\">1.3&nbsp;&nbsp;</span>Create a subset of the data</a></span></li></ul></li></ul></div>"
+    "<div class=\"toc\"><ul class=\"toc-item\"><li><span><a href=\"#Test-Calcs-(Single-Year)\" data-toc-modified-id=\"Test-Calcs-(Single-Year)-1\"><span class=\"toc-item-num\">1&nbsp;&nbsp;</span>Test Calcs (Single Year)</a></span></li><li><span><a href=\"#Process-All-Years\" data-toc-modified-id=\"Process-All-Years-2\"><span class=\"toc-item-num\">2&nbsp;&nbsp;</span>Process All Years</a></span></li><li><span><a href=\"#Create-a-subset-of-the-data\" data-toc-modified-id=\"Create-a-subset-of-the-data-3\"><span class=\"toc-item-num\">3&nbsp;&nbsp;</span>Create a subset of the data</a></span></li><li><span><a href=\"#Write-the-subset-out-to-a-csv-file\" data-toc-modified-id=\"Write-the-subset-out-to-a-csv-file-4\"><span class=\"toc-item-num\">4&nbsp;&nbsp;</span>Write the subset out to a csv file</a></span></li></ul></div>"
    ]
   },
   {
@@ -42,11 +42,23 @@
    "cell_type": "code",
    "execution_count": 2,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "in context.py, setting root_dir to /Users/phil/repos/eosc213_students/notebooks/pandas\n",
+      "******************************\n",
+      "context imported. Front of path:\n",
+      "/Users/phil/repos/eosc213_students/notebooks/pandas\n",
+      "/Users/phil/mini37/lib/python36.zip\n",
+      "******************************\n",
+      "\n"
+     ]
+    }
+   ],
    "source": [
-    "station = \"YVR\"\n",
-    "datadir = Path(\"data/raw/\")\n",
-    "savedir = Path(\"data/processed/\")"
+    "import context"
    ]
   },
   {
@@ -62,9 +74,10 @@
    "metadata": {},
    "outputs": [],
    "source": [
+    "station = \"YVR\"\n",
     "stn_id = 51442\n",
     "year = 2013\n",
-    "datafile = datadir / Path(f\"weather_daily_{station}_{stn_id}_{year}.csv\")"
+    "datafile = context.raw_dir / Path(f\"weather_daily_{station}_{stn_id}_{year}.csv\")"
    ]
   },
   {
@@ -1268,13 +1281,13 @@
     "\n",
     "# Recent data (mid 2013 to 2017)\n",
     "stn_id_recent = 51442\n",
-    "years_recent = range(2013, 2018)\n",
+    "years_recent = range(2013, 2020)\n",
     "\n",
     "# Loop over station IDs and years, using Python's zip function\n",
     "for stn, years_list in zip([stn_id_early, stn_id_recent], [years_early, years_recent]):\n",
     "    for year in years_list:\n",
-    "        filenm = datadir / Path(f\"weather_daily_{station}_{stn}_{year}.csv\")\n",
-    "        data_in = process_data(filenm)\n",
+    "        filename = context.raw_dir / Path(f\"weather_daily_{station}_{stn}_{year}.csv\")\n",
+    "        data_in = process_data(filename)\n",
     "\n",
     "        # Use the append method to append the new data\n",
     "        data_all = data_all.append(data_in)"
@@ -1525,40 +1538,40 @@
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th>2017-12-30</th>\n",
-       "      <td>2017</td>\n",
-       "      <td>12</td>\n",
-       "      <td>30</td>\n",
+       "      <th>2019-03-17</th>\n",
+       "      <td>2019</td>\n",
+       "      <td>3</td>\n",
+       "      <td>17</td>\n",
        "      <td>NaN</td>\n",
-       "      <td>4.3</td>\n",
+       "      <td>11.9</td>\n",
        "      <td>NaN</td>\n",
-       "      <td>-1.8</td>\n",
+       "      <td>1.4</td>\n",
        "      <td>NaN</td>\n",
-       "      <td>1.3</td>\n",
+       "      <td>6.7</td>\n",
        "      <td>NaN</td>\n",
        "      <td>...</td>\n",
        "      <td>0.0</td>\n",
        "      <td>NaN</td>\n",
-       "      <td>2.2</td>\n",
+       "      <td>0.0</td>\n",
        "      <td>NaN</td>\n",
        "      <td>NaN</td>\n",
        "      <td>NaN</td>\n",
-       "      <td>28.0</td>\n",
        "      <td>NaN</td>\n",
-       "      <td>46</td>\n",
        "      <td>NaN</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>M</td>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th>2017-12-31</th>\n",
-       "      <td>2017</td>\n",
-       "      <td>12</td>\n",
-       "      <td>31</td>\n",
+       "      <th>2019-03-18</th>\n",
+       "      <td>2019</td>\n",
+       "      <td>3</td>\n",
+       "      <td>18</td>\n",
        "      <td>NaN</td>\n",
-       "      <td>3.8</td>\n",
+       "      <td>14.0</td>\n",
        "      <td>NaN</td>\n",
-       "      <td>-3.9</td>\n",
+       "      <td>1.2</td>\n",
        "      <td>NaN</td>\n",
-       "      <td>-0.1</td>\n",
+       "      <td>7.6</td>\n",
        "      <td>NaN</td>\n",
        "      <td>...</td>\n",
        "      <td>0.0</td>\n",
@@ -1567,10 +1580,10 @@
        "      <td>NaN</td>\n",
        "      <td>NaN</td>\n",
        "      <td>NaN</td>\n",
-       "      <td>32.0</td>\n",
        "      <td>NaN</td>\n",
-       "      <td>32</td>\n",
+       "      <td>M</td>\n",
        "      <td>NaN</td>\n",
+       "      <td>M</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
@@ -1580,33 +1593,33 @@
       "text/plain": [
        "            Year  Month  Day  Data Quality  Max Temp (C) Max Temp Flag  \\\n",
        "Date/Time                                                                \n",
-       "2017-12-30  2017     12   30           NaN           4.3           NaN   \n",
-       "2017-12-31  2017     12   31           NaN           3.8           NaN   \n",
+       "2019-03-17  2019      3   17           NaN          11.9           NaN   \n",
+       "2019-03-18  2019      3   18           NaN          14.0           NaN   \n",
        "\n",
        "            Min Temp (C) Min Temp Flag  Mean Temp (C) Mean Temp Flag  ...  \\\n",
        "Date/Time                                                             ...   \n",
-       "2017-12-30          -1.8           NaN            1.3            NaN  ...   \n",
-       "2017-12-31          -3.9           NaN           -0.1            NaN  ...   \n",
+       "2019-03-17           1.4           NaN            6.7            NaN  ...   \n",
+       "2019-03-18           1.2           NaN            7.6            NaN  ...   \n",
        "\n",
        "            Total Snow (cm) Total Snow Flag  Total Precip (mm)  \\\n",
        "Date/Time                                                        \n",
-       "2017-12-30              0.0             NaN                2.2   \n",
-       "2017-12-31              0.0             NaN                0.0   \n",
+       "2019-03-17              0.0             NaN                0.0   \n",
+       "2019-03-18              0.0             NaN                0.0   \n",
        "\n",
        "           Total Precip Flag  Snow on Grnd (cm) Snow on Grnd Flag  \\\n",
        "Date/Time                                                           \n",
-       "2017-12-30               NaN                NaN               NaN   \n",
-       "2017-12-31               NaN                NaN               NaN   \n",
+       "2019-03-17               NaN                NaN               NaN   \n",
+       "2019-03-18               NaN                NaN               NaN   \n",
        "\n",
        "            Dir of Max Gust (10s deg) Dir of Max Gust Flag  \\\n",
        "Date/Time                                                    \n",
-       "2017-12-30                       28.0                  NaN   \n",
-       "2017-12-31                       32.0                  NaN   \n",
+       "2019-03-17                        NaN                  NaN   \n",
+       "2019-03-18                        NaN                    M   \n",
        "\n",
        "            Spd of Max Gust (km/h) Spd of Max Gust Flag  \n",
        "Date/Time                                                \n",
-       "2017-12-30                      46                  NaN  \n",
-       "2017-12-31                      32                  NaN  \n",
+       "2019-03-17                     NaN                    M  \n",
+       "2019-03-18                     NaN                    M  \n",
        "\n",
        "[2 rows x 26 columns]"
       ]
@@ -1628,7 +1641,7 @@
     {
      "data": {
       "text/plain": [
-       "(29190, 26)"
+       "(29632, 26)"
       ]
      },
      "execution_count": 14,
@@ -1649,18 +1662,15 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "Saving to data/processed/weather_daily_YVR_1938-2017_all.csv\n"
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/processed/weather_daily_YVR_1938-2019_all.csv\n"
      ]
     }
    ],
    "source": [
     "# Save the full set of concatenated data to file\n",
     "year_min, year_max = data_all[\"Year\"].min(), data_all[\"Year\"].max()\n",
-    "savefile = savedir / Path(f\"weather_daily_{station}_{year_min}-{year_max}_all.csv\")\n",
-    "#\n",
-    "# create the processed folder if it doesn't exist\n",
-    "#\n",
-    "savefile.parent.mkdir(parents=True, exist_ok=True)\n",
+    "savefile = (context.processed_dir \n",
+    "             / Path(f\"weather_daily_{station}_{year_min}-{year_max}_all.csv\"))\n",
     "print(f\"Saving to {savefile}\")\n",
     "data_all.to_csv(savefile)"
    ]
@@ -1839,6 +1849,13 @@
    ]
   },
   {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Write the subset out to a csv file"
+   ]
+  },
+  {
    "cell_type": "code",
    "execution_count": 17,
    "metadata": {},
@@ -1847,12 +1864,12 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "Saving to data/processed/weather_YVR.csv\n"
+      "Saving to /Users/phil/repos/eosc213_students/notebooks/pandas/data/processed/weather_YVR.csv\n"
      ]
     }
    ],
    "source": [
-    "savefile2 = savedir / Path(f\"weather_{station}.csv\")\n",
+    "savefile2 = context.processed_dir / Path(f\"weather_{station}.csv\")\n",
     "print(f\"Saving to {savefile2}\")\n",
     "data_subset.to_csv(savefile2)"
    ]
@@ -1868,7 +1885,13 @@
  "metadata": {
   "jupytext": {
    "cell_metadata_filter": "all",
-   "notebook_metadata_filter": "-language_info"
+   "notebook_metadata_filter": "-language_info",
+   "text_representation": {
+    "extension": ".py",
+    "format_name": "percent",
+    "format_version": "1.2",
+    "jupytext_version": "1.0.3"
+   }
   },
   "kernelspec": {
    "display_name": "Python 3",
@@ -1887,12 +1910,15 @@
    "pygments_lexer": "ipython3",
    "version": "3.6.7"
   },
+  "nbsphinx": {
+   "execute": "never"
+  },
   "toc": {
    "base_numbering": 1,
    "nav_menu": {},
    "number_sections": true,
    "sideBar": true,
-   "skip_h1_title": false,
+   "skip_h1_title": true,
    "title_cell": "Table of Contents",
    "title_sidebar": "Contents",
    "toc_cell": true,
