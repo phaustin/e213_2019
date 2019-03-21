@@ -130,13 +130,16 @@ Week 10  Mar 12/Mar 14
   - `10-pandas2-download-daily-data_html`_
   - `10-pandas3-process-daily-data_html`_
  
-Week 11 Mar19/Mar 
-================
+Week 11 Mar19/Mar 21
+====================
 
 - `Class slides for March 19 <pdfs/Lect_1903.pdf>`_
 - `Solution to quiz 3 <pdfs/Quiz3_ans.pdf>`_
 - `11-pandas4-process-seasonal_html`_   
 - `11-random_numbers_html`_
+-  Discuss: `Method chaining in pandas3 <https://github.com/phaustin/eosc213_students/blob/master/python/10-pandas3-process-daily-data.py#L61>`_
+- Discuss: missing data in pandas4: `11-pandas4-process-seasonal_solution_html`_   
+- `How to structure your project: <https://github.com/phaustin/eosc213_students/blob/master/project/Readme_g30.md>`_
   
 General notes
 =============

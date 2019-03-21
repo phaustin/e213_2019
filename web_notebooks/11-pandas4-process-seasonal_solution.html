@@ -125,7 +125,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/web_notebooks/11-pandas4-process-seasonal.ipynb.txt"
+  <a href="../_sources/web_notebooks/11-pandas4-process-seasonal_solution.ipynb.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -375,7 +375,8 @@ div.rendered_html tbody tr:hover {
 <ul class="toc-item"><li><p>8.1&nbsp;&nbsp;Use a dictionary comprehension put the dataframes into a dictionary</p>
 </li></ul></li><li><p>9&nbsp;&nbsp;Fitting the distributions</p>
 <ul class="toc-item"><li><p>9.1&nbsp;&nbsp;Daily average temperature</p>
-</li><li><p>9.2&nbsp;&nbsp;Daily average total precipitation</p>
+<ul class="toc-item"><li><p>9.1.1&nbsp;&nbsp;Missing values again</p>
+</li></ul></li><li><p>9.2&nbsp;&nbsp;Daily average total precipitation</p>
 </li></ul></li><li><p>10&nbsp;&nbsp;Saving the fit parameters</p>
 </li><li><p>11&nbsp;&nbsp;Grouping by decade</p>
 </li><li><p>12&nbsp;&nbsp;Finding the median temperature</p>
@@ -426,13 +427,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-in context.py, setting root_dir to /Users/phil/repos/eosc213_students/notebooks/pandas
-******************************
-context imported. Front of path:
-/Users/phil/repos/eosc213_students/notebooks/pandas
-/Users/phil/mini37/envs/e213/lib/python36.zip
-******************************
-
+in context.py, found /Users/phil/repos/eosc213_students/notebooks/pandas/data/processed
 </pre></div></div>
 </div>
 </div>
@@ -671,7 +666,7 @@ there are 29632 days in the dataframe
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">yvr_df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span></span><span class="n">yvr_df_zeros</span><span class="o">=</span><span class="n">yvr_df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mf">0.</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -777,8 +772,8 @@ there are 29632 days in the dataframe
       <td>4.4</td>
       <td>9.4</td>
       <td>-0.6</td>
-      <td>0.0</td>
-      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>0.3</td>
       <td>djf</td>
     </tr>
@@ -791,8 +786,8 @@ there are 29632 days in the dataframe
       <td>4.5</td>
       <td>7.2</td>
       <td>1.7</td>
-      <td>0.0</td>
-      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>0.5</td>
       <td>djf</td>
     </tr>
@@ -923,8 +918,8 @@ there are 29632 days in the dataframe
       <td>4.4</td>
       <td>9.4</td>
       <td>-0.6</td>
-      <td>0.0</td>
-      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>0.3</td>
       <td>djf</td>
     </tr>
@@ -937,8 +932,8 @@ there are 29632 days in the dataframe
       <td>4.5</td>
       <td>7.2</td>
       <td>1.7</td>
-      <td>0.0</td>
-      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>0.5</td>
       <td>djf</td>
     </tr>
@@ -1359,8 +1354,31 @@ there are 29632 days in the dataframe
 f(y) &amp;= \frac{\exp(-y^2/2)}{\sqrt{2\pi}} \\
 y &amp;= (x - loc) / scale
 \end{align*}</div><p>The four plots show that a normal distribution give as pretty good representation of each of the seasons.</p>
+<div class="section" id="Missing-values-again">
+<h4>Missing values again<a class="headerlink" href="#Missing-values-again" title="Permalink to this headline">¶</a></h4>
+<p>How many of our temperature measurements are missing? Here’s the count for the whole dataframe</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">missing_temps</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">yvr_df</span><span class="p">[</span><span class="s1">&#39;T_mean (C)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+<span class="n">missing_precip</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">yvr_df</span><span class="p">[</span><span class="s1">&#39;Total Precip (mm)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;We are missing {missing_temps} temps and {missing_precip} precips out of {len(yvr_df)} records&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+We are missing 24 temps and 25 precips out of 29632 records
+</pre></div></div>
+</div>
+<p>So not a showstopper, but still unprofessional/incorrect to set these to 0. Instead we’ll remove them with the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dropna.html">dropna</a> method below</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1389,7 +1407,11 @@ y &amp;= (x - loc) / scale
 <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">key_list</span><span class="p">):</span>
     <span class="n">the_ax</span> <span class="o">=</span> <span class="n">ax_list</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
     <span class="n">the_df</span> <span class="o">=</span> <span class="n">df_list</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-    <span class="n">the_temps</span> <span class="o">=</span> <span class="n">the_df</span><span class="p">[</span><span class="n">var</span><span class="p">]</span>
+    <span class="n">the_temps</span><span class="o">=</span><span class="n">the_df</span><span class="p">[</span><span class="n">var</span><span class="p">]</span>
+    <span class="n">before_drop</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">the_temps</span><span class="p">)</span>
+    <span class="n">the_temps</span> <span class="o">=</span> <span class="n">the_df</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+    <span class="n">after_drop</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">the_temps</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{before_drop-after_drop} nan values dropped&quot;</span><span class="p">)</span>
     <span class="c1">#</span>
     <span class="c1"># find the mean and standard deviation to</span>
     <span class="c1"># set the pdf mu, sigma parameters</span>
@@ -1429,11 +1451,34 @@ y &amp;= (x - loc) / scale
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+6 nan values dropped
+8 nan values dropped
+5 nan values dropped
+5 nan values dropped
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/phil/mini37/envs/e213/lib/python3.6/site-packages/numpy/lib/histograms.py:824: RuntimeWarning: invalid value encountered in greater_equal
+  keep = (tmp_a &gt;= first_edge)
+/Users/phil/mini37/envs/e213/lib/python3.6/site-packages/numpy/lib/histograms.py:825: RuntimeWarning: invalid value encountered in less_equal
+  keep &amp;= (tmp_a &lt;= last_edge)
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/web_notebooks_11-pandas4-process-seasonal_29_0.png" src="../_images/web_notebooks_11-pandas4-process-seasonal_29_0.png" />
+<img alt="../_images/web_notebooks_11-pandas4-process-seasonal_solution_32_2.png" src="../_images/web_notebooks_11-pandas4-process-seasonal_solution_32_2.png" />
+</div>
 </div>
 </div>
 </div>
@@ -1447,7 +1492,7 @@ y &amp;= (x - loc) / scale
 \end{align*}</div><p>where <code class="docutils literal notranslate"><span class="pre">loc</span></code> is the minimum of the data and <code class="docutils literal notranslate"><span class="pre">scale</span></code> is the distance between the minimum and the mean.</p>
 <p>The fits are not quite as good – but do capture the one-sided nature of the variability. No comments on this one, but it’s a copy and paste of the temperature grid plot above.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1459,6 +1504,10 @@ y &amp;= (x - loc) / scale
     <span class="n">the_ax</span> <span class="o">=</span> <span class="n">ax_list</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
     <span class="n">the_df</span> <span class="o">=</span> <span class="n">df_list</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
     <span class="n">the_precip</span> <span class="o">=</span> <span class="n">the_df</span><span class="p">[</span><span class="n">var</span><span class="p">]</span>
+    <span class="n">before_drop</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">the_precip</span><span class="p">)</span>
+    <span class="n">the_precip</span> <span class="o">=</span> <span class="n">the_df</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+    <span class="n">after_drop</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">the_precip</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{before_drop-after_drop} nan values dropped&quot;</span><span class="p">)</span>
     <span class="n">loc</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">expon</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">the_precip</span><span class="p">)</span>
     <span class="n">precip_params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
     <span class="n">vals</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">patches</span> <span class="o">=</span> <span class="n">the_ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">the_df</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -1477,11 +1526,22 @@ y &amp;= (x - loc) / scale
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+7 nan values dropped
+5 nan values dropped
+10 nan values dropped
+3 nan values dropped
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/web_notebooks_11-pandas4-process-seasonal_31_0.png" src="../_images/web_notebooks_11-pandas4-process-seasonal_31_0.png" />
+<img alt="../_images/web_notebooks_11-pandas4-process-seasonal_solution_34_1.png" src="../_images/web_notebooks_11-pandas4-process-seasonal_solution_34_1.png" />
 </div>
 </div>
 </div>
@@ -1499,7 +1559,7 @@ y &amp;= (x - loc) / scale
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1529,7 +1589,7 @@ wrote the fit coefficients to /Users/phil/repos/eosc213_students/notebooks/panda
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1551,38 +1611,38 @@ wrote the fit coefficients to /Users/phil/repos/eosc213_students/notebooks/panda
     &#34;metadata&#34;: &#34;\n          loc,scale tuples for daily average temperature (deg C)\n          and precipitation (mm) produced by 11-pandas4 for YVR\n          &#34;,
     &#34;temp&#34;: {
         &#34;djf&#34;: [
-            3.84256591465072,
-            3.595365405560527
+            3.8457018498367788,
+            3.5951553549810953
         ],
         &#34;mam&#34;: [
-            9.356482721671577,
-            3.4789191637037504
+            9.366519174041297,
+            3.4672545858069648
         ],
         &#34;jja&#34;: [
-            16.88648212846009,
-            2.324995343255562
+            16.897835148581414,
+            2.2841620229501727
         ],
         &#34;son&#34;: [
-            10.308878631550368,
-            4.372545963729551
+            10.315880994430106,
+            4.365765620923032
         ]
     },
     &#34;precip&#34;: {
         &#34;djf&#34;: [
             0.0,
-            4.8432998097309055
+            4.847911848728065
         ],
         &#34;mam&#34;: [
             0.0,
-            2.6093758371283147
+            2.6111245141401955
         ],
         &#34;jja&#34;: [
             0.0,
-            1.2523918301531844
+            1.2540769644779333
         ],
         &#34;son&#34;: [
             0.0,
-            3.770662503393972
+            3.7721988319978266
         ]
     }
 }
@@ -1593,7 +1653,7 @@ wrote the fit coefficients to /Users/phil/repos/eosc213_students/notebooks/panda
 <h2>Grouping by decade<a class="headerlink" href="#Grouping-by-decade" title="Permalink to this headline">¶</a></h2>
 <p>The two functions below take a season dataframe and create a new column with the decade that each day belongs to. For example if a measurement in taken in 1941, then its decade is 194. We can use that see whether the temperature at the airport has been increasing since the 1930’s and whether that increase depends on season</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1634,7 +1694,7 @@ wrote the fit coefficients to /Users/phil/repos/eosc213_students/notebooks/panda
 <h2>Finding the median temperature<a class="headerlink" href="#Finding-the-median-temperature" title="Permalink to this headline">¶</a></h2>
 <p>Once we have the dictionary that has the decade as key and the dataframe for that decade as value, we can find the median value of the daily average temperature for each decade using the <code class="docutils literal notranslate"><span class="pre">median_temps</span></code> function below.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1661,12 +1721,28 @@ wrote the fit coefficients to /Users/phil/repos/eosc213_students/notebooks/panda
 <h2>Assignment<a class="headerlink" href="#Assignment" title="Permalink to this headline">¶</a></h2>
 <p>Using the functions above, calculate the median temperature for each decade and save your (decade, temperature) lists into a dictionary with a key for each season. Use that dictionary to make a 2 x 2 plot of temperature vs. decade for each of the four seasons, using the 4 box plotting code above. (My solution is 14 lines long)</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># YOUR CODE HERE</span>
-<span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+<span></span><span class="c1">### BEGIN SOLUTION</span>
+<span class="n">season_temps</span><span class="o">=</span><span class="nb">dict</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">season_key</span><span class="p">,</span><span class="n">season_df</span> <span class="ow">in</span> <span class="n">season_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">decade_dict</span><span class="o">=</span><span class="n">decadal_groups</span><span class="p">(</span><span class="n">season_df</span><span class="p">)</span>
+    <span class="n">temp_array</span><span class="o">=</span><span class="n">median_temps</span><span class="p">(</span><span class="n">decade_dict</span><span class="p">)</span>
+    <span class="n">season_temps</span><span class="p">[</span><span class="n">season_key</span><span class="p">]</span><span class="o">=</span><span class="n">temp_array</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax_array</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">ax_list</span> <span class="o">=</span> <span class="n">ax_array</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span><span class="n">key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">key_list</span><span class="p">):</span>
+    <span class="n">temps</span><span class="o">=</span><span class="n">season_temps</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    <span class="n">the_ax</span><span class="o">=</span><span class="n">ax_list</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+    <span class="n">the_ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">temps</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">temps</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">the_ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">the_ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">index</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">the_ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;median decadal temp (C)&#39;</span><span class="p">)</span>
+<span class="c1">### END SOLUTION</span>
 </pre></div>
 </div>
 </div>
@@ -1674,15 +1750,8 @@ wrote the fit coefficients to /Users/phil/repos/eosc213_students/notebooks/panda
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<div class="highlight"><pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NotImplementedError</span>                       Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-21-15b94d1fa268&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># YOUR CODE HERE</span>
-<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">raise</span> NotImplementedError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-red-fg">NotImplementedError</span>:
-</pre></div></div>
+<img alt="../_images/web_notebooks_11-pandas4-process-seasonal_solution_44_0.png" src="../_images/web_notebooks_11-pandas4-process-seasonal_solution_44_0.png" />
+</div>
 </div>
 </div>
 </div>
