@@ -1,12 +1,22 @@
 \documentclass{article}
-
+\usepackage{geometry}
+\geometry{letterpaper,top=50pt,hmargin={20mm,20mm},headheight=15pt}
 \usepackage{pgfplots}
+\usepackage{lastpage}
 \usepackage{tikz}
 \usetikzlibrary{shapes,arrows}
-\usepackage[margin=0.5in]{geometry}
-\usepackage{multicol}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\lstset
+{   language=Python,
+    numbers=left,
+    stepnumber=1,
+    breaklines=true,
+    breakatwhitespace=false,
+}
 %%%<
 \usepackage{verbatim}
+
 %\usepackage[active,tightpage]{preview}
 %%\PreviewEnvironment{tikzpicture}
 %\setlength\PreviewBorder{5pt}%
@@ -15,33 +25,30 @@
 \definecolor{dark-green}{rgb}{0.0, 0.5, 0.0}
 \newcommand{\ans}[1]{\textcolor{dark-green}{#1}}
 
+\pagestyle{fancy}
+
+\fancypagestyle{first}{
+\lhead{Quiz 3 solution}
+\chead{E213 - March 2019}
+\rhead{page~\thepage/\pageref{LastPage}}
+\lfoot{} 
+\cfoot{} 
+\rfoot{}
+}
 
 \begin{document}
-\pagestyle{empty}
+\pagestyle{first}
+
 
 \large{EOSC 213 Quiz 3} \hspace{10cm} \large{March 14$^{\textrm{th}}$, 2019}
 
 \large{Name: } \hspace{12cm} \large{ID: }
 \begin{center}
-\Huge{EOSC 213 - Quiz}
+\Huge{EOSC 213 - Quiz Solutions}
 \end{center}
 
 \rule{\textwidth}{1pt}
 
-\large{\textbf{Instructions (20 points in total)}}
-\begin{multicols}{2}
-\begin{itemize}
-\item Read the examination before beginning.
-\item Calculators are allowed (if you don't have one, just give the expression to type in a calculator).
-\item You have exactly 30 minutes for the examination.
-\item Be as precise and clear as possible.
-\item This is a closed book examination.
-\item If you get stuck, make an assumption, state what it is and try to carry on.
-\end{itemize} 
-\end{multicols}
-
-
-\rule{\textwidth}{1pt}
 
 
 Let us consider the continuity equation \ref{eq:continuity}
@@ -187,10 +194,36 @@ where the new constructor has the signature::
          ...
 \end{verbatim}
 
+\newpage
+\ans{Q10 Modified code:}
   
 \end{description}  
 
-\ans{See website}
+\begin{lstlisting}[language=Python]
+class Problem_Def:
+    """
+    this class holds the specifcation for the domain,
+    including the value of the porosity
+    """
+
+    def __init__(self, nx=4, ny=3, poro=0.4, wx=10, wy=20):
+        self.nx = nx
+        self.ny = ny
+        self.poro = poro
+        self.wx = wx
+        self.wy = wy
+
+    def get_spacing(self):
+        delx = self.wx / self.nx
+        dely = self.wy / self.ny
+        return delx, dely
+
+the_instance = Problem_Def(nx=6)
+delx, dely = the_instance.get_spacing()
+print(delx, dely)
+
+  
+\end{lstlisting}  
 
 
 \end{document}

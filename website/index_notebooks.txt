@@ -103,6 +103,9 @@
 .. _11-pandas4-process-seasonal_ipynb: notebooks/pandas/11-pandas4-process-seasonal.ipynb
 .. _11-pandas4-process-seasonal_html: web_notebooks/11-pandas4-process-seasonal.ipynb
 .. _11-pandas4-process-seasonal_py: https://github.com/phaustin/eosc213_students/blob/master/python/11-pandas4-process-seasonal.py
+.. _11-pandas4-process-seasonal_solution_ipynb: notebooks/11-pandas4-process-seasonal_solution.ipynb
+.. _11-pandas4-process-seasonal_solution_html: web_notebooks/11-pandas4-process-seasonal_solution.ipynb
+.. _11-pandas4-process-seasonal_solution_py: https://github.com/phaustin/eosc213_students/blob/master/python/11-pandas4-process-seasonal_solution.py
 .. _11-random_numbers_ipynb: notebooks/11-random_numbers.ipynb
 .. _11-random_numbers_html: web_notebooks/11-random_numbers.ipynb
 .. _11-random_numbers_py: https://github.com/phaustin/eosc213_students/blob/master/python/11-random_numbers.py
