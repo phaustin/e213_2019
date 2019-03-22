@@ -25,7 +25,6 @@
 #     toc_section_display: true
 #     toc_window_display: true
 # ---
-
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
 # <div class="toc"><ul class="toc-item"><li><span><a href="#Introduction" data-toc-modified-id="Introduction-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Introduction</a></span></li><li><span><a href="#Read-the-geotiff-with-rasterio" data-toc-modified-id="Read-the-geotiff-with-rasterio-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Read the geotiff with rasterio</a></span></li><li><span><a href="#Locate-UBC-on-the-map" data-toc-modified-id="Locate-UBC-on-the-map-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Locate UBC on the map</a></span><ul class="toc-item"><li><span><a href="#Mapped-image-with-no-coastline" data-toc-modified-id="Mapped-image-with-no-coastline-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Mapped image with no coastline</a></span></li><li><span><a href="#Read-the-shape-file-and-add-the-coastline-to-the-image" data-toc-modified-id="Read-the-shape-file-and-add-the-coastline-to-the-image-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Read the shape file and add the coastline to the image</a></span></li></ul></li></ul></div>
@@ -37,13 +36,12 @@
 import pprint
 
 import cartopy
+import context
 import rasterio
 from matplotlib import pyplot as plt
 from matplotlib.colors import Normalize
 from pyproj import Proj
 from pyproj import transform as proj_transform
-
-import context
 
 
 # %% [markdown]
