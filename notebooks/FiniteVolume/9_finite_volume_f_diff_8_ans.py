@@ -8,33 +8,11 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.2'
-#       jupytext_version: 1.0.3
+#       jupytext_version: 1.0.2
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
 #     name: python3
-#   language_info:
-#     codemirror_mode:
-#       name: ipython
-#       version: 3
-#     file_extension: .py
-#     mimetype: text/x-python
-#     name: python
-#     nbconvert_exporter: python
-#     pygments_lexer: ipython3
-#     version: 3.6.5
-#   toc:
-#     base_numbering: 1
-#     nav_menu: {}
-#     number_sections: true
-#     sideBar: true
-#     skip_h1_title: false
-#     title_cell: Table of Contents
-#     title_sidebar: Contents
-#     toc_cell: false
-#     toc_position: {}
-#     toc_section_display: true
-#     toc_window_display: false
 # ---
 
 # %% [markdown]
@@ -302,6 +280,12 @@ ax.legend(loc="best")
 # * Does the error depend upon $dx$?
 # * For which approximation does the error decrease the fastest as $dx$ shrinks?
 #
+# <br><br>
+#
+# 1. The accuracy depends upon $\Delta x$. In all cases, the backwards difference is the least accurate. At large $\Delta x$ the forward difference is the most accurate. At small $\Delta x$, the central difference is the most accurate. Generally, we will never know which difference is the most accurate for an approximation and discretization $\Delta x$ or $\Delta t$. 
+# 2. Yes, clearly they all drop as $\Delta x$ decreases. Note for the forward difference that the rate of decrease only becomes regular for a sufficiently small value of $\Delta x$. 
+# 3. The error drops the most rapidly for the central difference. 
+#
 # <br><br><br>
 # In the application of finite differences to solve differential equations, the function that we are solving for is not known a priori, so the error in the approximation cannot be computed. For that reason, when we assess a finite-difference approximation, we look at **how quickly the error shrinks as we shrink** $\Delta x$. To see that we have to revisit Taylor series.
 #
@@ -310,7 +294,7 @@ ax.legend(loc="best")
 # ### Taylor Series analysis of finite-difference approximations
 #
 # Taylor series reference: Khan Academy https://www.khanacademy.org/math/ap-calculus-bc/bc-series-new/bc-10-11/v/maclaurin-and-taylor-series-intuition
-# UBC Peter Wall https://www.math.ubc.ca/~pwalls/math-python/differentiation/
+# UBC Patrick Wall https://www.math.ubc.ca/~pwalls/math-python/differentiation/
 # <br><br> Video - Taylor series and finite differences https://www.coursera.org/lecture/computers-waves-simulations/w2v3-taylor-series-PEN8L
 # <br><br><br>
 # #### Approach
@@ -344,7 +328,7 @@ ax.legend(loc="best")
 # <br><br>
 # \begin{align}
 # {df(x_i)\over dx} & = \overbrace{{f(x_i+\Delta x) - f(x_i)\over \Delta x}}^\text{forward difference approximation} \nonumber\\
-# &- \overbrace{\left[ (\Delta x){df(x_i)\over dx} + {(\Delta x)^2\over 2!}{d^2f(x_i)\over dx^2} +
+# &- \overbrace{\frac{1}{\Delta x}\left[ {(\Delta x)^2\over 2!}{d^2f(x_i)\over dx^2} +
 # {(\Delta x)^3\over 3!}{d^3f(x_i)\over dx^3} + \cdots +  {(\Delta x)^n\over n!}{d^nf(x_i)\over dx^n} + \cdots \right]}^\text{truncation error} \label{8fd887} \\
 # \end{align}
 # <br><br>
@@ -354,7 +338,7 @@ ax.legend(loc="best")
 # The forward difference truncation error is
 # <br><br>
 # \begin{align}
-# \left[ \underbrace{(\Delta x)}_\text{leading term}{df(x_i)\over dx} + \underbrace{(\Delta x)^2\over 2!}_\text{2nd term}{d^2f(x_i)\over dx^2} + {(\Delta x)^3\over 3!}{d^3f(x_i)\over dx^3} + \cdots +  {(\Delta x)^n\over n!}{d^nf(x_i)\over dx^n} + \cdots \right] \label{8fd888} \\
+# \left[ \underbrace{\frac{(\Delta x)}{2!}}_\text{leading term}{d^2f(x_i)\over dx^2} + \underbrace{(\Delta x)^2\over 3!}_\text{2nd term}{d^3f(x_i)\over dx^3} + \cdots +  {(\Delta x)^{n-1}\over n!}{d^nf(x_i)\over dx^n} + \cdots \right] \label{8fd888} \\
 # \end{align}
 # <br><br>
 # 1. What controls the size of the truncation error?
@@ -380,7 +364,7 @@ ax.legend(loc="best")
 # <br><br>
 # \begin{align}
 # {df(x_i)\over dx} & = \overbrace{{f(x_i+\Delta x) - f(x_i)\over \Delta x}}^\text{forward difference approximation} \nonumber\\
-# &- \overbrace{\left[ (\Delta x){df(x_i)\over dx} + {(\Delta x)^2\over 2!}{d^2f(x_i)\over dx^2} + {(\Delta x)^3\over 3!}{d^3f(x_i)\over dx^3} + \cdots +  {(\Delta x)^n\over n!}{d^nf(x_i)\over dx^n} + \cdots \right]}^\text{truncation error} \label{8fd889} \nonumber \\
+# &- \overbrace{\left[ {(\Delta x)\over 2!}{d^2f(x_i)\over dx^2} + {(\Delta x)^2\over 3!}{d^3f(x_i)\over dx^3} + \cdots +  {(\Delta x)^{n-1}\over n!}{d^nf(x_i)\over dx^n} + \cdots \right]}^\text{truncation error} \label{8fd889} \nonumber \\
 # & = \overbrace{{f(x_i+\Delta x) - f(x_i)\over \Delta x}}^\text{forward difference approximation}  + \mathcal{O}(\Delta x) \label{8fd8810} \\
 # \end{align}
 # <br><br>
@@ -461,7 +445,9 @@ ax.legend(loc="best")
 # \end{align}
 # <br><br>
 # What is the order of this approximation?
-# <br><br><br><br>
+# <br><br>
+# This is a first-order forward in time approximation. Or, in math notation $\mathcal{O}(\Delta x)$. We do not know the value of the error, just the rate that it will decline when $\Delta x$ is sufficiently small. 
+# <br><br>
 # #### Fluxes
 # <br><br>
 # In our stencil, we approximate fluxes such as $j_{EC}$ as:
@@ -512,7 +498,7 @@ ax.legend(loc="best")
 # &0 = {\nabla}^2 c \\
 # \end{align}
 # <br> <br>
-# The second equation is not expected (it is not really 1 d)
+# Under these conditions, the concentration is described by Laplace's equation.
 # <br><br>
 #
 # #### Finite-difference stencil for steady-state diffusion with homogeneous diffusion coefficient
@@ -536,12 +522,15 @@ ax.legend(loc="best")
 # \end{align}
 # <br><br>
 # Write the finite-difference approximation for  1-D (in the $x$ direction) steady-state diffusion where the diffusion coefficient is spatially homogeneous (that is, for the equation you developed above). Use a centered approximation.
+# <br><br>
+# In a finite-difference approach, we look at the differential equation and replace derivatives with a finite-difference approximation. We developed the second - order central difference in \ref{8fd8817} so we replace the second derivative with that approximation. Since the right side of the equation equals zero, the $(\Delta x)^2$ divides out to give:
 # <br>
 # \begin{align}
 # c_{i+1} - 2 c_{i} + c_{i-1} = 0\\
 # \end{align}
 # <br><br>
-# Note it does not depend upon $\Delta x$.
+# Note the finite difference equation does not depend upon $\Delta x$, but the error does! So, for a more accurate solution, we would use more, closer - spaced (smaller $\Delta x$) gridpoints.
+# <br><br>
 #
 # #### Finite-volume stencil for steady-state diffusion with homogeneous diffusion coefficient
 # The finite-volume approximation for one-dimensional steady diffusion (not in porous media) is:
@@ -559,6 +548,7 @@ ax.legend(loc="best")
 # &c_{W} - 2 c_{C} + c_{E} = 0\\
 # \end{align}
 # <br><br>
+# Note this is the same discrete approximation that we developed with a finite-difference method! 
 
 # %% [markdown]
 # ## Approximation error
