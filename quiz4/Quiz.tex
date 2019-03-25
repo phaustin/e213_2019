@@ -18,7 +18,7 @@
 \begin{document}
 \pagestyle{empty}
 
-\large{EOSC 213 Quiz 3} \hspace{10cm} \large{March 14$^{\textrm{th}}$, 2019}
+\large{EOSC 213 Quiz 4} \hspace{10cm} \large{March 28$^{\textrm{th}}$, 2019}
 
 \large{Name:} \hspace{12cm} \large{ID: }
 \begin{center}
@@ -111,10 +111,10 @@ c(x,t) = c_0 \mathrm{cos}\left(\frac{\pi x}{2} \right) \mathrm{exp}\left(-\alpha
 \end{tikzpicture}
 
 \begin{description}
-\item [Q2e] What can you say about the mass evolution in the system? Is that consistent with the boundary conditions?
+\item [Q2e] What can you say about the mass evolution in the system? Is that consistent with the boundary conditions? \textbf{[2 points]}
 \vspace{2cm}
 
-\item [Q2f] Use your physical reasoning (and equation \ref{eq:sol}) to describe the asymptotic/final solution.
+\item [Q2f] Use your physical reasoning (and equation \ref{eq:sol}) to describe the asymptotic/final solution. \textbf{[2 points]}
 \vspace{2cm}
 
 \end{description}
@@ -122,21 +122,54 @@ c(x,t) = c_0 \mathrm{cos}\left(\frac{\pi x}{2} \right) \mathrm{exp}\left(-\alpha
 \textbf{Question 3: Conservation equation}
 The continuity equation says:
 \begin{equation}
-\frac{\partial \mathrm{Stuff}}{\partial t} + \mathrm{div} \overrightarrow{j} = 0
-\end{equation}
+\frac{\partial \, \mathrm{Stuff}}{\partial t} = - \overrightarrow{\nabla }\overrightarrow{j},
+\end{equation} or, in cartesian coordinates
+\begin{equation}
+\frac{\partial \, \mathrm{Stuff}}{\partial t} = - \frac{\partial j_x}{\partial x} - \frac{\partial j_y}{\partial y} - \frac{\partial j_z}{\partial z}.
+\end{equation} $ \overrightarrow{j} $ is a flux vector that describes the rate at which "stuff", the conserved quantity, fluxes (moves).
 
 
 \begin{description}
-\item [Q3a] Use this equation to describe the advective movement of solutes
+\item [Q3a] Provide two examples of what "Stuff", the \textbf{conserved quantity}, could represent. \textbf{[2 points]}
+\vspace{2cm}
+
+\item [Q3b] Write the PDE conservation law (either in nabla notation or in cartesian coordinates) for the case of the diffusion of a solute (not in a porous media) where the flux is given by Fick's law $ \overrightarrow{j_{\mathrm{diff}}} = - D \overrightarrow{\nabla} c$ \textbf{[3 points]}
 \vspace{2cm}
 
 
+\item [Q3c] What is the physical meaning of the term $\frac{\partial \, \mathrm{Stuff}}{\partial t}$ in the case of a diffusing solute. Provide a one or two sentence(s) explanation. \textbf{[3 points]}
+\vspace{2cm}
+
+\item [Q3d] Write the PDE conservation law (either in nabla notation or in cartesian coordinates) for the case where the flux is given by advection $ \overrightarrow{j_{\mathrm{adv}}} = \overrightarrow{v} c$ \textbf{[3 points]}
+\vspace{2cm}
+
+\end{description}
+
+\textbf{Question 4: Conservation equation (2)}
+
+Consider the fluid velocity $ \overrightarrow{v} = \left(v_x,v_y,v_z   \right)$ $\left[\frac{L}{T}\right]$ and the density $\rho$ $\left[\frac{M}{L^3}\right]$, and the following equations:
+\begin{equation}
+\frac{\partial \rho}{\partial t} = - \frac{\partial \rho v_x}{\partial x} - \frac{\partial \rho v_y}{\partial y} - \frac{\rho \partial v_z}{\partial z}.
+\end{equation}
+
+
+
+\begin{description}
+\item [Q4a] Is the previous equation dimensionnally homogeneous? Show why or why not. \textbf{[2 points]}
+\vspace{2cm}
+\item [Q4b] What is the expression for the flux in the $x$, $y$ and $z$ direction, \textit{i.e.}, what are $j_x$, $j_y$ and $j_z$? \textbf{[3 points]}
+\vspace{2cm}
+\item [Q4c] Write in words the meaning of the time derivative term $\frac{\partial \rho}{\partial t}$ \textbf{[2 points]}
+\vspace{2cm}
+\item [Q4d] Simplify this equation for the case where the fluid is incompressible. Mathematically, that is where the fluid density $\rho$ does not vary in space or change in time. \textbf{[3 points]}
+\vspace{2cm}
 \end{description}
 
 
 
+
 \newpage
-\textbf{Python Questions}
+\textbf{Question 5: Python}
 
 
 This is a question about the following code:
