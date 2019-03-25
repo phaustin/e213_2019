@@ -27,12 +27,12 @@
 
 \rule{\textwidth}{1pt}
 
-\large{\textbf{Instructions (20 points in total)}}
+\large{\textbf{Instructions (x points in total)}}
 \begin{multicols}{2}
 \begin{itemize}
 \item Read the examination before beginning.
 \item Calculators are allowed (if you don't have one, just give the expression to type in a calculator).
-\item You have exactly 30 minutes for the examination.
+\item You have exactly 45 minutes for the examination.
 \item Be as precise and clear as possible.
 \item This is a closed book examination.
 \item If you get stuck, make an assumption, state what it is and try to carry on.
@@ -40,11 +40,20 @@
 \end{multicols}
 
 
+
 \rule{\textwidth}{1pt}
+
+\textbf{Question 0: English is a funny language test}
+
+\begin{description}
+\item [Q0] Complete the sentence with your favourite word. \textit{If vegetarians consume vegetables, then humanitarians consume .....}  \textbf{[1 point]}
+\vspace{0.5cm}
+
+\end{description}
 
 \textbf{Question 1: Taylor's approximation}
 
-Let us consider the exponential function \ref{eq:exp}
+Let us consider the exponential function described in equation \ref{eq:exp}
 
 \begin{equation}
 f(x) = \mathrm{exp}(x). \label{eq:exp}
@@ -52,9 +61,9 @@ f(x) = \mathrm{exp}(x). \label{eq:exp}
 
 
 \begin{description}
-\item [Q1a] Compute the derivative of the exponential function at $x = 0$ ($f'(0)$) with a \textbf{first order} approximation \textbf{and} assess your error. 
+\item [Q1a] Compute the derivative of the exponential function at $x = 0$ ($f'(0)$) with a \textbf{first order} approximation \textbf{and} assess your error.  \textbf{[2 points]}
 \vspace{3cm}
-\item [Q1b] Compute the derivative of the exponential function at $x = 0$ ($f'(0)$) with a \textbf{second order} approximation \textbf{and} assess your error. 
+\item [Q1b] Compute the derivative of the exponential function at $x = 0$ ($f'(0)$) with a \textbf{second order} approximation \textbf{and} assess your error.  \textbf{[2 points]}
 \vspace{3cm}
 
 \end{description}
@@ -65,11 +74,11 @@ The Taylor series of the exponential function is:
 f(x) & = & 1 + x + \frac{x^2}{2!} + ... + \frac{x^n}{n!} + ... \\ 
  & = & \displaystyle{\sum_{n=0}^{\infty}\frac{x^n}{n!}}
  \end{array}
-\label{eq:exp}
+\label{eq:expTay}
 \end{equation} 
 
 \begin{description}
-\item [Q1c] Write the second order approximation of the exponential function and write the truncation error. 
+\item [Q1c] Write the second order approximation of the exponential function and write the truncation error. \textbf{[2 points]}
 \vspace{3cm}
 \end{description}
 
@@ -80,7 +89,7 @@ f(x) & = & 1 + x + \frac{x^2}{2!} + ... + \frac{x^n}{n!} + ... \\
 The 1D transient diffusion equation with homogeneous diffusion coefficient can be written as:
 \begin{equation}
 \frac{\partial c}{\partial t} = D \frac{\partial^2 c}{\partial x^2}. \label{eq:diff}
-\end{equation} Let us consider the phyiscal domain $ x \in \left[ -1 ; 1 \right] \mathrm{m}$, with the specified boundary conditions $x(1) = x(-1) = 0$. Consider the following function:
+\end{equation} Let us consider the physical domain $ x \in \left[ -1 ; 1 \right] \mathrm{m}$, with the specified boundary conditions $x(1) = x(-1) = 0$. Consider the following function:
 \begin{equation}
 c(x,t) = c_0 \mathrm{cos}\left(\frac{\pi x}{2} \right) \mathrm{exp}\left(-\alpha t \right)  \label{eq:sol}
 \end{equation}
@@ -88,7 +97,7 @@ c(x,t) = c_0 \mathrm{cos}\left(\frac{\pi x}{2} \right) \mathrm{exp}\left(-\alpha
 
 
 \begin{description}
-\item [Q2a] Show that the function described in equation \ref{eq:sol} solves the diffusion problem described by equation \ref{eq:diff} \textbf{[2 points]}
+\item [Q2a] \textbf{Prove} that the function described in equation \ref{eq:sol} solves the diffusion problem described by equation \ref{eq:diff} \textbf{[2 points]}
 \vspace{2cm}
 
 \item [Q2b] Can you identify the value of $\alpha$ \textbf{[2 points]}
@@ -97,7 +106,7 @@ c(x,t) = c_0 \mathrm{cos}\left(\frac{\pi x}{2} \right) \mathrm{exp}\left(-\alpha
 \item [Q2c] Show that the function described in equation \ref{eq:sol} satisfies the boundary conditions at all times \textbf{[2 points]}
 \vspace{2cm}
 
-\item [Q2d] Concentrations were measured at three different times and are represented in the graph below. The messy person who did the measurements does not remember at which time these measurements were taken. Can you help him, using your physical intuition? Give the temporal sequence of the 4 curves.  \textbf{[2 points]}
+\item [Q2d] Concentrations were measured at four different times and are represented in the graph below. The messy person who did the measurements does not remember at which time these measurements were taken. Can you help him, using your physical intuition? Give the temporal sequence of the 4 curves.  \textbf{[2 points]}
 \end{description}
 
 
@@ -137,7 +146,7 @@ The continuity equation says:
 \vspace{2cm}
 
 
-\item [Q3c] What is the physical meaning of the term $\frac{\partial \, \mathrm{Stuff}}{\partial t}$ in the case of a diffusing solute. Provide a one or two sentence(s) explanation. \textbf{[3 points]}
+\item [Q3c] What is the physical meaning of the term $\frac{\partial \, \mathrm{Stuff}}{\partial t}$ in the case of a diffusing solute. Provide a one or two sentence(s) explanation. \textbf{[2 points]}
 \vspace{2cm}
 
 \item [Q3d] Write the PDE conservation law (either in nabla notation or in cartesian coordinates) for the case where the flux is given by advection $ \overrightarrow{j_{\mathrm{adv}}} = \overrightarrow{v} c$ \textbf{[3 points]}
