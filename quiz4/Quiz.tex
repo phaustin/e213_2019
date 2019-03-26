@@ -27,7 +27,7 @@
 
 \rule{\textwidth}{1pt}
 
-\large{\textbf{Instructions (50 points in total)}}
+\large{\textbf{Instructions (30 points in total)}}
 \begin{multicols}{2}
 \begin{itemize}
 \item Read the examination before beginning.
@@ -57,30 +57,17 @@ Let us consider the exponential function described in equation \ref{eq:exp}
 
 \begin{equation}
 f(x) = \mathrm{exp}(x). \label{eq:exp}
-\end{equation} We are going to try to compute its derivative at $x = 0$ using backward, forward and centered differences. You can use a \textbf{calculator} to compute the values of $f(x)$.
-
-
-\begin{description}
-\item [Q1a] Compute the derivative of the exponential function at $x = 0$ ($f'(0)$) with a \textbf{first order} approximation \textbf{and} assess your error.  \textbf{[2 points]}
-\vspace{3cm}
-\item [Q1b] Compute the derivative of the exponential function at $x = 0$ ($f'(0)$) with a \textbf{second order} approximation \textbf{and} assess your error.  \textbf{[2 points]}
-\vspace{3cm}
-
-\end{description}
-
-The Taylor series of the exponential function is:
-\begin{equation}
-\begin{array}{lll}
-f(x) & = & 1 + x + \frac{x^2}{2!} + ... + \frac{x^n}{n!} + ... \\ 
- & = & \displaystyle{\sum_{n=0}^{\infty}\frac{x^n}{n!}}
- \end{array}
-\label{eq:expTay}
 \end{equation} 
 
+
 \begin{description}
-\item [Q1c] Write the second order approximation of the exponential function and write the truncation error. \textbf{[2 points]}
+\item [Q1a] Compute a first order approximation to the first derivative of the exponential function at $x = 0$ ($f'(0)$) using $\Delta x  = 0.2$.  \textbf{[2 points]}
 \vspace{3cm}
+\item [Q1b] Compute a second order approximation to the first derivative of the exponential function at $x = 0$ ($f'(0)$) using $\Delta x  = 0.2$.  \textbf{[2 points]}
+\vspace{3cm}
+
 \end{description}
+
 
 
 
@@ -91,24 +78,29 @@ The 1D transient diffusion equation with homogeneous diffusion coefficient can b
 \frac{\partial c}{\partial t} = D \frac{\partial^2 c}{\partial x^2}. \label{eq:diff}
 \end{equation} Let us consider the physical domain $ x \in \left[ -1 ; 1 \right] \mathrm{m}$, with the specified boundary conditions $x(1) = x(-1) = 0$. Consider the following function:
 \begin{equation}
-c(x,t) = c_0 \mathrm{cos}\left(\frac{\pi x}{2} \right) \mathrm{exp}\left(-\alpha t \right)  \label{eq:sol}
+c(x,t) = c_0 \, \mathrm{cos}\left(\frac{\pi x}{2} \right) \mathrm{exp}\left(-\alpha t \right)  \label{eq:sol}
 \end{equation}
 
 
 
 \begin{description}
-\item [Q2a] \textbf{Prove} that the function described in equation \ref{eq:sol} solves the diffusion problem described by equation \ref{eq:diff} \textbf{[2 points]}
+\item [Q2a] Show that the function described in equation \ref{eq:sol} satisfies the boundary conditions at all times \textbf{[2 points]}
 \vspace{2cm}
 
-\item [Q2b] Can you identify the value of $\alpha$ \textbf{[2 points]}
-\vspace{2cm}
-
-\item [Q2c] Show that the function described in equation \ref{eq:sol} satisfies the boundary conditions at all times \textbf{[2 points]}
-\vspace{2cm}
-
-\item [Q2d] Concentrations were measured at four different times and are represented in the graph below. The messy person who did the measurements does not remember at which time these measurements were taken. Can you help him, using your physical intuition? Give the temporal sequence of the 4 curves.  \textbf{[2 points]}
+\item [Q2b] Function described in equation \ref{eq:sol} is ... a solution to the diffusion problem. \textbf{Justify} your answer. \textbf{[2 points]}
+\begin{description}
+	\item [(a)] Always
+	\item [(b)] Sometimes
+	\item [(c)] Never
 \end{description}
+\vspace{3cm}
 
+
+
+
+
+\item [Q2c] Concentrations were measured at four different times and are represented in the graph below. The messy person who did the measurements does not remember at which time these measurements were taken. Can you help him, using your physical intuition? Give the temporal sequence of the 4 curves.  \textbf{[2 points]}
+\end{description}
 
 \begin{tikzpicture}
 \begin{axis}[width = 8cm, xmin=-1,xmax = 1, ymin = 0, ymax = 1, height = 6cm, grid = both, xlabel = {x-axis}, ylabel = {$c$}, legend pos = outer north east]
@@ -120,10 +112,10 @@ c(x,t) = c_0 \mathrm{cos}\left(\frac{\pi x}{2} \right) \mathrm{exp}\left(-\alpha
 \end{tikzpicture}
 
 \begin{description}
-\item [Q2e] What can you say about the mass evolution in the system? Is that consistent with the boundary conditions? \textbf{[2 points]}
+\item [Q2d] What can you say about the total mass evolution in the system with time? Is that consistent with the boundary conditions? \textbf{[2 points]}
 \vspace{2cm}
 
-\item [Q2f] Use your physical reasoning (and equation \ref{eq:sol}) to describe the asymptotic/final solution. \textbf{[2 points]}
+\item [Q2e] Use your physical reasoning (and equation \ref{eq:sol}) to describe the asymptotic/final solution. \textbf{[2 points]}
 \vspace{2cm}
 
 \end{description}
@@ -131,7 +123,7 @@ c(x,t) = c_0 \mathrm{cos}\left(\frac{\pi x}{2} \right) \mathrm{exp}\left(-\alpha
 \textbf{Question 3: Conservation equation}
 The continuity equation says:
 \begin{equation}
-\frac{\partial \, \mathrm{Stuff}}{\partial t} = - \overrightarrow{\nabla }\overrightarrow{j},
+\frac{\partial \, \mathrm{Stuff}}{\partial t} = - \overrightarrow{\nabla } \cdot\overrightarrow{j},
 \end{equation} or, in cartesian coordinates
 \begin{equation}
 \frac{\partial \, \mathrm{Stuff}}{\partial t} = - \frac{\partial j_x}{\partial x} - \frac{\partial j_y}{\partial y} - \frac{\partial j_z}{\partial z}.
@@ -146,7 +138,7 @@ The continuity equation says:
 \vspace{2cm}
 
 
-\item [Q3c] What is the physical meaning of the term $\frac{\partial \, \mathrm{Stuff}}{\partial t}$ in the case of a diffusing solute. Provide a one or two sentence(s) explanation. \textbf{[2 points]}
+\item [Q3c] What is the physical meaning of the term $\frac{\partial \, \mathrm{Stuff}}{\partial t}$ in the case of a diffusing solute? Provide a one or two sentence(s) explanation. \textbf{[2 points]}
 \vspace{2cm}
 
 \item [Q3d] Write the PDE conservation law (either in nabla notation or in cartesian coordinates) for the case where the flux is given by advection $ \overrightarrow{j_{\mathrm{adv}}} = \overrightarrow{v} c$ \textbf{[3 points]}
@@ -154,31 +146,7 @@ The continuity equation says:
 
 \end{description}
 
-\textbf{Question 4: Conservation equation (2)}
-
-Consider the fluid velocity $ \overrightarrow{v} = \left(v_x,v_y,v_z   \right)$ $\left[\frac{L}{T}\right]$ and the density $\rho$ $\left[\frac{M}{L^3}\right]$, and the following equations:
-\begin{equation}
-\frac{\partial \rho}{\partial t} = - \frac{\partial \rho v_x}{\partial x} - \frac{\partial \rho v_y}{\partial y} - \frac{\rho \partial v_z}{\partial z}.
-\end{equation}
-
-
-
-\begin{description}
-\item [Q4a] Is the previous equation dimensionnally homogeneous? Show why or why not. \textbf{[3 points]}
-\vspace{2cm}
-\item [Q4b] What is the expression for the flux in the $x$, $y$ and $z$ direction, \textit{i.e.}, what are $j_x$, $j_y$ and $j_z$? \textbf{[3 points]}
-\vspace{2cm}
-\item [Q4c] Write in words the meaning of the time derivative term $\frac{\partial \rho}{\partial t}$ \textbf{[2 points]}
-\vspace{2cm}
-\item [Q4d] Simplify this equation for the case where the fluid is incompressible. Mathematically, that is where the fluid density $\rho$ does not vary in space or change in time. \textbf{[3 points]}
-\vspace{2cm}
-\end{description}
-
-
-
-
-\newpage
-\textbf{Question 5: Python}
+\textbf{Question 4: Python}
 
 
 This is a question about the following code:
@@ -214,8 +182,8 @@ def get_spacing(nx=4, ny=3, poro=0.4, wx=10, wy=20):
 
 \begin{description}
 
-\item[Q5a] Given the code above, what does the following python statement print?
-  \textbf{[4 points]}
+\item[Q4a] Given the code above, what does the following python statement print?
+  \textbf{[1 point]}
   
 \verb+print(f"{get_spacing(nx=6)}")+
 
@@ -227,8 +195,8 @@ def get_spacing(nx=4, ny=3, poro=0.4, wx=10, wy=20):
 \begin{description}  
 
   
-\item[Q5b] modify the \verb+Problem_Def+ class to
-  incorporate \verb+get_spacing+ as an instance method \textbf{[3 points]}
+\item[Q4b] modify the \verb+Problem_Def+ class to
+  incorporate \verb+get_spacing+ as an instance method \textbf{[2 points]}
 
   That is, create a version of \verb+Problem_Def+ for which the following will work::
 
@@ -246,7 +214,8 @@ where the new constructor has the signature::
          ...
 \end{verbatim}
 
-\item[Q5c] something \textbf{[3 points]}
+\item[Q4c] something \textbf{[2 points]}
+
   
 \end{description}  
 
