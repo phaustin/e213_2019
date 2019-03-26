@@ -52,7 +52,7 @@
 
 \end{description}
 
-\textbf{Question 1: Taylor's approximation}
+\textbf{Question 1: Finite-difference approximations}
 
 Let us consider the exponential function described in equation \ref{eq:exp}
 
@@ -62,9 +62,9 @@ f(x) = \mathrm{exp}(x). \label{eq:exp}
 
 
 \begin{description}
-\item [Q1a] Compute a first order approximation to the first derivative of the exponential function at $x = 0$ ($f'(0)$) using $\Delta x  = 0.2$.  \textbf{[2 points]}
+\item [Q1a] Compute a first-order approximation to the first derivative of the exponential function at $x = 0$ ($f'(0)$) using $\Delta x  = 0.2$.  \textbf{[2 points]}
 \vspace{3cm}
-\item [Q1b] Compute a second order approximation to the first derivative of the exponential function at $x = 0$ ($f'(0)$) using $\Delta x  = 0.2$.  \textbf{[2 points]}
+\item [Q1b] Compute a second-order approximation to the first derivative of the exponential function at $x = 0$ ($f'(0)$) using $\Delta x  = 0.2$.  \textbf{[2 points]}
 \vspace{3cm}
 
 \end{description}
@@ -72,12 +72,12 @@ f(x) = \mathrm{exp}(x). \label{eq:exp}
 
 
 
-\textbf{Question 2: Diffusion}
+\textbf{Question 2: Diffusion Boundary Value Problem}
 
 The 1D transient diffusion equation with homogeneous diffusion coefficient can be written as:
 \begin{equation}
 \frac{\partial c}{\partial t} = D \frac{\partial^2 c}{\partial x^2}. \label{eq:diff}
-\end{equation} Let us consider the physical domain $ x \in \left[ -1 ; 1 \right] \mathrm{m}$, with the specified boundary conditions $x(1) = x(-1) = 0$. Consider the following function:
+\end{equation} Let us consider the physical domain $ x \in \left[ -1 ; 1 \right] \mathrm{m}$, with the specified (Dirichlet) boundary conditions $c(1,t) = c(-1,t) = 0$ (where, for example, $c(1,t)$ should be read as the concentration at $x=1$ and all times $t$) and initial condition $c(x, 0) = c_0 \, \mathrm{cos}\left(\frac{\pi x}{2} \right)$. Consider the following function:
 \begin{equation}
 c(x,t) = c_0 \, \mathrm{cos}\left(\frac{\pi x}{2} \right) \mathrm{exp}\left(-\alpha t \right)  \label{eq:sol}
 \end{equation}
@@ -85,22 +85,18 @@ c(x,t) = c_0 \, \mathrm{cos}\left(\frac{\pi x}{2} \right) \mathrm{exp}\left(-\al
 
 
 \begin{description}
-\item [Q2a] Show that the function described in equation \ref{eq:sol} satisfies the boundary conditions at all times \textbf{[2 points]}
+\item [Q2a] Show that the function described in equation \ref{eq:sol} satisfies the two boundary conditions at all times \textbf{[2 points]}
 \vspace{2cm}
 
-\item [Q2b] Function described in equation \ref{eq:sol} is ... a solution to the diffusion problem. \textbf{Justify} your answer. \textbf{[2 points]}
-\begin{description}
-	\item [(a)] Always
-	\item [(b)] Sometimes
-	\item [(c)] Never
-\end{description}
+\item [Q2b] Show that the function described in equation \ref{eq:sol} satisfies the partial differential equation \ref{eq:diff} at every point in the domain. \textbf{Justify} your answer. \textbf{[2 points]}
+
 \vspace{3cm}
 
 
 
 
 
-\item [Q2c] Concentrations were measured at four different times and are represented in the graph below. The messy person who did the measurements does not remember at which time these measurements were taken. Can you help him, using your physical intuition? Give the temporal sequence of the 4 curves.  \textbf{[2 points]}
+\item [Q2c] Concentrations were measured at four different times and are represented in the graph below. The messy person who did the measurements does not remember at which time these measurements were taken. Can you help him, using your physical intuition? Label the 4 curves in termporal order where $t_1< t_2<t_3<t_4$ .  \textbf{[2 points]}
 \end{description}
 
 \begin{tikzpicture}
@@ -113,37 +109,37 @@ c(x,t) = c_0 \, \mathrm{cos}\left(\frac{\pi x}{2} \right) \mathrm{exp}\left(-\al
 \end{tikzpicture}
 
 \begin{description}
-\item [Q2d] What can you say about the total mass evolution in the system with time? Is that consistent with the boundary conditions? \textbf{[2 points]}
+\item [Q2d] What can you say about the change in the total mass in the system with time? Is that consistent with the boundary conditions? Explain. \textbf{[2 points]}
 \vspace{2cm}
 
-\item [Q2e] Use your physical reasoning (and equation \ref{eq:sol}) to describe the asymptotic/final solution. \textbf{[2 points]}
+\item [Q2e] Use your physical reasoning (and equation \ref{eq:sol}) to describe the asymptotic/final solution (concentration versus $x$).. \textbf{[2 points]}
 \vspace{2cm}
 
 \end{description}
 
 \textbf{Question 3: Conservation equation}
-The continuity equation says:
+The general conservation (or sometimes called continuity) equation says:
 \begin{equation}
-\frac{\partial \, \mathrm{Stuff}}{\partial t} = - \overrightarrow{\nabla } \cdot\overrightarrow{j},
+\frac{\partial \, \mathrm{stuff}}{\partial t} = - \overrightarrow{\nabla } \cdot\overrightarrow{j},
 \end{equation} or, in cartesian coordinates
 \begin{equation}
-\frac{\partial \, \mathrm{Stuff}}{\partial t} = - \frac{\partial j_x}{\partial x} - \frac{\partial j_y}{\partial y} - \frac{\partial j_z}{\partial z}.
+\frac{\partial \, \mathrm{stuff}}{\partial t} = - \frac{\partial j_x}{\partial x} - \frac{\partial j_y}{\partial y} - \frac{\partial j_z}{\partial z}.
 \end{equation} $ \overrightarrow{j} $ is a flux vector that describes the rate at which "stuff", the conserved quantity, fluxes (moves).
 
 
 \begin{description}
-\item [Q3a] Provide two examples of what "Stuff", the \textbf{conserved quantity}, could represent. \textbf{[2 points]}
-\vspace{2cm}
+\item [Q3a] Provide two examples of what "stuff", the \textbf{conserved quantity}, could represent. \textbf{[2 points]}
+\vspace{2.5cm}
 
 \item [Q3b] Write the PDE conservation law (either in nabla notation or in cartesian coordinates) for the case of the diffusion of a solute (not in a porous media) where the flux is given by Fick's law $ \overrightarrow{j_{\mathrm{diff}}} = - D \overrightarrow{\nabla} c$ \textbf{[3 points]}
-\vspace{2cm}
+\vspace{2.5cm}
 
 
-\item [Q3c] What is the physical meaning of the term $\frac{\partial \, \mathrm{Stuff}}{\partial t}$ in the case of a diffusing solute? Provide a one or two sentence(s) explanation. \textbf{[2 points]}
-\vspace{2cm}
+\item [Q3c] What is the physical meaning of the term $\frac{\partial \, \mathrm{stuff}}{\partial t}$ in the case of a diffusing solute? Provide a one or two sentence(s) explanation. \textbf{[2 points]}
+\vspace{2.5cm}
 
 \item [Q3d] Write the PDE conservation law (either in nabla notation or in cartesian coordinates) for the case where the flux is given by advection $ \overrightarrow{j_{\mathrm{adv}}} = \overrightarrow{v} c$ \textbf{[3 points]}
-\vspace{2cm}
+\vspace{2.5cm}
 
 \end{description}
 
