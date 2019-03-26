@@ -8,6 +8,7 @@
 %%%<
 \definecolor{dark-green}{rgb}{0.0, 0.5, 0.0}
 \usepackage{verbatim}
+\usepackage{booktabs}
 %\usepackage[active,tightpage]{preview}
 %%\PreviewEnvironment{tikzpicture}
 %\setlength\PreviewBorder{5pt}%
@@ -146,78 +147,43 @@ The continuity equation says:
 
 \end{description}
 
+\newpage
 \textbf{Question 4: Python}
-
-
-This is a question about the following code:
-
-%\hline 
-\rule{15cm}{0.75pt}
-
-
-\begin{verbatim}
-class Problem_Def:
-    """
-    this class holds the specifcation for the domain,
-    including the value of the porosity
-    """
-
-    def __init__(self, nx, ny, poro, wx, wy):
-        self.nx = nx
-        self.ny = ny
-        self.poro = poro
-        self.wx = wx
-        self.wy = wy
-
-
-def get_spacing(nx=4, ny=3, poro=0.4, wx=10, wy=20):
-    the_prob = Problem_Def(nx, ny, poro, wx, wy)
-    delx = the_prob.wx / the_prob.nx
-    dely = the_prob.wy / the_prob.ny
-    return delx, dely
-\end{verbatim}
-
-%\hline 
-\rule{15cm}{0.75pt}
-
 \begin{description}
+\item[Q4a 3 pts] Consider the following dataframe \textbf{df}, with rows, columns and index given by:
 
-\item[Q4a] Given the code above, what does the following python statement print?
-  \textbf{[1 point]}
-  
-\verb+print(f"{get_spacing(nx=6)}")+
+\begin{tabular}{lrrrr}
+\toprule
+{} &  temperature &      veloc &      mass &  mass\_tenths \\
+date                      &              &            &           &              \\
+\midrule
+2019-03-25 05:00:00+00:00 &   267.439863 &  74.146461 &  0.206719 &          0.2 \\
+2019-03-25 05:10:00+00:00 &   281.372218 &  -2.317762 &  0.611744 &          0.6 \\
+2019-03-25 05:20:00+00:00 &   278.318157 &   3.683598 &  0.296801 &          0.3 \\
+2019-03-25 05:30:00+00:00 &   266.754425 & -83.851746 &  0.738440 &          0.7 \\
+2019-03-25 05:40:00+00:00 &   271.826184 & -68.338026 &  0.879937 &          0.9 \\
+\bottomrule
+\end{tabular}
 
-\vspace{1.5cm}
+In the space below write python statements (single lines) that would
+return the following:
+
+\begin{enumerate}
+\item The row corresponding to March 25, 2019 at 5:30 am UCT
+\item The temperature for March 25, 2019 at 5:10 am UCT
+\item All temperatures in the dataframe
+\end{enumerate}
+
+\vspace{4cm}
+
+\item[Q4b 3pts] Write a python snippet that would use groupby to find
+  the median velocity for all objects with \verb+mass_tenths+=0.7 kg for this
+  dataframe
   
 \end{description}
 
 
-\begin{description}  
 
-  
-\item[Q4b] modify the \verb+Problem_Def+ class to
-  incorporate \verb+get_spacing+ as an instance method \textbf{[2 points]}
-
-  That is, create a version of \verb+Problem_Def+ for which the following will work::
-
-\begin{verbatim}
-
-     the_instance = Problem_Def()
-     delx, dely = the_instance.get_spacing()
-
-\end{verbatim}
-
-where the new constructor has the signature::
-
-\begin{verbatim}
-      def __init__(self,nx=4,ny=3,poro=0.4,wx=10,wy=20):
-         ...
-\end{verbatim}
-
-\item[Q4c] something \textbf{[2 points]}
-
-  
-\end{description}  
 
 
 
