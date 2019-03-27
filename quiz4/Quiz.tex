@@ -5,6 +5,9 @@
 \usetikzlibrary{shapes,arrows}
 \usepackage[margin=0.5in]{geometry}
 \usepackage{multicol}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
 %%%<
 \definecolor{dark-green}{rgb}{0.0, 0.5, 0.0}
 \usepackage{verbatim}
@@ -13,11 +16,21 @@
 %%\PreviewEnvironment{tikzpicture}
 %\setlength\PreviewBorder{5pt}%
 %%%>
+\pagestyle{fancy}
 
+\fancypagestyle{first}{
+\lhead{Quiz 4 solution}
+\chead{E213 - March 28, 2019}
+\rhead{page~\thepage/\pageref{LastPage}}
+\lfoot{} 
+\cfoot{} 
+\rfoot{}
+}
 
 
 \begin{document}
-\pagestyle{empty}
+\pagestyle{first}
+
 
 \large{EOSC 213 Quiz 4} \hspace{10cm} \large{March 28$^{\textrm{th}}$, 2019}
 
@@ -170,7 +183,7 @@ return the following:
 \item All temperatures in the dataframe
 \end{enumerate}
 
-\vspace{4cm}
+\vspace{5cm}
 
 \item[Q4b 3pts] Write a python snippet that would use groupby to find
   the median velocity for all objects with \verb+mass_tenths+=0.7 kg for this
