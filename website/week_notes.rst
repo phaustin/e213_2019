@@ -140,6 +140,14 @@ Week 11 Mar19/Mar 21
 -  Discuss: `Method chaining in pandas3 <https://github.com/phaustin/eosc213_students/blob/master/python/10-pandas3-process-daily-data.py#L61>`_
 - Discuss: missing data in pandas4: `11-pandas4-process-seasonal_solution_html`_   
 - `How to structure your project: <https://github.com/phaustin/eosc213_students/blob/master/project/Readme_g30.md>`_
+
+Week 12 Mar26/Mar28
+===================
+
+- `Project guidelines <pdfs/project_2019_guidelines.pdf>`_
+ 
+- Tuesday pandas in-class notebook: `march26_allques_html`_
+
   
 General notes
 =============

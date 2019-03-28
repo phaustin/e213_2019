@@ -109,3 +109,6 @@
 .. _11-random_numbers_ipynb: notebooks/11-random_numbers.ipynb
 .. _11-random_numbers_html: web_notebooks/11-random_numbers.ipynb
 .. _11-random_numbers_py: https://github.com/phaustin/eosc213_students/blob/master/python/11-random_numbers.py
+.. _march26_allques_ipynb: notebooks/mar26_exercise/march26_allques.ipynb
+.. _march26_allques_html: web_notebooks/march26_allques.ipynb
+.. _march26_allques_py: https://github.com/phaustin/eosc213_students/blob/master/python/march26_allques.py
