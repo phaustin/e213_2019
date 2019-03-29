@@ -1,0 +1,167 @@
+\documentclass{article}
+
+\usepackage{geometry}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\geometry{letterpaper,top=50pt,hmargin={20mm,20mm},headheight=15pt}
+\usepackage{verbatim}
+\usepackage{booktabs}
+\usepackage{pgfplots}
+\usepackage{lastpage}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{shapes,arrows}
+\definecolor{dark-green}{rgb}{0.0, 0.5, 0.0}
+
+
+%%%<
+%\usepackage[active,tightpage]{preview}
+%%\PreviewEnvironment{tikzpicture}
+%\setlength\PreviewBorder{5pt}%
+%%%>
+\pagestyle{fancy}
+
+\fancypagestyle{first}{
+\lhead{Final quiz}
+\chead{E213 - Thur, April 18, 2019}
+\rhead{page~\thepage/\pageref{LastPage}}
+\lfoot{} 
+\cfoot{} 
+\rfoot{}
+}
+
+
+\begin{document}
+\pagestyle{first}
+
+
+\large{EOSC 213 Final Quiz} \hspace{10cm} \large{April 18$^{\textrm{th}}$, 2019}
+
+\large{Name:} \hspace{12cm} \large{ID: }
+\begin{center}
+\Huge{EOSC 213 - Quiz}
+\end{center}
+
+\rule{\textwidth}{1pt}
+
+\large{\textbf{Instructions (\textcolor{red}{XX} points in total)}}
+\begin{multicols}{2}
+\begin{itemize}
+\item Read the examination before beginning.
+\item Calculators are allowed (if you don't have one, just give the expression to type in a calculator).
+\item You have exactly 60 minutes for the examination.
+\item Be as precise and clear as possible.
+\item This is a closed book examination.
+\item If you get stuck, make an assumption, state what it is and try to carry on.
+\end{itemize} 
+\end{multicols}
+
+
+
+\rule{\textwidth}{1pt}
+
+\textbf{Question 0: Roger joke}
+
+\begin{description}
+\item [Q0] Complete the sentence with your favourite word. \textit{Belgium is the most ... country in the world}  \textbf{[1 point]}
+\vspace{0.5cm}
+
+\end{description}
+
+\textbf{Question 1: Finite-difference approximations}
+
+Consider the following measurements of a quantity $f(x)$:
+\begin{center}
+\begin{tabular}{|l|llllll|}
+\hline
+$x$ & 0 & 1 & 2 & 3 & 4 & 5 \\ \hline
+$f(x)$ & 0.32 &   0.02   & 0.72  &  2.42  &  5.12  &  8.82  \\ 
+\hline
+\end{tabular}
+\end{center}
+
+\begin{description}
+\item [Q1a] Compute a first-order approximation to the first derivative of the function $f(x)$ at $x = 2$.  \textbf{[2 points]}
+\vspace{3cm}
+\item [Q1b] Compute a second-order approximation to the first derivative of the function $f(x)$ at $x = 2$.  \textbf{[2 points]}
+\vspace{3.5cm}
+
+\end{description}
+
+
+
+
+\textbf{Question 2: Diffusion Boundary Value Problem}
+
+Consider the two following matrixes:
+%\begin{tabular}{ll}
+
+\begin{equation}
+A = \left( \begin{array}{cccccc}
+    1 & 0 & 0 & 0 & 0 & 0 \\
+    1 & -2 & 1 & 0 & 0 & 0 \\
+    0 & 1 & -2 & 1  & 0 & 0 \\
+    0 & 0 & 1 & -2 & 1  & 0 \\
+    0 & 0 & 0 & 1 & -2 & 1  \\
+    0 & 0 & 0 & 0 & -1 & 1 
+\end{array}
+\right) \quad B = \left( \begin{array}{c}
+    1  \\
+    0 \\
+    -0.005 \\
+    0  \\
+    0  \\
+    0  
+\end{array} \right)
+\end{equation} 
+
+\begin{description}
+\item [Q2a] Write the system of equations described by these matrixes \textbf{[2 points]}
+\vspace{5cm}
+
+\item [Q2b] How many dimensions (1D, 2D, 3D) are modelled by these matrixes? \textbf{[2 points]}
+\vspace{2cm}
+
+\item [Q2c] Which physical process is described by these matrixes? \textbf{[2 points]}
+\vspace{2cm}
+
+\item [Q2d] Are there any source terms? If yes, specify where (and if it is a source (positive) or a sink (negative) source term). If no, justify why. \textbf{[3 points]}
+\vspace{3cm}
+\item [Q2e] Is this describing a steady-state or a transient equation? \textbf{[2 points]}
+\vspace{2cm}
+
+\item [Q2f] Describe the boundary conditions (mathematically and physically). \textbf{[4 points]}
+\vspace{3.5cm}
+
+\item [Q2g] Write the PDE equation associated to this problem \textbf{[2 points]}
+\vspace{2cm}
+
+\item [Q2h] Describe the link between the PDE and the discretized system of equations? Specifically, link the PDE terms to the equations you have given in Q2a. \textbf{[2 points]}
+\vspace{3cm}
+
+\item [Q2i] Identify which of these 4 graphs is the asymptotic (final) solution to the presented problem. Give justifications as why the other ones are not compatible with the given system. If you don't know which one, try to describe the different results (what boundary conditions, ...). We assume that the medium is homogeneous: diffusion coefficient is the same everywhere. \textbf{[2 points]}
+\end{description}
+
+\begin{tikzpicture}
+\begin{axis}[width = 7.5cm, xmin= 0 , xmax = 5, ymin = 0, ymax = 2, height = 7.5cm, grid = both, xlabel = x, legend pos = outer north east]
+\addplot[red, mark = o, mark size = 2 pt, line width = 0.1pt] table [x=x, y=a]{diff.txt}; \addlegendentry{(a)}
+\addplot[black, mark = square, mark size = 2pt, line width = 0.1 pt] table [x=x, y=b]{diff.txt}; \addlegendentry{(b)}
+\addplot[dark-green, mark = triangle, mark size = 2 pt, line width = 0.1pt] table [x=x, y=c]{diff.txt}; \addlegendentry{(c)}
+\addplot[blue, mark = diamond, mark size = 2pt] table [x=x, y=d]{diff.txt}; \addlegendentry{(d)}
+\end{axis}
+\end{tikzpicture}
+
+
+
+
+
+
+
+
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
