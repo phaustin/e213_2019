@@ -152,7 +152,7 @@ Week 12 Mar26/Mar28
 Week 13 Apr02/Par04
 ===================
 
-- Start [cookbook_examples](https://github.com/phaustin/eosc213_students/tree/master/notebooks/cookbook_examples) folder with notebook about colormaps and pcolormesh.
+- Start `cookbook_examples <https://github.com/phaustin/eosc213_students/tree/master/notebooks/cookbook_examples>`_ folder with notebook about colormaps and pcolormesh.
   
 
   
