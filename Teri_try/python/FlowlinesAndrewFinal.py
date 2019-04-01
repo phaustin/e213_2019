@@ -37,69 +37,64 @@
 #     toc_section_display: true
 #     toc_window_display: false
 # ---
-
 # %% {"nbgrader": {"grade": false, "grade_id": "cell-e58a84ffce31f93a", "locked": true, "schema_version": 1, "solution": false}, "scrolled": true}
+import math
 import time
 
-import matplotlib.cm as cmap
-import matplotlib.pyplot as plt
-import numpy as np
-from teri_module_2D import Boundary_Def
-from teri_module_2D import build_2D_matrix
-from teri_module_2D import mat2vec
-from teri_module_2D import Problem_Def
-from teri_module_2D import vec2mat
-from teri_module_2D import index_to_row_col
-from mpl_toolkits.axes_grid1 import AxesGrid
-from scipy.sparse import csr_matrix
-from scipy.sparse.linalg import spsolve
 import matplotlib.animation as animation
+import matplotlib.cm as cmap
 import matplotlib.pyplot as plt
 import numpy as np
 from IPython.display import display
 from IPython.display import HTML
+from mpl_toolkits.axes_grid1 import AxesGrid
 from numpy.testing import assert_allclose
-import math
+from scipy.sparse import csr_matrix
+from scipy.sparse.linalg import spsolve
+from teri_module_2D import Boundary_Def
+from teri_module_2D import build_2D_matrix
+from teri_module_2D import index_to_row_col
+from teri_module_2D import mat2vec
+from teri_module_2D import Problem_Def
+from teri_module_2D import vec2mat
 
 
 # %%
-H = 14  #Head Pressure on one side of dam
+H = 14  # Head Pressure on one side of dam
 
 # %%
-#Need to define H as it changes through the tailings dam
-#Need to define phreatic line
-#reference https://nptel.ac.in/courses/105104132/Module2/lecture10.pdf
-#j is iterations
-#A is length of tailings dam
-#H is total head pressure
+# Need to define H as it changes through the tailings dam
+# Need to define phreatic line
+# reference https://nptel.ac.in/courses/105104132/Module2/lecture10.pdf
+# j is iterations
+# A is length of tailings dam
+# H is total head pressure
 
 
-def find_phreatic(H,A,r):
-    x_p=np.zeros(r)
-    y_p=np.zeros(r)
-    p=0.5*(math.sqrt(H*H+A*A)-A)
-    for j in range(r-1):
-        y_p[0]=H
-        y_p[j+1]=y_p[j]-(H/r)
-        
-        
-        
-    for j in range (r-1):
-        x_p[j]=A-((y_p[j]*y_p[j]-4*p*p)/(4*p))
-        if x_p[j]<0:
-            x_p[j]=0
-        if x_p[j]>A:
-            x_p[j]=A
-        
-        
+def find_phreatic(H, A, r):
+    x_p = np.zeros(r)
+    y_p = np.zeros(r)
+    p = 0.5 * (math.sqrt(H * H + A * A) - A)
+    for j in range(r - 1):
+        y_p[0] = H
+        y_p[j + 1] = y_p[j] - (H / r)
+
+    for j in range(r - 1):
+        x_p[j] = A - ((y_p[j] * y_p[j] - 4 * p * p) / (4 * p))
+        if x_p[j] < 0:
+            x_p[j] = 0
+        if x_p[j] > A:
+            x_p[j] = A
+
     return x_p, y_p
 
+
 # %%
-len_dam=30
-H=15
-ylen=20
-r=90
-x_p,y_p=find_phreatic(H,len_dam,len_dam)
+len_dam = 100
+H = 15
+ylen = 20
+r = 90
+x_p, y_p = find_phreatic(H, len_dam, len_dam)
 print(x_p)
 print(y_p)
 
@@ -112,7 +107,9 @@ east = Boundary_Def("flux", val=0)
 
 # The other south and north boundaries have a zero flux (impermeable)
 
-north = Boundary_Def("flux", val=0) # not important since the phreatic line will govern most of it
+north = Boundary_Def(
+    "flux", val=0
+)  # not important since the phreatic line will govern most of it
 south = Boundary_Def("flux", val=0)
 
 # %%
@@ -141,7 +138,7 @@ decreasing_factor = 0.1  # Feel free to change if you want to see the impact
 # Initial value is 0.01
 
 # %% {"nbgrader": {"grade": false, "grade_id": "cell-42d47ff484f9a502", "locked": true, "schema_version": 1, "solution": false}}
-#Diff = 2e-9 * 100 * 24 * 3600  # dm²/day
+# Diff = 2e-9 * 100 * 24 * 3600  # dm²/day
 
 
 # %% {"nbgrader": {"grade": false, "grade_id": "cell-b9bd7eaf90619a64", "locked": true, "schema_version": 1, "solution": false}, "scrolled": true}
@@ -154,33 +151,32 @@ def make_D_matrix(the_problem, K, decreasing_factor):
     width_x, width_y = the_problem.wx, the_problem.wy
     D_matrix = K * np.ones((n_y, n_x))
 
-
-
-    
     #
     # overwrite the center of the image with a low diffusivity
     #
-    #for i in range(n_y):
-     #   for j in range(n_x):
-      #      if (
-       #         abs(x[j] - width_x / 2) <= 0.2 * width_x
-        #        and abs(y[i] - width_y / 2) <= 0.2 * width_y
-         #   ):
-          #      D_matrix[i, j] = Diff_low
-           #     # here we define a square of low diffusivity in the middle
+    # for i in range(n_y):
+    #   for j in range(n_x):
+    #      if (
+    #         abs(x[j] - width_x / 2) <= 0.2 * width_x
+    #        and abs(y[i] - width_y / 2) <= 0.2 * width_y
+    #   ):
+    #      D_matrix[i, j] = Diff_low
+    #     # here we define a square of low diffusivity in the middle
     return D_matrix
+
 
 import pdb
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
-sat_matrix = np.zeros((len_dam,len_dam))
-head = np.zeros((len_dam,len_dam))
-c=ylen/len_dam
-length_y_p=len(y_p)
-#print (length_y_p)
-y = np.arange(0,ylen,c)
-length_of_y=len(y)
-#print(y)
+
+sat_matrix = np.zeros((len_dam, len_dam))
+head = np.zeros((len_dam, len_dam))
+c = ylen / len_dam
+length_y_p = len(y_p)
+# print (length_y_p)
+y = np.arange(0, ylen, c)
+length_of_y = len(y)
+# print(y)
 width_x = 10  # dm
 width_y = 10  # dm
 n_x = length_y_p
@@ -190,18 +186,18 @@ the_prob = Problem_Def(n_x, n_y, K, width_x, width_y)
 prob = Problem_Def(n_x, n_y, K, width_x, width_y)
 Qsource = np.zeros((n_y, n_x))
 D_matrix = make_D_matrix(prob, K, decreasing_factor)
-#print(D_matrix) 
+# print(D_matrix)
 for j in range(length_y_p):
     for i in range(length_of_y):
-        if y_p[j]>=y[i]:
-            sat_matrix[i,j] = 1
+        if y_p[j] >= y[i]:
+            sat_matrix[i, j] = 1
         else:
-            #print(f"debug {i,j}" )
-            #if i==2 and j==22:
-                #pdb.set_trace()
-            sat_matrix[i,j]=0
-            #head_2D[i,j]=0
-A, b = build_2D_matrix(bc_dict,prob, D_matrix, Qsource,K,y_p, sat_matrix)
+            # print(f"debug {i,j}" )
+            # if i==2 and j==22:
+            # pdb.set_trace()
+            sat_matrix[i, j] = 0
+            # head_2D[i,j]=0
+A, b = build_2D_matrix(bc_dict, prob, D_matrix, Qsource, K, y_p, sat_matrix)
 head_array = np.linalg.solve(A, b)
 
 n = n_x * n_y
@@ -209,42 +205,41 @@ head_2D = vec2mat(head_array, n_y, n_x)
 prob = Problem_Def(n_x, n_y, K, width_x, width_y)
 for j in range(length_y_p):
     for i in range(length_of_y):
-        if y_p[j]>=y[i]:
-            sat_matrix[i,j] = 1
+        if y_p[j] >= y[i]:
+            sat_matrix[i, j] = 1
         else:
-            #print(f"debug {i,j}" )
-            #if i==2 and j==22:
-                #pdb.set_trace()
-            sat_matrix[i,j]=0
-            head_2D[i,j]=0
+            # print(f"debug {i,j}" )
+            # if i==2 and j==22:
+            # pdb.set_trace()
+            sat_matrix[i, j] = 0
+            head_2D[i, j] = 0
 
-#plt.contourf(sat_matrix)
-#plt.colorbar()
-y1, x1 = np.mgrid[slice(0, ylen, c),
-                slice(0, len_dam, 1)]
-plt.pcolormesh(x1,y1,sat_matrix)
+# plt.contourf(sat_matrix)
+# plt.colorbar()
+y1, x1 = np.mgrid[slice(0, ylen, c), slice(0, len_dam, 1)]
+plt.pcolormesh(x1, y1, sat_matrix)
 plt.colorbar()
 
-#width_x = 10  # dm
-#width_y = 10  # dm
-#n_x = length_y_p
-#n_y = n_x
-#K = 0.001
+# width_x = 10  # dm
+# width_y = 10  # dm
+# n_x = length_y_p
+# n_y = n_x
+# K = 0.001
 
-#the_prob = Problem_Def(n_x, n_y, K, width_x, width_y)
-#D_matrix = make_D_matrix(the_prob, K, decreasing_factor)
+# the_prob = Problem_Def(n_x, n_y, K, width_x, width_y)
+# D_matrix = make_D_matrix(the_prob, K, decreasing_factor)
 fig, ax = plt.subplots()
 # This generates a colormap of diffusion.
 cm = cmap.get_cmap("magma")
-#plt.contourf(x1, y1, D_matrix, cmap=cm)
-#plt.colorbar()
+# plt.contourf(x1, y1, D_matrix, cmap=cm)
+# plt.colorbar()
 
 # "magma" refers to a colormap example. You can chose other ones
 # https://matplotlib.org/examples/color/colormaps_reference.html
 
 
 # %% {"nbgrader": {"grade": false, "grade_id": "cell-3f0b9e511535468c", "locked": true, "schema_version": 1, "solution": false}}
-print(head_2D[0,:])
+print(head_2D[0, :])
 
 
 # %% [markdown]
@@ -256,15 +251,15 @@ print(head_2D[0,:])
 
 ### Asymptotic behavior
 
-#Qsource = np.zeros((n_y, n_x))
-#A, b = build_2D_matrix(bc_dict, the_prob, D_matrix, Qsource,K,y_p)
-#head_array = np.linalg.solve(A, b)
-#n = n_x * n_y
-#print(head_array)
+# Qsource = np.zeros((n_y, n_x))
+# A, b = build_2D_matrix(bc_dict, the_prob, D_matrix, Qsource,K,y_p)
+# head_array = np.linalg.solve(A, b)
+# n = n_x * n_y
+# print(head_array)
 # array v contains the solution
 # we convert it in a matrix:
 
-#c = vec2mat(head_array, n_y, n_x)
+# c = vec2mat(head_array, n_y, n_x)
 
 # and we plot the matrix
 plt.contourf(x1, y1, head_2D, 20, cmap=cm)
@@ -284,102 +279,100 @@ print(y1)
 
 ### Asymptotic behavior
 
-#poro = 0.4
-#prob = Problem_Def(n_x, n_y, poro, width_x, width_y)
-#Qsource = np.zeros((n_y, n_x))
-#A, b = build_2D_matrix(bc_dict, prob, D_matrix, Qsource)
-#A = csr_matrix(A, copy=True)
+# poro = 0.4
+# prob = Problem_Def(n_x, n_y, poro, width_x, width_y)
+# Qsource = np.zeros((n_y, n_x))
+# A, b = build_2D_matrix(bc_dict, prob, D_matrix, Qsource)
+# A = csr_matrix(A, copy=True)
 
-#v = spsolve(A, b)
-#n = n_x * n_y
+# v = spsolve(A, b)
+# n = n_x * n_y
 # # array v contains the solution
 # # we convert it in a matrix:
 
-#c = vec2mat(v, n_y, n_x)
+# c = vec2mat(v, n_y, n_x)
 
 # # and we plot the matrix
-#plt.contourf(x, y, c, 20, cmap=cm)
-#plt.colorbar()
+# plt.contourf(x, y, c, 20, cmap=cm)
+# plt.colorbar()
 
 # %%
 psi = np.zeros((n_y, n_x))
 
-vx = np.zeros((n_y,n_x))
-vy = np.zeros((n_y,n_x))
+vx = np.zeros((n_y, n_x))
+vy = np.zeros((n_y, n_x))
 
-dx = 1 #problem.wx / (problem.nx - 1)
-dy = 1 #problem.wy / (problem.ny - 1)
+dx = 1  # problem.wx / (problem.nx - 1)
+dy = 1  # problem.wy / (problem.ny - 1)
 n = n_x * n_y
 
 for ind in range(n):
-    
+
     i, j = index_to_row_col(ind, n_y, n_x)
-    if(sat_matrix[i,j] == 1):
+    if sat_matrix[i, j] == 1:
         if i == 0:  # SOUTH BOUNDARY
-            if(sat_matrix[i+1,j] == 1):
-                vy[i,j] = (head_2D[i+1,j]-head_2D[i,j])/dy
-            
+            if sat_matrix[i + 1, j] == 1:
+                vy[i, j] = (head_2D[i + 1, j] - head_2D[i, j]) / dy
+
             if j == 0:
-                vx[i,j] = (head_2D[i,j+1]-head_2D[i,j])/dx
+                vx[i, j] = (head_2D[i, j + 1] - head_2D[i, j]) / dx
             elif j == n_x - 1:
-                vx[i,j] = (head_2D[i,j]-head_2D[i,j-1])/dx
+                vx[i, j] = (head_2D[i, j] - head_2D[i, j - 1]) / dx
             else:
-                vx[i,j] = (head_2D[i,j+1]-head_2D[i,j-1])/2/dx  
-        elif j == 0:   # WEST BOUNDARY
-            if(sat_matrix[i,j+1] !=0 and sat_matrix[i+1,j != 0]):
-                vx[i,j] = (head_2D[i,j+1]-head_2D[i,j])/dx
-                if i == n_y-1:
-                    vy[i,j] = (head_2D[i,j]-head_2D[i-1,j])/dy
-                else:
-                    vy[i,j]=(head_2D[i+1,j]-head_2D[i-1,j])/2/dy  
-                    
-        elif i == n_y - 1: # NORTH BOUNDARY: should not happen
-            vy[i,j] = (head_2D[i,j]-head_2D[i-1,j])/dy
-            if j == n_x - 1:
-                vx[i,j] = (head_2D[i,j]-head_2D[i,j-1])/dx
-            else:
-                vx[i,j] = (head_2D[i,j+1]-head_2D[i,j-1])/2/dx
-        elif j == n_x - 1:  # EAST BOUNDARY
-            if(sat_matrix[i,j-1] !=0 and sat_matrix[i+1,j != 0]):
-                vx[i,j] = (head_2D[i,j]-head_2D[i,j-1])/dx
+                vx[i, j] = (head_2D[i, j + 1] - head_2D[i, j - 1]) / 2 / dx
+        elif j == 0:  # WEST BOUNDARY
+            if sat_matrix[i, j + 1] != 0 and sat_matrix[i + 1, j != 0]:
+                vx[i, j] = (head_2D[i, j + 1] - head_2D[i, j]) / dx
                 if i == n_y - 1:
-                    vy[i,j] = (head_2D[i,j]-head_2D[i-1,j])/dy
+                    vy[i, j] = (head_2D[i, j] - head_2D[i - 1, j]) / dy
                 else:
-                    vy[i,j]=(head_2D[i+1,j]-head_2D[i-1,j])/2/dy
+                    vy[i, j] = (head_2D[i + 1, j] - head_2D[i - 1, j]) / 2 / dy
+
+        elif i == n_y - 1:  # NORTH BOUNDARY: should not happen
+            vy[i, j] = (head_2D[i, j] - head_2D[i - 1, j]) / dy
+            if j == n_x - 1:
+                vx[i, j] = (head_2D[i, j] - head_2D[i, j - 1]) / dx
+            else:
+                vx[i, j] = (head_2D[i, j + 1] - head_2D[i, j - 1]) / 2 / dx
+        elif j == n_x - 1:  # EAST BOUNDARY
+            if sat_matrix[i, j - 1] != 0 and sat_matrix[i + 1, j != 0]:
+                vx[i, j] = (head_2D[i, j] - head_2D[i, j - 1]) / dx
+                if i == n_y - 1:
+                    vy[i, j] = (head_2D[i, j] - head_2D[i - 1, j]) / dy
+                else:
+                    vy[i, j] = (head_2D[i + 1, j] - head_2D[i - 1, j]) / 2 / dy
 
         else:
-            if(sat_matrix[i,j+1] == 1 and sat_matrix[i+1,j] ==1):
-                vx[i,j] = (head_2D[i,j+1]-head_2D[i,j-1])/2/dx
-                vy[i,j] = (head_2D[i+1,j]-head_2D[i-1,j])/2/dy
-        
-        
-        
-           
+            if sat_matrix[i, j + 1] == 1 and sat_matrix[i + 1, j] == 1:
+                vx[i, j] = (head_2D[i, j + 1] - head_2D[i, j - 1]) / 2 / dx
+                vy[i, j] = (head_2D[i + 1, j] - head_2D[i - 1, j]) / 2 / dy
+
 
 # %%
-plt.contourf(x1, y1, vy, 20, cmap=cm);
-plt.colorbar()  ;
+plt.contourf(x1, y1, vy, 20, cmap=cm)
+plt.colorbar()
 
 # %%
-plt.contourf(x1, y1, -vx, 20, cmap=cm);
-plt.colorbar()  ;
+plt.contourf(x1, y1, -vx, 20, cmap=cm)
+plt.colorbar()
 
 # %%
-psi = np.zeros((n_y,n_x))
-psi[0,0] = 0
+psi = np.zeros((n_y, n_x))
+psi[0, 0] = 0
 for i in range(n_y):
-    for j in range (n_x):
-        if (j == 0 and i!=0):
-            psi[i,j] = psi[i-1,j]-vx[i-1,j]
-        elif(i > 0 and j > 0 and sat_matrix[i,j] > 0):
-            psi[i,j] = psi[i,j-1] + vy[i,j-1]
-            
+    for j in range(n_x):
+        if j == 0 and i != 0:
+            psi[i, j] = psi[i - 1, j] - vx[i - 1, j]
+        elif i > 0 and j > 0 and sat_matrix[i, j] > 0:
+            psi[i, j] = psi[i, j - 1] + vy[i, j - 1]
+
 
 plt.contourf(x1, y1, psi, 20, cmap=cm)
-plt.colorbar()     
+plt.colorbar()
 
 # %%
-fig, ax = plt.subplots(1,1,figsize=(10,7))
-cs=ax.contour(x1, y1, psi, levels=[0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0], cmap=cm)
-cb=fig.colorbar(cs)
-cb.ax.clabel(cs,[0.4,0.6,0.8,1.0,1.2,1.4, 2.0],fmt="%3.1f");
+fig, ax = plt.subplots(1, 1, figsize=(15, 10))
+cm = cmap.get_cmap("Greys")
+cs = ax.contour(x1, y1, psi, levels=[0.2, 0.6, 1.0, 1.4, 1.8, 2.0], colors="k")
+ax.set_aspect(1)
+cb.ax.clabel(cs, [0.2, 0.6, 1.0, 1.4, 1.8, 2.0], fmt="%3.1f")
