@@ -112,3 +112,6 @@
 .. _march26_allques_ipynb: notebooks/mar26_exercise/march26_allques.ipynb
 .. _march26_allques_html: web_notebooks/march26_allques.ipynb
 .. _march26_allques_py: https://github.com/phaustin/eosc213_students/blob/master/python/march26_allques.py
+.. _colormap_example_ipynb: notebooks/cookbook_examples/colormap_example.ipynb
+.. _colormap_example_html: web_notebooks/colormap_example.ipynb
+.. _colormap_example_py: https://github.com/phaustin/eosc213_students/blob/master/python/colormap_example.py

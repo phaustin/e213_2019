@@ -148,6 +148,13 @@ Week 12 Mar26/Mar28
  
 - Tuesday pandas in-class notebook: `march26_allques_html`_
 
+
+Week 13 Apr02/Par04
+===================
+
+- Start `cookbook_examples <https://github.com/phaustin/eosc213_students/tree/master/notebooks/cookbook_examples>`_ folder with notebook about colormaps and pcolormesh.
+  
+
   
 General notes
 =============
