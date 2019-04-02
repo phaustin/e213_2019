@@ -149,13 +149,22 @@ Week 12 Mar26/Mar28
 - Tuesday pandas in-class notebook: `march26_allques_html`_
 
 
-Week 13 Apr02/Par04
+Week 13 Apr02/Apr04
 ===================
 
 - Start `cookbook_examples <https://github.com/phaustin/eosc213_students/tree/master/notebooks/cookbook_examples>`_ folder with notebook about colormaps and pcolormesh.
   
+- `Course Learning Goals`_
 
-  
+- `Presentation overview`_
+
+- `quiz4_solution_html`_
+
+- `separate_colorbars_example_html`_
+
+- `contourline_example_html`_
+
+
 General notes
 =============
 
@@ -168,4 +177,7 @@ General notes
 
   - `Python for data analysis <https://github.com/wesm/pydata-book>`_
 
-  
+.. _Course Learning Goals: learning_goals/learning_goals.ipynb
+
+.. _Presentation overview: learning_goals/presentations.rst
+

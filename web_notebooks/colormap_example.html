@@ -67,7 +67,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-10-mar-12-mar-14">1.10. Week 10  Mar 12/Mar 14</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-11-mar19-mar-21">1.11. Week 11 Mar19/Mar 21</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-12-mar26-mar28">1.12. Week 12 Mar26/Mar28</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.13. General notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-13-apr02-apr04">1.13. Week 13 Apr02/Apr04</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.14. General notes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a><ul>
@@ -371,7 +372,7 @@ div.rendered_html tbody tr:hover {
 <h1>Plotting fields using pcolormesh<a class="headerlink" href="#Plotting-fields-using-pcolormesh" title="Permalink to this headline">¶</a></h1>
 <p>Matplotlib has a couple of different ways of plotting 2-dimensional fields. For problems typical of our class, contourf is usually not what we want, because it does its own interpolation on the gridcells. If you don’t want that smearing, then use pcolor or pcolormesh. The p stands for “pseudo” (because concentrations don’t really have colors, and the “mesh” indicates that the routine is laying down a cellular mesh to plot into).</p>
 <p>Below I show how to use pcolormesh plus fancy pallette features to plot limited ranges of data.</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
@@ -379,8 +380,17 @@ div.rendered_html tbody tr:hover {
 <span></span><span class="kn">import</span> <span class="nn">matplotlib</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">context</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+setting context.data_dir to /Users/phil/repos/eosc213_students/notebooks/cookbook_examples
+</pre></div></div>
 </div>
 <div class="section" id="Read-in-the-concentration-dataset">
 <h2>Read in the concentration dataset<a class="headerlink" href="#Read-in-the-concentration-dataset" title="Permalink to this headline">¶</a></h2>
@@ -389,7 +399,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">cp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;checkpoint.npz&quot;</span><span class="p">)</span>
+<span></span><span class="n">cp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">data_dir</span> <span class="o">/</span> <span class="s2">&quot;colormap_data.npz&quot;</span><span class="p">)</span>
 <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">cp</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span> <span class="n">cp</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">],</span> <span class="n">cp</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -455,7 +465,7 @@ div.rendered_html tbody tr:hover {
 <li>I create axes number 10 to hold the colorbar by specifying x,y coordinates for the lower corner as 0.92,0.1 a width of 0.025 and and height of 0.55. This was pure trial and error.</li>
 </ol>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -479,8 +489,7 @@ div.rendered_html tbody tr:hover {
 <span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Concentration ($kg/m^3$)&quot;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">270</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span>
     <span class="s2">&quot;Evolution of the oil concentration through time&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;top&quot;</span>
-<span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;Oil_Concentration_Evolution.png&quot;</span><span class="p">)</span>
+<span class="p">);</span>
 </pre></div>
 </div>
 </div>

@@ -34,11 +34,20 @@
    "cell_type": "code",
    "execution_count": 1,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "setting context.data_dir to /Users/phil/repos/eosc213_students/notebooks/cookbook_examples\n"
+     ]
+    }
+   ],
    "source": [
     "import matplotlib\n",
     "import matplotlib.pyplot as plt\n",
-    "import numpy as np"
+    "import numpy as np\n",
+    "import context"
    ]
   },
   {
@@ -56,7 +65,7 @@
    },
    "outputs": [],
    "source": [
-    "cp = np.load(\"checkpoint.npz\")\n",
+    "cp = np.load(context.data_dir / \"colormap_data.npz\")\n",
     "x, y, c = cp[\"x\"], cp[\"y\"], cp[\"c\"]"
    ]
   },
@@ -160,9 +169,10 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 5,
+   "execution_count": 6,
    "metadata": {
     "hide_input": false,
+    "lines_to_next_cell": 2,
     "scrolled": true
    },
    "outputs": [
@@ -200,8 +210,7 @@
     "cbar.ax.set_ylabel(\"Concentration ($kg/m^3$)\", rotation=270, size=20, va=\"bottom\")\n",
     "fig.suptitle(\n",
     "    \"Evolution of the oil concentration through time\", y=0.7, size=25, va=\"top\"\n",
-    ")\n",
-    "fig.savefig(\"Oil_Concentration_Evolution.png\")"
+    ");"
    ]
   }
  ],

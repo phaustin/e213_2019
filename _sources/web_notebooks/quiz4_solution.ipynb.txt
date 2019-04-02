@@ -1,0 +1,779 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "toc": true
+   },
+   "source": [
+    "<h1>Table of Contents<span class=\"tocSkip\"></span></h1>\n",
+    "<div class=\"toc\"><ul class=\"toc-item\"><li><span><a href=\"#Dataframe-practice\" data-toc-modified-id=\"Dataframe-practice-1\"><span class=\"toc-item-num\">1&nbsp;&nbsp;</span>Dataframe practice</a></span><ul class=\"toc-item\"><li><span><a href=\"#Create-a-simulated-dataset\" data-toc-modified-id=\"Create-a-simulated-dataset-1.1\"><span class=\"toc-item-num\">1.1&nbsp;&nbsp;</span>Create a simulated dataset</a></span></li><li><span><a href=\"#Convert-to-a-dataframe\" data-toc-modified-id=\"Convert-to-a-dataframe-1.2\"><span class=\"toc-item-num\">1.2&nbsp;&nbsp;</span>Convert to a dataframe</a></span><ul class=\"toc-item\"><li><span><a href=\"#Q1:-Turn-uni_dist-into-a-dataframe-called-df\" data-toc-modified-id=\"Q1:-Turn-uni_dist-into-a-dataframe-called-df-1.2.1\"><span class=\"toc-item-num\">1.2.1&nbsp;&nbsp;</span>Q1: Turn uni_dist into a dataframe called df</a></span></li></ul></li><li><span><a href=\"#Create-a-datetime-for-each-row\" data-toc-modified-id=\"Create-a-datetime-for-each-row-1.3\"><span class=\"toc-item-num\">1.3&nbsp;&nbsp;</span>Create a datetime for each row</a></span></li><li><span><a href=\"#Make-time_list-the-index-to-the-dataframe\" data-toc-modified-id=\"Make-time_list-the-index-to-the-dataframe-1.4\"><span class=\"toc-item-num\">1.4&nbsp;&nbsp;</span>Make time_list the index to the dataframe</a></span><ul class=\"toc-item\"><li><span><a href=\"#Add-it-as-a-new-column\" data-toc-modified-id=\"Add-it-as-a-new-column-1.4.1\"><span class=\"toc-item-num\">1.4.1&nbsp;&nbsp;</span>Add it as a new column</a></span></li><li><span><a href=\"#Q2----set-this-column-as-an-index\" data-toc-modified-id=\"Q2----set-this-column-as-an-index-1.4.2\"><span class=\"toc-item-num\">1.4.2&nbsp;&nbsp;</span>Q2 -- set this column as an index</a></span></li><li><span><a href=\"#Q3-write-a-function-that-rounds-a-column-value-to-1-decimal\" data-toc-modified-id=\"Q3-write-a-function-that-rounds-a-column-value-to-1-decimal-1.4.3\"><span class=\"toc-item-num\">1.4.3&nbsp;&nbsp;</span>Q3 write a function that rounds a column value to 1 decimal</a></span></li><li><span><a href=\"#Q4-Add-a-new-column-called-&quot;mass_tenths&quot;-using-coarse_grain\" data-toc-modified-id=\"Q4-Add-a-new-column-called-&quot;mass_tenths&quot;-using-coarse_grain-1.4.4\"><span class=\"toc-item-num\">1.4.4&nbsp;&nbsp;</span>Q4 Add a new column called \"mass_tenths\" using coarse_grain</a></span></li><li><span><a href=\"#Q5:-Group-the-measurements-on-mass_tenths\" data-toc-modified-id=\"Q5:-Group-the-measurements-on-mass_tenths-1.4.5\"><span class=\"toc-item-num\">1.4.5&nbsp;&nbsp;</span>Q5: Group the measurements on mass_tenths</a></span></li><li><span><a href=\"#Q6-Round-trip\" data-toc-modified-id=\"Q6-Round-trip-1.4.6\"><span class=\"toc-item-num\">1.4.6&nbsp;&nbsp;</span>Q6 Round trip</a></span></li></ul></li></ul></li></ul></div>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "import numpy as np\n",
+    "import numpy.random as rn\n",
+    "import numpy.testing as nt\n",
+    "import datetime as dt\n",
+    "from datetime import timezone as tz\n",
+    "import pprint"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Dataframe practice\n",
+    "\n",
+    "Learning objectives\n",
+    "\n",
+    "- Be able to use the apply method to execute a function on every row of a dataframe\n",
+    "- Be able to add a column to a data frame and use groupby with that column to \n",
+    "  group dataframe rows into subset dataframes\n",
+    "- Be able to do simple statistics (mean, median, max, min, summary) on dataframes and dataframe series\n",
+    "- Be able to construct dataframes from lists of tuples, lists of dictionaries, or numpy arrays using\n",
+    "  from_records member function\n",
+    "- Be able to create and work with python datetime objects\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Create a simulated dataset\n",
+    "\n",
+    "This cell creates 3 columns: column 0 is temperatures\n",
+    "in the range 263-283 K, column 1 is veloc in the range\n",
+    "-100 to +100 dm/s, column 2 is mass in the range "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[[ 2.67439863e+02  7.41464612e+01  2.06719155e-01]\n",
+      " [ 2.81372218e+02 -2.31776224e+00  6.11743863e-01]\n",
+      " [ 2.78318157e+02  3.68359757e+00  2.96800502e-01]\n",
+      " [ 2.66754425e+02 -8.38517462e+01  7.38440296e-01]\n",
+      " [ 2.71826184e+02 -6.83380265e+01  8.79937031e-01]]\n"
+     ]
+    }
+   ],
+   "source": [
+    "my_seed = 5\n",
+    "rn.seed(my_seed)\n",
+    "uni_dist = rn.rand(25,3)\n",
+    "uni_dist[:,:2] = (uni_dist[:,:2] - 0.5)*2.\n",
+    "temps = uni_dist[:,0]*10. + 273.\n",
+    "veloc = uni_dist[:,1]*100.\n",
+    "uni_dist[:,0]=temps\n",
+    "uni_dist[:,1]=veloc\n",
+    "print(uni_dist[:5,:])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Convert to a dataframe\n",
+    "\n",
+    "with columns=['temperature','veloc','mass']\n",
+    "\n",
+    "### Q1: Turn uni_dist into a dataframe called df\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>temperature</th>\n",
+       "      <th>veloc</th>\n",
+       "      <th>mass</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>267.439863</td>\n",
+       "      <td>74.146461</td>\n",
+       "      <td>0.206719</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>281.372218</td>\n",
+       "      <td>-2.317762</td>\n",
+       "      <td>0.611744</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>278.318157</td>\n",
+       "      <td>3.683598</td>\n",
+       "      <td>0.296801</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>266.754425</td>\n",
+       "      <td>-83.851746</td>\n",
+       "      <td>0.738440</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>271.826184</td>\n",
+       "      <td>-68.338026</td>\n",
+       "      <td>0.879937</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   temperature      veloc      mass\n",
+       "0   267.439863  74.146461  0.206719\n",
+       "1   281.372218  -2.317762  0.611744\n",
+       "2   278.318157   3.683598  0.296801\n",
+       "3   266.754425 -83.851746  0.738440\n",
+       "4   271.826184 -68.338026  0.879937"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#Q1 answer\n",
+    "columns=['temperature','veloc','mass']\n",
+    "df=pd.DataFrame(uni_dist,columns=columns)\n",
+    "df.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "It should pass this test"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "nt.assert_allclose(df['veloc'][1],-2.3,rtol=0.1)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Create a datetime for each row\n",
+    "\n",
+    "Assume that each row represents a measurement, and that\n",
+    "the measurements happened every 10 minutes atarting at\n",
+    "5 am UCT on March 25, 2019"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "start and time interval: 2019-03-25 05:00:00+00:00 -- 0:10:00\n",
+      "[datetime.datetime(2019, 3, 25, 5, 0, tzinfo=datetime.timezone.utc),\n",
+      " datetime.datetime(2019, 3, 25, 5, 10, tzinfo=datetime.timezone.utc),\n",
+      " datetime.datetime(2019, 3, 25, 5, 20, tzinfo=datetime.timezone.utc),\n",
+      " datetime.datetime(2019, 3, 25, 5, 30, tzinfo=datetime.timezone.utc),\n",
+      " datetime.datetime(2019, 3, 25, 5, 40, tzinfo=datetime.timezone.utc)]\n"
+     ]
+    }
+   ],
+   "source": [
+    "start_time=dt.datetime(2019,3,25,5,0,0,tzinfo=tz.utc)\n",
+    "interval=dt.timedelta(minutes=10)\n",
+    "print(f'start and time interval: {start_time} -- {interval}')\n",
+    "time_list=[start_time]\n",
+    "for tick in range(len(df)-1):\n",
+    "    time_list.append(time_list[tick] + interval)\n",
+    "pprint.pprint(time_list[:5])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Make time_list the index to the dataframe\n",
+    "\n",
+    "### Add it as a new column"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df['date']=time_list"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Q2 -- set this column as an index\n",
+    "\n",
+    "google pandas.DataFrame.set_index for method arguments"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\\begin{tabular}{lrrr}\n",
+      "\\toprule\n",
+      "{} &  temperature &      veloc &      mass \\\\\n",
+      "date                      &              &            &           \\\\\n",
+      "\\midrule\n",
+      "2019-03-25 05:00:00+00:00 &   267.439863 &  74.146461 &  0.206719 \\\\\n",
+      "2019-03-25 05:10:00+00:00 &   281.372218 &  -2.317762 &  0.611744 \\\\\n",
+      "2019-03-25 05:20:00+00:00 &   278.318157 &   3.683598 &  0.296801 \\\\\n",
+      "2019-03-25 05:30:00+00:00 &   266.754425 & -83.851746 &  0.738440 \\\\\n",
+      "2019-03-25 05:40:00+00:00 &   271.826184 & -68.338026 &  0.879937 \\\\\n",
+      "\\bottomrule\n",
+      "\\end{tabular}\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Q2 answer\n",
+    "df['date']=time_list\n",
+    "df.set_index('date',inplace=True)\n",
+    "df.head()\n",
+    "print(df.head().to_latex())"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Your dataframe should pass this assert."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "target_row=start_time=dt.datetime(2019,3,25,5,40,0,tzinfo=tz.utc)\n",
+    "nt.assert_allclose(df.loc[target_row]['temperature'],271.8,rtol=1.e-2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Q3 write a function that rounds a column value to 1 decimal\n",
+    "\n",
+    "i.e. complete this function\n",
+    "\n",
+    "```\n",
+    "def coarse_grain(row,colname):\n",
+    "    #\n",
+    "    # input -- dataframe row called row and string colname\n",
+    "    #\n",
+    "    # returns -- row[colname] rounded to 1 decimal\n",
+    "    return col_val\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Q3 answer\n",
+    "def coarse_grain(row,colname):\n",
+    "    col_val = np.around(row[colname],decimals=1)\n",
+    "    return col_val"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Your function should pass this assert"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "the_row = df.iloc[2]\n",
+    "the_round = coarse_grain(the_row,'mass')\n",
+    "np.testing.assert_allclose(the_round,0.3)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Q4 Add a new column called \"mass_tenths\" using coarse_grain\n",
+    "\n",
+    "i.e. use df.apply to run coarse_grain on the dataframe and add the result\n",
+    "as the 'mass_tenths' column\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#Q4 answer\n",
+    "df['mass_tenths']=\\\n",
+    "    df.apply(coarse_grain,args=('mass',),axis=1)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "You dataframe should now pass the following assert"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "nt.assert_allclose(df['mass_tenths'][3],0.7)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Q5: Group the measurements on mass_tenths"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {},
+   "source": [
+    "Use groups=df.groupby to create a DataFrameGroupBy object\n",
+    "called groups indexed on mass_tenths\n",
+    "\n",
+    "Then find the median temperature, speed and mass of each group\n",
+    "using the the_median=groups.median() method\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#Q5 answer\n",
+    "groups=df.groupby('mass_tenths')\n",
+    "the_median=groups.median()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "nt.assert_allclose(the_median.loc[0.2]['veloc'],1.49,rtol=0.1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>temperature</th>\n",
+       "      <th>veloc</th>\n",
+       "      <th>mass</th>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>mass_tenths</th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0.0</th>\n",
+       "      <td>280.409662</td>\n",
+       "      <td>84.549923</td>\n",
+       "      <td>0.002214</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>0.1</th>\n",
+       "      <td>276.975578</td>\n",
+       "      <td>-14.607772</td>\n",
+       "      <td>0.090364</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>0.2</th>\n",
+       "      <td>274.237067</td>\n",
+       "      <td>1.489661</td>\n",
+       "      <td>0.188541</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>0.3</th>\n",
+       "      <td>268.481729</td>\n",
+       "      <td>-17.152996</td>\n",
+       "      <td>0.296080</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>0.4</th>\n",
+       "      <td>272.389767</td>\n",
+       "      <td>96.293748</td>\n",
+       "      <td>0.398945</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>0.5</th>\n",
+       "      <td>270.220968</td>\n",
+       "      <td>-92.898194</td>\n",
+       "      <td>0.546358</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>0.6</th>\n",
+       "      <td>275.635321</td>\n",
+       "      <td>3.094522</td>\n",
+       "      <td>0.599929</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>0.7</th>\n",
+       "      <td>265.120278</td>\n",
+       "      <td>-71.470318</td>\n",
+       "      <td>0.719142</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>0.8</th>\n",
+       "      <td>279.274650</td>\n",
+       "      <td>-48.180481</td>\n",
+       "      <td>0.795087</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>0.9</th>\n",
+       "      <td>273.766654</td>\n",
+       "      <td>-2.978774</td>\n",
+       "      <td>0.903310</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1.0</th>\n",
+       "      <td>265.229076</td>\n",
+       "      <td>-49.750978</td>\n",
+       "      <td>0.964915</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "             temperature      veloc      mass\n",
+       "mass_tenths                                  \n",
+       "0.0           280.409662  84.549923  0.002214\n",
+       "0.1           276.975578 -14.607772  0.090364\n",
+       "0.2           274.237067   1.489661  0.188541\n",
+       "0.3           268.481729 -17.152996  0.296080\n",
+       "0.4           272.389767  96.293748  0.398945\n",
+       "0.5           270.220968 -92.898194  0.546358\n",
+       "0.6           275.635321   3.094522  0.599929\n",
+       "0.7           265.120278 -71.470318  0.719142\n",
+       "0.8           279.274650 -48.180481  0.795087\n",
+       "0.9           273.766654  -2.978774  0.903310\n",
+       "1.0           265.229076 -49.750978  0.964915"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "groups.median()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Q6 Round trip\n",
+    "\n",
+    "Add a cell that fixes the following problem -- new_df is not\n",
+    "the same as our original df after writing it out to csv"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df.to_csv('test.csv')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\\begin{tabular}{lrrrr}\n",
+      "\\toprule\n",
+      "{} &  temperature &      veloc &      mass &  mass\\_tenths \\\\\n",
+      "date                      &              &            &           &              \\\\\n",
+      "\\midrule\n",
+      "2019-03-25 05:00:00+00:00 &   267.439863 &  74.146461 &  0.206719 &          0.2 \\\\\n",
+      "2019-03-25 05:10:00+00:00 &   281.372218 &  -2.317762 &  0.611744 &          0.6 \\\\\n",
+      "2019-03-25 05:20:00+00:00 &   278.318157 &   3.683598 &  0.296801 &          0.3 \\\\\n",
+      "2019-03-25 05:30:00+00:00 &   266.754425 & -83.851746 &  0.738440 &          0.7 \\\\\n",
+      "2019-03-25 05:40:00+00:00 &   271.826184 & -68.338026 &  0.879937 &          0.9 \\\\\n",
+      "\\bottomrule\n",
+      "\\end{tabular}\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "new_df=pd.read_csv('test.csv')\n",
+    "new_df.head()\n",
+    "print(df.head().to_latex())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>temperature</th>\n",
+       "      <th>veloc</th>\n",
+       "      <th>mass</th>\n",
+       "      <th>mass_tenths</th>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>date</th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>2019-03-25 05:00:00+00:00</th>\n",
+       "      <td>267.439863</td>\n",
+       "      <td>74.146461</td>\n",
+       "      <td>0.206719</td>\n",
+       "      <td>0.2</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2019-03-25 05:10:00+00:00</th>\n",
+       "      <td>281.372218</td>\n",
+       "      <td>-2.317762</td>\n",
+       "      <td>0.611744</td>\n",
+       "      <td>0.6</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2019-03-25 05:20:00+00:00</th>\n",
+       "      <td>278.318157</td>\n",
+       "      <td>3.683598</td>\n",
+       "      <td>0.296801</td>\n",
+       "      <td>0.3</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2019-03-25 05:30:00+00:00</th>\n",
+       "      <td>266.754425</td>\n",
+       "      <td>-83.851746</td>\n",
+       "      <td>0.738440</td>\n",
+       "      <td>0.7</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2019-03-25 05:40:00+00:00</th>\n",
+       "      <td>271.826184</td>\n",
+       "      <td>-68.338026</td>\n",
+       "      <td>0.879937</td>\n",
+       "      <td>0.9</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                           temperature      veloc      mass  mass_tenths\n",
+       "date                                                                    \n",
+       "2019-03-25 05:00:00+00:00   267.439863  74.146461  0.206719          0.2\n",
+       "2019-03-25 05:10:00+00:00   281.372218  -2.317762  0.611744          0.6\n",
+       "2019-03-25 05:20:00+00:00   278.318157   3.683598  0.296801          0.3\n",
+       "2019-03-25 05:30:00+00:00   266.754425 -83.851746  0.738440          0.7\n",
+       "2019-03-25 05:40:00+00:00   271.826184 -68.338026  0.879937          0.9"
+      ]
+     },
+     "execution_count": 18,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#Q6 answer\n",
+    "new_df=pd.read_csv('test.csv',index_col='date')\n",
+    "new_df.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {
+    "lines_to_next_cell": 2
+   },
+   "outputs": [],
+   "source": [
+    "target_row=start_time=dt.datetime(2019,3,25,5,40,0,tzinfo=tz.utc)\n",
+    "nt.assert_allclose(df.loc[target_row]['temperature'],271.8,rtol=1.e-2)"
+   ]
+  }
+ ],
+ "metadata": {
+  "jupytext": {
+   "cell_metadata_filter": "all",
+   "main_language": "python",
+   "notebook_metadata_filter": "all,-language_info",
+   "text_representation": {
+    "extension": ".py",
+    "format_name": "percent",
+    "format_version": "1.2",
+    "jupytext_version": "1.0.2"
+   }
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.7"
+  },
+  "toc": {
+   "base_numbering": 1,
+   "nav_menu": {},
+   "number_sections": true,
+   "sideBar": true,
+   "skip_h1_title": false,
+   "title_cell": "Table of Contents",
+   "title_sidebar": "Contents",
+   "toc_cell": true,
+   "toc_position": {},
+   "toc_section_display": true,
+   "toc_window_display": true
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
