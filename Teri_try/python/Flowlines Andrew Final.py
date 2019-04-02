@@ -95,7 +95,7 @@ def find_phreatic(H,A,r):
     return x_p, y_p
 
 # %%
-len_dam=100
+len_dam=30
 H=15
 ylen=20
 r=90
@@ -105,8 +105,8 @@ print(y_p)
 
 # %% {"nbgrader": {"grade": false, "grade_id": "cell-f97ab996f12bd2f2", "locked": true, "schema_version": 1, "solution": false}}
 # Here we create 4 boundaries, west has a constant concentration at c0, east has a constant boundary at 0;
-west = Boundary_Def("flux", val=0.005)
-east = Boundary_Def("const", val=0)
+west = Boundary_Def("flux", val=0)
+east = Boundary_Def("flux", val=0)
 
 # For 1D problem, the used boundaries are west and east.
 
@@ -114,12 +114,12 @@ east = Boundary_Def("const", val=0)
 
 north = Boundary_Def("flux", val=0) # not important since the phreatic line will govern most of it
 south = Boundary_Def("flux", val=0)
-bc_dict = {"west": west, "north": north, "east": east, "south": south}
-# The latter array bc_dict will be sent to the different functions
 
 # %%
 
 # %% {"nbgrader": {"grade": false, "grade_id": "cell-ea536fa5b54285e2", "locked": true, "schema_version": 1, "solution": false}}
+bc_dict = {"west": west, "north": north, "east": east, "south": south}
+# The latter array bc_dict will be sent to the different functions
 
 # %% [markdown] {"nbgrader": {"grade": false, "grade_id": "cell-7bfb0e282680103b", "locked": true, "schema_version": 1, "solution": false}}
 # ## 2D transient diffusion in homogeneous media
@@ -207,7 +207,16 @@ head_array = np.linalg.solve(A, b)
 n = n_x * n_y
 head_2D = vec2mat(head_array, n_y, n_x)
 prob = Problem_Def(n_x, n_y, K, width_x, width_y)
-
+for j in range(length_y_p):
+    for i in range(length_of_y):
+        if y_p[j]>=y[i]:
+            sat_matrix[i,j] = 1
+        else:
+            #print(f"debug {i,j}" )
+            #if i==2 and j==22:
+                #pdb.set_trace()
+            sat_matrix[i,j]=0
+            head_2D[i,j]=0
 
 #plt.contourf(sat_matrix)
 #plt.colorbar()
@@ -218,6 +227,7 @@ plt.colorbar()
 
 #width_x = 10  # dm
 #width_y = 10  # dm
+#n_x = length_y_p
 #n_y = n_x
 #K = 0.001
 
@@ -231,6 +241,10 @@ cm = cmap.get_cmap("magma")
 
 # "magma" refers to a colormap example. You can chose other ones
 # https://matplotlib.org/examples/color/colormaps_reference.html
+
+
+# %% {"nbgrader": {"grade": false, "grade_id": "cell-3f0b9e511535468c", "locked": true, "schema_version": 1, "solution": false}}
+print(head_2D[0,:])
 
 
 # %% [markdown]
@@ -332,8 +346,9 @@ for ind in range(n):
                     vy[i,j] = (head_2D[i,j]-head_2D[i-1,j])/dy
                 else:
                     vy[i,j]=(head_2D[i+1,j]-head_2D[i-1,j])/2/dy
+
         else:
-            if(sat_matrix[i,j+1] == 1 and sat_matrix[i+1,j] == 1):
+            if(sat_matrix[i,j+1] == 1 and sat_matrix[i+1,j] ==1):
                 vx[i,j] = (head_2D[i,j+1]-head_2D[i,j-1])/2/dx
                 vy[i,j] = (head_2D[i+1,j]-head_2D[i-1,j])/2/dy
         
@@ -362,12 +377,5 @@ for i in range(n_y):
 
 plt.contourf(x1, y1, psi, 20, cmap=cm)
 plt.colorbar()     
-
-# %%
-fig, ax = plt.subplots(1,1,figsize=(15,10))
-cs=ax.contour(x1, y1, psi, levels=[0.2,0.6,1.0,1.4,1.8,2.0,2.2], colors='k')
-ax.set_aspect(1)
-ax.clabel(cs,[0.2,0.6,1.0,1.4,1.8, 2.0,2.2],fmt="%3.1f");
-ax.grid(True)
 
 # %%
