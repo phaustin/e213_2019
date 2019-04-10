@@ -16,6 +16,8 @@ ________________
    :maxdepth: 1
    :numbered: 2           
 
+   Learning goals <learning_goals/learning_goals.ipynb>
+              
    Weekly notes <week_notes>
 
    Assignment solutions <solutions>
