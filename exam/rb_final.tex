@@ -9,6 +9,7 @@
 \usepackage{booktabs}
 \usepackage{pgfplots}
 \usepackage{lastpage}
+\usepackage{float}
 \usepackage{tikz}
 \usepackage{amsmath}
 \usetikzlibrary{shapes,arrows}
@@ -78,7 +79,9 @@ In this question, you will develop a model (equations) that describe the change 
 
 
 
-\begin{table}[]
+\begin{table}[H]
+  \caption{Assumptions for Q1}
+  \begin{center}
 \begin{tabular}{lllll}
 Variable & Description    & Dimension  \\
 $V(t)$ &  Volume in the TMF                               & $[L^3]$ \\
@@ -91,6 +94,7 @@ $A$               & Surface area of the TMF m           &$[L^2]$  \\
  $Q_{dis}(t)$   & Rate of discharge out of TMF      & $[L^3/T]$ 
 
 \end{tabular}
+\end{center}
 \end{table}
 
 
