@@ -112,6 +112,15 @@
 .. _march26_allques_ipynb: notebooks/mar26_exercise/march26_allques.ipynb
 .. _march26_allques_html: web_notebooks/march26_allques.ipynb
 .. _march26_allques_py: https://github.com/phaustin/eosc213_students/blob/master/python/march26_allques.py
+.. _quiz4_solution_ipynb: notebooks/quiz4_solution.ipynb
+.. _quiz4_solution_html: web_notebooks/quiz4_solution.ipynb
+.. _quiz4_solution_py: https://github.com/phaustin/eosc213_students/blob/master/python/quiz4_solution.py
 .. _colormap_example_ipynb: notebooks/cookbook_examples/colormap_example.ipynb
 .. _colormap_example_html: web_notebooks/colormap_example.ipynb
 .. _colormap_example_py: https://github.com/phaustin/eosc213_students/blob/master/python/colormap_example.py
+.. _separate_colorbars_example_ipynb: notebooks/cookbook_examples/separate_colorbars_example.ipynb
+.. _separate_colorbars_example_html: web_notebooks/separate_colorbars_example.ipynb
+.. _separate_colorbars_example_py: https://github.com/phaustin/eosc213_students/blob/master/python/separate_colorbars_example.py
+.. _contourline_example_ipynb: notebooks/cookbook_examples/contourline_example.ipynb
+.. _contourline_example_html: web_notebooks/contourline_example.ipynb
+.. _contourline_example_py: https://github.com/phaustin/eosc213_students/blob/master/python/contourline_example.py

@@ -30,4 +30,3 @@
 
 .. _git: https://swcarpentry.github.io/git-novice
 
-

@@ -147,6 +147,8 @@ class Problem_Def:
         self.wy = wy
 
 
+import math
+
 prob3 = Problem_Def(n_x, n_y, poro)
 print(prob3.wx)
 

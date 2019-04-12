@@ -61,6 +61,9 @@
         "march26_allques"
     ],
     "week 13": [
-        "colormap_example"
+        "quiz4_solution",
+        "colormap_example",
+        "separate_colorbars_example",
+        "contourline_example"
    ]
 }

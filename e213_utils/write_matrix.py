@@ -3,6 +3,8 @@ import pdb
 import numpy as np
 from numpy.random import rand
 
+# https://stackoverflow.com/questions/17129290/numpy-2d-and-1d-array-to-latex-bmatrix
+
 
 def bmatrix(a, eqno=False, precision=3):
     """Returns a LaTeX bmatrix
