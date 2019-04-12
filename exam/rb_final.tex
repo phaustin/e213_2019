@@ -1,0 +1,241 @@
+\documentclass{article}
+
+\usepackage{geometry}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\geometry{letterpaper,top=50pt,hmargin={20mm,20mm},headheight=15pt}
+\usepackage{verbatim}
+\usepackage{booktabs}
+\usepackage{pgfplots}
+\usepackage{lastpage}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{shapes,arrows}
+\definecolor{dark-green}{rgb}{0.0, 0.5, 0.0}
+
+
+%%%<
+%\usepackage[active,tightpage]{preview}
+%%\PreviewEnvironment{tikzpicture}
+%\setlength\PreviewBorder{5pt}%
+%%%>
+\pagestyle{fancy}
+
+\fancypagestyle{first}{
+\lhead{Final exam}
+\chead{E213 - Thur, April 18, 2019}
+\rhead{page~\thepage/\pageref{LastPage}}
+\lfoot{} 
+\cfoot{} 
+\rfoot{}
+}
+
+
+\begin{document}
+\pagestyle{first}
+
+
+\large{EOSC 213 Final Exam} \hspace{10cm} \large{April 18$^{\textrm{th}}$, 2019}
+
+\large{Name:} \hspace{12cm} \large{ID: }
+\begin{center}
+\Huge{EOSC 213 - Final Exam}
+\end{center}
+
+\rule{\textwidth}{1pt}
+
+\large{\textbf{Instructions (\textcolor{red}{XX} points in total)}}
+\begin{multicols}{2}
+\begin{itemize}
+\item Don't panic (Douglas Adams, Hitchhiker's Guide to the Galaxy)
+\item Read the examination before beginning.
+\item Calculators are allowed (if you don't have one, just give the expression to type in a calculator).
+\item You have exactly 90 minutes for the examination.
+\item Be as precise and clear as possible.
+\item This is a closed book examination.
+\item If you get stuck, make an assumption, state what it is and try to carry on.
+\end{itemize} 
+\end{multicols}
+
+
+
+\rule{\textwidth}{1pt}
+
+\begin{description}
+\item [Q0] Complete the sentence with your favourite word. \textit{Belgium is the most ... country in the world}  \textbf{[1 point]}
+\vspace{0.5cm}
+
+\end{description}
+
+
+\begin{description}
+\item[Q1] \textbf{Acidity} is is an important water-quality parameter at mine sites. It describes the moles of a base (typically carbonate) required to raise a water's pH to a prescribed value. Acidity is a \textbf{conserved quantity}. In practice, the units are moles of acidity per litre of water $[M/L^3]$. Acidity is usually generated from the oxidation of pyrite (iron sulfide), which produces acid.  
+
+
+In this question, you will develop a model (equations) that describe the change in acidity over time in a tailings management facility (TMF or tailings pond), under these assumptions:
+\end{description}
+
+
+
+\begin{table}[]
+\begin{tabular}{lllll}
+Variable & Description    & Dimension  \\
+$V(t)$ &  Volume in the TMF                               & $[L^3]$ \\
+ $Q_{pit}(t)$    & Rate of flow from pit into TMF      & $[L^3/T]$\\
+ $c_{pit}(t)$     & Concentration of acidity in pit water & $[M/L^3]$\\
+ $P(t)$            & Precipitation rate                       & $[L/T]$ \\
+$ET(t)$          & Evaporation rate                    & $[L/T]$  \\
+$A$               & Surface area of the TMF m           &$[L^2]$  \\
+ $c_{TMF}(t)$ & Concentration of acidity in the TMF & $[M/L^3]$ \\
+ $Q_{dis}(t)$   & Rate of discharge out of TMF      & $[L^3/T]$ 
+
+\end{tabular}
+\end{table}
+
+
+
+\textbf{Question 1: ODE and finite-difference approximations}
+
+\begin{description}
+\item [Q1a] Write a discrete approximation of $\frac{d^2y}{dx^2}$ \textbf{[2 points]}
+\vspace{3cm}
+\item [Q1b] Write a first order discrete approximation of $\frac{dy}{dx}$ \textbf{[2 points]}
+\vspace{3.5cm}
+
+\item [Q1c] Write a second order discrete approximation of $\frac{dy}{dx}$ \textbf{[2 points]}
+\vspace{3.5cm}
+
+\end{description}
+
+Let us consider the following differential problem:
+
+\begin{equation}
+\left\lbrace
+\begin{array}{lll}
+\displaystyle{\frac{d^2y}{dx^2}} +6  \displaystyle{\frac{dy}{dx}} + 5y &=& 5x^2 + 2x \\
+y(0) &=& 2 \\
+y(3) & = & 5
+\end{array}
+\right. \label{eq:diffprob}
+\end{equation}
+
+\begin{description}
+\item [Q1d] Write the differential problem in a discrete approximation (using $x_i$ where $i$ refers the center of the gridblocks and $\Delta x$ is the distance between these centers) \textbf{[2 points]}
+\vspace{4.5cm}
+
+\end{description}
+
+A friend of yours used a computational method to solve the differential problem. Here are the results: 
+\begin{center}
+\begin{tabular}{|l|lllllll|}
+\hline
+$x$ & 0 & 0.5 &  1 & 1.5 & 2 & 2.5 & 3 \\ \hline
+$f(x)$ & 2  &  1.25  &  1  &  1.25 &   2 &    3.25 &    5  \\ 
+\hline
+\end{tabular}
+\end{center}
+
+\begin{description}
+
+\item [Q1e] Verify that the system of equations you wrote at Q1d is approximatively solved by the values given in the previous table. \textbf{[4 points]}
+\vspace{5cm}
+
+
+\item [Q1f] Prove that the function $y_1(x) = x^2-2x+2$ is a solution to the differential problem and that it satisfies the boundary conditions \textbf{[4 points]}
+\vspace{3cm}
+
+\item [Q1g] Give your friend feedback on her/his answer based on your previous answers.  \textbf{[2 points]}
+\vspace{3cm}
+
+
+\end{description}
+
+
+
+
+
+\begin{description}
+\item [Q1d] Using the answers of Q1a and Q1c, can you comment on the validity of his numerical answer? \textbf{[2 points]}
+\vspace{3cm}
+\item [Q1b] Compute a second-order approximation to the first derivative of the function $f(x)$ at $x = 2$.  \textbf{[2 points]}
+\vspace{3.5cm}
+
+\end{description}
+
+
+
+
+\textbf{Question 2: Diffusion Boundary Value Problem}
+
+Consider the two following matrixes and the linear system:
+%\begin{tabular}{ll}
+
+\begin{equation}
+A = \left( \begin{array}{cccccc}
+    1 & 0 & 0 & 0 & 0 & 0 \\
+    1 & -2 & 1 & 0 & 0 & 0 \\
+    0 & 1 & -2 & 1  & 0 & 0 \\
+    0 & 0 & 1 & -2 & 1  & 0 \\
+    0 & 0 & 0 & 1 & -2 & 1  \\
+    0 & 0 & 0 & 0 & -1 & 1 
+\end{array}
+\right) \quad B = \left( \begin{array}{c}
+    1  \\
+    0 \\
+    -0.005 \\
+    0  \\
+    0  \\
+    0  
+\end{array} \right)  \quad Ac=B
+\end{equation} 
+
+\begin{description}
+\item [Q2a] Write the system of equations described by these matrixes \textbf{[2 points]}
+\vspace{5cm}
+
+\item [Q2b] How many dimensions (1D, 2D, 3D) are modelled by these matrixes? \textbf{[2 points]}
+\vspace{2cm}
+
+\item [Q2c] Which physical process is described by these matrixes? \textbf{[2 points]}
+\vspace{2cm}
+
+\item [Q2d] Are there any source terms? If yes, specify where (and if it is a source (positive) or a sink (negative) source term). If no, justify why. \textbf{[3 points]}
+\vspace{3cm}
+\item [Q2e] Is this describing a steady-state or a transient equation? \textbf{[2 points]}
+\vspace{2cm}
+
+\item [Q2f] Describe the boundary conditions (mathematically and physically). \textbf{[4 points]}
+\vspace{3.5cm}
+
+\item [Q2g] Write the PDE equation associated to this problem \textbf{[2 points]}
+\vspace{2cm}
+
+\item [Q2h] Describe the link between the PDE and the discretized system of equations? Specifically, link the PDE terms to the equations you have given in Q2a. \textbf{[2 points]}
+\vspace{3cm}
+
+\item [Q2i] Identify which of these 4 graphs is the asymptotic (final) solution to the presented problem. Give justifications as why the other ones are not compatible with the given system. If you don't know which one, try to describe the different results (what boundary conditions, ...). We assume that the medium is homogeneous: diffusion coefficient is the same everywhere. \textbf{[2 points]}
+\end{description}
+
+%\begin{tikzpicture}
+%\begin{axis}[width = 7.5cm, xmin= 0 , xmax = 5, ymin = 0, ymax = 2, height = 7.5cm, grid = both, xlabel = x, legend pos = outer north east]
+%\addplot[red, mark = o, mark size = 2 pt, line width = 0.1pt] table [x=x, y=a]{diff.txt}; \addlegendentry{(a)}
+%\addplot[black, mark = square, mark size = 2pt, line width = 0.1 pt] table [x=x, y=b]{diff.txt}; \addlegendentry{(b)}
+%\addplot[dark-green, mark = triangle, mark size = 2 pt, line width = 0.1pt] table [x=x, y=c]{diff.txt}; \addlegendentry{(c)}
+%\addplot[blue, mark = diamond, mark size = 2pt] table [x=x, y=d]{diff.txt}; \addlegendentry{(d)}
+%\end{axis}
+%\end{tikzpicture}
+
+
+
+
+
+
+
+
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
