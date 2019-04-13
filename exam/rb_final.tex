@@ -7,6 +7,7 @@
 \geometry{letterpaper,top=50pt,hmargin={20mm,20mm},headheight=15pt}
 \usepackage{verbatim}
 \usepackage{booktabs}
+\usepackage{graphicx}
 \usepackage{pgfplots}
 \usepackage{lastpage}
 \usepackage{float}
@@ -35,10 +36,7 @@
 
 \begin{document}
 \pagestyle{first}
-
-
-\large{EOSC 213 Final Exam} \hspace{10cm} \large{April 18$^{\textrm{th}}$, 2019}
-
+%\large{EOSC 213 Final Exam} \hspace{10cm} \large{April 18$^{\textrm{th}}$, 2019}
 \large{Name:} \hspace{12cm} \large{ID: }
 \begin{center}
 \Huge{EOSC 213 - Final Exam}
@@ -64,11 +62,14 @@
 \rule{\textwidth}{1pt}
 
 \begin{description}
-\item [Q0] Complete the sentence with your favourite word. \textit{Belgium is the most ... country in the world}  \textbf{[1 point]}
-\vspace{0.5cm}
+\item [Q0]  \textbf{[1 point]} Complete the sentence with your favourite word. \textit{Belgium is the most ....... country in the world.} 
+\vspace{0.25cm}
 
 \end{description}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{description}
 \item[Q1] \textbf{Acidity} is is an important water-quality parameter at mine sites. It describes the moles of a base (typically carbonate) required to raise a water's pH to a prescribed value. Acidity is a \textbf{conserved quantity}. In practice, the units are moles of acidity per litre of water $[M/L^3]$. Acidity is usually generated from the oxidation of pyrite (iron sulfide), which produces acid.  
@@ -77,10 +78,20 @@
 In this question, you will develop a model (equations) that describe the change in acidity over time in a tailings management facility (TMF or tailings pond), under these assumptions:
 \end{description}
 
+\begin{enumerate}
+\item  the TMF has a total volume of $V(t)~[L^3]$, that changes in time in response to in- and outflows of water.
+\item drainage from the pit flows into the TMF at a rate $Q_{pit}(t)~[L^3/T]$ with an acidity concentration of $c_{pit}~[M/L^3]$, measured in units of moles acidity per litre.
+\item precipitation with zero acidity $c_{precip} = 0~ moles/l$ enters the TMF as precipitation on the surface of the TMF. Assume that the precipitation rate is given from data and can be represented in your model equations as $P(t),~[L/T]$ with units of $mm/day$. Assume that the surface area of the TMF is $A~[L^2]$ with units of $m^2$. Assume that area **does not change** as the volume in the TMF changes (an approximation that is valid for small changes in volume). 
+\item evaporation removes water from the TMF at a rate that can be represented in your equation as $ET(t)~[L/T]$ with units of $mm/day$. 
+\item the TMF is well stirred, such that the concentration of acidity in the TMF, $c_{TMF}~[M/L^3]$, measured in units of moles acidity per litre of water, is the same at all points in the pond at each instant in time.
+\item water is discharged from the TMF at a rate $Q_{dis}(t)~[L^3/T]$ with an acidity concentration of $c_{TMF}$.
+\item assume all other sources and sinks of water are negligible and can be ignored.
 
+\end{enumerate}
+ 
 
 \begin{table}[H]
-  \caption{Assumptions for Q1}
+  \caption{Summary of variables for Q1}
   \begin{center}
 \begin{tabular}{lllll}
 Variable & Description    & Dimension  \\
@@ -97,7 +108,55 @@ $A$               & Surface area of the TMF m           &$[L^2]$  \\
 \end{center}
 \end{table}
 
+\begin{description}
+\item [Q1a] \textbf{[4 points]} Write a mathematical expression that describes how the volume of water in the TMF changes over a time interval from time $t$ to time $t+\Delta t$. That is complete the following equation: 
 
+$ V(t+\Delta t) - V(t) =$
+\vspace{1.0cm}
+\item [Q1b] \textbf{[2 points]} Provide a brief  (few word) description/justification for each term in your expression above.
+\vspace{1.5cm}
+\item [Q1c] \textbf{[2 points]}  Write the expression from part a) as a \textbf{differential equation} governing the rate of change of the water volume in the TMF. That is, complete the following equation:
+
+${dV\over dt}=$
+\vspace{1.5cm}
+\item [Q1d] \textbf{[4 points]}  Let $ACID(t)~[M]$ be the total mass of acidity in the TMF at time t. Write an expression for the change in acidity in the TMF over the time interval from time $t$ to time $t+\Delta t$. That is, complete this equation:
+
+$ACID(t+\Delta t) - ACID(t) = $
+\vspace{1.5cm}
+\item [Q1e] \textbf{[2 points]} Provide a brief  (few word) description/justification for each term in your expression above.  
+\vspace{1.5cm}
+\item [Q1f] \textbf{[4 points]}   Write a \textbf{differential equation}, or \textbf{differential equations} for the \textbf{concentration} of acidity in the TMF $c_{TMF}(t)$.
+\vspace{1.5cm}
+\item [Q1g] \textbf{[4 points]} Acidity can be generated from oxidation of pyrite in the tailings at the bottom of the pond. If the acidity flux per unit area of TMF bottom  $j_{acid}~[M/(L^2 T)]$ is given by $j_{acid} = k c_{TMF} + b$. What are the dimensions of the parameters $k$ and $b$?
+\vspace{1.5cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{description}
+
+\begin{description}
+\item [Q2]  Below is a finite-volume mesh, with the gridblock numbers indicated on the mesh. Gridblocks 0,4,8 and 3, 7, 11 are situated on Dirichlet, specified concentration boundaries.
+
+
+\end{description}
+
+
+\begin{figure}[H]
+  \includegraphics[scale=0.75]{by_hand_numbered.png}
+  \label{fig:grid}
+\end{figure}
+
+\begin{description}
+\vspace{3cm}
+\item [Q1b] Write a first order discrete approximation of $\frac{dy}{dx}$ \textbf{[2 points]}
+\vspace{3.5cm}
+
+\item [Q1c] Write a second order discrete approximation of $\frac{dy}{dx}$ \textbf{[2 points]}
+\vspace{3.5cm}
+
+\end{description}
 
 \textbf{Question 1: ODE and finite-difference approximations}
 
