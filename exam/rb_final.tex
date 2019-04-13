@@ -37,7 +37,7 @@
 \begin{document}
 \pagestyle{first}
 %\large{EOSC 213 Final Exam} \hspace{10cm} \large{April 18$^{\textrm{th}}$, 2019}
-\large{Name:} \hspace{12cm} \large{ID: }
+\large{Name:} \hspace{11cm} \large{ID: }
 \begin{center}
 \Huge{EOSC 213 - Final Exam}
 \end{center}
@@ -72,7 +72,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{description}
-\item[Q1] \textbf{Acidity} is is an important water-quality parameter at mine sites. It describes the moles of a base (typically carbonate) required to raise a water's pH to a prescribed value. Acidity is a \textbf{conserved quantity}. In practice, the units are moles of acidity per litre of water $[M/L^3]$. Acidity is usually generated from the oxidation of pyrite (iron sulfide), which produces acid.  
+\item[Q1] \textbf{Acidity} is is an important water-quality parameter at mine sites. It describes the moles of a base (typically carbonate) required to raise a water's pH to a prescribed value. Acidity is a \textbf{conserved quantity}. In practice, the units are moles of acidity per litre of water $[M/L^3]$.   
 
 
 In this question, you will develop a model (equations) that describe the change in acidity over time in a tailings management facility (TMF or tailings pond), under these assumptions:
@@ -81,7 +81,7 @@ In this question, you will develop a model (equations) that describe the change 
 \begin{enumerate}
 \item  the TMF has a total volume of $V(t)~[L^3]$, that changes in time in response to in- and outflows of water.
 \item drainage from the pit flows into the TMF at a rate $Q_{pit}(t)~[L^3/T]$ with an acidity concentration of $c_{pit}~[M/L^3]$, measured in units of moles acidity per litre.
-\item precipitation with zero acidity $c_{precip} = 0~ moles/l$ enters the TMF as precipitation on the surface of the TMF. Assume that the precipitation rate is given from data and can be represented in your model equations as $P(t),~[L/T]$ with units of $mm/day$. Assume that the surface area of the TMF is $A~[L^2]$ with units of $m^2$. Assume that area **does not change** as the volume in the TMF changes (an approximation that is valid for small changes in volume). 
+\item precipitation with zero acidity $c_{precip} = 0~ moles/l$ enters the TMF as precipitation on the surface of the TMF. Assume that the precipitation rate is given from data and can be represented in your model equations as $P(t),~[L/T]$ with units of $mm/day$. Assume that the surface area of the TMF is $A~[L^2]$ with units of $m^2$. Assume that area \textbf{does not change} as the volume in the TMF changes (an approximation that is valid for small changes in volume). 
 \item evaporation removes water from the TMF at a rate that can be represented in your equation as $ET(t)~[L/T]$ with units of $mm/day$. 
 \item the TMF is well stirred, such that the concentration of acidity in the TMF, $c_{TMF}~[M/L^3]$, measured in units of moles acidity per litre of water, is the same at all points in the pond at each instant in time.
 \item water is discharged from the TMF at a rate $Q_{dis}(t)~[L^3/T]$ with an acidity concentration of $c_{TMF}$.
@@ -109,129 +109,159 @@ $A$               & Surface area of the TMF m           &$[L^2]$  \\
 \end{table}
 
 \begin{description}
-\item [Q1a] \textbf{[4 points]} Write a mathematical expression that describes how the volume of water in the TMF changes over a time interval from time $t$ to time $t+\Delta t$. That is complete the following equation: 
+\item [Q1a] \textbf{[4 points]} Write a mathematical expression that describes how the volume of water in the TMF changes over a time interval from time $t$ to time $t+\Delta t$. That is, complete the following equation: 
 
 $ V(t+\Delta t) - V(t) =$
 \vspace{1.0cm}
-\item [Q1b] \textbf{[2 points]} Provide a brief  (few word) description/justification for each term in your expression above.
-\vspace{1.5cm}
-\item [Q1c] \textbf{[2 points]}  Write the expression from part a) as a \textbf{differential equation} governing the rate of change of the water volume in the TMF. That is, complete the following equation:
+
+\item [Q1b] \textbf{[2 points]}  Write the expression from part a) as a \textbf{differential equation} governing the rate of change of the water volume in the TMF. That is, complete the following equation:
 
 ${dV\over dt}=$
 \vspace{1.5cm}
-\item [Q1d] \textbf{[4 points]}  Let $ACID(t)~[M]$ be the total mass of acidity in the TMF at time t. Write an expression for the change in acidity in the TMF over the time interval from time $t$ to time $t+\Delta t$. That is, complete this equation:
+%\item [Q1c] \textbf{[4 points]}  Let $ACID(t)~[M]$ be the total mass of acidity in the TMF at time t. Write an expression for the change in acidity in the TMF over the time interval from time $t$ to time $t+\Delta t$. That is, complete this equation:
 
-$ACID(t+\Delta t) - ACID(t) = $
+%$ACID(t+\Delta t) - ACID(t) = $
+%\vspace{1.5cm}
+\item [Q1c] \textbf{[5 points]}   Write a \textbf{differential equation}, or the \textbf{differential equations} that allow you to compute the \textbf{concentration} of acidity in the TMF $c_{TMF}(t)$ with time. 
+\vspace{2.5cm}
+\item [Q1d] \textbf{[2 points]} Provide a brief explanation for your answer to Q1c, or if you don't think you got the answer, how you think the problem should be approached.
 \vspace{1.5cm}
-\item [Q1e] \textbf{[2 points]} Provide a brief  (few word) description/justification for each term in your expression above.  
-\vspace{1.5cm}
-\item [Q1f] \textbf{[4 points]}   Write a \textbf{differential equation}, or \textbf{differential equations} for the \textbf{concentration} of acidity in the TMF $c_{TMF}(t)$.
-\vspace{1.5cm}
-\item [Q1g] \textbf{[4 points]} Acidity can be generated from oxidation of pyrite in the tailings at the bottom of the pond. If the acidity flux per unit area of TMF bottom  $j_{acid}~[M/(L^2 T)]$ is given by $j_{acid} = k c_{TMF} + b$. What are the dimensions of the parameters $k$ and $b$?
-\vspace{1.5cm}
+
+%\item [Q1d] \textbf{[4 points]} Acidity can be generated from oxidation of pyrite in the tailings at the bottom of the pond. If the acidity flux per unit area of TMF bottom  $j_{acid}~[M/(L^2 T)]$ is given by $j_{acid} = k c_{TMF} + b$. What are the dimensions of the parameters $k$ and $b$?
+%\vspace{1.5cm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{description}
+
+
+\rule{\textwidth}{1pt}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{description}
-\item [Q2]  Below is a finite-volume mesh, with the gridblock numbers indicated on the mesh. Gridblocks 0,4,8 and 3, 7, 11 are situated on Dirichlet, specified concentration boundaries.
+\item [Q2] Finite - volume methods can be generalized from orthogonal N-S-E-W meshes to unstructured meshes. Below is a subsection from an \textbf{unstructured} finite-volume mesh. The gridblocks are labeled with their gridblock number.\par
+\textbf{[5 points]} Write the finite-volume discrete approximation of the conservation equation for \textbf{steady-state} diffusion for gridblock 33 in terms of the concentration in gridblock 33, $c_{33}$, and the concentrations in the gridblocks adjacent to gridblock 33, $c_i$ (use the numbers given in the figure). Hints:
 
-
+\begin{enumerate}
+\item The mesh is a constant thickness $\Delta z$ (into the page).
+\item In your equations, represent the length of the interface between two gridblocks as $S_{i,j}$ where $i$, $j$ are two adjacent gridblocks that share an interface. For example, $S_{32,18}=S_{18,32}$ is the length of the interface between gridblocks 32 and 18, as indicated on the figure.
+\item In your equations,  represent the distance separating nodes in adjacent gridblocks as the distance $dl_{i,j}$. For example, the nodes in gridblocks are separated by a distance $dl_{34,26}=dl_{26,34}$ as inidicated on the figure.
+\item The component of diffusive flux in the $l$ direction is given by $j=-D{dc\over dl}$, where $dl$ is the distance in the $l$ direction. This is the non-porous-media form of Fick's law.
+\end{enumerate}
 \end{description}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%      FIGURE OF MESH           %%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{figure}[H]
-  \includegraphics[scale=0.75]{by_hand_numbered.png}
+  \includegraphics[scale=0.6]{unstructured_mesh2.png}
   \label{fig:grid}
 \end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%      FIGURE OF MESH           %%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%\begin{description}
+%%%\vspace{3cm}
+%%%\item [Q1b] Write a first order discrete approximation of $\frac{dy}{dx}$ \textbf{[2 points]}
+%%%\vspace{3.5cm}
+
+%%%\item [Q1c] Write a second order discrete approximation of $\frac{dy}{dx}$ \textbf{[2 points]}
+%%%\vspace{3.5cm}
+
+%%%\end{description}
+
+%%%\textbf{Question 1: ODE and finite-difference approximations}
+
+%%%\begin{description}
+%%%\item [Q1a] Write a discrete approximation of $\frac{d^2y}{dx^2}$ \textbf{[2 points]}
+%%%\vspace{3cm}
+%%%\item [Q1b] Write a first order discrete approximation of $\frac{dy}{dx}$ \textbf{[2 points]}
+%%%\vspace{3.5cm}
+
+%%%\item [Q1c] Write a second order discrete approximation of $\frac{dy}{dx}$ \textbf{[2 points]}
+%%%\vspace{3.5cm}
+
+%%%\end{description}
+
+%%%Let us consider the following differential problem:
+
+%%%\begin{equation}
+%%%\left\lbrace
+%%%\begin{array}{lll}
+%%%\displaystyle{\frac{d^2y}{dx^2}} +6  \displaystyle{\frac{dy}{dx}} + 5y &=& 5x^2 + 2x \\
+%%%y(0) &=& 2 \\
+%%%y(3) & = & 5
+%%%\end{array}
+%%%\right. \label{eq:diffprob}
+%%%\end{equation}
+
+%%%\begin{description}
+%%%\item [Q1d] Write the differential problem in a discrete approximation (using $x_i$ where $i$ refers the center of the gridblocks and $\Delta x$ is the distance between these centers) \textbf{[2 points]}
+%%%\vspace{4.5cm}
+
+%%%\end{description}
+
+%%%A friend of yours used a computational method to solve the differential problem. Here are the results: 
+%%%\begin{center}
+%%%\begin{tabular}{|l|lllllll|}
+%%%\hline
+%%%$x$ & 0 & 0.5 &  1 & 1.5 & 2 & 2.5 & 3 \\ \hline
+%%%$f(x)$ & 2  &  1.25  &  1  &  1.25 &   2 &    3.25 &    5  \\ 
+%%%\hline
+%%%\end{tabular}
+%%%\end{center}
+
+%%%\begin{description}
+
+%%%\item [Q1e] Verify that the system of equations you wrote at Q1d is approximatively solved by the values given in the previous table. \textbf{[4 points]}
+%%%\vspace{5cm}
+
+
+%%%\item [Q1f] Prove that the function $y_1(x) = x^2-2x+2$ is a solution to the differential problem and that it satisfies the boundary conditions \textbf{[4 points]}
+%%%\vspace{3cm}
+
+%%%\item [Q1g] Give your friend feedback on her/his answer based on your previous answers.  \textbf{[2 points]}
+%%%\vspace{3cm}
+
+
+%%%\end{description}
+
+
+
+
+
+%%%\begin{description}
+%%%\item [Q1d] Using the answers of Q1a and Q1c, can you comment on the validity of his numerical answer? \textbf{[2 points]}
+%%%\vspace{3cm}
+%%%\item [Q1b] Compute a second-order approximation to the first derivative of the function $f(x)$ at $x = 2$.  \textbf{[2 points]}
+%%%\vspace{3.5cm}
+
+%%%\end{description}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\rule{\textwidth}{1pt}
 
 \begin{description}
-\vspace{3cm}
-\item [Q1b] Write a first order discrete approximation of $\frac{dy}{dx}$ \textbf{[2 points]}
-\vspace{3.5cm}
-
-\item [Q1c] Write a second order discrete approximation of $\frac{dy}{dx}$ \textbf{[2 points]}
-\vspace{3.5cm}
-
-\end{description}
-
-\textbf{Question 1: ODE and finite-difference approximations}
-
-\begin{description}
-\item [Q1a] Write a discrete approximation of $\frac{d^2y}{dx^2}$ \textbf{[2 points]}
-\vspace{3cm}
-\item [Q1b] Write a first order discrete approximation of $\frac{dy}{dx}$ \textbf{[2 points]}
-\vspace{3.5cm}
-
-\item [Q1c] Write a second order discrete approximation of $\frac{dy}{dx}$ \textbf{[2 points]}
-\vspace{3.5cm}
-
-\end{description}
-
-Let us consider the following differential problem:
-
-\begin{equation}
-\left\lbrace
-\begin{array}{lll}
-\displaystyle{\frac{d^2y}{dx^2}} +6  \displaystyle{\frac{dy}{dx}} + 5y &=& 5x^2 + 2x \\
-y(0) &=& 2 \\
-y(3) & = & 5
-\end{array}
-\right. \label{eq:diffprob}
-\end{equation}
-
-\begin{description}
-\item [Q1d] Write the differential problem in a discrete approximation (using $x_i$ where $i$ refers the center of the gridblocks and $\Delta x$ is the distance between these centers) \textbf{[2 points]}
-\vspace{4.5cm}
-
-\end{description}
-
-A friend of yours used a computational method to solve the differential problem. Here are the results: 
-\begin{center}
-\begin{tabular}{|l|lllllll|}
-\hline
-$x$ & 0 & 0.5 &  1 & 1.5 & 2 & 2.5 & 3 \\ \hline
-$f(x)$ & 2  &  1.25  &  1  &  1.25 &   2 &    3.25 &    5  \\ 
-\hline
-\end{tabular}
-\end{center}
-
-\begin{description}
-
-\item [Q1e] Verify that the system of equations you wrote at Q1d is approximatively solved by the values given in the previous table. \textbf{[4 points]}
-\vspace{5cm}
 
 
-\item [Q1f] Prove that the function $y_1(x) = x^2-2x+2$ is a solution to the differential problem and that it satisfies the boundary conditions \textbf{[4 points]}
-\vspace{3cm}
-
-\item [Q1g] Give your friend feedback on her/his answer based on your previous answers.  \textbf{[2 points]}
-\vspace{3cm}
-
-
-\end{description}
-
-
-
-
-
-\begin{description}
-\item [Q1d] Using the answers of Q1a and Q1c, can you comment on the validity of his numerical answer? \textbf{[2 points]}
-\vspace{3cm}
-\item [Q1b] Compute a second-order approximation to the first derivative of the function $f(x)$ at $x = 2$.  \textbf{[2 points]}
-\vspace{3.5cm}
-
-\end{description}
-
-
-
-
-\textbf{Question 2: Diffusion Boundary Value Problem}
-
-Consider the two following matrixes and the linear system:
+\item[Q3] Consider the following linear system which is the result of a finite-volume discretization of a physical problem:
 %\begin{tabular}{ll}
 
 \begin{equation}
@@ -250,34 +280,28 @@ A = \left( \begin{array}{cccccc}
     0  \\
     0  \\
     0  
-\end{array} \right)  \quad Ac=B
+\end{array} \right)  \quad Ax=B
 \end{equation} 
 
-\begin{description}
-\item [Q2a] Write the system of equations described by these matrixes \textbf{[2 points]}
-\vspace{5cm}
 
-\item [Q2b] How many dimensions (1D, 2D, 3D) are modelled by these matrixes? \textbf{[2 points]}
+\item [Q3a]  \textbf{[3 points]} Write the equations given by the first, second and last rows of the linear system in terms of the variables $x_1$, $x_2$, $\ldots$. 
+
+\vspace{2cm}
+\item [Q3b]  \textbf{[2 points]} What is the dimension of the physical system represented by this system of equations: 1, 2 or 3 dimensional? To receive credit, you must explain your answer.  
 \vspace{2cm}
 
-\item [Q2c] Which physical process is described by these matrixes? \textbf{[2 points]}
+\item [Q3c] \textbf{[2 points]} Which physical processes couldb be described by the linear system?  To receive credit, you must explain your answer.
 \vspace{2cm}
 
-\item [Q2d] Are there any source terms? If yes, specify where (and if it is a source (positive) or a sink (negative) source term). If no, justify why. \textbf{[3 points]}
-\vspace{3cm}
-\item [Q2e] Is this describing a steady-state or a transient equation? \textbf{[2 points]}
+\item [Q3d]  \textbf{[2 points]} Are there any source terms? If yes, specify where (and if it is a source (positive) or a sink (negative) source term).
 \vspace{2cm}
 
-\item [Q2f] Describe the boundary conditions (mathematically and physically). \textbf{[4 points]}
-\vspace{3.5cm}
+\item [Q3e]  \textbf{[2 points]}  Describe the physical boundary conditions that are represented in this system. Refer to specific gridblock numbers.
+\vspace{2.0cm}
 
-\item [Q2g] Write the PDE equation associated to this problem \textbf{[2 points]}
-\vspace{2cm}
 
-\item [Q2h] Describe the link between the PDE and the discretized system of equations? Specifically, link the PDE terms to the equations you have given in Q2a. \textbf{[2 points]}
-\vspace{3cm}
 
-\item [Q2i] Identify which of these 4 graphs is the asymptotic (final) solution to the presented problem. Give justifications as why the other ones are not compatible with the given system. If you don't know which one, try to describe the different results (what boundary conditions, ...). We assume that the medium is homogeneous: diffusion coefficient is the same everywhere. \textbf{[2 points]}
+%\item [Q2i] Identify which of these 4 graphs is the asymptotic (final) solution to the presented problem. Give justifications as why the other ones are not compatible with the given system. If you don't know which one, try to describe the different results (what boundary conditions, ...). We assume that the medium is homogeneous: diffusion coefficient is the same everywhere. \textbf{[2 points]}
 \end{description}
 
 %\begin{tikzpicture}
