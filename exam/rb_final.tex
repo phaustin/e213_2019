@@ -146,15 +146,19 @@ ${dV\over dt}=$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{description}
-\item [Q2] Finite - volume methods can be generalized from orthogonal N-S-E-W meshes to unstructured meshes. Below is a subsection from an \textbf{unstructured} finite-volume mesh. The gridblocks are labeled with their gridblock number.\par
-\textbf{[5 points]} Write the finite-volume discrete approximation of the conservation equation for \textbf{steady-state} diffusion for gridblock 33 in terms of the concentration in gridblock 33, $c_{33}$, and the concentrations in the gridblocks adjacent to gridblock 33, $c_i$ (use the numbers given in the figure). Hints:
+\item [Q2] Finite - volume methods can be generalized from orthogonal N-S-E-W meshes to unstructured meshes. Below is a subsection from an \textbf{unstructured} finite-volume mesh. The gridblocks are labeled with their gridblock number. Because this is an unstructured mesh, the gridblock numbers do not follow a regular pattern as on a rectangular mesh. \par
 
+\item[] \textbf{Notes:}
 \begin{enumerate}
 \item The mesh is a constant thickness $\Delta z$ (into the page).
-\item In your equations, represent the length of the interface between two gridblocks as $S_{i,j}$ where $i$, $j$ are two adjacent gridblocks that share an interface. For example, $S_{32,18}=S_{18,32}$ is the length of the interface between gridblocks 32 and 18, as indicated on the figure.
-\item In your equations,  represent the distance separating nodes in adjacent gridblocks as the distance $dl_{i,j}$. For example, the nodes in gridblocks are separated by a distance $dl_{34,26}=dl_{26,34}$ as inidicated on the figure.
-\item The component of diffusive flux in the $l$ direction is given by $j=-D{dc\over dl}$, where $dl~[L]$ is the distance in the $l$ direction and $D~[L/T]$ is the diffusion coefficient. This is the non-porous-media form of Fick's law.
+\item The length of the interface between two gridblocks is given by $S_{i,j}$ where $i$, $j$ are two adjacent gridblocks that share an interface. For example, $S_{32,18}=S_{18,32}$ is the length of the interface between gridblocks 32 and 18, as indicated on the figure.
+\item The distance separating nodes in adjacent gridblocks is given by the distance $dl_{i,j}$. For example as inidicated on the figure, the nodes in gridblocks 34 and 19 are separated by a distance $dl_{34,19}=dl_{19,34}$ .
+
 \end{enumerate}
+\item [Q2a] \textbf{[3 points]} Write a discrete appoximation for the mass flux rate by diffusion (non-porous media) between gridblocks 18 and 33, $J_{18,33}~[M/T]$. The component of specific diffusive flux in a direction $l$ is given by $j=-D{dc\over dl}$, where $dl~[L]$ is the distance in the $l$ direction and $D~[L/T]$ is the diffusion coefficient. This is the non-porous-media form of Fick's law.
+\vspace{2.0cm}
+\item [Q2b] \textbf{[3 points]} Write the finite-volume discrete approximation of the conservation equation for \textbf{steady-state} diffusion for gridblock 33 in terms of the concentration in gridblock 33, $c_{33}$, and the concentrations in the gridblocks adjacent to gridblock 33, $c_i$ (use the numbers given in the figure). 
+
 \end{description}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%      FIGURE OF MESH           %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -284,7 +288,7 @@ A = \left( \begin{array}{cccccc}
 \end{equation} 
 
 
-\item [Q3a]  \textbf{[3 points]} Write the equations in terms of the variables $x_0$, $x_1$, $\ldots$ (pythonic convention, beginning with zero) given by the first, second and last rows of the linear system. 
+\item [Q3a]  \textbf{[3 points]} Write the equations given by the first, second and last rows of the linear system. Write the equations in terms of the variables $x_0$, $x_1$, $\ldots$ (eg. the pythonic convention, with zero as the first index).
 
 \vspace{2cm}
 \item [Q3b]  \textbf{[2 points]} What is the dimension of the physical system represented by this system of equations: 1, 2 or 3 dimensional? To receive credit, you must explain your answer.  
