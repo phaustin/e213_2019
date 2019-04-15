@@ -3,18 +3,18 @@ repos:
     rev: v1.3.4
     hooks:
     - id: reorder-python-imports
-      language_version: python3.6
+      language_version: python3.7
       types: [python]
 -   repo: https://github.com/ambv/black
     rev: 18.9b0
     hooks:
     - id: black
-      language_version: python3.6
+      language_version: python3.7
       types: [python]
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v2.1.0
     hooks:
     - id: flake8
-      language_version: python3.6
+      language_version: python3.7
       types: [python]
 
