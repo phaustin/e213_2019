@@ -1,11 +1,56 @@
 # -*- coding: utf-8 -*-
 # %% [markdown] {"toc": true}
 # <h1>Table of Contents<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#Quiz-1-learning-goals" data-toc-modified-id="Quiz-1-learning-goals-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Quiz 1 learning goals</a></span><ul class="toc-item"><li><span><a href="#ODEs" data-toc-modified-id="ODEs-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>ODEs</a></span></li><li><span><a href="#Simulation-/-python" data-toc-modified-id="Simulation-/-python-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Simulation / python</a></span></li></ul></li><li><span><a href="#Quiz-2-learning-goals" data-toc-modified-id="Quiz-2-learning-goals-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Quiz 2 learning goals</a></span><ul class="toc-item"><li><span><a href="#Finite-Volume-method" data-toc-modified-id="Finite-Volume-method-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Finite Volume method</a></span></li><li><span><a href="#Simulation-/-python" data-toc-modified-id="Simulation-/-python-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Simulation / python</a></span></li></ul></li><li><span><a href="#Quiz-3-learning-goals" data-toc-modified-id="Quiz-3-learning-goals-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Quiz 3 learning goals</a></span><ul class="toc-item"><li><span><a href="#Differential-equations" data-toc-modified-id="Differential-equations-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Differential equations</a></span><ul class="toc-item"><li><span><a href="#Math-Details" data-toc-modified-id="Math-Details-3.1.1"><span class="toc-item-num">3.1.1&nbsp;&nbsp;</span>Math Details</a></span></li></ul></li><li><span><a href="#Simulation-/-python" data-toc-modified-id="Simulation-/-python-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Simulation / python</a></span></li></ul></li><li><span><a href="#Quiz-4-learning-goals" data-toc-modified-id="Quiz-4-learning-goals-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Quiz 4 learning goals</a></span><ul class="toc-item"><li><span><a href="#Computational-methods" data-toc-modified-id="Computational-methods-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Computational methods</a></span></li><li><span><a href="#Mathematics" data-toc-modified-id="Mathematics-4.2"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>Mathematics</a></span></li><li><span><a href="#Be-able-to-set-up-boundary-value-problem:" data-toc-modified-id="Be-able-to-set-up-boundary-value-problem:-4.3"><span class="toc-item-num">4.3&nbsp;&nbsp;</span>Be able to set up boundary value problem:</a></span></li><li><span><a href="#Simulation-/-python" data-toc-modified-id="Simulation-/-python-4.4"><span class="toc-item-num">4.4&nbsp;&nbsp;</span>Simulation / python</a></span></li></ul></li></ul></div>
-
+# <div class="toc"><ul class="toc-item"><li><span><a href="#Final-quiz-learning-goals----Thursday-April-17,-Buch-A104,-3:30pm-to-5pm" data-toc-modified-id="Final-quiz-learning-goals----Thursday-April-17,-Buch-A104,-3:30pm-to-5pm-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Final quiz learning goals -- Thursday April 17, Buch A104, 3:30pm to 5pm</a></span><ul class="toc-item"><li><span><a href="#Math/numerics" data-toc-modified-id="Math/numerics-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Math/numerics</a></span></li><li><span><a href="#Python/coding" data-toc-modified-id="Python/coding-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Python/coding</a></span></li></ul></li><li><span><a href="#Quiz-1-learning-goals" data-toc-modified-id="Quiz-1-learning-goals-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Quiz 1 learning goals</a></span><ul class="toc-item"><li><span><a href="#ODEs" data-toc-modified-id="ODEs-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>ODEs</a></span></li><li><span><a href="#Simulation-/-python" data-toc-modified-id="Simulation-/-python-2.2"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>Simulation / python</a></span></li></ul></li><li><span><a href="#Quiz-2-learning-goals" data-toc-modified-id="Quiz-2-learning-goals-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Quiz 2 learning goals</a></span><ul class="toc-item"><li><span><a href="#Finite-Volume-method" data-toc-modified-id="Finite-Volume-method-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Finite Volume method</a></span></li><li><span><a href="#Simulation-/-python" data-toc-modified-id="Simulation-/-python-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Simulation / python</a></span></li></ul></li><li><span><a href="#Quiz-3-learning-goals" data-toc-modified-id="Quiz-3-learning-goals-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Quiz 3 learning goals</a></span><ul class="toc-item"><li><span><a href="#Differential-equations" data-toc-modified-id="Differential-equations-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Differential equations</a></span><ul class="toc-item"><li><span><a href="#Math-Details" data-toc-modified-id="Math-Details-4.1.1"><span class="toc-item-num">4.1.1&nbsp;&nbsp;</span>Math Details</a></span></li></ul></li><li><span><a href="#Simulation-/-python" data-toc-modified-id="Simulation-/-python-4.2"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>Simulation / python</a></span></li></ul></li><li><span><a href="#Quiz-4-learning-goals" data-toc-modified-id="Quiz-4-learning-goals-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Quiz 4 learning goals</a></span><ul class="toc-item"><li><span><a href="#Computational-methods" data-toc-modified-id="Computational-methods-5.1"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>Computational methods</a></span></li><li><span><a href="#Mathematics" data-toc-modified-id="Mathematics-5.2"><span class="toc-item-num">5.2&nbsp;&nbsp;</span>Mathematics</a></span></li><li><span><a href="#Be-able-to-set-up-boundary-value-problem:" data-toc-modified-id="Be-able-to-set-up-boundary-value-problem:-5.3"><span class="toc-item-num">5.3&nbsp;&nbsp;</span>Be able to set up boundary value problem:</a></span></li><li><span><a href="#Simulation-/-python" data-toc-modified-id="Simulation-/-python-5.4"><span class="toc-item-num">5.4&nbsp;&nbsp;</span>Simulation / python</a></span></li></ul></li></ul></div>
 # %% [markdown]
 # # Summary of course learning goals
-
+# %% [markdown]
+# ## Final quiz learning goals -- Thursday April 17, Buch A104, 3:30pm to 5pm
+#
+# **Exam is written to take 60 minutes, you'll have 90 minutes so hopefully not rushed**
+#
+# **Note that the final quiz is comprehensive, and all learning goals from prior quizzes are fair game.
+#   Having said that,
+#   here are the set that we think are particularly high priority, study these first**
+#
+# ### Math/numerics
+#
+# * Can write a mathematical model (i.e. the appropriate equations) that describes how a conserved quantity such as mass, volume (if the material in incompressible), energy, in a single, discrete control volume, (for example the TMF problem) changes through time.
+#
+# * Can represent fluxes, sources and sinks in the conservation equation with the correct dimensions (eg, stuff per mass per time, stuff per volume per time, stuff per time, etc).
+#
+# * Can represent a model for a discrete control volume (eg TMF) as either a difference equation or a differential equation.
+#
+# * Can approximate fluxes between finite volumes using finite-difference methods;
+#
+# * Can recognize how to create a linear system of equations from a finite-volume discretization of a conservation problem;
+#
+# * Can incorporate Dirichlet (first-type or specified dependent variable) and second type or flux boundary conditions into a finite-volume system of equations; can write the linear system of equations for a forward or backward Euler approximation of a transient finite-volume problem
+#
+# ### Python/coding
+#
+#
+# * Can define a simple class that contains class variables,
+#   instance variables and instance methods and use it to pass parameters
+#   into and out of a function.
+#
+# * Can write basic functions with default values
+#
+# * Can use the pandas apply method to execute a function on every
+#   row of a dataframe
+#
+# * Can add a column to a data frame and use groupby with
+#   that column to group dataframe rows into subset dataframes
+#
+# * Can do simple statistics (mean, median, max, min,
+#   summary) on pandas dataframes and pandas series objects
+#
+# * Can construct dataframes from lists of tuples, lists of
+#   dictionaries, or numpy arrays using from_records member
+#   function
+#
+#
+#
 # %% [markdown]
 # ## Quiz 1 learning goals
 #
@@ -54,11 +99,10 @@
 #    analytical solution to the problem.
 #
 # We expect to return your graded notebooks by Monday or Tuesday of next
-# week. 
+# week.
 #
 # More resources are available on the course webpage at
 # <https://phaustin.github.io/eosc213/index.html>
-
 # %% [markdown]
 # ## Quiz 2 learning goals
 #
@@ -118,13 +162,13 @@
 #
 # 1. Be able to take a discrete approximation to limit of infinitesimal
 # volume size and time step to arrive at the partial differential
-# equation.  
+# equation.
 #
-# 2. Partial differential equation:  
+# 2. Partial differential equation:
 #
 #    - distinguish between terms that represent fluxes, sources and
-#      storage of quantities within the volume (infinitesimal point).  
-#    - recognize the order of the equation.  
+#      storage of quantities within the volume (infinitesimal point).
+#    - recognize the order of the equation.
 #    - recognize conservative forms
 #    - be able to write the steady-state version of a PDE
 #    - be able to understand the significance of the mathematical concept
@@ -134,15 +178,15 @@
 #    - be able to analyze units
 #    - be able to predict the asymptotic solutions of simple boundary
 #      value problems
-#    - give a physical interpretation of a PDE  
+#    - give a physical interpretation of a PDE
 #    - be able to simplify a partial differential equation when
 #      coefficients are constant.
 #
-#     
-# 3. Be able to set up boundary value problem:  
 #
-#    - define domain of the problem.  
-#    - define the equations that govern the dependent variable.  
+# 3. Be able to set up boundary value problem:
+#
+#    - define domain of the problem.
+#    - define the equations that govern the dependent variable.
 #    - define the parameters of the equation, and if they are spatially
 #      homogeneous (do not vary in space) or heterogeneous.
 #
@@ -170,7 +214,7 @@
 #
 # - if given certain boundary conditions in certain problem, be able to
 #   conceptually draw the steady-state solution.
-#  
+#
 # For concrete examples to practise and understand the different
 # influences of boundary conditions, solution profiles, the 1d transient
 # assignment or the different notebooks we have covered should really help
@@ -190,7 +234,7 @@
 #
 # ### Simulation / python
 #
-#  
+#
 # 1. Be able to read a code fragment in python (to the level covered in
 #    the notebooks given in class up to March 12, 2019), and recognize syntax
 #    errors, or predict the result of simple short functions.
@@ -212,7 +256,7 @@
 #   value "30" which was asked in class. And to add a function(method) in
 #   the class.
 #
-#  
+#
 #
 # %% [markdown]
 # ## Quiz 4 learning goals
@@ -276,4 +320,3 @@
 #      - Be able to construct dataframes from lists of tuples, lists of
 #        dictionaries, or numpy arrays using from_records member
 #        function
-
