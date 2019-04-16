@@ -2,8 +2,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>One-dimensional steady-state finite-volume approximation - cont’d &#8212; E213</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,16 +13,16 @@
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}, "extensions": ["color.js"]}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
-    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
 
@@ -54,45 +53,78 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul>
-<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-1-jan-3">1.1. Week 1  Jan 3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-2-jan-8-jan-10">1.2. Week 2  Jan 8/Jan 10</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-3-jan-15-jan-17">1.3. Week 3  Jan 15/Jan 17</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">1.4. Week 4  Jan 22/Jan 24</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">1.5. Week 5  Jan 29/Jan 31</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">1.6. Week 6  Feb 05/Feb 07</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-7-feb-19-feb-21">1.7. Week 7  Feb 19/Feb 21</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-8-feb-26-feb-28">1.8. Week 8  Feb 26/Feb 28</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-9-mar-05-mar-07">1.9. Week 9  Mar 05/Mar 07</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-10-mar-12-mar-14">1.10. Week 10  Mar 12/Mar 14</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-11-mar19-mar-21">1.11. Week 11 Mar19/Mar 21</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-12-mar26-mar28">1.12. Week 12 Mar26/Mar28</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-13-apr02-apr04">1.13. Week 13 Apr02/Apr04</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.14. General notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_goals/learning_goals.html">1. Learning goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Final-quiz-learning-goals-–-Thursday-April-17,-Buch-A104,-3:30pm-to-5pm">1.1. Final quiz learning goals – Thursday April 17, Buch A104, 3:30pm to 5pm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Math/numerics">Math/numerics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Python/coding">Python/coding</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../solutions.html#week-2">2.1. Week 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-1-learning-goals">1.2. Quiz 1 learning goals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#ODEs">ODEs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../texts.html#math">3.1. Math</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../texts.html#python">3.2. Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-2-learning-goals">1.3. Quiz 2 learning goals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Finite-Volume-method">Finite Volume method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#python-introductory-texts">4.1. Python Introductory Texts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#moving-from-matlab-to-python">4.2. Moving from matlab to python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#cocalc">4.3. Cocalc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-3-learning-goals">1.4. Quiz 3 learning goals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Differential-equations">Differential equations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../learning_goals/learning_goals.html#Math-Details">Math Details</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-shell-commands">5.1. Useful shell commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-git-commands">5.2. Useful git commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-debugger-commands">5.3. Useful debugger commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-4-learning-goals">1.5. Quiz 4 learning goals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Computational-methods">Computational methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Mathematics">Mathematics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Be-able-to-set-up-boundary-value-problem:">Be able to set up boundary value problem:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">2. Weekly notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-1-jan-3">2.1. Week 1  Jan 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-2-jan-8-jan-10">2.2. Week 2  Jan 8/Jan 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-3-jan-15-jan-17">2.3. Week 3  Jan 15/Jan 17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">2.4. Week 4  Jan 22/Jan 24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">2.5. Week 5  Jan 29/Jan 31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">2.6. Week 6  Feb 05/Feb 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-7-feb-19-feb-21">2.7. Week 7  Feb 19/Feb 21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-8-feb-26-feb-28">2.8. Week 8  Feb 26/Feb 28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-9-mar-05-mar-07">2.9. Week 9  Mar 05/Mar 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-10-mar-12-mar-14">2.10. Week 10  Mar 12/Mar 14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-11-mar19-mar-21">2.11. Week 11 Mar19/Mar 21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-12-mar26-mar28">2.12. Week 12 Mar26/Mar28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-13-apr02-apr04">2.13. Week 13 Apr02/Apr04</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">2.14. General notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">3. Assignment solutions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../solutions.html#assignments">3.1. Assignments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">4. Texts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#math">4.1. Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#python">4.2. Python</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">5. Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#python-introductory-texts">5.1. Python Introductory Texts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#moving-from-matlab-to-python">5.2. Moving from matlab to python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#cocalc">5.3. Cocalc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">6. Cheat sheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-shell-commands">6.1. Useful shell commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-git-commands">6.2. Useful git commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-debugger-commands">6.3. Useful debugger commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">7. Notebook index</a></li>
 </ul>
 </ul>
 </li>
@@ -106,12 +138,13 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_goals/learning_goals.html">1. Learning goals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">2. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">3. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">4. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">5. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">6. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">7. Notebook index</a></li>
 </ul>
 </ul>
 </li>
@@ -151,17 +184,18 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_goals/learning_goals.html">1. Learning goals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">2. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">3. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">4. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">5. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">6. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">7. Notebook index</a></li>
 </ul>
 
         </div>
       </div>
-    <div class="col-md-9 content">
+    <div class="body col-md-9 content" role="main">
       
   
 <style>
@@ -364,62 +398,61 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <h1><p>Table of Contents</p>
-</h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;One-dimensional steady-state finite-volume approximation - cont’d</p>
-<ul class="toc-item"><li><p>1.1&nbsp;&nbsp;Summary to this point</p>
-</li><li><p>1.2&nbsp;&nbsp;1. Write the total fluxes in terms of specific fluxes:</p>
-</li><li><p>1.3&nbsp;&nbsp;2. Write specific fluxes in terms of Fick’s law.</p>
-</li><li><p>1.4&nbsp;&nbsp;3. Discrete approximation for Fick’s law</p>
-</li><li><p>1.5&nbsp;&nbsp;Your turn</p>
-<ul class="toc-item"><li><p>1.5.1&nbsp;&nbsp;Your answer here:</p>
-</li></ul></li><li><p>1.6&nbsp;&nbsp;Python</p>
-<ul class="toc-item"><li><p>1.6.1&nbsp;&nbsp;Your turn</p>
-</li><li><p>1.6.2&nbsp;&nbsp;Your turn</p>
-</li></ul></li></ul></li><li><p>2&nbsp;&nbsp;1-D steady-state diffusion stencil</p>
-<ul class="toc-item"><li><ul class="toc-item"><li><p>2.0.1&nbsp;&nbsp;Your turn</p>
-</li></ul></li><li><p>2.1&nbsp;&nbsp;Reflection</p>
-</li></ul></li></ul></div><div class="section" id="One-dimensional-steady-state-finite-volume-approximation---cont'd">
-<h1>One-dimensional steady-state finite-volume approximation - cont’d<a class="headerlink" href="#One-dimensional-steady-state-finite-volume-approximation---cont'd" title="Permalink to this headline">¶</a></h1>
+</h1><div class="toc"><ul class="toc-item"><li><p>1  One-dimensional steady-state finite-volume approximation - cont’d</p>
+<ul class="toc-item"><li><p>1.1  Summary to this point</p>
+</li><li><p>1.2  1. Write the total fluxes in terms of specific fluxes:</p>
+</li><li><p>1.3  2. Write specific fluxes in terms of Fick’s law.</p>
+</li><li><p>1.4  3. Discrete approximation for Fick’s law</p>
+</li><li><p>1.5  Your turn</p>
+<ul class="toc-item"><li><p>1.5.1  Your answer here:</p>
+</li></ul></li><li><p>1.6  Python</p>
+<ul class="toc-item"><li><p>1.6.1  Your turn</p>
+</li><li><p>1.6.2  Your turn</p>
+</li></ul></li></ul></li><li><p>2  1-D steady-state diffusion stencil</p>
+<ul class="toc-item"><li><ul class="toc-item"><li><p>2.0.1  Your turn</p>
+</li></ul></li><li><p>2.1  Reflection</p>
+</li></ul></li></ul></div><div class="section" id="One-dimensional-steady-state-finite-volume-approximation---cont’d">
+<h1>One-dimensional steady-state finite-volume approximation - cont’d<a class="headerlink" href="#One-dimensional-steady-state-finite-volume-approximation---cont’d" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="Summary-to-this-point">
 <h2>Summary to this point<a class="headerlink" href="#Summary-to-this-point" title="Permalink to this headline">¶</a></h2>
-<p>We want to express the fundamental 1-D steady-state stencil for an interior gridblock C, with neighbours E, W:</p>
-<div class="math notranslate nohighlight">
-\begin{align}
-\left(J_{EC}+J_{WC}\right) &amp;= 0 \label{eq5141}\\
-\end{align}</div><p>in terms of concentrations. We laid out a three-step program:</p>
+<p>We want to express the fundamental 1-D steady-state stencil for an interior gridblock C, with neighbours E, W: <span class="math">\begin{align}
+\left(J_{EC}+J_{WC}\right) &= 0 \label{eq5141}\\
+\end{align}</span></p>
+<p>in terms of concentrations. We laid out a three-step program:</p>
 </div>
 <div class="section" id="1.-Write-the-total-fluxes-in-terms-of-specific-fluxes:">
 <h2>1. Write the total fluxes in terms of specific fluxes:<a class="headerlink" href="#1.-Write-the-total-fluxes-in-terms-of-specific-fluxes:" title="Permalink to this headline">¶</a></h2>
 <p>For a mesh with gridblocks of constant size <span class="math notranslate nohighlight">\(\Delta x\)</span>, <span class="math notranslate nohighlight">\(\Delta y\)</span>, <span class="math notranslate nohighlight">\(\Delta z\)</span> and fluxes along the x-coordinate direction, we can write:</p>
-<div class="math notranslate nohighlight">
-\begin{align}
-&amp;J_{EC}=j_{EC}(\Delta y) (\Delta z)\label{eq5143}\\
-&amp;J_{WC}=j_{WC}(\Delta y) (\Delta z)\label{eq5142}\\
-\end{align}</div><p>because the area of the face orthogonal to the <span class="math notranslate nohighlight">\(x\)</span> direction is <span class="math notranslate nohighlight">\((\Delta y)(\Delta z)\)</span>.</p>
+<p><span class="math">\begin{align}
+&J_{EC}=j_{EC}(\Delta y) (\Delta z)\label{eq5143}\\
+&J_{WC}=j_{WC}(\Delta y) (\Delta z)\label{eq5142}\\
+\end{align}</span></p>
+<p>because the area of the face orthogonal to the <span class="math notranslate nohighlight">\(x\)</span> direction is <span class="math notranslate nohighlight">\((\Delta y)(\Delta z)\)</span>.</p>
 <p>So in terms of specific fluxes the fundamental 1-D steady-state stencil becomes:</p>
-<div class="math notranslate nohighlight">
-\begin{align}
-&amp;\left(j_{EC}+j_{WC}\right) (\Delta y) (\Delta z) = 0 \label{eq5144}\\
-\end{align}</div></div>
-<div class="section" id="2.-Write-specific-fluxes-in-terms-of-Fick's-law.">
-<h2>2. Write specific fluxes in terms of Fick’s law.<a class="headerlink" href="#2.-Write-specific-fluxes-in-terms-of-Fick's-law." title="Permalink to this headline">¶</a></h2>
+<p><span class="math">\begin{align}
+&\left(j_{EC}+j_{WC}\right) (\Delta y) (\Delta z) = 0 \label{eq5144}\\
+\end{align}</span></p>
+</div>
+<div class="section" id="2.-Write-specific-fluxes-in-terms-of-Fick’s-law.">
+<h2>2. Write specific fluxes in terms of Fick’s law.<a class="headerlink" href="#2.-Write-specific-fluxes-in-terms-of-Fick’s-law." title="Permalink to this headline">¶</a></h2>
 <p>Since both <span class="math notranslate nohighlight">\(j_{EC}\)</span> and <span class="math notranslate nohighlight">\(j_{WC}\)</span> are aligned with the <span class="math notranslate nohighlight">\(x\)</span> coordinate direction, the appropriate component of the flux vector is <span class="math notranslate nohighlight">\(j_x\)</span>:</p>
-<div class="math notranslate nohighlight">
-\begin{align}
-j_x &amp;= - D\theta{\partial c \over \partial x} \label{eq5145}\\
-\end{align}</div></div>
-<div class="section" id="3.-Discrete-approximation-for-Fick's-law">
-<h2>3. Discrete approximation for Fick’s law<a class="headerlink" href="#3.-Discrete-approximation-for-Fick's-law" title="Permalink to this headline">¶</a></h2>
+<p><span class="math">\begin{align}
+j_x &= - D\theta{\partial c \over \partial x} \label{eq5145}\\
+\end{align}</span></p>
+</div>
+<div class="section" id="3.-Discrete-approximation-for-Fick’s-law">
+<h2>3. Discrete approximation for Fick’s law<a class="headerlink" href="#3.-Discrete-approximation-for-Fick’s-law" title="Permalink to this headline">¶</a></h2>
 <p>Consider the stencil below</p>
 <p>To approximate specific fluxes such as <span class="math notranslate nohighlight">\(j_x = - D\theta {\partial c \over \partial x}\)</span> in terms of concentrations at nodal values in the centre of gridblocks, we use <strong>finite-difference approximations</strong>, which are motivated by the definition of the derivative:</p>
-<div class="math notranslate nohighlight">
-\begin{align}
-{\partial c \over \partial x} &amp;= \lim_{\Delta x \rightarrow 0} {c(x+\Delta x) - c(x)\over \Delta x} \label{eq5146}\\
-\end{align}</div><p>where <span class="math notranslate nohighlight">\(c(x+\Delta x)\)</span> is notation for “the concentration at the point <span class="math notranslate nohighlight">\(x+\Delta x, y, z\)</span>.”</p>
+<p><span class="math">\begin{align}
+{\partial c \over \partial x} &= \lim_{\Delta x \rightarrow 0} {c(x+\Delta x) - c(x)\over \Delta x} \label{eq5146}\\
+\end{align}</span></p>
+<p>where <span class="math notranslate nohighlight">\(c(x+\Delta x)\)</span> is notation for “the concentration at the point <span class="math notranslate nohighlight">\(x+\Delta x, y, z\)</span>.”</p>
 <p>We can use this idea to approximate the component of the gradient in <strong>Fick’s law</strong> <span class="math">\ref{eq5145}</span> and compute the fluxes <span class="math notranslate nohighlight">\(j_{EC}\)</span> and <span class="math notranslate nohighlight">\(j_{WC}\)</span> in terms of values of concentration located at the centers of gridblocks <strong>E, C, W</strong> as (here for the case where <span class="math notranslate nohighlight">\(\Delta x\)</span> are the same for each gridblock, so that the nodes are separated by a distance <span class="math notranslate nohighlight">\(\Delta x\)</span>):</p>
-<div class="math notranslate nohighlight">
-\begin{align}
-j_{EC} &amp;\approx D\theta {c_E - c_C \over \Delta x}  \label{eq5147}\\
-\end{align}</div><p>Recall that by our convention, <span class="math notranslate nohighlight">\(J_{EC}\)</span> and <span class="math notranslate nohighlight">\(j_{EC}\)</span> are positive (<span class="math notranslate nohighlight">\(&gt;0\)</span>) when mass is entering gridblock C.</p>
+<p><span class="math">\begin{align}
+j_{EC} &\approx D\theta {c_E - c_C \over \Delta x}  \label{eq5147}\\
+\end{align}</span></p>
+<p>Recall that by our convention, <span class="math notranslate nohighlight">\(J_{EC}\)</span> and <span class="math notranslate nohighlight">\(j_{EC}\)</span> are positive (<span class="math notranslate nohighlight">\(&gt;0\)</span>) when mass is entering gridblock C.</p>
 </div>
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
@@ -427,8 +460,8 @@ j_{EC} &amp;\approx D\theta {c_E - c_C \over \Delta x}  \label{eq5147}\\
 <div class="alert alert-info"><div class="section" id="Your-answer-here:">
 <h3>Your answer here:<a class="headerlink" href="#Your-answer-here:" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li>Is mass diffusing into or out of the gridblock C? How do you know?</li>
-<li>Is the sign of the flux <span class="math notranslate nohighlight">\(j_{EC}\)</span> computed using the finite difference approximation above, Eq (<span class="math">\ref{eq5147}</span>) consistent with our sign convention?</li>
+<li><p>Is mass diffusing into or out of the gridblock C? How do you know?</p></li>
+<li><p>Is the sign of the flux <span class="math notranslate nohighlight">\(j_{EC}\)</span> computed using the finite difference approximation above, Eq (<span class="math">\ref{eq5147}</span>) consistent with our sign convention?</p></li>
 </ol>
 </div></div>
 </div>
@@ -468,12 +501,12 @@ j_{EC} &amp;\approx D\theta {c_E - c_C \over \Delta x}  \label{eq5147}\\
 </div><div class="alert alert-info"></div>
 <div class="section" id="Your-turn">
 <h3>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h3>
-<div class="math notranslate nohighlight">
-\begin{align}
-j_{WC} &amp;\approx {????} \label{eq5148}\\
-\end{align}</div><ol class="arabic simple">
-<li>Is the sign of the flux <span class="math notranslate nohighlight">\(j_{WC}\)</span> computed using your expression positive for flux entering gridblock C?</li>
-<li>Assume values for <span class="math notranslate nohighlight">\(c_w\)</span> and <span class="math notranslate nohighlight">\(c_C\)</span>, and show that the sign works out.</li>
+<p><span class="math">\begin{align}
+j_{WC} &\approx {????} \label{eq5148}\\
+\end{align}</span></p>
+<ol class="arabic simple">
+<li><p>Is the sign of the flux <span class="math notranslate nohighlight">\(j_{WC}\)</span> computed using your expression positive for flux entering gridblock C?</p></li>
+<li><p>Assume values for <span class="math notranslate nohighlight">\(c_w\)</span> and <span class="math notranslate nohighlight">\(c_C\)</span>, and show that the sign works out.</p></li>
 </ol>
 </div></div>
 </div>
@@ -481,16 +514,16 @@ j_{WC} &amp;\approx {????} \label{eq5148}\\
 <div class="section" id="1-D-steady-state-diffusion-stencil">
 <h1>1-D steady-state diffusion stencil<a class="headerlink" href="#1-D-steady-state-diffusion-stencil" title="Permalink to this headline">¶</a></h1>
 <p>Bringing it all together, the 1-D steady-state diffusion stencil in terms of specific fluxes</p>
-<div class="math notranslate nohighlight">
-\begin{align*}
-&amp;\left(j_{EC}+j_{WC}\right) (\Delta y) (\Delta z) = 0 \\
-\end{align*}</div><p>becomes in terms of concentrations:</p>
+<p><span class="math">\begin{align*}
+&\left(j_{EC}+j_{WC}\right) (\Delta y) (\Delta z) = 0 \\
+\end{align*}</span></p>
+<p>becomes in terms of concentrations:</p>
 <div class="admonition note">
 <p class="admonition-title">-replace <span class="math notranslate nohighlight">\(j_{WC}\)</span> with the correct expression in terms of concentration.</p>
-<div class="math notranslate nohighlight">
-\begin{align}
-&amp;\left(D\theta {c_E - c_C \over \Delta x} +   j_{WC}   \right) (\Delta y) (\Delta z) = 0 \label{eq5149}\\
-\end{align}</div></div>
+<p><span class="math">\begin{align}
+&\left(D\theta {c_E - c_C \over \Delta x} +   j_{WC}   \right) (\Delta y) (\Delta z) = 0 \label{eq5149}\\
+\end{align}</span></p>
+</div>
 <div class="section" id="Reflection">
 <h2>Reflection<a class="headerlink" href="#Reflection" title="Permalink to this headline">¶</a></h2>
 <p>What have you learned? What have you struggled with? Reflect on anything else you have learned or struggled with and write it here.</p>
@@ -510,7 +543,7 @@ j_{WC} &amp;\approx {????} \label{eq5148}\\
     </p>
     <p>
         &copy; Copyright 2019, Philip Austin.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.<br/>
     </p>
   </div>
 </footer>

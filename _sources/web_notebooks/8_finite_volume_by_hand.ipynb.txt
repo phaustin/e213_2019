@@ -108,11 +108,11 @@
     "#### 2D stencil\n",
     "\n",
     "Change the following 1-D stencil to 2-D by adding the \"N\" and \"S\" terms.\n",
-    "<br><br>\n",
+    "\n",
     "\\begin{align}\n",
     "&\\left(D\\theta {c_E - c_C \\over \\Delta x} +   D\\theta {c_W - c_C \\over \\Delta x}   \\right) (\\Delta y) (\\Delta z) =0 \\label{8fvbh2}\\\\\n",
     "\\end{align}\n",
-    "<br><br>\n",
+    "\n",
     "You may also want to simplify your stencil for the case of constant diffusion coefficient and constant gridblock dimensions."
    ]
   },
@@ -178,30 +178,32 @@
     "<img src=\"figures/1d-numbered-grid.png\" alt=\"pic05\" width=\"50%\" >\n",
     "<br><br>\n",
     "We eventually want to put the system of equations into a matrix that looks like this (for a 5-gridblock 1-D problem with two boundary concentrations $bc_1$ and $bc_5$)\n",
-    "\\begin{align*} \\mathbf{Ac} &= \\mathbf{b}\\\\ {\n",
-    "\\begin{bmatrix} \n",
+    "\n",
+    "\\begin{align*}\n",
+    "\\mathbf{Ac}&=\\mathbf{b}\\\\\n",
+    "{\\begin{bmatrix} \n",
     "1 & 0 & 0 & 0 & 0 \\\\ \n",
     "1 & -2 & 1 & 0 & 0\\\\ \n",
     "0 & 1 & -2 & 1 & 0\\\\ \n",
     "0 & 0 & 1 & -2 & 1\\\\ \n",
     "0 & 0 & 0 & 0 & 1\\\\ \n",
-    "\\end{bmatrix}} \n",
+    "\\end{bmatrix}}\n",
     "\\begin{bmatrix} \n",
     "c_1\\\\ \n",
     "c_2\\\\ \n",
     "c_3\\\\ \n",
     "c_4\\\\ \n",
     "c_5\\\\ \n",
-    "\\end{bmatrix} \n",
-    "&= \\begin{bmatrix} \n",
+    "\\end{bmatrix}\n",
+    "&=\\begin{bmatrix} \n",
     "bc_1\\\\ \n",
     "0\\\\ \n",
     "0\\\\ \n",
     "0\\\\ \n",
     "bc_5\\\\ \n",
-    "\\end{bmatrix} \n",
+    "\\end{bmatrix}\n",
     "\\end{align*}\n",
-    "<br><br>\n",
+    "\n",
     "We will have a similar matrix structure for a 2, 3 or n-dimensional problem. For a multidimensional problem, the key is to number the gridblocks in an organized way. \n",
     "<br><br>\n",
     "#### Row-major numbering\n",
@@ -216,7 +218,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 1,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -245,9 +247,17 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 2,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "The gridblock 6 is in python row 1 and python column 2\n"
+     ]
+    }
+   ],
    "source": [
     "ind = 6\n",
     "nrows = 3\n",
@@ -264,13 +274,14 @@
     "\n",
     "Now, write your equations using your stencil, the gridblock dimensions, diffusion coefficient and boundary conditions.\n",
     "I'll write a few (but not all) of the simple equations at the Dirichlet (specified concentration) boundaries:\n",
+    "\n",
     "\\begin{align*}\n",
     "&c_0 = 64\\\\\n",
     "&c_4 = 64\\\\\n",
     "&c_3= 125\\\\\n",
     "&c_7 = 125\\\\\n",
     "\\end{align*}\n",
-    "<br><br> \n",
+    "\n",
     "Use your stencil and write the other equations here in markdown.\n",
     "<br><br>\n",
     "**Zero-flux boundaries** \n",
@@ -432,7 +443,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 3,
    "metadata": {
     "deletable": false,
     "nbgrader": {
@@ -444,7 +455,19 @@
      "solution": true
     }
    },
-   "outputs": [],
+   "outputs": [
+    {
+     "ename": "NotImplementedError",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mNotImplementedError\u001b[0m                       Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-3-ef678f5605af>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0;31m# c6 = -9999\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0;31m# YOUR CODE HERE\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 5\u001b[0;31m \u001b[0;32mraise\u001b[0m \u001b[0mNotImplementedError\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mNotImplementedError\u001b[0m: "
+     ]
+    }
+   ],
    "source": [
     "# replace -9999 with the values of the concentration in gridblocks 5 and 6 below\n",
     "# c5 = -9999\n",
@@ -497,7 +520,7 @@
  "metadata": {
   "jupytext": {
    "cell_metadata_filter": "all",
-   "formats": "ipynb",
+   "formats": "ipynb,python//py:percent",
    "notebook_metadata_filter": "all"
   },
   "kernelspec": {

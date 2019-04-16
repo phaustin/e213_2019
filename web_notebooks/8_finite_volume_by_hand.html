@@ -2,8 +2,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Assignment Finite volumes by hand &#8212; E213</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,16 +13,16 @@
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}, "extensions": ["color.js"]}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
-    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
 
@@ -54,45 +53,78 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul>
-<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-1-jan-3">1.1. Week 1  Jan 3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-2-jan-8-jan-10">1.2. Week 2  Jan 8/Jan 10</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-3-jan-15-jan-17">1.3. Week 3  Jan 15/Jan 17</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">1.4. Week 4  Jan 22/Jan 24</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">1.5. Week 5  Jan 29/Jan 31</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">1.6. Week 6  Feb 05/Feb 07</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-7-feb-19-feb-21">1.7. Week 7  Feb 19/Feb 21</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-8-feb-26-feb-28">1.8. Week 8  Feb 26/Feb 28</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-9-mar-05-mar-07">1.9. Week 9  Mar 05/Mar 07</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-10-mar-12-mar-14">1.10. Week 10  Mar 12/Mar 14</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-11-mar19-mar-21">1.11. Week 11 Mar19/Mar 21</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-12-mar26-mar28">1.12. Week 12 Mar26/Mar28</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-13-apr02-apr04">1.13. Week 13 Apr02/Apr04</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.14. General notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_goals/learning_goals.html">1. Learning goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Final-quiz-learning-goals-–-Thursday-April-17,-Buch-A104,-3:30pm-to-5pm">1.1. Final quiz learning goals – Thursday April 17, Buch A104, 3:30pm to 5pm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Math/numerics">Math/numerics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Python/coding">Python/coding</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../solutions.html#week-2">2.1. Week 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-1-learning-goals">1.2. Quiz 1 learning goals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#ODEs">ODEs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../texts.html#math">3.1. Math</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../texts.html#python">3.2. Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-2-learning-goals">1.3. Quiz 2 learning goals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Finite-Volume-method">Finite Volume method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#python-introductory-texts">4.1. Python Introductory Texts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#moving-from-matlab-to-python">4.2. Moving from matlab to python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#cocalc">4.3. Cocalc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-3-learning-goals">1.4. Quiz 3 learning goals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Differential-equations">Differential equations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../learning_goals/learning_goals.html#Math-Details">Math Details</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-shell-commands">5.1. Useful shell commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-git-commands">5.2. Useful git commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-debugger-commands">5.3. Useful debugger commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-4-learning-goals">1.5. Quiz 4 learning goals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Computational-methods">Computational methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Mathematics">Mathematics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Be-able-to-set-up-boundary-value-problem:">Be able to set up boundary value problem:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">2. Weekly notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-1-jan-3">2.1. Week 1  Jan 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-2-jan-8-jan-10">2.2. Week 2  Jan 8/Jan 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-3-jan-15-jan-17">2.3. Week 3  Jan 15/Jan 17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">2.4. Week 4  Jan 22/Jan 24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">2.5. Week 5  Jan 29/Jan 31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">2.6. Week 6  Feb 05/Feb 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-7-feb-19-feb-21">2.7. Week 7  Feb 19/Feb 21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-8-feb-26-feb-28">2.8. Week 8  Feb 26/Feb 28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-9-mar-05-mar-07">2.9. Week 9  Mar 05/Mar 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-10-mar-12-mar-14">2.10. Week 10  Mar 12/Mar 14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-11-mar19-mar-21">2.11. Week 11 Mar19/Mar 21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-12-mar26-mar28">2.12. Week 12 Mar26/Mar28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-13-apr02-apr04">2.13. Week 13 Apr02/Apr04</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">2.14. General notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">3. Assignment solutions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../solutions.html#assignments">3.1. Assignments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">4. Texts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#math">4.1. Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#python">4.2. Python</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">5. Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#python-introductory-texts">5.1. Python Introductory Texts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#moving-from-matlab-to-python">5.2. Moving from matlab to python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#cocalc">5.3. Cocalc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">6. Cheat sheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-shell-commands">6.1. Useful shell commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-git-commands">6.2. Useful git commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-debugger-commands">6.3. Useful debugger commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">7. Notebook index</a></li>
 </ul>
 </ul>
 </li>
@@ -106,12 +138,13 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_goals/learning_goals.html">1. Learning goals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">2. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">3. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">4. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">5. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">6. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">7. Notebook index</a></li>
 </ul>
 </ul>
 </li>
@@ -151,17 +184,18 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_goals/learning_goals.html">1. Learning goals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">2. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">3. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">4. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">5. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">6. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">7. Notebook index</a></li>
 </ul>
 
         </div>
       </div>
-    <div class="col-md-9 content">
+    <div class="body col-md-9 content" role="main">
       
   
 <style>
@@ -364,28 +398,28 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <h1><p>Table of Contents</p>
-</h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;Learning goals</p>
-</li><li><p>2&nbsp;&nbsp;The problem</p>
-<ul class="toc-item"><li><p>2.1&nbsp;&nbsp;2-D discrete approximation stencil for steady-state diffusion.</p>
-<ul class="toc-item"><li><p>2.1.1&nbsp;&nbsp;2D stencil</p>
-</li></ul></li><li><p>2.2&nbsp;&nbsp;Q1 (2pts) Write your 2d Stencil</p>
-</li><li><p>2.3&nbsp;&nbsp;The equations for each gridblock in the mesh.</p>
-<ul class="toc-item"><li><p>2.3.1&nbsp;&nbsp;Row-major numbering</p>
-</li></ul></li><li><p>2.4&nbsp;&nbsp;Q2 Writing equations for each gridblock</p>
-<ul class="toc-item"><li><p>2.4.1&nbsp;&nbsp;Q2 (2pts) entry cell below</p>
-</li></ul></li><li><p>2.5&nbsp;&nbsp;Q3 Put your equations into the matrix</p>
-<ul class="toc-item"><li><p>2.5.1&nbsp;&nbsp;Q3 (4pts) entry cell below</p>
-</li></ul></li><li><p>2.6&nbsp;&nbsp;Q4 (4pts) Solve the system of equations</p>
-</li><li><p>2.7&nbsp;&nbsp;Check your answer</p>
-</li></ul></li><li><p>3&nbsp;&nbsp;Reflection</p>
+</h1><div class="toc"><ul class="toc-item"><li><p>1  Learning goals</p>
+</li><li><p>2  The problem</p>
+<ul class="toc-item"><li><p>2.1  2-D discrete approximation stencil for steady-state diffusion.</p>
+<ul class="toc-item"><li><p>2.1.1  2D stencil</p>
+</li></ul></li><li><p>2.2  Q1 (2pts) Write your 2d Stencil</p>
+</li><li><p>2.3  The equations for each gridblock in the mesh.</p>
+<ul class="toc-item"><li><p>2.3.1  Row-major numbering</p>
+</li></ul></li><li><p>2.4  Q2 Writing equations for each gridblock</p>
+<ul class="toc-item"><li><p>2.4.1  Q2 (2pts) entry cell below</p>
+</li></ul></li><li><p>2.5  Q3 Put your equations into the matrix</p>
+<ul class="toc-item"><li><p>2.5.1  Q3 (4pts) entry cell below</p>
+</li></ul></li><li><p>2.6  Q4 (4pts) Solve the system of equations</p>
+</li><li><p>2.7  Check your answer</p>
+</li></ul></li><li><p>3  Reflection</p>
 </li></ul></div><div class="section" id="Assignment-Finite-volumes-by-hand">
 <h1>Assignment Finite volumes by hand<a class="headerlink" href="#Assignment-Finite-volumes-by-hand" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="Learning-goals">
 <h2>Learning goals<a class="headerlink" href="#Learning-goals" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>Can apply the finite-volume stencil to a 2D steady-state problem, and generate the equations for each unknown in the mesh.</li>
-<li>Can place the equations into a system matrix.</li>
-<li>Can compute fluxes.</li>
+<li><p>Can apply the finite-volume stencil to a 2D steady-state problem, and generate the equations for each unknown in the mesh.</p></li>
+<li><p>Can place the equations into a system matrix.</p></li>
+<li><p>Can compute fluxes.</p></li>
 </ol>
 </div>
 <div class="section" id="The-problem">
@@ -395,16 +429,16 @@ shown in the figure and the porosity is <span class="math notranslate nohighligh
 <div class="section" id="2-D-discrete-approximation-stencil-for-steady-state-diffusion.">
 <h3>2-D discrete approximation stencil for steady-state diffusion.<a class="headerlink" href="#2-D-discrete-approximation-stencil-for-steady-state-diffusion." title="Permalink to this headline">¶</a></h3>
 <p>Recall the 1D stencil looks like this.</p>
-<div class="math notranslate nohighlight">
-\begin{align}
-&amp;\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) =0 \label{8fvbh1}\\
-\end{align}</div><div class="section" id="2D-stencil">
+<p><span class="math">\begin{align}
+&\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) =0 \label{8fvbh1}\\
+\end{align}</span></p>
+<div class="section" id="2D-stencil">
 <h4>2D stencil<a class="headerlink" href="#2D-stencil" title="Permalink to this headline">¶</a></h4>
 <p>Change the following 1-D stencil to 2-D by adding the “N” and “S” terms.</p>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
-  &amp;\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) =0 \label{8fvbh2}\\
-  \end{align}\end{split}\\You may also want to simplify your stencil for the case of constant diffusion coefficient and constant gridblock dimensions.\end{aligned}\end{align} \]</div>
+<p><span class="math">\begin{align}
+&\left(D\theta {c_E - c_C \over \Delta x} +   D\theta {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) =0 \label{8fvbh2}\\
+\end{align}</span></p>
+<p>You may also want to simplify your stencil for the case of constant diffusion coefficient and constant gridblock dimensions.</p>
 </div>
 </div>
 <div class="section" id="Q1-(2pts)-Write-your-2d-Stencil">
@@ -414,34 +448,35 @@ shown in the figure and the porosity is <span class="math notranslate nohighligh
 </div>
 <div class="section" id="The-equations-for-each-gridblock-in-the-mesh.">
 <h3>The equations for each gridblock in the mesh.<a class="headerlink" href="#The-equations-for-each-gridblock-in-the-mesh." title="Permalink to this headline">¶</a></h3>
-<blockquote>
-<div>How many unknowns are there? In the 2-d problem above, we have 3 rows and 4 columns so <strong>12 unknowns</strong> in total. <strong>Problem</strong> now our mesh is two dimensional - how can we number our gridblocks and unknowns? In 1-D, we just numbered one gridblock after another: We eventually want to put the system of equations into a matrix that looks like this (for a 5-gridblock 1-D problem with two boundary concentrations <span class="math notranslate nohighlight">\(bc_1\)</span> and <span class="math notranslate nohighlight">\(bc_5\)</span>)</div></blockquote>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align*} \mathbf{Ac} &amp;= \mathbf{b}\\ {
-  \begin{bmatrix}
-  1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-  1 &amp; -2 &amp; 1 &amp; 0 &amp; 0\\
-  0 &amp; 1 &amp; -2 &amp; 1 &amp; 0\\
-  0 &amp; 0 &amp; 1 &amp; -2 &amp; 1\\
-  0 &amp; 0 &amp; 0 &amp; 0 &amp; 1\\
-  \end{bmatrix}}
-  \begin{bmatrix}
-  c_1\\
-  c_2\\
-  c_3\\
-  c_4\\
-  c_5\\
-  \end{bmatrix}
-  &amp;= \begin{bmatrix}
-  bc_1\\
-  0\\
-  0\\
-  0\\
-  bc_5\\
-  \end{bmatrix}
-  \end{align*}\end{split}\\We will have a similar matrix structure for a 2, 3 or n-dimensional problem. For a multidimensional problem, the key is to number the gridblocks in an organized way. #### Row-major numbering Python is organized so that so-called **row-major** numbering is the most efficient. That means we should number our gridblocks as shown here:\\Where we used the python style and gave the first gridblock the index 0. This numbering can be considered a mapping of the row, column structure to a sequential, 1-D vector of indices. In the 2-D code you were given, we used the following function to map a gridblock index into row and column index that we used to assemble the equations in the algorithm.\end{aligned}\end{align} \]</div>
+<p>How many unknowns are there? In the 2-d problem above, we have 3 rows and 4 columns so <strong>12 unknowns</strong> in total. <strong>Problem</strong> now our mesh is two dimensional - how can we number our gridblocks and unknowns? In 1-D, we just numbered one gridblock after another: We eventually want to put the system of equations into a matrix that looks like this (for a 5-gridblock 1-D problem with two boundary concentrations <span class="math notranslate nohighlight">\(bc_1\)</span> and <span class="math notranslate nohighlight">\(bc_5\)</span>)</p>
+<p><span class="math">\begin{align*}
+\mathbf{Ac}&=\mathbf{b}\\
+{\begin{bmatrix}
+1 & 0 & 0 & 0 & 0 \\
+1 & -2 & 1 & 0 & 0\\
+0 & 1 & -2 & 1 & 0\\
+0 & 0 & 1 & -2 & 1\\
+0 & 0 & 0 & 0 & 1\\
+\end{bmatrix}}
+\begin{bmatrix}
+c_1\\
+c_2\\
+c_3\\
+c_4\\
+c_5\\
+\end{bmatrix}
+&=\begin{bmatrix}
+bc_1\\
+0\\
+0\\
+0\\
+bc_5\\
+\end{bmatrix}
+\end{align*}</span></p>
+<p>We will have a similar matrix structure for a 2, 3 or n-dimensional problem. For a multidimensional problem, the key is to number the gridblocks in an organized way. #### Row-major numbering Python is organized so that so-called <strong>row-major</strong> numbering is the most efficient. That means we should number our gridblocks as shown here:</p>
+<p>Where we used the python style and gave the first gridblock the index 0. This numbering can be considered a mapping of the row, column structure to a sequential, 1-D vector of indices. In the 2-D code you were given, we used the following function to map a gridblock index into row and column index that we used to assemble the equations in the algorithm.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -463,8 +498,8 @@ shown in the figure and the porosity is <span class="math notranslate nohighligh
 </div>
 </div>
 <p>Let’s see if it returns the proper indices for our situation where <code class="docutils literal notranslate"><span class="pre">nrows</span> <span class="pre">=</span> <span class="pre">3</span></code> and <code class="docutils literal notranslate"><span class="pre">ncol</span> <span class="pre">=</span> <span class="pre">4</span></code>. According to the figure, the gridblock number 6 should be in python row 1, python column 2 (a python row or column begins with index 0):</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -476,17 +511,25 @@ shown in the figure and the porosity is <span class="math notranslate nohighligh
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The gridblock 6 is in python row 1 and python column 2
+</pre></div></div>
+</div>
 </div>
 <div class="section" id="Q2-Writing-equations-for-each-gridblock">
 <h3>Q2 Writing equations for each gridblock<a class="headerlink" href="#Q2-Writing-equations-for-each-gridblock" title="Permalink to this headline">¶</a></h3>
 <p>Now, write your equations using your stencil, the gridblock dimensions, diffusion coefficient and boundary conditions. I’ll write a few (but not all) of the simple equations at the Dirichlet (specified concentration) boundaries:</p>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align*}
-  &amp;c_0 = 64\\
-  &amp;c_4 = 64\\
-  &amp;c_3= 125\\
-  &amp;c_7 = 125\\
-  \end{align*}\end{split}\\Use your stencil and write the other equations here in markdown. **Zero-flux boundaries**\end{aligned}\end{align} \]</div>
+<p><span class="math">\begin{align*}
+&c_0 = 64\\
+&c_4 = 64\\
+&c_3= 125\\
+&c_7 = 125\\
+\end{align*}</span></p>
+<p>Use your stencil and write the other equations here in markdown. <strong>Zero-flux boundaries</strong></p>
 <p>Hint: the 2-D stencil is basically just <span class="math notranslate nohighlight">\(J_{WC}+J_{EC}+J_{SC} + J_{NC}=0\)</span>. When the C gridblock is adjacent to a zero-flux boundary, one of the terms in the stencil is set to zero. For example in gridblock 1 above, we have this mapping of the stencil <span class="math notranslate nohighlight">\(\rightarrow\)</span> gridblock index: C <span class="math notranslate nohighlight">\(\rightarrow\)</span> 1, W <span class="math notranslate nohighlight">\(\rightarrow\)</span> 0, N <span class="math notranslate nohighlight">\(\rightarrow\)</span> 5, but to the S we have a zero-flux boundary. Accordingly, in the stencil for gridblock with index 1, <span class="math notranslate nohighlight">\(J_{SC}=0\)</span> and the stencil
 simplifies to <span class="math notranslate nohighlight">\(J_{WC}+J_{EC}+ J_{NC}=0\)</span>.</p>
 <div class="section" id="Q2-(2pts)-entry-cell-below">
@@ -497,21 +540,20 @@ simplifies to <span class="math notranslate nohighlight">\(J_{WC}+J_{EC}+ J_{NC}
 <div class="section" id="Q3-Put-your-equations-into-the-matrix">
 <h3>Q3 Put your equations into the matrix<a class="headerlink" href="#Q3-Put-your-equations-into-the-matrix" title="Permalink to this headline">¶</a></h3>
 <p>I’ve put some of the easy ones in. You do the rest by replacing the zeros in the markdown array below with the correct coefficients from your equations. Double click on this cell to get the raw latex formatting, then copy it below into the answer box and edit.</p>
-<div class="math notranslate nohighlight">
-\begin{align*} \mathbf{Ac} &amp;= \mathbf{b}\\
+<p><span class="math">\begin{align*} \mathbf{Ac} &= \mathbf{b}\\
 {\begin{bmatrix}
-1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0\\
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
-0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;1 &amp;0 &amp;0 &amp;0 &amp;0 \\
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\
+1 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0\\
+0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
+0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
+0 & 0 & 0 & 1 & 0 &0 &0 &0 &0 &0 &0 &0 \\
+0 & 0 & 0 & 0 & 1 &0 &0 &0 &0 &0 &0 &0 \\
+0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
+0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
+0 & 0 & 0 & 0 & 0 &0 &0 &1 &0 &0 &0 &0 \\
+0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
+0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
+0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
+0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0 \\
 \end{bmatrix}}
 \begin{bmatrix}
 c_0\\
@@ -527,7 +569,7 @@ c_9\\
 c_{10}\\
 c_{11}\\
 \end{bmatrix}
-&amp;= \begin{bmatrix}
+&= \begin{bmatrix}
 64\\
 0\\
 0\\
@@ -540,7 +582,8 @@ c_{11}\\
 0\\
 0\\
 0\\
-\end{bmatrix} \end{align*}</div><div class="section" id="Q3-(4pts)-entry-cell-below">
+\end{bmatrix} \end{align*}</span></p>
+<div class="section" id="Q3-(4pts)-entry-cell-below">
 <h4>Q3 (4pts) entry cell below<a class="headerlink" href="#Q3-(4pts)-entry-cell-below" title="Permalink to this headline">¶</a></h4>
 <p>YOUR ANSWER HERE</p>
 </div>
@@ -548,8 +591,8 @@ c_{11}\\
 <div class="section" id="Q4-(4pts)-Solve-the-system-of-equations">
 <h3>Q4 (4pts) Solve the system of equations<a class="headerlink" href="#Q4-(4pts)-Solve-the-system-of-equations" title="Permalink to this headline">¶</a></h3>
 <p>You have a few options here: 1. Guess the answer and check if the equations are satisfied. 2. Use python. See how the code uses the statement <code class="docutils literal notranslate"><span class="pre">c</span> <span class="pre">=</span> <span class="pre">np.linalg.solve(A,</span> <span class="pre">b)</span></code>. The trick is to put your equations into numpy arrays <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>. To check that you have solved the equations, we ask that you report the concentrations in gridblocks 5 and 6 for autograding in the cell below.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -560,6 +603,21 @@ c_{11}\\
 <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NotImplementedError</span>                       Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-3-ef678f5605af&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-red-fg"># c6 = -9999</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-red-fg"># YOUR CODE HERE</span>
+<span class="ansi-green-fg">----&gt; 5</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">raise</span> NotImplementedError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NotImplementedError</span>:
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -579,9 +637,9 @@ c_{11}\\
 <div class="section" id="Reflection">
 <h2>Reflection<a class="headerlink" href="#Reflection" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>Each row in the coefficient matrix has only a few non-zero coefficients. Why?</li>
-<li>What would this system matrix look like for a 3-d discretization?</li>
-<li>How would the python function <code class="docutils literal notranslate"><span class="pre">index_to_row_col</span></code> change for a 3-d discretization, where we now have row, columns and layers?</li>
+<li><p>Each row in the coefficient matrix has only a few non-zero coefficients. Why?</p></li>
+<li><p>What would this system matrix look like for a 3-d discretization?</p></li>
+<li><p>How would the python function <code class="docutils literal notranslate"><span class="pre">index_to_row_col</span></code> change for a 3-d discretization, where we now have row, columns and layers?</p></li>
 </ol>
 </div>
 </div>
@@ -599,7 +657,7 @@ c_{11}\\
     </p>
     <p>
         &copy; Copyright 2019, Philip Austin.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.<br/>
     </p>
   </div>
 </footer>

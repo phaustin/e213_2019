@@ -2,8 +2,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Finite volumes 8 - finite-difference approximations &#8212; E213</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,16 +13,16 @@
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}, "extensions": ["color.js"]}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
-    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
 
@@ -54,45 +53,78 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul>
-<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-1-jan-3">1.1. Week 1  Jan 3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-2-jan-8-jan-10">1.2. Week 2  Jan 8/Jan 10</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-3-jan-15-jan-17">1.3. Week 3  Jan 15/Jan 17</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">1.4. Week 4  Jan 22/Jan 24</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">1.5. Week 5  Jan 29/Jan 31</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">1.6. Week 6  Feb 05/Feb 07</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-7-feb-19-feb-21">1.7. Week 7  Feb 19/Feb 21</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-8-feb-26-feb-28">1.8. Week 8  Feb 26/Feb 28</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-9-mar-05-mar-07">1.9. Week 9  Mar 05/Mar 07</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-10-mar-12-mar-14">1.10. Week 10  Mar 12/Mar 14</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-11-mar19-mar-21">1.11. Week 11 Mar19/Mar 21</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-12-mar26-mar28">1.12. Week 12 Mar26/Mar28</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-13-apr02-apr04">1.13. Week 13 Apr02/Apr04</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.14. General notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_goals/learning_goals.html">1. Learning goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Final-quiz-learning-goals-–-Thursday-April-17,-Buch-A104,-3:30pm-to-5pm">1.1. Final quiz learning goals – Thursday April 17, Buch A104, 3:30pm to 5pm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Math/numerics">Math/numerics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Python/coding">Python/coding</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../solutions.html#week-2">2.1. Week 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-1-learning-goals">1.2. Quiz 1 learning goals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#ODEs">ODEs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../texts.html#math">3.1. Math</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../texts.html#python">3.2. Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-2-learning-goals">1.3. Quiz 2 learning goals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Finite-Volume-method">Finite Volume method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#python-introductory-texts">4.1. Python Introductory Texts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#moving-from-matlab-to-python">4.2. Moving from matlab to python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#cocalc">4.3. Cocalc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-3-learning-goals">1.4. Quiz 3 learning goals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Differential-equations">Differential equations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../learning_goals/learning_goals.html#Math-Details">Math Details</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-shell-commands">5.1. Useful shell commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-git-commands">5.2. Useful git commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-debugger-commands">5.3. Useful debugger commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-4-learning-goals">1.5. Quiz 4 learning goals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Computational-methods">Computational methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Mathematics">Mathematics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Be-able-to-set-up-boundary-value-problem:">Be able to set up boundary value problem:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">2. Weekly notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-1-jan-3">2.1. Week 1  Jan 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-2-jan-8-jan-10">2.2. Week 2  Jan 8/Jan 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-3-jan-15-jan-17">2.3. Week 3  Jan 15/Jan 17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">2.4. Week 4  Jan 22/Jan 24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">2.5. Week 5  Jan 29/Jan 31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">2.6. Week 6  Feb 05/Feb 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-7-feb-19-feb-21">2.7. Week 7  Feb 19/Feb 21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-8-feb-26-feb-28">2.8. Week 8  Feb 26/Feb 28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-9-mar-05-mar-07">2.9. Week 9  Mar 05/Mar 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-10-mar-12-mar-14">2.10. Week 10  Mar 12/Mar 14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-11-mar19-mar-21">2.11. Week 11 Mar19/Mar 21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-12-mar26-mar28">2.12. Week 12 Mar26/Mar28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-13-apr02-apr04">2.13. Week 13 Apr02/Apr04</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">2.14. General notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">3. Assignment solutions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../solutions.html#assignments">3.1. Assignments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">4. Texts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#math">4.1. Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#python">4.2. Python</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">5. Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#python-introductory-texts">5.1. Python Introductory Texts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#moving-from-matlab-to-python">5.2. Moving from matlab to python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#cocalc">5.3. Cocalc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">6. Cheat sheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-shell-commands">6.1. Useful shell commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-git-commands">6.2. Useful git commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-debugger-commands">6.3. Useful debugger commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">7. Notebook index</a></li>
 </ul>
 </ul>
 </li>
@@ -106,12 +138,13 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_goals/learning_goals.html">1. Learning goals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">2. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">3. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">4. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">5. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">6. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">7. Notebook index</a></li>
 </ul>
 </ul>
 </li>
@@ -151,17 +184,18 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_goals/learning_goals.html">1. Learning goals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">2. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">3. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">4. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">5. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">6. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">7. Notebook index</a></li>
 </ul>
 
         </div>
       </div>
-    <div class="col-md-9 content">
+    <div class="body col-md-9 content" role="main">
       
   
 <style>
@@ -368,36 +402,33 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Learning-goals">
 <h2>Learning goals<a class="headerlink" href="#Learning-goals" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>Be able to develop finite-difference approximations for first and second derivatives (total and partial).</li>
-<li>Be able to determine the truncation error and order of a finite - difference approximation from Taylor-series analysis.</li>
-<li>Can construction forwards, backwards and central finite difference approximation stencils.</li>
-<li>Can distinguish truncation error from roundoff error.</li>
-<li>Can identify the controls truncation error, and recognize pathological situations which lead to large truncation errors.</li>
-<li>Using a finite-difference stencil, can construct the system of equations for a finite-difference approximation to an ordinary or partial differential equation, including defining the grid of nodes and applying first-type (Dirichlet) and second-type (Neumann) boundary conditions.</li>
-<li>Can compare and contrast and finite-difference approximation to a finite-volume approximation (this last learning will only become apparent after we introduce the integral formulation of the finite-volume method and of our conservation PDEs).</li>
+<li><p>Be able to develop finite-difference approximations for first and second derivatives (total and partial).</p></li>
+<li><p>Be able to determine the truncation error and order of a finite - difference approximation from Taylor-series analysis.</p></li>
+<li><p>Can construction forwards, backwards and central finite difference approximation stencils.</p></li>
+<li><p>Can distinguish truncation error from roundoff error.</p></li>
+<li><p>Can identify the controls truncation error, and recognize pathological situations which lead to large truncation errors.</p></li>
+<li><p>Using a finite-difference stencil, can construct the system of equations for a finite-difference approximation to an ordinary or partial differential equation, including defining the grid of nodes and applying first-type (Dirichlet) and second-type (Neumann) boundary conditions.</p></li>
+<li><p>Can compare and contrast and finite-difference approximation to a finite-volume approximation (this last learning will only become apparent after we introduce the integral formulation of the finite-volume method and of our conservation PDEs).</p></li>
 </ol>
-<p>Advanced reference: LeVeque, Randal J, <em>Finite difference methods for ordinary and partial differential equations: Steady-state and time-dependent problems,</em> 2007 (can be downloaded from UBC library here: <strong>`UBC library
-link &lt;http://gw2jh3xr2c.search.serialssolutions.com/?ctx_ver=Z39.88-2004&amp;ctx_enc=info%3Aofi%2Fenc%3AUTF-8&amp;rfr_id=info%3Asid%2Fsummon.serialssolutions.com&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.title=Finite+difference+methods+for+ordinary+and+partial+differential+equations&amp;rft.au=LeVeque%2C+Randall+J&amp;rft.date=2007-01-01&amp;rft.pub=Society+for+Industrial+and+Applied+Mathematics&amp;rft.isbn=9780898716290&amp;rft.externalDocID=SIAMB0000334&amp;paramdict=en-US&gt;`__</strong></p>
+<p>Advanced reference: LeVeque, Randal J, <em>Finite difference methods for ordinary and partial differential equations: Steady-state and time-dependent problems,</em> 2007 (can be downloaded from UBC library here: <a class="reference external" href="http://gw2jh3xr2c.search.serialssolutions.com/?ctx_ver=Z39.88-2004&amp;ctx_enc=info%3Aofi%2Fenc%3AUTF-8&amp;rfr_id=info%3Asid%2Fsummon.serialssolutions.com&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.title=Finite+difference+methods+for+ordinary+and+partial+differential+equations&amp;rft.au=LeVeque%2C+Randall+J&amp;rft.date=2007-01-01&amp;rft.pub=Society+for+Industrial+and+Applied+Mathematics&amp;rft.isbn=9780898716290&amp;rft.externalDocID=SIAMB0000334&amp;paramdict=en-US">UBC library
+link</a></p>
 </div>
 <div class="section" id="Finite-difference-approximations-to-derivatives">
 <h2>Finite-difference approximations to derivatives<a class="headerlink" href="#Finite-difference-approximations-to-derivatives" title="Permalink to this headline">¶</a></h2>
 <p>In notebook <code class="docutils literal notranslate"><span class="pre">6_finite_volume_4.ipynb</span></code> (<a class="reference external" href="https://phaustin.github.io/eosc213/web_notebooks/6_finite_volume_4.html">https://phaustin.github.io/eosc213/web_notebooks/6_finite_volume_4.html</a>) we were inspired to approximate the <span class="math notranslate nohighlight">\(x\)</span> component of the gradient in concentration as</p>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
-  {\partial c \over \partial x} &amp;\approx  {c(x+\Delta x) - c(x)\over \Delta x} \label{fd881}\\
-  \end{align}\end{split}\\where :math:`\Delta x` is not infinitesimal, based upon the definition of the derivative where it is:\end{aligned}\end{align} \]</div>
-<div class="math notranslate nohighlight">
-\begin{align}
-{\partial c \over \partial x} &amp;= \lim_{\Delta x \rightarrow 0} {c(x+\Delta x) - c(x)\over \Delta x} \label{fd882}\\
-\end{align}</div><p>where <span class="math notranslate nohighlight">\(c(x+\Delta x)\)</span> is notation for “the concentration at the point <span class="math notranslate nohighlight">\(x+\Delta x, y, z\)</span>”.</p>
+<p><span class="math">\begin{align}
+{\partial c \over \partial x} &\approx  {c(x+\Delta x) - c(x)\over \Delta x} \label{fd881}\\
+\end{align}</span> where <span class="math notranslate nohighlight">\(\Delta x\)</span> is not infinitesimal, based upon the definition of the derivative where it is:</p>
+<p><span class="math">\begin{align}
+{\partial c \over \partial x} &= \lim_{\Delta x \rightarrow 0} {c(x+\Delta x) - c(x)\over \Delta x} \label{fd882}\\
+\end{align}</span></p>
+<p>where <span class="math notranslate nohighlight">\(c(x+\Delta x)\)</span> is notation for “the concentration at the point <span class="math notranslate nohighlight">\(x+\Delta x, y, z\)</span>”.</p>
 <p>Here we want to evaluate the accuracy of these finite-difference approximations. To do that, we need to look at <strong>Taylor series representations</strong> of functions.</p>
 <div class="section" id="Intuition">
 <h3>Intuition<a class="headerlink" href="#Intuition" title="Permalink to this headline">¶</a></h3>
-<p>Let’s first look at a simple function that we know so we can calculate the derivatives using calculus and compare them to the our finite-difference approximations. Then we’ll dig into the theory using Taylor Series. Let’s try the following function which is easy to plot and differentiate:</p>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\  \begin{align}
-  f(x)&amp;= -(x - 2.5)^3 + 5
-  \end{align}\\We can implement it in python below as ``func_1``.\end{aligned}\end{align} \]</div>
+<p>Let’s first look at a simple function that we know so we can calculate the derivatives using calculus and compare them to the our finite-difference approximations. Then we’ll dig into the theory using Taylor Series. Let’s try the following function which is easy to plot and differentiate: <span class="math">\begin{align}
+f(x)&= -(x - 2.5)^3 + 5
+\end{align}</span> We can implement it in python below as <code class="docutils literal notranslate"><span class="pre">func_1</span></code>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -513,12 +544,11 @@ link &lt;http://gw2jh3xr2c.search.serialssolutions.com/?ctx_ver=Z39.88-2004&amp;
 </div>
 <div class="section" id="Backward-difference">
 <h3>Backward difference<a class="headerlink" href="#Backward-difference" title="Permalink to this headline">¶</a></h3>
-<p>Let’s look at evaluating the derivative at <span class="math notranslate nohighlight">\(x=2.0\)</span> using values of the function at neighbouring points. One option is to make a straight-line approximation using the value of the function at <span class="math notranslate nohighlight">\(x=1\)</span> and <span class="math notranslate nohighlight">\(x=2\)</span>:</p>
-<div class="math notranslate nohighlight">
-\begin{align}
-\left.{df(x)\over dx} \right| &amp; \approx \frac{f(x)-f(x-\Delta x)}{\Delta x} \\
-\left.{df(x)\over dx} \right|_{x=2} &amp; \approx \frac{f(2)-f(1)}{2-1} = (5.12 - 8.38)/1.0 = -3.26\\
-\end{align}</div><p>So, we approximate the slope at <span class="math notranslate nohighlight">\(x=2\)</span> by the slope of the line that connects <span class="math notranslate nohighlight">\(f(1)\)</span> and <span class="math notranslate nohighlight">\(f(2)\)</span>:</p>
+<p>Let’s look at evaluating the derivative at <span class="math notranslate nohighlight">\(x=2.0\)</span> using values of the function at neighbouring points. One option is to make a straight-line approximation using the value of the function at <span class="math notranslate nohighlight">\(x=1\)</span> and <span class="math notranslate nohighlight">\(x=2\)</span>: <span class="math">\begin{align}
+\left.{df(x)\over dx} \right| & \approx \frac{f(x)-f(x-\Delta x)}{\Delta x} \\
+\left.{df(x)\over dx} \right|_{x=2} & \approx \frac{f(2)-f(1)}{2-1} = (5.12 - 8.38)/1.0 = -3.26\\
+\end{align}</span></p>
+<p>So, we approximate the slope at <span class="math notranslate nohighlight">\(x=2\)</span> by the slope of the line that connects <span class="math notranslate nohighlight">\(f(1)\)</span> and <span class="math notranslate nohighlight">\(f(2)\)</span>:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
@@ -549,12 +579,11 @@ link &lt;http://gw2jh3xr2c.search.serialssolutions.com/?ctx_ver=Z39.88-2004&amp;
 </div>
 <div class="section" id="Forward-difference">
 <h3>Forward difference<a class="headerlink" href="#Forward-difference" title="Permalink to this headline">¶</a></h3>
-<p>Here we make a straight-line approximation for the derivative at <span class="math notranslate nohighlight">\(x=2\)</span> using the value of the function at <span class="math notranslate nohighlight">\(x=3\)</span> and <span class="math notranslate nohighlight">\(x=2\)</span>:</p>
-<div class="math notranslate nohighlight">
-\begin{align}
-\left.{df(x)\over dx} \right| &amp; \approx \frac{f(x+\Delta x)-f(x)}{\Delta x} \\
-\left.{df(x)\over dx} \right|_{x=2} &amp; \approx \frac{f(3)-f(2)}{3-2} = (4.88 - 5.12)/1.0 = -0.24\\
-\end{align}</div><p>Shown graphically:</p>
+<p>Here we make a straight-line approximation for the derivative at <span class="math notranslate nohighlight">\(x=2\)</span> using the value of the function at <span class="math notranslate nohighlight">\(x=3\)</span> and <span class="math notranslate nohighlight">\(x=2\)</span>: <span class="math">\begin{align}
+\left.{df(x)\over dx} \right| & \approx \frac{f(x+\Delta x)-f(x)}{\Delta x} \\
+\left.{df(x)\over dx} \right|_{x=2} & \approx \frac{f(3)-f(2)}{3-2} = (4.88 - 5.12)/1.0 = -0.24\\
+\end{align}</span></p>
+<p>Shown graphically:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
@@ -586,12 +615,11 @@ link &lt;http://gw2jh3xr2c.search.serialssolutions.com/?ctx_ver=Z39.88-2004&amp;
 </div>
 <div class="section" id="Central-difference">
 <h3>Central difference<a class="headerlink" href="#Central-difference" title="Permalink to this headline">¶</a></h3>
-<p>Here we make a straight-line approximation for the derivative at <span class="math notranslate nohighlight">\(x=2\)</span> using the value of the function at <span class="math notranslate nohighlight">\(x=3\)</span> and <span class="math notranslate nohighlight">\(x=1\)</span>:</p>
-<div class="math notranslate nohighlight">
-\begin{align}
-\left.{df(x)\over dx} \right| &amp; \approx \frac{f(x+\Delta x)-f(x-\Delta x)}{2\Delta x} \\
-\left.{df(x)\over dx} \right|_{x=2} &amp; \approx \frac{f(3)-f(1)}{3-1} = {(4.88 - 8.38)\over 2.0} = -1.75\\
-\end{align}</div><p>Shown graphically:</p>
+<p>Here we make a straight-line approximation for the derivative at <span class="math notranslate nohighlight">\(x=2\)</span> using the value of the function at <span class="math notranslate nohighlight">\(x=3\)</span> and <span class="math notranslate nohighlight">\(x=1\)</span>: <span class="math">\begin{align}
+\left.{df(x)\over dx} \right| & \approx \frac{f(x+\Delta x)-f(x-\Delta x)}{2\Delta x} \\
+\left.{df(x)\over dx} \right|_{x=2} & \approx \frac{f(3)-f(1)}{3-1} = {(4.88 - 8.38)\over 2.0} = -1.75\\
+\end{align}</span></p>
+<p>Shown graphically:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -765,132 +793,101 @@ Exact derivative at x = 2.00, df/dx = -0.7500
 <h3>Assess error<a class="headerlink" href="#Assess-error" title="Permalink to this headline">¶</a></h3>
 <p>Contemplate</p>
 <ol class="arabic simple">
-<li>Which approximation is the most accurate?</li>
+<li><p>Which approximation is the most accurate?</p></li>
 </ol>
 <ul class="simple">
-<li>Does the error depend upon <span class="math notranslate nohighlight">\(dx\)</span>?</li>
-<li>For which approximation does the error decrease the fastest as <span class="math notranslate nohighlight">\(dx\)</span> shrinks?</li>
+<li><p>Does the error depend upon <span class="math notranslate nohighlight">\(dx\)</span>?</p></li>
+<li><p>For which approximation does the error decrease the fastest as <span class="math notranslate nohighlight">\(dx\)</span> shrinks?</p></li>
 </ul>
-<blockquote>
-<div>In the application of finite differences to solve differential equations, the function that we are solving for is not known a priori, so the error in the approximation cannot be computed. For that reason, when we assess a finite-difference approximation, we look at <strong>how quickly the error shrinks as we shrink</strong> <span class="math notranslate nohighlight">\(\Delta x\)</span>. To see that we have to revisit Taylor series.</div></blockquote>
+<p>In the application of finite differences to solve differential equations, the function that we are solving for is not known a priori, so the error in the approximation cannot be computed. For that reason, when we assess a finite-difference approximation, we look at <strong>how quickly the error shrinks as we shrink</strong> <span class="math notranslate nohighlight">\(\Delta x\)</span>. To see that we have to revisit Taylor series.</p>
 </div>
 <div class="section" id="Taylor-Series-analysis-of-finite-difference-approximations">
 <h3>Taylor Series analysis of finite-difference approximations<a class="headerlink" href="#Taylor-Series-analysis-of-finite-difference-approximations" title="Permalink to this headline">¶</a></h3>
 <p>Taylor series reference: Khan Academy <a class="reference external" href="https://www.khanacademy.org/math/ap-calculus-bc/bc-series-new/bc-10-11/v/maclaurin-and-taylor-series-intuition">https://www.khanacademy.org/math/ap-calculus-bc/bc-series-new/bc-10-11/v/maclaurin-and-taylor-series-intuition</a> UBC Peter Wall <a class="reference external" href="https://www.math.ubc.ca/~pwalls/math-python/differentiation/">https://www.math.ubc.ca/~pwalls/math-python/differentiation/</a> Video - Taylor series and finite differences <a class="reference external" href="https://www.coursera.org/lecture/computers-waves-simulations/w2v3-taylor-series-PEN8L">https://www.coursera.org/lecture/computers-waves-simulations/w2v3-taylor-series-PEN8L</a> #### Approach * manipulate Taylor series approximations to develop exact expressions for derivatives. * compare these expressions to
 finite-difference approximations and thereby develop expressions for the <strong>truncation error</strong> = exact - approximate.</p>
+<p>Recall a Taylor series gives you the value of a function at a location <span class="math notranslate nohighlight">\(x_i + dx\)</span> using the value of the function and its derivatives at the point <span class="math notranslate nohighlight">\(x_i\)</span>. Functions that can be approximated in this way are called analytic <a class="reference external" href="https://en.wikipedia.org/wiki/Analytic_function">https://en.wikipedia.org/wiki/Analytic_function</a>.</p>
+<p>Let’s represent a function <span class="math notranslate nohighlight">\(f\)</span> at points <span class="math notranslate nohighlight">\(x_i+\Delta x\)</span> and <span class="math notranslate nohighlight">\(x_i-\Delta x\)</span>: <span class="math">\begin{align}
+f(x_i+\Delta x) &= f(x_i) + (\Delta x){df(x_i)\over dx} + {(\Delta x)^2\over 2!}{d^2f(x_i)\over dx^2} + {(\Delta x)^3\over 3!}{d^3f(x_i)\over dx^3} \nonumber \\
+&+ \cdots +  {(\Delta x)^n\over n!}{d^nf(x_i)\over dx^n} + \cdots \label{8fd884} \\
+f(x_i-\Delta x) &= f(x_i) + (-\Delta x){df(x_i)\over dx} + {(-\Delta x)^2\over 2!}{d^2f(x_i)\over dx^2} + {(-\Delta x)^3\over 3!}{d^3f(x_i)\over dx^3} + \nonumber\\
+&\cdots +  {(-\Delta x)^n\over n!}{d^nf(x_i)\over dx^n} + \cdots \label{8fd885} \\
+\end{align}</span> #### Forward difference Taylor analysis Subtract <span class="math notranslate nohighlight">\(f(x_i)\)</span> from the Taylor approximation <span class="math notranslate nohighlight">\(f(x_i+\Delta x)\)</span> <span class="math">\ref{8fd884}</span></p>
+<p><span class="math">\begin{align}
+f(x_i+\Delta x) - f(x_i) &= (\Delta x){df(x_i)\over dx} + {(\Delta x)^2\over 2!}{d^2f(x_i)\over dx^2} + {(\Delta x)^3\over 3!}{d^3f(x_i)\over dx^3} + \cdots +  {(\Delta x)^n\over n!}{d^nf(x_i)\over dx^n} + \cdots \label{8fd886} \\
+\end{align}</span> Solve for <span class="math notranslate nohighlight">\({df(x_i)\over dx}\)</span>, the derivative at point <span class="math notranslate nohighlight">\(x_i\)</span>: <span class="math">\begin{align}
+{df(x_i)\over dx} & = \overbrace{{f(x_i+\Delta x) - f(x_i)\over \Delta x}}^\text{forward difference approximation} \nonumber\\
+&- \overbrace{\frac{1}{\Delta x}\left[ {(\Delta x)^2\over 2!}{d^2f(x_i)\over dx^2} +
+{(\Delta x)^3\over 3!}{d^3f(x_i)\over dx^3} + \cdots +  {(\Delta x)^n\over n!}{d^nf(x_i)\over dx^n} + \cdots \right]}^\text{truncation error} \label{8fd887} \\
+\end{align}</span> Let’s pause for a moment. The expression <span class="math">\ref{8fd887}</span> is exact. In words this expression says that the exact derivative at point <span class="math notranslate nohighlight">\(x_i\)</span> is given by the forward-difference approximation minus a <strong>truncation error</strong>, all the terms in the <span class="math notranslate nohighlight">\([]\)</span> braces. That is, true = approximate - error. ##### Truncation error The forward difference truncation error is <span class="math">\begin{align}
+\left[ \underbrace{\frac{(\Delta x)}{2!}}_\text{leading term}{d^2f(x_i)\over dx^2} + \underbrace{(\Delta x)^2\over 3!}_\text{2nd term}{d^3f(x_i)\over dx^3} + \cdots +  {(\Delta x)^{n-1}\over n!}{d^nf(x_i)\over dx^n} + \cdots \right] \label{8fd888} \\
+\end{align}</span> 1. What controls the size of the truncation error? * How can we characterize this truncation error? ##### Order of approximation <strong>Problem</strong>: when we used finite-difference approximations to compute Euler timesteps or fluxes, we did not know the function, and therefore in general we don’t know the values of the derivatives <span class="math notranslate nohighlight">\({df(x_i)\over dx}\)</span>, <span class="math notranslate nohighlight">\({d^2f(x_i)\over dx^2}\)</span>, etc, in the truncation error. So instead we focus on the effects of changing <span class="math notranslate nohighlight">\(\Delta x\)</span> on the
+truncation error.</p>
+<p>:nbsphinx-math:<a href="#id1"><span class="problematic" id="id2">`</span></a>begin{align*}
+begin{matrix}</p>
 <blockquote>
-<div><p>Recall a Taylor series gives you the value of a function at a location <span class="math notranslate nohighlight">\(x_i + dx\)</span> using the value of the function and its derivatives at the point <span class="math notranslate nohighlight">\(x_i\)</span>. Functions that can be approximated in this way are called analytic <a class="reference external" href="https://en.wikipedia.org/wiki/Analytic_function">https://en.wikipedia.org/wiki/Analytic_function</a>.</p>
-<p>Let’s represent a function <span class="math notranslate nohighlight">\(f\)</span> at points <span class="math notranslate nohighlight">\(x_i+\Delta x\)</span> and <span class="math notranslate nohighlight">\(x_i-\Delta x\)</span>:</p>
+<div><p>&amp; &amp; text{leading term} &amp; &amp;text{2nd term} \</p>
 </div></blockquote>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
-  f(x_i+\Delta x) &amp;= f(x_i) + (\Delta x){df(x_i)\over dx} + {(\Delta x)^2\over 2!}{d^2f(x_i)\over dx^2} + {(\Delta x)^3\over 3!}{d^3f(x_i)\over dx^3} \nonumber \\
-  &amp;+ \cdots +  {(\Delta x)^n\over n!}{d^nf(x_i)\over dx^n} + \cdots \label{8fd884} \\
-  f(x_i-\Delta x) &amp;= f(x_i) + (-\Delta x){df(x_i)\over dx} + {(-\Delta x)^2\over 2!}{d^2f(x_i)\over dx^2} + {(-\Delta x)^3\over 3!}{d^3f(x_i)\over dx^3} + \nonumber\\
-  &amp;\cdots +  {(-\Delta x)^n\over n!}{d^nf(x_i)\over dx^n} + \cdots \label{8fd885} \\
-  \end{align}\end{split}\\#### Forward difference Taylor analysis Subtract :math:`f(x_i)` from the Taylor approximation :math:`f(x_i+\Delta x)` :nbsphinx-math:`\ref{8fd884}`\end{aligned}\end{align} \]</div>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
-  f(x_i+\Delta x) - f(x_i) &amp;= (\Delta x){df(x_i)\over dx} + {(\Delta x)^2\over 2!}{d^2f(x_i)\over dx^2} + {(\Delta x)^3\over 3!}{d^3f(x_i)\over dx^3} + \cdots +  {(\Delta x)^n\over n!}{d^nf(x_i)\over dx^n} + \cdots \label{8fd886} \\
-  \end{align}\end{split}\\Solve for :math:`{df(x_i)\over dx}`, the derivative at point :math:`x_i`:\end{aligned}\end{align} \]</div>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
-  {df(x_i)\over dx} &amp; = \overbrace{{f(x_i+\Delta x) - f(x_i)\over \Delta x}}^\text{forward difference approximation} \nonumber\\
-  &amp;- \overbrace{\frac{1}{\Delta x}\left[ {(\Delta x)^2\over 2!}{d^2f(x_i)\over dx^2} +
-  {(\Delta x)^3\over 3!}{d^3f(x_i)\over dx^3} + \cdots +  {(\Delta x)^n\over n!}{d^nf(x_i)\over dx^n} + \cdots \right]}^\text{truncation error} \label{8fd887} \\
-  \end{align}\end{split}\\Let's pause for a moment. The expression :nbsphinx-math:`\ref{8fd887}` is exact. In words this expression says that the exact derivative at point :math:`x_i` is given by the forward-difference approximation minus a **truncation error**, all the terms in the :math:`[]` braces. That is, true = approximate - error. ##### Truncation error The forward difference truncation error is\end{aligned}\end{align} \]</div>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
-  \left[ \underbrace{\frac{(\Delta x)}{2!}}_\text{leading term}{d^2f(x_i)\over dx^2} + \underbrace{(\Delta x)^2\over 3!}_\text{2nd term}{d^3f(x_i)\over dx^3} + \cdots +  {(\Delta x)^{n-1}\over n!}{d^nf(x_i)\over dx^n} + \cdots \right] \label{8fd888} \\
-  \end{align}\end{split}\\1. What controls the size of the truncation error? \* How can we characterize this truncation error? ##### Order of approximation **Problem**: when we used finite-difference approximations to compute Euler timesteps or fluxes, we did not know the function, and therefore in general we don't know the values of the derivatives :math:`{df(x_i)\over dx}`, :math:`{d^2f(x_i)\over dx^2}`, etc, in the truncation error. So instead we focus on the effects of changing :math:`\Delta x` on the truncation\end{aligned}\end{align} \]</div>
-<p>error.</p>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align*}
-  \begin{matrix}
-    &amp; &amp; \text{leading term} &amp; &amp;\text{2nd term} \\
-  \text{Reduce }\quad \Delta x \quad \text{by}\quad 1/2 &amp; \text{reduces by}\quad &amp;1/2&amp; \text{reduces by}\quad &amp;1/4 \\
-  \text{Reduce }\quad \Delta x \quad \text{by}\quad 1/4 &amp; \text{reduces by}\quad &amp;1/4&amp; \text{reduces by}\quad &amp;1/16 \\
-  \text{Reduce }\quad \Delta x \quad \text{by}\quad 1/8 &amp; \text{reduces by}\quad &amp;1/8&amp; \text{reduces by}\quad &amp;1/64 \\
-  \end{matrix}
-  \end{align*}\end{split}\\When :math:`\Delta x` is reduced, the leading term :math:`(\Delta x){df(x_i)\over dx}` decreases the most slowly. When :math:`\Delta x` is reduced by a factor of 8, the leading term is reduced by a factor of 8, but the second term is reduced by a factor of 64. So, the error is dominated by the leading order behavior. Higher-order terms are eventually insignificant. So, we now write\end{aligned}\end{align} \]</div>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
-  {df(x_i)\over dx} &amp; = \overbrace{{f(x_i+\Delta x) - f(x_i)\over \Delta x}}^\text{forward difference approximation} \nonumber\\
-  &amp;- \overbrace{\left[ {(\Delta x)\over 2!}{d^2f(x_i)\over dx^2} + {(\Delta x)^2\over 3!}{d^3f(x_i)\over dx^3} + \cdots +  {(\Delta x)^{n-1}\over n!}{d^nf(x_i)\over dx^n} + \cdots \right]}^\text{truncation error} \label{8fd889} \nonumber \\
-  &amp; = \overbrace{{f(x_i+\Delta x) - f(x_i)\over \Delta x}}^\text{forward difference approximation}  + \mathcal{O}(\Delta x) \label{8fd8810} \\
-  \end{align}\end{split}\\For this reason, we say that the forward difference approximation is **First order** because as :math:`\Delta x \rightarrow 0`, the truncation error shrinks by :math:`(\Delta x)^1`.\end{aligned}\end{align} \]</div>
+<p>text{Reduce }quad Delta x quad text{by}quad 1/2 &amp; text{reduces by}quad &amp;1/2&amp; text{reduces by}quad &amp;1/4 \
+text{Reduce }quad Delta x quad text{by}quad 1/4 &amp; text{reduces by}quad &amp;1/4&amp; text{reduces by}quad &amp;1/16 \
+text{Reduce }quad Delta x quad text{by}quad 1/8 &amp; text{reduces by}quad &amp;1/8&amp; text{reduces by}quad &amp;1/64 \
+end{matrix}
+end{align*}`</p>
+<p>When <span class="math notranslate nohighlight">\(\Delta x\)</span> is reduced, the leading term <span class="math notranslate nohighlight">\((\Delta x){df(x_i)\over dx}\)</span> decreases the most slowly. When <span class="math notranslate nohighlight">\(\Delta x\)</span> is reduced by a factor of 8, the leading term is reduced by a factor of 8, but the second term is reduced by a factor of 64. So, the error is dominated by the leading order behavior. Higher-order terms are eventually insignificant. So, we now write <span class="math">\begin{align}
+{df(x_i)\over dx} & = \overbrace{{f(x_i+\Delta x) - f(x_i)\over \Delta x}}^\text{forward difference approximation} \nonumber\\
+&- \overbrace{\left[ {(\Delta x)\over 2!}{d^2f(x_i)\over dx^2} + {(\Delta x)^2\over 3!}{d^3f(x_i)\over dx^3} + \cdots +  {(\Delta x)^{n-1}\over n!}{d^nf(x_i)\over dx^n} + \cdots \right]}^\text{truncation error} \label{8fd889} \nonumber \\
+& = \overbrace{{f(x_i+\Delta x) - f(x_i)\over \Delta x}}^\text{forward difference approximation}  + \mathcal{O}(\Delta x) \label{8fd8810} \\
+\end{align}</span> For this reason, we say that the forward difference approximation is <strong>First order</strong> because as <span class="math notranslate nohighlight">\(\Delta x \rightarrow 0\)</span>, the truncation error shrinks by <span class="math notranslate nohighlight">\((\Delta x)^1\)</span>.</p>
 <div class="section" id="Backward-difference-Taylor-analysis">
 <h4>Backward difference Taylor analysis<a class="headerlink" href="#Backward-difference-Taylor-analysis" title="Permalink to this headline">¶</a></h4>
-<blockquote>
-<div>Subtract expansion for <span class="math notranslate nohighlight">\(f(x_i-\Delta x)\)</span>, <span class="math">\ref{8fd885}</span> from <span class="math notranslate nohighlight">\(f(x_i)\)</span>.</div></blockquote>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
-  {df(x_i)\over dx} &amp; = \overbrace{{f(x_i) - f(x_i-\Delta x)\over \Delta x}}^\text{backward difference approximation}  + \mathcal{O}(\Delta x) \label{8fd8811} \\
-  \end{align}\end{split}\\The backward difference is also a **First order** approximation.\end{aligned}\end{align} \]</div>
+<p>Subtract expansion for <span class="math notranslate nohighlight">\(f(x_i-\Delta x)\)</span>, <span class="math">\ref{8fd885}</span> from <span class="math notranslate nohighlight">\(f(x_i)\)</span>. <span class="math">\begin{align}
+{df(x_i)\over dx} & = \overbrace{{f(x_i) - f(x_i-\Delta x)\over \Delta x}}^\text{backward difference approximation}  + \mathcal{O}(\Delta x) \label{8fd8811} \\
+\end{align}</span> The backward difference is also a <strong>First order</strong> approximation.</p>
 </div>
 <div class="section" id="Central-difference-Taylor-analysis">
 <h4>Central difference Taylor analysis<a class="headerlink" href="#Central-difference-Taylor-analysis" title="Permalink to this headline">¶</a></h4>
-<blockquote>
-<div>Subtract expansion for <span class="math notranslate nohighlight">\(f(x_i+ \Delta x)\)</span>, <span class="math">\ref{8fd884}</span> from <span class="math notranslate nohighlight">\(f(x_i-\Delta x)\)</span>, <span class="math">\ref{8fd885}</span>. Some terms cancel out, which leads to:</div></blockquote>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
-  {df(x_i)\over dx} &amp; = \overbrace{{f(x_i + \Delta x) - f(x_i-\Delta x)\over 2\Delta x}}^\text{central difference approximation}  + \mathcal{O}(\Delta x)^2 \label{8fd88112} \\
-  \end{align}\end{split}\\The central difference is a **Second order** approximation because as :math:`\Delta x \rightarrow 0`, the truncation error shrinks by :math:`(\Delta x)^2`.\end{aligned}\end{align} \]</div>
+<p>Subtract expansion for <span class="math notranslate nohighlight">\(f(x_i+ \Delta x)\)</span>, <span class="math">\ref{8fd884}</span> from <span class="math notranslate nohighlight">\(f(x_i-\Delta x)\)</span>, <span class="math">\ref{8fd885}</span>. Some terms cancel out, which leads to: <span class="math">\begin{align}
+{df(x_i)\over dx} & = \overbrace{{f(x_i + \Delta x) - f(x_i-\Delta x)\over 2\Delta x}}^\text{central difference approximation}  + \mathcal{O}(\Delta x)^2 \label{8fd88112} \\
+\end{align}</span> The central difference is a <strong>Second order</strong> approximation because as <span class="math notranslate nohighlight">\(\Delta x \rightarrow 0\)</span>, the truncation error shrinks by <span class="math notranslate nohighlight">\((\Delta x)^2\)</span>.</p>
 </div>
 <div class="section" id="Second-derivative">
 <h4>Second derivative<a class="headerlink" href="#Second-derivative" title="Permalink to this headline">¶</a></h4>
-<blockquote>
-<div>Add the Taylor expansions for <span class="math notranslate nohighlight">\(f(x_i+\Delta x)\)</span> <span class="math">\ref{8fd884}</span> and <span class="math notranslate nohighlight">\(f(x_i-\Delta x)\)</span> <span class="math">\ref{8fd885}</span></div></blockquote>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
-  f(x_i + \Delta x) + f(x_i - \Delta x)&amp;= 2 f(x_i) +   2{(\Delta x)^2\over 2!}{d^2f(x_i)\over dx^2} + 2\left[{(\Delta x)^4\over 4!}{d^4f(x_i)\over dx^4} + \cdots +  \right] \label{8fd8812} \\
-  \end{align}\end{split}\\Solve for :math:`{d^2f(x_i)\over dx^2}`:\end{aligned}\end{align} \]</div>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
-  {d^2f(x_i)\over dx^2}&amp;= \overbrace{{f(x_i + \Delta x) -  2 f(x_i) + f(x_i - \Delta x)\over (\Delta x)^2}}^\text{central second derivative} + \mathcal{O}(\Delta x)^2   \label{8fd8813} \\
-  \end{align}\end{split}\\The central second derivative is also **second order**. Does that last expression remind you of something?\end{aligned}\end{align} \]</div>
+<p>Add the Taylor expansions for <span class="math notranslate nohighlight">\(f(x_i+\Delta x)\)</span> <span class="math">\ref{8fd884}</span> and <span class="math notranslate nohighlight">\(f(x_i-\Delta x)\)</span> <span class="math">\ref{8fd885}</span> <span class="math">\begin{align}
+f(x_i + \Delta x) + f(x_i - \Delta x)&= 2 f(x_i) +   2{(\Delta x)^2\over 2!}{d^2f(x_i)\over dx^2} + 2\left[{(\Delta x)^4\over 4!}{d^4f(x_i)\over dx^4} + \cdots +  \right] \label{8fd8812} \\
+\end{align}</span> Solve for <span class="math notranslate nohighlight">\({d^2f(x_i)\over dx^2}\)</span>: <span class="math">\begin{align}
+{d^2f(x_i)\over dx^2}&= \overbrace{{f(x_i + \Delta x) -  2 f(x_i) + f(x_i - \Delta x)\over (\Delta x)^2}}^\text{central second derivative} + \mathcal{O}(\Delta x)^2   \label{8fd8813} \\
+\end{align}</span> The central second derivative is also <strong>second order</strong>. Does that last expression remind you of something?</p>
 </div>
 </div>
 <div class="section" id="Summary-of-finite-difference-approximations">
 <h3>Summary of finite difference approximations<a class="headerlink" href="#Summary-of-finite-difference-approximations" title="Permalink to this headline">¶</a></h3>
-<p>We derived three approximations for the first derivative: forward, backward and central. Let’s express them in terms of values of, say, concentration on a grid with constant grid spacing <span class="math notranslate nohighlight">\(\Delta x\)</span> and</p>
-<div class="math notranslate nohighlight">
-\begin{align*}
-c_i = c(&amp;x_i) \\
-c_{i+1} = c(x_i &amp;+\Delta x) \\
-c_{i-1} = c(x_i &amp;- \Delta x) \\
-\end{align*}</div><div class="section" id="First-derivative">
+<p>We derived three approximations for the first derivative: forward, backward and central. Let’s express them in terms of values of, say, concentration on a grid with constant grid spacing <span class="math notranslate nohighlight">\(\Delta x\)</span> and <span class="math">\begin{align*}
+c_i = c(&x_i) \\
+c_{i+1} = c(x_i &+\Delta x) \\
+c_{i-1} = c(x_i &- \Delta x) \\
+\end{align*}</span></p>
+<div class="section" id="First-derivative">
 <h4>First derivative<a class="headerlink" href="#First-derivative" title="Permalink to this headline">¶</a></h4>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
-  \text{Forward} \qquad {dc(x_i)\over dx} =&amp; {c_{i+1} - c_{i} \over \Delta x} + \mathcal{O}(\Delta x)   \label{8fd8814} \\
-  \text{Backward}\qquad {dc(x_i)\over dx}= &amp; {c_{i} - c_{i-1} \over \Delta x} + \mathcal{O}(\Delta x)   \label{8fd8815} \\
-  \text{Central} \qquad{dc(x_i)\over dx} =&amp; {c_{i+1} - c_{i-1} \over 2\Delta x} + \mathcal{O}(\Delta x)^2   \label{8fd8816}\\
-  \end{align}\end{split}\\#### Second derivative\end{aligned}\end{align} \]</div>
-<div class="math notranslate nohighlight">
-\begin{align}
-\text{Central} \qquad{d^2c(x_i)\over dx^2}= &amp; {c_{i+1} -2 c_i + c_{i-1} \over (\Delta x)^2} + \mathcal{O}(\Delta x)^2   \label{8fd8817}\\
-\end{align}</div></div>
+<p><span class="math">\begin{align}
+\text{Forward} \qquad {dc(x_i)\over dx} =& {c_{i+1} - c_{i} \over \Delta x} + \mathcal{O}(\Delta x)   \label{8fd8814} \\
+\text{Backward}\qquad {dc(x_i)\over dx}= & {c_{i} - c_{i-1} \over \Delta x} + \mathcal{O}(\Delta x)   \label{8fd8815} \\
+\text{Central} \qquad{dc(x_i)\over dx} =& {c_{i+1} - c_{i-1} \over 2\Delta x} + \mathcal{O}(\Delta x)^2   \label{8fd8816}\\
+\end{align}</span> #### Second derivative <span class="math">\begin{align}
+\text{Central} \qquad{d^2c(x_i)\over dx^2}= & {c_{i+1} -2 c_i + c_{i-1} \over (\Delta x)^2} + \mathcal{O}(\Delta x)^2   \label{8fd8817}\\
+\end{align}</span></p>
+</div>
 </div>
 <div class="section" id="Implications-for-finite-volumes">
 <h3>Implications for finite volumes<a class="headerlink" href="#Implications-for-finite-volumes" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="Euler-methods">
 <h4>Euler methods<a class="headerlink" href="#Euler-methods" title="Permalink to this headline">¶</a></h4>
-<blockquote>
-<div>In the forward and backward Euler (or explicit and implicit) time stepping the time derivative is approximated as:</div></blockquote>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
-  {dc\over dt} \approx {c(t+\Delta t) - c(t)\over \Delta t} \label{8fd8818}\\
-  \end{align}\end{split}\\What is the order of this approximation? #### Fluxes In our stencil, we approximate fluxes such as :math:`j_{EC}` as:\end{aligned}\end{align} \]</div>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
-  j_{EC}&amp;= D\theta {c_E - c_C \over \Delta x} \label{8fd8819}\\
-  \end{align}\end{split}\\Although this looks like a first order approximation, it's really a second order. Why? It's because the flux is really being approximated at the interface between the two gridblocks. To emphasize this, let's use this finite-difference notation, :math:`c_{i-1}=c_C`, :math:`c_{i+1} = c_E` and write:\end{aligned}\end{align} \]</div>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
-  j_{EC}&amp;= D\theta {c_{i+1} - c_{i-1} \over \Delta x} \label{8fd8820}\\
-  \end{align}\end{split}\\The idea is that we are approximating the flux at a point :math:`x_i`, between :math:`x_{i+1}` and :math:`x_{i-1}`. So, the term looks like a central difference, where the grid points are separated by :math:`\Delta x /2`. Accordingly, the order is order :math:`\mathcal{O}((\Delta x)^2)` #### Why not finite differences? Finite-difference methods are straightforward to apply to simple equations (see the assignment below) with constant coefficients. However, for cases where the material properties\end{aligned}\end{align} \]</div>
-<p>vary with location (heterogeneous), they can be difficult to apply, for example, when the material properties are heterogeneous (diffusion coefficient, hydraulic conductivity, thermal conductivity, etc). A naive application can lead to <strong>non-conservative</strong> schemes - that is, ones that do not produce discrete approximations that are conservative. In contrast, the finite-volume method is a conservative discrete approximation.</p>
+<p>In the forward and backward Euler (or explicit and implicit) time stepping the time derivative is approximated as: <span class="math">\begin{align}
+{dc\over dt} \approx {c(t+\Delta t) - c(t)\over \Delta t} \label{8fd8818}\\
+\end{align}</span> What is the order of this approximation? #### Fluxes In our stencil, we approximate fluxes such as <span class="math notranslate nohighlight">\(j_{EC}\)</span> as: <span class="math">\begin{align}
+j_{EC}&= D\theta {c_E - c_C \over \Delta x} \label{8fd8819}\\
+\end{align}</span> Although this looks like a first order approximation, it’s really a second order. Why? It’s because the flux is really being approximated at the interface between the two gridblocks. To emphasize this, let’s use this finite-difference notation, <span class="math notranslate nohighlight">\(c_{i-1}=c_C\)</span>, <span class="math notranslate nohighlight">\(c_{i+1} = c_E\)</span> and write: <span class="math">\begin{align}
+j_{EC}&= D\theta {c_{i+1} - c_{i-1} \over \Delta x} \label{8fd8820}\\
+\end{align}</span> The idea is that we are approximating the flux at a point <span class="math notranslate nohighlight">\(x_i\)</span>, between <span class="math notranslate nohighlight">\(x_{i+1}\)</span> and <span class="math notranslate nohighlight">\(x_{i-1}\)</span>. So, the term looks like a central difference, where the grid points are separated by <span class="math notranslate nohighlight">\(\Delta x /2\)</span>. Accordingly, the order is order <span class="math notranslate nohighlight">\(\mathcal{O}((\Delta x)^2)\)</span> #### Why not finite differences? Finite-difference methods are straightforward to apply to simple equations (see the assignment below) with constant coefficients. However, for cases where the
+material properties vary with location (heterogeneous), they can be difficult to apply, for example, when the material properties are heterogeneous (diffusion coefficient, hydraulic conductivity, thermal conductivity, etc). A naive application can lead to <strong>non-conservative</strong> schemes - that is, ones that do not produce discrete approximations that are conservative. In contrast, the finite-volume method is a conservative discrete approximation.</p>
 </div>
 </div>
 </div>
@@ -903,47 +900,35 @@ c_{i-1} = c(x_i &amp;- \Delta x) \\
 <h3>1-D Steady-state diffusion with constant coefficients<a class="headerlink" href="#1-D-Steady-state-diffusion-with-constant-coefficients" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="Partial-differential-equation-for-diffusion-with-homogeneous-diffusion-coefficient">
 <h4>Partial differential equation for diffusion with homogeneous diffusion coefficient<a class="headerlink" href="#Partial-differential-equation-for-diffusion-with-homogeneous-diffusion-coefficient" title="Permalink to this headline">¶</a></h4>
-<p>To apply finite-difference approximations to solve differential equations, one simply replaces the derivatives that appear in the equations with a finite difference approximation. The partial differential equation for diffusion in three dimensions (not in porous media) is (see <code class="docutils literal notranslate"><span class="pre">9_pdes_1.ipynb</span></code>):</p>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
-  &amp;{\partial c\over \partial t} = {\partial \over \partial x}\left( D {\partial c \over \partial x}\right) + {\partial \over \partial y}\left( D {\partial c \over \partial y}\right)+ {\partial \over \partial z}\left( D {\partial c \over \partial z}\right)  \label{8fd8821}\\
-  \text{or}&amp;\nonumber\\
-  &amp;{\partial c\over \partial t} = \vec{\nabla} \cdot (D \vec{\nabla} c)\label{8fd8822}\\
-  \end{align}\end{split}\\Write the partial differential equation for 1-D (in the :math:`x` direction) steady-state diffusion where the diffusion coefficient is spatially homogeneous.\end{aligned}\end{align} \]</div>
+<p>To apply finite-difference approximations to solve differential equations, one simply replaces the derivatives that appear in the equations with a finite difference approximation. The partial differential equation for diffusion in three dimensions (not in porous media) is (see <code class="docutils literal notranslate"><span class="pre">9_pdes_1.ipynb</span></code>): <span class="math">\begin{align}
+&{\partial c\over \partial t} = {\partial \over \partial x}\left( D {\partial c \over \partial x}\right) + {\partial \over \partial y}\left( D {\partial c \over \partial y}\right)+ {\partial \over \partial z}\left( D {\partial c \over \partial z}\right)  \label{8fd8821}\\
+\text{or}&\nonumber\\
+&{\partial c\over \partial t} = \vec{\nabla} \cdot (D \vec{\nabla} c)\label{8fd8822}\\
+\end{align}</span> Write the partial differential equation for 1-D (in the <span class="math notranslate nohighlight">\(x\)</span> direction) steady-state diffusion where the diffusion coefficient is spatially homogeneous.</p>
 <p><strong>Put your equation here</strong></p>
 </div>
 <div class="section" id="Finite-difference-stencil-for-steady-state-diffusion-with-homogeneous-diffusion-coefficient">
 <h4>Finite-difference stencil for steady-state diffusion with homogeneous diffusion coefficient<a class="headerlink" href="#Finite-difference-stencil-for-steady-state-diffusion-with-homogeneous-diffusion-coefficient" title="Permalink to this headline">¶</a></h4>
-<blockquote>
-<div>To construct a finite-difference approximation to a differential equation, we simply replace the derivatives in the equation with a finite difference approximation. For example, for an ordinary differential equation of the form</div></blockquote>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
-  {dy\over dx} &amp;= 2 y + 6 \label{8fd8824}\\
-  \end{align}\end{split}\\we develop a finite - difference stencil by replacing the derivative by a finite difference approximation. For example a forward difference approximation would be:\end{aligned}\end{align} \]</div>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
-  {y(x_{i+1}) - y(x_i)\over \Delta x} &amp;= 2 y(x_i) + 6 \label{8fd8825}\\
-  \end{align}\end{split}\\This is usual written using this notation: :math:`y(x_i)\rightarrow y_i`:\end{aligned}\end{align} \]</div>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
-  {y_{i+1} - y_i\over \Delta x} &amp;= 2 y_i + 6 \label{8fd8826}\\
-  \end{align}\end{split}\\Write the finite-difference approximation for 1-D (in the :math:`x` direction) steady-state diffusion where the diffusion coefficient is spatially homogeneous (that is, for the equation you developed above). Use a centered approximation. **Write your equation here **\end{aligned}\end{align} \]</div>
+<p>To construct a finite-difference approximation to a differential equation, we simply replace the derivatives in the equation with a finite difference approximation. For example, for an ordinary differential equation of the form <span class="math">\begin{align}
+{dy\over dx} &= 2 y + 6 \label{8fd8824}\\
+\end{align}</span> we develop a finite - difference stencil by replacing the derivative by a finite difference approximation. For example a forward difference approximation would be: <span class="math">\begin{align}
+{y(x_{i+1}) - y(x_i)\over \Delta x} &= 2 y(x_i) + 6 \label{8fd8825}\\
+\end{align}</span> This is usual written using this notation: <span class="math notranslate nohighlight">\(y(x_i)\rightarrow y_i\)</span>: <span class="math">\begin{align}
+{y_{i+1} - y_i\over \Delta x} &= 2 y_i + 6 \label{8fd8826}\\
+\end{align}</span> Write the finite-difference approximation for 1-D (in the <span class="math notranslate nohighlight">\(x\)</span> direction) steady-state diffusion where the diffusion coefficient is spatially homogeneous (that is, for the equation you developed above). Use a centered approximation. <strong>Write your equation here</strong></p>
 </div>
 <div class="section" id="Finite-volume-stencil-for-steady-state-diffusion-with-homogeneous-diffusion-coefficient">
 <h4>Finite-volume stencil for steady-state diffusion with homogeneous diffusion coefficient<a class="headerlink" href="#Finite-volume-stencil-for-steady-state-diffusion-with-homogeneous-diffusion-coefficient" title="Permalink to this headline">¶</a></h4>
-<p>The finite-volume approximation for one-dimensional steady diffusion (not in porous media) is:</p>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}:nowrap:\\\begin{split}  \begin{align}
-  &amp;\left(D {c_E - c_C \over \Delta x} +   D {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) =0 \label{8fd8823}\\
-  \end{align}\end{split}\\Write this equation for the case of homogeneous diffusion coefficient and constant gridblock size in the form :math:`a_W c_W + a_C c_C + a_E c_E = rhs` (that is, determine :math:`a_W`, :math:`a_C`, :math:`a_E` and :math:`rhs`). **Write your equation here.**\end{aligned}\end{align} \]</div>
+<p>The finite-volume approximation for one-dimensional steady diffusion (not in porous media) is: <span class="math">\begin{align}
+&\left(D {c_E - c_C \over \Delta x} +   D {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) =0 \label{8fd8823}\\
+\end{align}</span> Write this equation for the case of homogeneous diffusion coefficient and constant gridblock size in the form <span class="math notranslate nohighlight">\(a_W c_W + a_C c_C + a_E c_E = rhs\)</span> (that is, determine <span class="math notranslate nohighlight">\(a_W\)</span>, <span class="math notranslate nohighlight">\(a_C\)</span>, <span class="math notranslate nohighlight">\(a_E\)</span> and <span class="math notranslate nohighlight">\(rhs\)</span>). <strong>Write your equation here.</strong></p>
 </div>
 </div>
 </div>
 <div class="section" id="Approximation-error">
 <h2>Approximation error<a class="headerlink" href="#Approximation-error" title="Permalink to this headline">¶</a></h2>
 <p>Compute the forward, backward and central difference error of <code class="docutils literal notranslate"><span class="pre">cos(x)</span></code> at <span class="math notranslate nohighlight">\(x = 0.7\)</span>, starting at <span class="math notranslate nohighlight">\(\Delta x = 0.5\)</span>, and the halving <span class="math notranslate nohighlight">\(\Delta x\)</span> 10 times (see code snippet below). Write a python code to: 1. compute and print the error for each value of <span class="math notranslate nohighlight">\(\Delta x\)</span> for the forward,centered and backwards approximations. * plot the error of each expression versus <span class="math notranslate nohighlight">\(\Delta x\)</span> * What should the slope of this plot be for the different approximations?</p>
-<blockquote>
-<div>You can reuse most of the code above for this assignment.</div></blockquote>
+<p>You can reuse most of the code above for this assignment.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -970,8 +955,8 @@ c_{i-1} = c(x_i &amp;- \Delta x) \\
 <div class="section" id="Reflection">
 <h1>Reflection<a class="headerlink" href="#Reflection" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li>What dictates your choice in the order of approximation used in a finite - difference approximation?</li>
-<li>How does the finite-difference approximation differ from the finite-volume approximation for the case you considered in the assignment above?</li>
+<li><p>What dictates your choice in the order of approximation used in a finite - difference approximation?</p></li>
+<li><p>How does the finite-difference approximation differ from the finite-volume approximation for the case you considered in the assignment above?</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -997,7 +982,7 @@ c_{i-1} = c(x_i &amp;- \Delta x) \\
     </p>
     <p>
         &copy; Copyright 2019, Philip Austin.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.<br/>
     </p>
   </div>
 </footer>

@@ -2,8 +2,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Introduction to finite-volume methods and partial differential equations &#8212; E213</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,16 +13,16 @@
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}, "extensions": ["color.js"]}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
-    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
 
@@ -54,45 +53,78 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul>
-<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-1-jan-3">1.1. Week 1  Jan 3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-2-jan-8-jan-10">1.2. Week 2  Jan 8/Jan 10</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-3-jan-15-jan-17">1.3. Week 3  Jan 15/Jan 17</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">1.4. Week 4  Jan 22/Jan 24</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">1.5. Week 5  Jan 29/Jan 31</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">1.6. Week 6  Feb 05/Feb 07</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-7-feb-19-feb-21">1.7. Week 7  Feb 19/Feb 21</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-8-feb-26-feb-28">1.8. Week 8  Feb 26/Feb 28</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-9-mar-05-mar-07">1.9. Week 9  Mar 05/Mar 07</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-10-mar-12-mar-14">1.10. Week 10  Mar 12/Mar 14</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-11-mar19-mar-21">1.11. Week 11 Mar19/Mar 21</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-12-mar26-mar28">1.12. Week 12 Mar26/Mar28</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-13-apr02-apr04">1.13. Week 13 Apr02/Apr04</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">1.14. General notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_goals/learning_goals.html">1. Learning goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Final-quiz-learning-goals-–-Thursday-April-17,-Buch-A104,-3:30pm-to-5pm">1.1. Final quiz learning goals – Thursday April 17, Buch A104, 3:30pm to 5pm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Math/numerics">Math/numerics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Python/coding">Python/coding</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../solutions.html#week-2">2.1. Week 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-1-learning-goals">1.2. Quiz 1 learning goals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#ODEs">ODEs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../texts.html#math">3.1. Math</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../texts.html#python">3.2. Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-2-learning-goals">1.3. Quiz 2 learning goals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Finite-Volume-method">Finite Volume method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#python-introductory-texts">4.1. Python Introductory Texts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#moving-from-matlab-to-python">4.2. Moving from matlab to python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#cocalc">4.3. Cocalc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-3-learning-goals">1.4. Quiz 3 learning goals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Differential-equations">Differential equations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../learning_goals/learning_goals.html#Math-Details">Math Details</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-shell-commands">5.1. Useful shell commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-git-commands">5.2. Useful git commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-debugger-commands">5.3. Useful debugger commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-4-learning-goals">1.5. Quiz 4 learning goals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Computational-methods">Computational methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Mathematics">Mathematics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Be-able-to-set-up-boundary-value-problem:">Be able to set up boundary value problem:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">2. Weekly notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-1-jan-3">2.1. Week 1  Jan 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-2-jan-8-jan-10">2.2. Week 2  Jan 8/Jan 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-3-jan-15-jan-17">2.3. Week 3  Jan 15/Jan 17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">2.4. Week 4  Jan 22/Jan 24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">2.5. Week 5  Jan 29/Jan 31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">2.6. Week 6  Feb 05/Feb 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-7-feb-19-feb-21">2.7. Week 7  Feb 19/Feb 21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-8-feb-26-feb-28">2.8. Week 8  Feb 26/Feb 28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-9-mar-05-mar-07">2.9. Week 9  Mar 05/Mar 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-10-mar-12-mar-14">2.10. Week 10  Mar 12/Mar 14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-11-mar19-mar-21">2.11. Week 11 Mar19/Mar 21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-12-mar26-mar28">2.12. Week 12 Mar26/Mar28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-13-apr02-apr04">2.13. Week 13 Apr02/Apr04</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">2.14. General notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">3. Assignment solutions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../solutions.html#assignments">3.1. Assignments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">4. Texts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#math">4.1. Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#python">4.2. Python</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">5. Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#python-introductory-texts">5.1. Python Introductory Texts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#moving-from-matlab-to-python">5.2. Moving from matlab to python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#cocalc">5.3. Cocalc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">6. Cheat sheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-shell-commands">6.1. Useful shell commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-git-commands">6.2. Useful git commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-debugger-commands">6.3. Useful debugger commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">7. Notebook index</a></li>
 </ul>
 </ul>
 </li>
@@ -106,12 +138,13 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_goals/learning_goals.html">1. Learning goals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">2. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">3. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">4. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">5. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">6. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">7. Notebook index</a></li>
 </ul>
 </ul>
 </li>
@@ -151,17 +184,18 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">1. Weekly notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../solutions.html">2. Assignment solutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../texts.html">3. Texts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">4. Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">5. Cheat sheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">6. Notebook index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learning_goals/learning_goals.html">1. Learning goals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">2. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">3. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">4. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">5. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">6. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">7. Notebook index</a></li>
 </ul>
 
         </div>
       </div>
-    <div class="col-md-9 content">
+    <div class="body col-md-9 content" role="main">
       
   
 <style>
@@ -364,26 +398,26 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <h1><p>Table of Contents</p>
-</h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;Introduction to finite-volume methods and partial differential equations</p>
-<ul class="toc-item"><li><ul class="toc-item"><li><p>1.0.1&nbsp;&nbsp;Roadmap</p>
-</li><li><p>1.0.2&nbsp;&nbsp;Conservation principles</p>
-</li><li><p>1.0.3&nbsp;&nbsp;A note about notation</p>
-</li></ul></li><li><p>1.1&nbsp;&nbsp;Learning goals</p>
-</li><li><p>1.2&nbsp;&nbsp;Conservation principles revisited</p>
-<ul class="toc-item"><li><p>1.2.1&nbsp;&nbsp;Simplest conservation statement</p>
-</li><li><p>1.2.2&nbsp;&nbsp;Your turn</p>
-</li><li><p>1.2.3&nbsp;&nbsp;Sign conventions</p>
-</li><li><p>1.2.4&nbsp;&nbsp;Your turn</p>
-</li><li><p>1.2.5&nbsp;&nbsp;Instantaneousness</p>
-</li><li><p>1.2.6&nbsp;&nbsp;Your turn</p>
-</li><li><p>1.2.7&nbsp;&nbsp;Your turn</p>
-</li><li><p>1.2.8&nbsp;&nbsp;Connected volumes - specific case</p>
-</li><li><p>1.2.9&nbsp;&nbsp;Your turn</p>
-</li><li><p>1.2.10&nbsp;&nbsp;Connected volumes - general case</p>
-</li><li><p>1.2.11&nbsp;&nbsp;Your turn</p>
-</li><li><p>1.2.12&nbsp;&nbsp;Your turn</p>
-</li></ul></li><li><p>1.3&nbsp;&nbsp;Reflection</p>
-</li><li><p>1.4&nbsp;&nbsp;On to finite volumes!</p>
+</h1><div class="toc"><ul class="toc-item"><li><p>1  Introduction to finite-volume methods and partial differential equations</p>
+<ul class="toc-item"><li><ul class="toc-item"><li><p>1.0.1  Roadmap</p>
+</li><li><p>1.0.2  Conservation principles</p>
+</li><li><p>1.0.3  A note about notation</p>
+</li></ul></li><li><p>1.1  Learning goals</p>
+</li><li><p>1.2  Conservation principles revisited</p>
+<ul class="toc-item"><li><p>1.2.1  Simplest conservation statement</p>
+</li><li><p>1.2.2  Your turn</p>
+</li><li><p>1.2.3  Sign conventions</p>
+</li><li><p>1.2.4  Your turn</p>
+</li><li><p>1.2.5  Instantaneousness</p>
+</li><li><p>1.2.6  Your turn</p>
+</li><li><p>1.2.7  Your turn</p>
+</li><li><p>1.2.8  Connected volumes - specific case</p>
+</li><li><p>1.2.9  Your turn</p>
+</li><li><p>1.2.10  Connected volumes - general case</p>
+</li><li><p>1.2.11  Your turn</p>
+</li><li><p>1.2.12  Your turn</p>
+</li></ul></li><li><p>1.3  Reflection</p>
+</li><li><p>1.4  On to finite volumes!</p>
 </li></ul></li></ul></div><div class="section" id="Introduction-to-finite-volume-methods-and-partial-differential-equations">
 <h1>Introduction to finite-volume methods and partial differential equations<a class="headerlink" href="#Introduction-to-finite-volume-methods-and-partial-differential-equations" title="Permalink to this headline">¶</a></h1>
 <p>We are ready to do some fun stuff! We are going to show you the fundamental principles of many of the numerical models used in the earth sciences such as * heat flow * contaminant transport * fluid flow * groundwater * river (surface water) * the atmosphere (climate and weather)</p>
@@ -395,11 +429,11 @@ div.rendered_html tbody tr:hover {
 <h2>Roadmap<a class="headerlink" href="#Roadmap" title="Permalink to this headline">¶</a></h2>
 <p>We are going to develop a numerical model to compute the steady-state sulfate concentration profile with depth in the top two meters of tailings at the bottom of the TMF. We will assume for this problem that:</p>
 <ul class="simple">
-<li>the TMF pond has a large surface area, and we are computing the profile in the middle of the TMF away from the edge.</li>
-<li>the concentration in the water in the TMF pond does not change in time and is fixed at <span class="math notranslate nohighlight">\(c=93~mg/L\)</span></li>
-<li>the concentration at <span class="math notranslate nohighlight">\(2~m\)</span> depth in the sediments does not change in time and is fixed at <span class="math notranslate nohighlight">\(c=2000~mg/L\)</span></li>
-<li>sulfate is not produced in the top <span class="math notranslate nohighlight">\(2~m\)</span> of the tailings.</li>
-<li>sulfate moves by diffusion only.</li>
+<li><p>the TMF pond has a large surface area, and we are computing the profile in the middle of the TMF away from the edge.</p></li>
+<li><p>the concentration in the water in the TMF pond does not change in time and is fixed at <span class="math notranslate nohighlight">\(c=93~mg/L\)</span></p></li>
+<li><p>the concentration at <span class="math notranslate nohighlight">\(2~m\)</span> depth in the sediments does not change in time and is fixed at <span class="math notranslate nohighlight">\(c=2000~mg/L\)</span></p></li>
+<li><p>sulfate is not produced in the top <span class="math notranslate nohighlight">\(2~m\)</span> of the tailings.</p></li>
+<li><p>sulfate moves by diffusion only.</p></li>
 </ul>
 <p>This is a simplification of reality - we can introduce more complexity later.</p>
 </div>
@@ -408,28 +442,28 @@ div.rendered_html tbody tr:hover {
 <p>You will see that these models are based on the same general approach: divide a region of interest into connected volumes (often called gridblocks), and track how a quantity such as energy or a contaminant moves from one volume to the next (the flux of the quantity) and how it is produced or consumed inside each volume. Tracking flux into and production/consumption within the volume through time allows us to determine how the amount of the quantity is changing within the volume through time.
 This is the <strong>conservation principle</strong>.</p>
 <p>We can apply the conservation principle to:</p>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="49%" />
-<col width="51%" />
+<col style="width: 49%" />
+<col style="width: 51%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Quantity</th>
-<th class="head">Flux</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Quantity</p></th>
+<th class="head"><p>Flux</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>Thermal energy</td>
-<td>heat</td>
+<tbody>
+<tr class="row-even"><td><p>Thermal energy</p></td>
+<td><p>heat</p></td>
 </tr>
-<tr class="row-odd"><td>electrical charge</td>
-<td>electrical current</td>
+<tr class="row-odd"><td><p>electrical charge</p></td>
+<td><p>electrical current</p></td>
 </tr>
-<tr class="row-even"><td>mass</td>
-<td>chemical flux</td>
+<tr class="row-even"><td><p>mass</p></td>
+<td><p>chemical flux</p></td>
 </tr>
-<tr class="row-odd"><td>water</td>
-<td>water flux</td>
+<tr class="row-odd"><td><p>water</p></td>
+<td><p>water flux</p></td>
 </tr>
 </tbody>
 </table>
@@ -441,27 +475,27 @@ This is the <strong>conservation principle</strong>.</p>
 <div class="section" id="Learning-goals">
 <h3>Learning goals<a class="headerlink" href="#Learning-goals" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li>Be able to identify the components of a conservation statement.</li>
-<li>Be able to write a general conservation equation for a single defined volume (control volume) in terms of:</li>
+<li><p>Be able to identify the components of a conservation statement.</p></li>
+<li><p>Be able to write a general conservation equation for a single defined volume (control volume) in terms of:</p></li>
 </ol>
 <ul class="simple">
-<li>the flux of a quantity across the boundary into a volume,</li>
-<li>the rate at which the quantity is produced or consumed internal to the volume;</li>
-<li>the rate at which the amount of the quantity is changing in the volume.</li>
+<li><p>the flux of a quantity across the boundary into a volume,</p></li>
+<li><p>the rate at which the quantity is produced or consumed internal to the volume;</p></li>
+<li><p>the rate at which the amount of the quantity is changing in the volume.</p></li>
 </ul>
 <ol class="arabic simple" start="3">
-<li>Be able to write a conservation equation for a group of connected volumes in terms of:</li>
+<li><p>Be able to write a conservation equation for a group of connected volumes in terms of:</p></li>
 </ol>
 <ul class="simple">
-<li>the flux of a quantity across the boundary into each volume,</li>
-<li>the rate at which the quantity is produced or consumed internal to the volume;</li>
-<li>the rate at which the amount of the quantity is changing in the volume.</li>
+<li><p>the flux of a quantity across the boundary into each volume,</p></li>
+<li><p>the rate at which the quantity is produced or consumed internal to the volume;</p></li>
+<li><p>the rate at which the amount of the quantity is changing in the volume.</p></li>
 </ul>
 <ol class="arabic simple" start="4">
-<li>Be able to recognize conservation expressions written in algebraic, integral and differntial notations.</li>
-<li>Be able to develop a finite-volume stencil for a one-dimensional conservation law.</li>
-<li>Be able to derive the differential equation from the finite-volume stencil by taking the limit of the volume to a point.</li>
-<li>Be able to use the finite-volume stencil to develop a discrete approximation for a spatially distributed conservation problem defined on a grid of connected finite volumes.</li>
+<li><p>Be able to recognize conservation expressions written in algebraic, integral and differntial notations.</p></li>
+<li><p>Be able to develop a finite-volume stencil for a one-dimensional conservation law.</p></li>
+<li><p>Be able to derive the differential equation from the finite-volume stencil by taking the limit of the volume to a point.</p></li>
+<li><p>Be able to use the finite-volume stencil to develop a discrete approximation for a spatially distributed conservation problem defined on a grid of connected finite volumes.</p></li>
 </ol>
 </div>
 <div class="section" id="Conservation-principles-revisited">
@@ -474,29 +508,29 @@ This is the <strong>conservation principle</strong>.</p>
 <div class="section" id="Simplest-conservation-statement">
 <h2>Simplest conservation statement<a class="headerlink" href="#Simplest-conservation-statement" title="Permalink to this headline">¶</a></h2>
 <p>If we define <span class="math notranslate nohighlight">\(\Delta m\)</span> <span class="math notranslate nohighlight">\(\left[{M}\right]\)</span> as the change in mass in the TMF over time <span class="math notranslate nohighlight">\(\Delta t\)</span> <span class="math notranslate nohighlight">\(\left[{T}\right]\)</span>, and <span class="math notranslate nohighlight">\(m_{in}\)</span> <span class="math notranslate nohighlight">\(\left[{M}\right]\)</span>, <span class="math notranslate nohighlight">\(m_{out}\)</span> <span class="math notranslate nohighlight">\(\left[{M}\right]\)</span> as the masses that entered and exited the TMF over <span class="math notranslate nohighlight">\(\Delta t\)</span>, then an expression for the conservation of mass over time <span class="math notranslate nohighlight">\(\Delta t\)</span> is</p>
-<div class="math notranslate nohighlight">
-\begin{align}
-\Delta m  &amp;= m_{in} - m_{out} \label{eq1} \\
-\end{align}</div><p>Recall the square brackets notation <span class="math notranslate nohighlight">\(\left[ \cdot \right]\)</span> is used to indicate the dimension of the term preceding it. The basic dimensions are mass <span class="math notranslate nohighlight">\(M\)</span>, time <span class="math notranslate nohighlight">\(T\)</span>, length <span class="math notranslate nohighlight">\(L\)</span> and temperature <span class="math notranslate nohighlight">\(\Theta\)</span>. It is permissible to compare, equate, add or subtract only those physical quantities that have the same dimensions. In other words, every term in an expression describing a physical system must have the same dimesions.</p>
+<p><span class="math">\begin{align}
+\Delta m  &= m_{in} - m_{out} \label{eq1} \\
+\end{align}</span></p>
+<p>Recall the square brackets notation <span class="math notranslate nohighlight">\(\left[ \cdot \right]\)</span> is used to indicate the dimension of the term preceding it. The basic dimensions are mass <span class="math notranslate nohighlight">\(M\)</span>, time <span class="math notranslate nohighlight">\(T\)</span>, length <span class="math notranslate nohighlight">\(L\)</span> and temperature <span class="math notranslate nohighlight">\(\Theta\)</span>. It is permissible to compare, equate, add or subtract only those physical quantities that have the same dimensions. In other words, every term in an expression describing a physical system must have the same dimesions.</p>
 <p>In equation <span class="math notranslate nohighlight">\(\ref{eq1}\)</span>, each term is a <strong>mass</strong>. To take this concept further, it is useful to rewrite equation <span class="math notranslate nohighlight">\(\ref{eq1}\)</span> in terms of <strong>fluxes</strong> and <strong>rates</strong>. What the flux?</p>
 <p>A <strong>flux</strong> is something that flows through a surface or substance. In our example, we can conceive of the water (or sulfate) as flowing across the boundary of the TMF (our control volume). The rate at which the mass flows across the boundary is a <strong>mass flux</strong>.</p>
 <p>Fluxes are typically defined in two ways:</p>
 <ul class="simple">
-<li>as a <strong>total flux</strong>, which is the rate that the total amount of a quantity enters a volume.</li>
-<li>as a <strong>specific flux</strong>, which is the rate per unit area of boundary that a quantity enters a volume.</li>
+<li><p>as a <strong>total flux</strong>, which is the rate that the total amount of a quantity enters a volume.</p></li>
+<li><p>as a <strong>specific flux</strong>, which is the rate per unit area of boundary that a quantity enters a volume.</p></li>
 </ul>
 <p><strong>Example</strong>: mass is entering a volume at the rate of <span class="math notranslate nohighlight">\(30~kg/s\)</span>. The area of the boundary that is crossed to enter the volume is <span class="math notranslate nohighlight">\(10~m^2\)</span>. Then: * the total flux <span class="math notranslate nohighlight">\(J=30~kg/s\)</span>. * the specific flux <span class="math notranslate nohighlight">\(j=3~kg/(s\cdot m^2)\)</span>.</p>
 <p>More generally, <span class="math notranslate nohighlight">\(J= {j A}\)</span>, where <span class="math notranslate nohighlight">\(A\)</span> is the area normal to the direction that a quantity enters the volume:</p>
 <p>So if over the time period <span class="math notranslate nohighlight">\(\Delta t\)</span> a mass of <span class="math notranslate nohighlight">\(m_{in}\)</span> flowed into the TMF, the <strong>total mass flux</strong>, $J_{m~{in}} ~ :nbsphinx-math:<a href="#id1"><span class="problematic" id="id2">`</span></a>left[{Mover T}right] <a href="#id3"><span class="problematic" id="id4">`</span></a>$ is</p>
-<div class="math notranslate nohighlight">
-\begin{align}
-J_{m~in} &amp;= {\Delta m_{in}\over \Delta t} \label{eq2}\\
-\end{align}</div><ul class="simple">
-<li><span class="math notranslate nohighlight">\({J}\)</span> is notation for the total flux.</li>
-<li><span class="math notranslate nohighlight">\(j\)</span> is notation for a specific flux.</li>
-<li><span class="math notranslate nohighlight">\({J_m}\)</span> is notation for a total <em>mass</em> flux.</li>
-<li><span class="math notranslate nohighlight">\(J_{m~in}\)</span> is notation for the total <em>mass flux in</em>.</li>
-<li><span class="math notranslate nohighlight">\(\left[{M\over T}\right]\)</span> is notation that can be read to say <em>the dimensions of the term(s) preceding this are mass, :math:`M`, over time, :math:`T`</em>.</li>
+<p><span class="math">\begin{align}
+J_{m~in} &= {\Delta m_{in}\over \Delta t} \label{eq2}\\
+\end{align}</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\({J}\)</span> is notation for the total flux.</p></li>
+<li><p><span class="math notranslate nohighlight">\(j\)</span> is notation for a specific flux.</p></li>
+<li><p><span class="math notranslate nohighlight">\({J_m}\)</span> is notation for a total <em>mass</em> flux.</p></li>
+<li><p><span class="math notranslate nohighlight">\(J_{m~in}\)</span> is notation for the total <em>mass flux in</em>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\left[{M\over T}\right]\)</span> is notation that can be read to say <em>the dimensions of the term(s) preceding this are mass, :math:`M`, over time, :math:`T`</em>.</p></li>
 </ul>
 </div>
 <div class="section" id="Your-turn">
@@ -510,10 +544,10 @@ J_{m~in} &amp;= {\Delta m_{in}\over \Delta t} \label{eq2}\\
 <p>As will be clearer later, fluxes, unlike mass, have magnitude and direction - they are vectors. The sign of the flux is used to indicate its direction.</p>
 <p>When we write our conservation expressions, we will use these conventions: * mass flux <strong>entering</strong> the control volume is <strong>positive</strong>; * mass flux <strong>leaving</strong> the volume is <strong>negative</strong>.</p>
 <p>Using this convention, we can write the conservation statement for a TMF as:</p>
-<div class="math notranslate nohighlight">
-\begin{align}
-{\Delta m\over \Delta t}  &amp;= \sum_{i=1}^n J_{i} \label{eq3}\\
-\end{align}</div><p>Where the notation <span class="math notranslate nohighlight">\(\sum_{i=1}^n\)</span> means <em>“sum over mass fluxes :math:`i=1,2,ldots, n`”</em>. For example, we could decide to label the flux from the pit into the TMF <span class="math notranslate nohighlight">\(J_1\)</span> and flux at the discharge structure <span class="math notranslate nohighlight">\(J_2\)</span>. Because mass is entering the TMF from the pit, <span class="math notranslate nohighlight">\(J_1\)</span> will be greater than or equal to zero (<span class="math notranslate nohighlight">\(J_1\ge0\)</span>), and because mass is leaving at the discharge structure, <span class="math notranslate nohighlight">\(J_2\)</span> will be less than or equal to zero (<span class="math notranslate nohighlight">\(J_2\le0\)</span>).</p>
+<p><span class="math">\begin{align}
+{\Delta m\over \Delta t}  &= \sum_{i=1}^n J_{i} \label{eq3}\\
+\end{align}</span></p>
+<p>Where the notation <span class="math notranslate nohighlight">\(\sum_{i=1}^n\)</span> means <em>“sum over mass fluxes :math:`i=1,2,ldots, n`”</em>. For example, we could decide to label the flux from the pit into the TMF <span class="math notranslate nohighlight">\(J_1\)</span> and flux at the discharge structure <span class="math notranslate nohighlight">\(J_2\)</span>. Because mass is entering the TMF from the pit, <span class="math notranslate nohighlight">\(J_1\)</span> will be greater than or equal to zero (<span class="math notranslate nohighlight">\(J_1\ge0\)</span>), and because mass is leaving at the discharge structure, <span class="math notranslate nohighlight">\(J_2\)</span> will be less than or equal to zero (<span class="math notranslate nohighlight">\(J_2\le0\)</span>).</p>
 </div>
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
@@ -530,15 +564,15 @@ J_{m~in} &amp;= {\Delta m_{in}\over \Delta t} \label{eq2}\\
 </div>
 <div class="section" id="Instantaneousness">
 <h2>Instantaneousness<a class="headerlink" href="#Instantaneousness" title="Permalink to this headline">¶</a></h2>
-<p>The simple conservation statement above applies over time period <span class="math notranslate nohighlight">\(\Delta t\)</span>. <strong>Does it apply at every *instant* in time?</strong> That is, what does the above equation become as <span class="math notranslate nohighlight">\(\Delta t\rightarrow 0\)</span></p>
+<p>The simple conservation statement above applies over time period <span class="math notranslate nohighlight">\(\Delta t\)</span>. <strong>Does it apply at every instant in time?</strong> That is, what does the above equation become as <span class="math notranslate nohighlight">\(\Delta t\rightarrow 0\)</span></p>
 </div>
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
 <p>Replace the ??? below with the correct term for the equation <span class="math notranslate nohighlight">\({\Delta m\over \Delta t} = \sum_{i=1}^n J_{i}\)</span> when <span class="math notranslate nohighlight">\(\Delta t\rightarrow 0\)</span>.</p>
-<div class="math notranslate nohighlight">
-\begin{align}
-?? &amp;= \sum_{i=1}^n J_{i} \label{eqfv4} \\
-\end{align}</div></div>
+<p><span class="math">\begin{align}
+?? &= \sum_{i=1}^n J_{i} \label{eqfv4} \\
+\end{align}</span></p>
+</div>
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
 <p>In this cell, write a statement in words that describes the behavior of the system when: 1. <span class="math notranslate nohighlight">\(\sum_{i=1}^n J_{i}=0\)</span> (the net flux entering the control volume is zero) 2. <span class="math notranslate nohighlight">\(\sum_{i=1}^n J_{i}&lt;0\)</span> (the net flux entering the control volume is less than zero) 3. <span class="math notranslate nohighlight">\(\sum_{i=1}^n J_{i}&gt;0\)</span> (the net flux entering the control volume is greater than zero)</p>
@@ -550,7 +584,7 @@ J_{m~in} &amp;= {\Delta m_{in}\over \Delta t} \label{eq2}\\
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>Compute the instantaneous rate of change of water volume in tanks 1, 2, 3, by writing a conservation of volume equation for each tank (Note: we can use volume, if we assume water density is constant).</li>
+<li><p>Compute the instantaneous rate of change of water volume in tanks 1, 2, 3, by writing a conservation of volume equation for each tank (Note: we can use volume, if we assume water density is constant).</p></li>
 </ol>
 </div>
 <div class="section" id="Connected-volumes---general-case">
@@ -560,7 +594,7 @@ J_{m~in} &amp;= {\Delta m_{in}\over \Delta t} \label{eq2}\\
 <div class="section" id="Your-turn">
 <h2>Your turn<a class="headerlink" href="#Your-turn" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>Write a general conservation of mass (volume, since we will assume water density is constant) equation for tanks 1, 2, and 3 in terms of the variables in the figure. Be consistent with the signs of the fluxes used in the equations.</li>
+<li><p>Write a general conservation of mass (volume, since we will assume water density is constant) equation for tanks 1, 2, and 3 in terms of the variables in the figure. Be consistent with the signs of the fluxes used in the equations.</p></li>
 </ol>
 </div>
 <div class="section" id="Your-turn">
@@ -570,9 +604,9 @@ J_{m~in} &amp;= {\Delta m_{in}\over \Delta t} \label{eq2}\\
 <h3>Reflection<a class="headerlink" href="#Reflection" title="Permalink to this headline">¶</a></h3>
 <p>What have you learned? What have you struggled with? Some thoughts below. Reflect on anything else you have learned or struggled with and write it here.</p>
 <ul class="simple">
-<li>defined the term flux</li>
-<li>to write conservation expressions in terms of fluxes</li>
-<li>defined steady-state and non-steady (also called transient) conditions, and their corresponding conservation equations.</li>
+<li><p>defined the term flux</p></li>
+<li><p>to write conservation expressions in terms of fluxes</p></li>
+<li><p>defined steady-state and non-steady (also called transient) conditions, and their corresponding conservation equations.</p></li>
 </ul>
 </div>
 <div class="section" id="On-to-finite-volumes!">
@@ -594,7 +628,7 @@ J_{m~in} &amp;= {\Delta m_{in}\over \Delta t} \label{eq2}\\
     </p>
     <p>
         &copy; Copyright 2019, Philip Austin.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.<br/>
     </p>
   </div>
 </footer>

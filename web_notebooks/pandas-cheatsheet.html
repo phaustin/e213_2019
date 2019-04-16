@@ -2,8 +2,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Pandas Cheatsheet &#8212; E213</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,16 +13,16 @@
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}, "extensions": ["color.js"]}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
-    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
 
@@ -55,17 +54,22 @@
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="../learning_goals/learning_goals.html">1. Learning goals</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-1-learning-goals">1.1. Quiz 1 learning goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Final-quiz-learning-goals-–-Thursday-April-17,-Buch-A104,-3:30pm-to-5pm">1.1. Final quiz learning goals – Thursday April 17, Buch A104, 3:30pm to 5pm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Math/numerics">Math/numerics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Python/coding">Python/coding</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-1-learning-goals">1.2. Quiz 1 learning goals</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#ODEs">ODEs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-2-learning-goals">1.2. Quiz 2 learning goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-2-learning-goals">1.3. Quiz 2 learning goals</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Finite-Volume-method">Finite Volume method</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-3-learning-goals">1.3. Quiz 3 learning goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-3-learning-goals">1.4. Quiz 3 learning goals</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Differential-equations">Differential equations</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../learning_goals/learning_goals.html#Math-Details">Math Details</a></li>
 </ul>
@@ -73,7 +77,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-4-learning-goals">1.4. Quiz 4 learning goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-4-learning-goals">1.5. Quiz 4 learning goals</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Computational-methods">Computational methods</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Mathematics">Mathematics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Be-able-to-set-up-boundary-value-problem:">Be able to set up boundary value problem:</a></li>
@@ -100,7 +104,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../solutions.html">3. Assignment solutions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../solutions.html#week-2">3.1. Week 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../solutions.html#assignments">3.1. Assignments</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../texts.html">4. Texts</a><ul>
@@ -191,29 +195,29 @@
 
         </div>
       </div>
-    <div class="col-md-9 content">
+    <div class="body col-md-9 content" role="main">
       
   <h1><p>Table of Contents</p>
-</h1><div class="toc"><ul class="toc-item"><li><p>1&nbsp;&nbsp;Importing pandas Library</p>
-</li><li><p>2&nbsp;&nbsp;DataFrames and Series</p>
-</li><li><p>3&nbsp;&nbsp;Reading a CSV File</p>
-</li><li><p>4&nbsp;&nbsp;Saving to a CSV File</p>
-</li><li><p>5&nbsp;&nbsp;Quick and Easy Summaries of a DataFrame</p>
-<ul class="toc-item"><li><p>5.1&nbsp;&nbsp;Summary Statistics</p>
-</li></ul></li><li><p>6&nbsp;&nbsp;Working with DataFrame Columns</p>
-<ul class="toc-item"><li><p>6.1&nbsp;&nbsp;Single Columns</p>
-</li><li><p>6.2&nbsp;&nbsp;Multiple Columns</p>
-</li></ul></li><li><p>7&nbsp;&nbsp;Plots</p>
-</li><li><p>8&nbsp;&nbsp;Unique Values &amp; Counting</p>
-</li><li><p>9&nbsp;&nbsp;Sorting</p>
-</li><li><p>10&nbsp;&nbsp;Filtering</p>
-</li><li><p>11&nbsp;&nbsp;Aggregation</p>
-</li><li><p>12&nbsp;&nbsp;Setting the Index of a DataFrame</p>
-</li><li><p>13&nbsp;&nbsp;Anatomy of a DataFrame</p>
-</li><li><p>14&nbsp;&nbsp;Selection Methods</p>
-<ul class="toc-item"><li><p>14.1&nbsp;&nbsp;1. Using only square brackets</p>
-</li><li><p>14.2&nbsp;&nbsp;2. Positional indexing with iloc</p>
-</li><li><p>14.3&nbsp;&nbsp;3. Label-based indexing with loc</p>
+</h1><div class="toc"><ul class="toc-item"><li><p>1  Importing pandas Library</p>
+</li><li><p>2  DataFrames and Series</p>
+</li><li><p>3  Reading a CSV File</p>
+</li><li><p>4  Saving to a CSV File</p>
+</li><li><p>5  Quick and Easy Summaries of a DataFrame</p>
+<ul class="toc-item"><li><p>5.1  Summary Statistics</p>
+</li></ul></li><li><p>6  Working with DataFrame Columns</p>
+<ul class="toc-item"><li><p>6.1  Single Columns</p>
+</li><li><p>6.2  Multiple Columns</p>
+</li></ul></li><li><p>7  Plots</p>
+</li><li><p>8  Unique Values &amp; Counting</p>
+</li><li><p>9  Sorting</p>
+</li><li><p>10  Filtering</p>
+</li><li><p>11  Aggregation</p>
+</li><li><p>12  Setting the Index of a DataFrame</p>
+</li><li><p>13  Anatomy of a DataFrame</p>
+</li><li><p>14  Selection Methods</p>
+<ul class="toc-item"><li><p>14.1  1. Using only square brackets</p>
+</li><li><p>14.2  2. Positional indexing with iloc</p>
+</li><li><p>14.3  3. Label-based indexing with loc</p>
 </li></ul></li></ul></div><div class="section" id="Pandas-Cheatsheet">
 <h1>Pandas Cheatsheet<a class="headerlink" href="#Pandas-Cheatsheet" title="Permalink to this headline">¶</a></h1>
 <p>Downloaded from <a class="reference external" href="https://github.com/jenfly/eoas-python">https://github.com/jenfly/eoas-python</a> by Jennifer Walker</p>
@@ -223,19 +227,22 @@
 </pre></div>
 </div>
 <blockquote>
-<div>In general, it’s good practice to collect all your <code class="docutils literal notranslate"><span class="pre">import</span></code> commands together and put them at the start of the notebook.</div></blockquote>
+<div><p>In general, it’s good practice to collect all your <code class="docutils literal notranslate"><span class="pre">import</span></code> commands together and put them at the start of the notebook.</p>
+</div></blockquote>
 </div>
 <div class="section" id="DataFrames-and-Series">
 <h2>DataFrames and Series<a class="headerlink" href="#DataFrames-and-Series" title="Permalink to this headline">¶</a></h2>
 <p>Data in <code class="docutils literal notranslate"><span class="pre">pandas</span></code> is organized into DataFrames and Series.</p>
 <ul class="simple">
-<li><strong>DataFrame:</strong> 2-dimensional array, like a table in a spreadsheet<ul>
-<li>The rows are axis 0</li>
-<li>The columns are axis 1</li>
+<li><p><strong>DataFrame:</strong> 2-dimensional array, like a table in a spreadsheet</p>
+<ul>
+<li><p>The rows are axis 0</p></li>
+<li><p>The columns are axis 1</p></li>
 </ul>
 </li>
-<li><strong>Series:</strong> 1-dimensional array, like a single column or row in a spreadsheet<ul>
-<li>Each individual column or row of a DataFrame is represented as a Series</li>
+<li><p><strong>Series:</strong> 1-dimensional array, like a single column or row in a spreadsheet</p>
+<ul>
+<li><p>Each individual column or row of a DataFrame is represented as a Series</p></li>
 </ul>
 </li>
 </ul>
@@ -255,45 +262,45 @@
 </pre></div>
 </div>
 <ul class="simple">
-<li>To include the DataFrame’s index as a column in the CSV file, omit the <code class="docutils literal notranslate"><span class="pre">index=False</span></code> keyword argument.</li>
+<li><p>To include the DataFrame’s index as a column in the CSV file, omit the <code class="docutils literal notranslate"><span class="pre">index=False</span></code> keyword argument.</p></li>
 </ul>
 </div>
 <div class="section" id="Quick-and-Easy-Summaries-of-a-DataFrame">
 <h2>Quick and Easy Summaries of a DataFrame<a class="headerlink" href="#Quick-and-Easy-Summaries-of-a-DataFrame" title="Permalink to this headline">¶</a></h2>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="68%" />
-<col width="32%" />
+<col style="width: 68%" />
+<col style="width: 32%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head"><strong>feature</strong></th>
-<th class="head">dataframe attribute/method</th>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>feature</strong></p></th>
+<th class="head"><p>dataframe attribute/method</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><strong>Useful Attributes</strong></td>
-<td>&#160;</td>
+<tbody>
+<tr class="row-even"><td><p><strong>Useful Attributes</strong></p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>Number of rows and columns (rows first, columns second)</td>
-<td><code class="docutils literal notranslate"><span class="pre">df.shape</span></code></td>
+<tr class="row-odd"><td><p>Number of rows and columns (rows first, columns second)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df.shape</span></code></p></td>
 </tr>
-<tr class="row-even"><td>Names and data types of each column</td>
-<td><code class="docutils literal notranslate"><span class="pre">df.dtypes</span></code></td>
+<tr class="row-even"><td><p>Names and data types of each column</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df.dtypes</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>Just the names of each column</td>
-<td><code class="docutils literal notranslate"><span class="pre">df.columns</span></code></td>
+<tr class="row-odd"><td><p>Just the names of each column</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df.columns</span></code></p></td>
 </tr>
-<tr class="row-even"><td><strong>Rows at a Glance</strong></td>
-<td>&#160;</td>
+<tr class="row-even"><td><p><strong>Rows at a Glance</strong></p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>First <code class="docutils literal notranslate"><span class="pre">n</span></code> rows (default 5)</td>
-<td><code class="docutils literal notranslate"><span class="pre">df.head(n)</span></code></td>
+<tr class="row-odd"><td><p>First <code class="docutils literal notranslate"><span class="pre">n</span></code> rows (default 5)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df.head(n)</span></code></p></td>
 </tr>
-<tr class="row-even"><td>Last <code class="docutils literal notranslate"><span class="pre">n</span></code> rows (default 5)</td>
-<td><code class="docutils literal notranslate"><span class="pre">df.tail(n)</span></code></td>
+<tr class="row-even"><td><p>Last <code class="docutils literal notranslate"><span class="pre">n</span></code> rows (default 5)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df.tail(n)</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>A random sampling of <code class="docutils literal notranslate"><span class="pre">n</span></code> rows (default 1)</td>
-<td><code class="docutils literal notranslate"><span class="pre">df.sample(n)</span></code></td>
+<tr class="row-odd"><td><p>A random sampling of <code class="docutils literal notranslate"><span class="pre">n</span></code> rows (default 1)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df.sample(n)</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -343,25 +350,25 @@
 </pre></div>
 </div>
 <ul class="simple">
-<li>Line plot of column <code class="docutils literal notranslate"><span class="pre">'B'</span></code> vs.&nbsp;column <code class="docutils literal notranslate"><span class="pre">'A'</span></code> of a DataFrame:</li>
+<li><p>Line plot of column <code class="docutils literal notranslate"><span class="pre">'B'</span></code> vs. column <code class="docutils literal notranslate"><span class="pre">'A'</span></code> of a DataFrame:</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li>Histogram of one column of a DataFrame:</li>
+<li><p>Histogram of one column of a DataFrame:</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li>Plot all columns of a DataFrame, with each column as a line on the same plot:</li>
+<li><p>Plot all columns of a DataFrame, with each column as a line on the same plot:</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li>Plot bar charts of each column of a DataFrame, with a separate subplot for each column:</li>
+<li><p>Plot bar charts of each column of a DataFrame, with a separate subplot for each column:</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">subplots</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
@@ -374,30 +381,31 @@
 <div class="section" id="Unique-Values-&amp;-Counting">
 <h2>Unique Values &amp; Counting<a class="headerlink" href="#Unique-Values-&-Counting" title="Permalink to this headline">¶</a></h2>
 <p>For a column <code class="docutils literal notranslate"><span class="pre">df['A']</span></code> which contains many repeated values (such as categories), some useful summary methods are:</p>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="51%" />
-<col width="49%" />
+<col style="width: 51%" />
+<col style="width: 49%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head"><strong>feature</strong></th>
-<th class="head">method</th>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>feature</strong></p></th>
+<th class="head"><p>method</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>Unique values</td>
-<td><code class="docutils literal notranslate"><span class="pre">df['A'].unique()</span></code></td>
+<tbody>
+<tr class="row-even"><td><p>Unique values</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df['A'].unique()</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>Number of unique values</td>
-<td><code class="docutils literal notranslate"><span class="pre">df['A'].nunique()</span></code></td>
+<tr class="row-odd"><td><p>Number of unique values</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df['A'].nunique()</span></code></p></td>
 </tr>
-<tr class="row-even"><td>Counts of each unique value</td>
-<td><code class="docutils literal notranslate"><span class="pre">df['A'].value_counts()</span></code></td>
+<tr class="row-even"><td><p>Counts of each unique value</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df['A'].value_counts()</span></code></p></td>
 </tr>
 </tbody>
 </table>
 <blockquote>
-<div>Note: The <code class="docutils literal notranslate"><span class="pre">unique</span></code>, <code class="docutils literal notranslate"><span class="pre">nunique</span></code>, and <code class="docutils literal notranslate"><span class="pre">value_counts</span></code> methods can only be applied to a Series (not a DataFrame)</div></blockquote>
+<div><p>Note: The <code class="docutils literal notranslate"><span class="pre">unique</span></code>, <code class="docutils literal notranslate"><span class="pre">nunique</span></code>, and <code class="docutils literal notranslate"><span class="pre">value_counts</span></code> methods can only be applied to a Series (not a DataFrame)</p>
+</div></blockquote>
 </div>
 <div class="section" id="Sorting">
 <h2>Sorting<a class="headerlink" href="#Sorting" title="Permalink to this headline">¶</a></h2>
@@ -437,7 +445,7 @@
 </pre></div>
 </div>
 <ul class="simple">
-<li>Use a dictionary to specify different aggregation statistics for different columns, for example:</li>
+<li><p>Use a dictionary to specify different aggregation statistics for different columns, for example:</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">agg_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;population&#39;</span> <span class="p">:</span> <span class="s1">&#39;sum&#39;</span><span class="p">,</span>
             <span class="s1">&#39;life_expectancy&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">]}</span>
@@ -457,17 +465,19 @@
 <h2>Anatomy of a DataFrame<a class="headerlink" href="#Anatomy-of-a-DataFrame" title="Permalink to this headline">¶</a></h2>
 <p><img alt="dataframe3" src="web_notebooks/img/dataframe3.png" /></p>
 <ul class="simple">
-<li>Each cell in a DataFrame is associated with:<ul>
-<li>A row position and column position (integers, starting from 0), and</li>
-<li>A row label and column label</li>
+<li><p>Each cell in a DataFrame is associated with:</p>
+<ul>
+<li><p>A row position and column position (integers, starting from 0), and</p></li>
+<li><p>A row label and column label</p></li>
 </ul>
 </li>
-<li>Row and column labels are part of the DataFrame’s metadata, stored in attributes:<ul>
-<li><code class="docutils literal notranslate"><span class="pre">df.index</span></code> contains the labels for the DataFrame’s rows</li>
-<li><code class="docutils literal notranslate"><span class="pre">df.columns</span></code> contains the labels for the DataFrame’s columns</li>
+<li><p>Row and column labels are part of the DataFrame’s metadata, stored in attributes:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.index</span></code> contains the labels for the DataFrame’s rows</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.columns</span></code> contains the labels for the DataFrame’s columns</p></li>
 </ul>
 </li>
-<li><code class="docutils literal notranslate"><span class="pre">df.values</span></code> contains the underlying data array</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.values</span></code> contains the underlying data array</p></li>
 </ul>
 </div>
 <div class="section" id="Selection-Methods">
@@ -478,28 +488,28 @@
 </li><li><p>Label-based indexing with <code class="docutils literal notranslate"><span class="pre">.loc[]</span></code></p>
 </li></ol><div class="section" id="1.-Using-only-square-brackets">
 <h3>1. Using only square brackets<a class="headerlink" href="#1.-Using-only-square-brackets" title="Permalink to this headline">¶</a></h3>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="43%" />
-<col width="57%" />
+<col style="width: 43%" />
+<col style="width: 57%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Bracket indexing</th>
-<th class="head">&#160;</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Bracket indexing</p></th>
+<th class="head"></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>Use a Boolean Series to select rows matching some criteria</td>
-<td><code class="docutils literal notranslate"><span class="pre">df[bool_series]</span></code></td>
+<tbody>
+<tr class="row-even"><td><p>Use a Boolean Series to select rows matching some criteria</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df[bool_series]</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>Use a list of column names to select several columns in a specified order</td>
-<td><code class="docutils literal notranslate"><span class="pre">df[['E',</span> <span class="pre">'A',</span> <span class="pre">'C']]</span></code></td>
+<tr class="row-odd"><td><p>Use a list of column names to select several columns in a specified order</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df[['E',</span> <span class="pre">'A',</span> <span class="pre">'C']]</span></code></p></td>
 </tr>
-<tr class="row-even"><td>Select a single column (as a Series)</td>
-<td><code class="docutils literal notranslate"><span class="pre">series_A</span> <span class="pre">=</span> <span class="pre">df['A']</span></code></td>
+<tr class="row-even"><td><p>Select a single column (as a Series)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">series_A</span> <span class="pre">=</span> <span class="pre">df['A']</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>Select a single column (as a DataFrame)</td>
-<td><code class="docutils literal notranslate"><span class="pre">df_A</span> <span class="pre">=</span> <span class="pre">df[['A']]</span></code></td>
+<tr class="row-odd"><td><p>Select a single column (as a DataFrame)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df_A</span> <span class="pre">=</span> <span class="pre">df[['A']]</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -529,7 +539,7 @@
 </pre></div>
 </div>
 <ul class="simple">
-<li>Multiple rows and/or columns in arbitrary order, using a list of labels</li>
+<li><p>Multiple rows and/or columns in arbitrary order, using a list of labels</p></li>
 </ul>
 <p>We can also select rows and/or columns with a Boolean Series, and mix and match these with the other selection options listed above, for example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">densely_populated</span> <span class="o">=</span> <span class="n">world_new</span><span class="p">[</span><span class="s1">&#39;pop_density&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">500</span>
@@ -553,7 +563,7 @@
     </p>
     <p>
         &copy; Copyright 2019, Philip Austin.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.<br/>
     </p>
   </div>
 </footer>
