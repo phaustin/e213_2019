@@ -339,7 +339,7 @@ A = \left( \begin{array}{cccccc}
 
 
   The following dataframe gives the temperature in deg C for 4 years, marked
-  as either ``wet'' or ``driy''
+  as either ``wet'' or ``dry''
   
 \begin{lstlisting}[firstnumber=1]  
 import pandas as pd
@@ -350,6 +350,7 @@ data=[[1970,2,14,22,10,'wet'],
 df=pd.DataFrame(data,
       columns=['year','djf','mam',
                'jja','son','precip'])
+df.set_index('year',inplace=True)
 test.head()
 \end{lstlisting}
 
@@ -365,29 +366,47 @@ year &      &      &      &      &        \\
 \bottomrule
 \end{tabular}
 
-\item[Q4a] What does the following line print?
+\item[Q4a] \textbf{[1 point]} What does the following line print?
 
 \verb+print(df.loc[1973,'djf'] - df.loc[1970,'son']+
 
-\item[Q4b]
+\textbf{Answer:  11 - 8 = 3}
 
-  Given the dataframe above, what does the following code fragment do?
+\item[Q4b]\textbf{2 points}
+
+  Given the dataframe above, suppose we execute the following commands
 
 \begin{verbatim}  
 wet_dry=df.groupby('precip')
 precip_dict={key:the_df for key,the_df in wet_dry}
 \end{verbatim}  
 
-  In your answer specify what the variables \verb+wet_dry+,
-  \verb+precip_dict+ contain.  For \verb+precip_dict+ -- how many entries
-  does it hold, and what are those entries?
+  After execution of those two lines, what are the keys and values inside
+  \verb+precip_dict+?  For the keys, list them explicitly. For the values
+  give their types and a general description of the data/rows they contain.
+
+  \textbf{Solution:}
+  
+  \textit{Keys are 'wet' and 'dry', values are two dataframes, the 'wet'
+    frame contains the rows for 1970, 1972 and and 1973 and the 'dry' frame
+    contains the row for 1971}
 
 
-\item[Q4c]
+\item[Q4c]\textbf{2 points}
 
   How would you calculate the mean temperature of the wet seasons given \verb+precip_dict+?
-  Your python doesn't have to execute, but it should unambiguously specify your
-  intent.
+  Your python doesn't have to execute, but it should unambiguously specify your intent.  What is the type and content of the result
+  returned by your code?
+
+  \textbf{Solution:}
+
+\begin{verbatim}
+wet_mean=precip_dict['w'].mean()
+
+Wet_mean is an object (actually a Series, but DataFrame ok)  
+with 4 columns and 1 row containing
+the mean temperature for the 3 wet seasons
+\end{verbatim}
 
   
 \item[Q5] Classes and functions
@@ -415,7 +434,7 @@ class hold_data:
 start_values = hold_data()
 \end{lstlisting}
 
-\item[5a] Class constructions
+\item[5a]\textbf{[1 point]} Class constructor
 
   What does the following python statement print?
 
@@ -423,11 +442,35 @@ start_values = hold_data()
 print(start_values.data_array)
 \end{verbatim}
 
-\item[5b] Member functions
+  \textbf{Solution:}
+
+\begin{verbatim}
+[[0. 0.]
+ [0. 0.]]
+\end{verbatim}
+
+  
+\item[5b]\textbf{[2 points]} Member functions
 
   Add a member function to \verb+hold_data+ called \verb+add_one+ that adds one to every element
-  of \verb+start_values.data_array+ and show how you would call it.
+  of \verb+start_values.data_array+ and returns the new incremented array,
+  and show how you would call it using \verb+start_values+
 
+  \textbf{Solution}
+
+\begin{verbatim}
+import numpy as np
+class hold_data:
+    def __init__(self,nrows=2,ncols=2):
+        self.data_array=np.zeros([nrows,ncols],dtype=np.float)
+    def add_one(self):
+        self.data_array = self.data_array + 1
+        return self.data_array
+    
+start_values = hold_data()
+print(start_values.add_one())
+\end{verbatim}
+  
 
 \end{description}
 
