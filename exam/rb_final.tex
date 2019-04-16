@@ -13,6 +13,7 @@
 \usepackage{float}
 \usepackage{tikz}
 \usepackage{amsmath}
+\usepackage{listings}
 \usetikzlibrary{shapes,arrows}
 \definecolor{dark-green}{rgb}{0.0, 0.5, 0.0}
 
@@ -35,6 +36,8 @@
 
 
 \begin{document}
+\lstset{numbers=left, numberstyle=\small, stepnumber=1, numbersep=5pt,language=python}
+
 \pagestyle{first}
 %\large{EOSC 213 Final Exam} \hspace{10cm} \large{April 18$^{\textrm{th}}$, 2019}
 \large{Name:} \hspace{11cm} \large{ID: }
@@ -317,13 +320,116 @@ A = \left( \begin{array}{cccccc}
 %\end{axis}
 %\end{tikzpicture}
 
+\begin{description}
+
+\item[Q4]  Pandas: consider the following dataframe  
+
+\begin{verbatim}
+  - Pandas learning objectives
+#      - Be able to use the apply method to execute a function on every
+#        row of a dataframe
+#      - Be able to add a column to a data frame and use groupby with
+#        that column to group dataframe rows into subset dataframes
+#      - Be able to do simple statistics (mean, median, max, min,
+#        summary) on dataframes and dataframe series
+#      - Be able to construct dataframes from lists of tuples, lists of
+#        dictionaries, or numpy arrays using from_records member
+#        function
+\end{verbatim}
 
 
+  The following dataframe gives the temperature in deg C for 4 years, marked
+  as either ``wet'' or ``driy''
+  
+\begin{lstlisting}[firstnumber=1]  
+import pandas as pd
+data=[[1970,2,14,22,10,'wet'],
+      [1971,4,16,24,11,'dry'],
+      [1972,6,18,26,12,'wet'],
+      [1973,8,12,28,13,'wet']]
+df=pd.DataFrame(data,
+      columns=['year','djf','mam',
+               'jja','son','precip'])
+test.head()
+\end{lstlisting}
+
+\begin{tabular}{lrrrrl}
+\toprule
+{} &  djf &  mam &  jja &  son & precip \\
+year &      &      &      &      &        \\
+\midrule
+1970 &    8 &    8 &    8 &    8 &      wet \\
+1971 &    9 &    9 &    9 &    9 &      dry \\
+1972 &   10 &   10 &   10 &   10 &      wet \\
+1973 &   11 &   11 &   11 &   11 &      wet \\
+\bottomrule
+\end{tabular}
+
+\item[Q4a] What does the following line print?
+
+\verb+print(df.loc[1973,'djf'] - df.loc[1970,'son']+
+
+\item[Q4b]
+
+  Given the dataframe above, what does the following code fragment do?
+
+\begin{verbatim}  
+wet_dry=df.groupby('precip')
+precip_dict={key:the_df for key,the_df in wet_dry}
+\end{verbatim}  
+
+  In your answer specify what the variables \verb+wet_dry+,
+  \verb+precip_dict+ contain.  For \verb+precip_dict+ -- how many entries
+  does it hold, and what are those entries?
 
 
+\item[Q4c]
+
+  How would you calculate the mean temperature of the wet seasons given \verb+precip_dict+?
+  Your python doesn't have to execute, but it should unambiguously specify your
+  intent.
+
+  
+\item[Q5] Classes and functions
+
+\begin{verbatim}
+# function/class learning objectives
+2. Be able to define a simple class that contains class variables,
+#    instance variables and instance methods and use it to pass parameters
+#    into and out of a function.
+#
+# 3. Be able to write basic functions with default values (similar than
+#    quiz 2)
+#
+\end{verbatim}
+
+  
+Consider the following class:
+  
+\begin{lstlisting}
+import numpy as np
+class hold_data:
+    def __init__(self,nrows=2,ncols=2):
+        self.data_array=np.zeros([nrows,ncols],dtype=np.float)
+
+start_values = hold_data()
+\end{lstlisting}
+
+\item[5a] Class constructions
+
+  What does the following python statement print?
+
+\begin{verbatim}
+print(start_values.data_array)
+\end{verbatim}
+
+\item[5b] Member functions
+
+  Add a member function to \verb+hold_data+ called \verb+add_one+ that adds one to every element
+  of \verb+start_values.data_array+ and show how you would call it.
 
 
-
+\end{description}
 
 \end{document}
 %%% Local Variables:
