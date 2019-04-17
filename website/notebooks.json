@@ -50,7 +50,8 @@
         "10-pandas1-reading-summarizing-csv-data",
         "10-pandas2-download-daily-data",
         "10-pandas3-process-daily-data",
-        "pandas-cheatsheet"
+        "pandas-cheatsheet",
+        "quiz3_python_solution"
     ],
     "week 11": [
         "11-pandas4-process-seasonal",

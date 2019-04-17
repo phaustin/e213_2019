@@ -82,7 +82,7 @@
 .. _class_intro_mar12_ipynb: notebooks/class_intro_mar12.ipynb
 .. _class_intro_mar12_html: web_notebooks/class_intro_mar12.ipynb
 .. _class_intro_mar12_py: https://github.com/phaustin/eosc213_students/blob/master/python/class_intro_mar12.py
-.. _8_finite_volume_by_hand_ans_ipynb: notebooks/solutions/8_finite_volume_by_hand_ans.ipynb
+.. _8_finite_volume_by_hand_ans_ipynb: notebooks/8_finite_volume_by_hand_ans.ipynb
 .. _8_finite_volume_by_hand_ans_html: web_notebooks/8_finite_volume_by_hand_ans.ipynb
 .. _8_finite_volume_by_hand_ans_py: https://github.com/phaustin/eosc213_students/blob/master/python/8_finite_volume_by_hand_ans.py
 .. _class_intro_solution_ipynb: notebooks/class_intro_solution.ipynb
@@ -100,6 +100,9 @@
 .. _pandas-cheatsheet_ipynb: notebooks/pandas/pandas-cheatsheet.ipynb
 .. _pandas-cheatsheet_html: web_notebooks/pandas-cheatsheet.ipynb
 .. _pandas-cheatsheet_py: https://github.com/phaustin/eosc213_students/blob/master/python/pandas-cheatsheet.py
+.. _quiz3_python_solution_ipynb: notebooks/quiz3_python_solution.ipynb
+.. _quiz3_python_solution_html: web_notebooks/quiz3_python_solution.ipynb
+.. _quiz3_python_solution_py: https://github.com/phaustin/eosc213_students/blob/master/python/quiz3_python_solution.py
 .. _11-pandas4-process-seasonal_ipynb: notebooks/pandas/11-pandas4-process-seasonal.ipynb
 .. _11-pandas4-process-seasonal_html: web_notebooks/11-pandas4-process-seasonal.ipynb
 .. _11-pandas4-process-seasonal_py: https://github.com/phaustin/eosc213_students/blob/master/python/11-pandas4-process-seasonal.py

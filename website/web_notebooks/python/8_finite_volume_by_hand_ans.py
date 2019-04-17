@@ -2,13 +2,13 @@
 # jupyter:
 #   jupytext:
 #     cell_metadata_filter: all
-#     formats: ''
+#     formats: ipynb,python//py:percent
 #     notebook_metadata_filter: all
 #     text_representation:
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.2'
-#       jupytext_version: 1.0.4
+#       jupytext_version: 1.1.0
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -22,7 +22,7 @@
 #     name: python
 #     nbconvert_exporter: python
 #     pygments_lexer: ipython3
-#     version: 3.6.7
+#     version: 3.7.3
 #   nbsphinx:
 #     execute: never
 #   toc:
@@ -42,18 +42,15 @@
 # %% [markdown]
 # ## Assignment Finite volumes by hand - solution
 
+# %%
+from IPython.display import Image
+
 # %% [markdown]
 # ## The problem
 #
 # Consider the two-dimensional diffusion problem below. There are zero-flux boundary conditions on the top and bottom of the domain, and prescribed concentration (more generally known as Dirichlet or first-type boundary conditions)on the to sides. Each gridblock is the same dimension $\Delta x = \Delta y = 200~m$, and $\Delta z= 3~m$ (out of the page).  The gridblock node is placed at Dirichlet (prescribed concentration) boundaries. The diffusion coefficient in each gridblock is as shown in the figure and the porosity is $\theta = 0.25$ is the same everywhere.
-#
-#
-# <img src="figures/by_hand.png" alt="pic05" width="50%" >
-#
-# <br><br><br>
-#
-#
-#
+# %%
+Image("figures/by_hand.png",width="50%")
 # %% [markdown] {"nbgrader": {"grade": false, "grade_id": "cell-aaeb99589e3d8757", "locked": true, "schema_version": 1, "solution": false}}
 # ### Q1 Write your 2d Stencil
 #
@@ -76,12 +73,13 @@
 
 # %% [markdown]
 # ### The equations for each gridblock in the mesh.
-# <br><br>
+#
 # How many unknowns are there? In the 2-d problem above, we have 3 rows and 4 columns so **12 unknowns** in total.
 #
 # Python is organized so that so-called **row-major** numbering is the most efficient. That means we should number our gridblocks as shown here:
-# <img src="figures/by_hand_numbered.png" alt="pic05" width="50%" >
-#
+
+# %%
+Image("figures/by_hand_numbered.png",width="50%")
 
 # %% [markdown] {"nbgrader": {"grade": true, "grade_id": "cell-a67b164bea144ab7", "locked": false, "points": 4, "schema_version": 1, "solution": true}}
 # ### Q3 Put your equations into the matrix
@@ -102,7 +100,7 @@
 # 0 & 0 & 0 & 0 & 0 &1 &0 &0 &1 &-3&1 &0 \\
 # 0 & 0 & 0 & 0 & 0 &0 &1 &0 &0 &1 &-3&1 \\
 # 0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &1 \\
-#  \end{bmatrix}} 
+# \end{bmatrix}} 
 # \begin{bmatrix} 
 # c_0\\ 
 # c_1\\ 

@@ -124,6 +124,8 @@ Week 10  Mar 12/Mar 14
 
 * Solution to the class introduction notebook: `class_intro_solution_html`_
 
+* `quiz3_solution_html`_
+  
 * Getting started with pandas
   
   - `10-pandas1-reading-summarizing-csv-data_html`_
