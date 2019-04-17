@@ -734,13 +734,12 @@
  "metadata": {
   "jupytext": {
    "cell_metadata_filter": "all",
-   "main_language": "python",
    "notebook_metadata_filter": "all,-language_info",
    "text_representation": {
     "extension": ".py",
     "format_name": "percent",
     "format_version": "1.2",
-    "jupytext_version": "1.0.2"
+    "jupytext_version": "1.0.4"
    }
   },
   "kernelspec": {
@@ -758,7 +757,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.6.7"
+   "version": "3.7.3"
   },
   "toc": {
    "base_numbering": 1,
