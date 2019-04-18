@@ -400,11 +400,29 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="Assignment-Finite-volumes-by-hand---solution">
 <h1>Assignment Finite volumes by hand - solution<a class="headerlink" href="#Assignment-Finite-volumes-by-hand---solution" title="Permalink to this headline">¶</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="The-problem">
 <h1>The problem<a class="headerlink" href="#The-problem" title="Permalink to this headline">¶</a></h1>
 <p>Consider the two-dimensional diffusion problem below. There are zero-flux boundary conditions on the top and bottom of the domain, and prescribed concentration (more generally known as Dirichlet or first-type boundary conditions)on the to sides. Each gridblock is the same dimension <span class="math notranslate nohighlight">\(\Delta x = \Delta y = 200~m\)</span>, and <span class="math notranslate nohighlight">\(\Delta z= 3~m\)</span> (out of the page). The gridblock node is placed at Dirichlet (prescribed concentration) boundaries. The diffusion coefficient in each gridblock is as
 shown in the figure and the porosity is <span class="math notranslate nohighlight">\(\theta = 0.25\)</span> is the same everywhere.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;figures/by_hand.png&quot;</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="s2">&quot;50%&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="Q1-Write-your-2d-Stencil">
 <h2>Q1 Write your 2d Stencil<a class="headerlink" href="#Q1-Write-your-2d-Stencil" title="Permalink to this headline">¶</a></h2>
 <p>In the cell below, enter your stencil in markdown.</p>
@@ -422,55 +440,62 @@ shown in the figure and the porosity is <span class="math notranslate nohighligh
 <h2>The equations for each gridblock in the mesh.<a class="headerlink" href="#The-equations-for-each-gridblock-in-the-mesh." title="Permalink to this headline">¶</a></h2>
 <p>How many unknowns are there? In the 2-d problem above, we have 3 rows and 4 columns so <strong>12 unknowns</strong> in total.</p>
 <p>Python is organized so that so-called <strong>row-major</strong> numbering is the most efficient. That means we should number our gridblocks as shown here:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;figures/by_hand_numbered.png&quot;</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="s2">&quot;50%&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="Q3-Put-your-equations-into-the-matrix">
 <h2>Q3 Put your equations into the matrix<a class="headerlink" href="#Q3-Put-your-equations-into-the-matrix" title="Permalink to this headline">¶</a></h2>
 <p>I’ve put some of the easy ones in. You do the rest by replacing the zeros in the markdown array below with the correct coefficients from your equations.</p>
-<p>:nbsphinx-math:<a href="#id1"><span class="problematic" id="id2">`</span></a>begin{align*} mathbf{Ac} &amp;= mathbf{b}\
-{begin{bmatrix}
-1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0\
-1 &amp; -3&amp; 1 &amp; 0 &amp; 0 &amp;1 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \
-0 &amp; 1 &amp; -3&amp; 1 &amp; 0 &amp;0 &amp;1 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \
-0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \
-0 &amp; 1 &amp; 0 &amp; 0 &amp; 1 &amp;-4&amp;1 &amp;0 &amp;0 &amp;1 &amp;0 &amp;0 \
-0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp;1 &amp;-4&amp;1 &amp;0 &amp;0 &amp;1 &amp;0 \
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;1 &amp;0 &amp;0 &amp;0 &amp;0 \
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;1 &amp;0 &amp;0 &amp;0 \
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;1 &amp;0 &amp;0 &amp;1 &amp;-3&amp;1 &amp;0 \
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;1 &amp;0 &amp;0 &amp;1 &amp;-3&amp;1 \
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 &amp;1 \</p>
-<blockquote>
-<div><p>end{bmatrix}}</p>
-</div></blockquote>
-<p>begin{bmatrix}
-c_0\
-c_1\
-c_2\
-c_3\
-c_4\
-c_5\
-c_6\
-c_7\
-c_8\
-c_9\
-c_{10}\
-c_{11}\
-end{bmatrix}
-&amp;= begin{bmatrix}
-64\
-0\
-0\
-125\
-64\
-0\
-0\
-125\
-64\
-0\
-0\
-125\
-end{bmatrix} end{align*}`</p>
+<p><span class="math">\begin{align*} \mathbf{Ac} &= \mathbf{b}\\
+{\begin{bmatrix}
+1 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &0\\
+1 & -3& 1 & 0 & 0 &1 &0 &0 &0 &0 &0 &0 \\
+0 & 1 & -3& 1 & 0 &0 &1 &0 &0 &0 &0 &0 \\
+0 & 0 & 0 & 1 & 0 &0 &0 &0 &0 &0 &0 &0 \\
+0 & 0 & 0 & 0 & 1 &0 &0 &0 &0 &0 &0 &0 \\
+0 & 1 & 0 & 0 & 1 &-4&1 &0 &0 &1 &0 &0 \\
+0 & 0 & 1 & 0 & 0 &1 &-4&1 &0 &0 &1 &0 \\
+0 & 0 & 0 & 0 & 0 &0 &0 &1 &0 &0 &0 &0 \\
+0 & 0 & 0 & 0 & 0 &0 &0 &0 &1 &0 &0 &0 \\
+0 & 0 & 0 & 0 & 0 &1 &0 &0 &1 &-3&1 &0 \\
+0 & 0 & 0 & 0 & 0 &0 &1 &0 &0 &1 &-3&1 \\
+0 & 0 & 0 & 0 & 0 &0 &0 &0 &0 &0 &0 &1 \\
+\end{bmatrix}}
+\begin{bmatrix}
+c_0\\
+c_1\\
+c_2\\
+c_3\\
+c_4\\
+c_5\\
+c_6\\
+c_7\\
+c_8\\
+c_9\\
+c_{10}\\
+c_{11}\\
+\end{bmatrix}
+&= \begin{bmatrix}
+64\\
+0\\
+0\\
+125\\
+64\\
+0\\
+0\\
+125\\
+64\\
+0\\
+0\\
+125\\
+\end{bmatrix} \end{align*}</span></p>
 </div>
 <div class="section" id="Q4-Solve-the-system-of-equations">
 <h2>Q4 Solve the system of equations<a class="headerlink" href="#Q4-Solve-the-system-of-equations" title="Permalink to this headline">¶</a></h2>

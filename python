@@ -3,69 +3,233 @@
 #   jupytext:
 #     cell_metadata_filter: all
 #     formats: ipynb,python//py:percent
-#     notebook_metadata_filter: all
+#     notebook_metadata_filter: all,-language_info
 #     text_representation:
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.2'
-#       jupytext_version: 1.0.4
+#       jupytext_version: 1.1.0
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
 #     name: python3
-#   language_info:
-#     codemirror_mode:
-#       name: ipython
-#       version: 3
-#     file_extension: .py
-#     mimetype: text/x-python
-#     name: python
-#     nbconvert_exporter: python
-#     pygments_lexer: ipython3
-#     version: 3.6.7
 #   toc:
 #     base_numbering: 1
 #     nav_menu: {}
-#     number_sections: true
+#     number_sections: false
 #     sideBar: true
 #     skip_h1_title: true
 #     title_cell: Table of Contents
 #     title_sidebar: Contents
-#     toc_cell: true
-#     toc_position: {}
+#     toc_cell: false
+#     toc_position:
+#       height: calc(100% - 180px)
+#       left: 10px
+#       top: 150px
+#       width: 165px
 #     toc_section_display: true
-#     toc_window_display: false
+#     toc_window_display: true
 # ---
 
-# %% [markdown] {"toc": true}
-# <h1>Table of Contents<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#make-the-plot-with-specified-lines-and-labels" data-toc-modified-id="make-the-plot-with-specified-lines-and-labels-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>make the plot with specified lines and labels</a></span></li></ul></div>
-
 # %% [markdown]
-# # Simple contour plot with lines
+# # Solutions Python review questions for final quiz
 #
-# This produces a simple oldschool contour plot with labels
+# Here are a couple of questions that test some python learning
+# objectives we've covered during the course.  Try these on your own
+# and I'll post the solutions Tuesday evening.
 
-# %% {"nbgrader": {"grade": false, "grade_id": "cell-e58a84ffce31f93a", "locked": true, "schema_version": 1, "solution": false}, "scrolled": true}
-import matplotlib.pyplot as plt
+# %%
 import numpy as np
 
-import context
 
-# %%
-data = np.load(context.data_dir / "contourline.npz")
-x1, y1, psi = data["x1"], data["y1"], data["psi"]
 # %% [markdown]
-# ## make the plot with specified lines and labels
+# ## Q1: code smell
 #
-# They don't have to be the same -- you can label only some
-# of the lines.  You can control line thickness, dashed/solid/dotted etc.,
-# see the matplotlib docs.
+# **This is not on the final quiz, but is useful information if plan to use python in the future.**
+#
+# The cell below, which is taken from [build_2D_matrix.py](https://github.com/phaustin/eosc213_students/blob/master/python/build_2D_matrix.py#L4) isn't wrong but could be improved.  Explain how you could alter it
+# to make it higher quality and less likely to produce an erroneous
+# result.
 
 # %%
-fig, ax = plt.subplots(1, 1, figsize=(15, 10))
-the_levels = [0.2, 0.6, 1.0, 1.4, 1.8, 2.0, 2.2, 2.6]
-cs = ax.contour(x1, y1, psi, levels=the_levels, colors="k")
-ax.set_aspect(1)
-ax.clabel(cs, the_levels, fmt="%3.1f")
-ax.grid(True)
+def index_to_row_col(ind, nrows, ncols):
+    """
+    in a 2D array, returns the row and column value
+    associated with a 1D index
+    Bottom left is index is zero (0-th row, 0-th column)
+    while index one is the 0-th row and 1st column
+    """
+    if ind > nrows * ncols - 1:
+        return 0
+
+    row = int(np.floor(ind / ncols))
+    col = int(ind - row * ncols)
+    return row, col
+
+
+# %%
+import this
+
+# %% [markdown]
+# ## Q1 Answer
+#
+#
+#
+# When you execute ```import this``` in a jupyter notebook cell (see above) you get
+# this pair of lines:
+#
+# ```
+# Errors should never pass silently.
+# Unless explicitly silenced.
+# ```
+#
+# For the ```index_to_row_col``` function, this means that you should be catching the
+# out of bounds error and writing a useful error message.  As it is written above, users
+# would always have to check every call of the ```index_to_row_col``` to make sure
+# that it wasn't returning 0 instead of the expected (row, col) tuple.
+
+# %% [markdown]
+# **Here's how that might look**  (Again, exceptions are not on the test, but you definitely
+# need to understand them for future python programming tasks).
+
+# %%
+import numpy as np
+def index_to_row_col(ind, nrows, ncols):
+    """
+    in a 2D array, returns the row and column value
+    associated with a 1D index
+    Bottom left is index is zero (0-th row, 0-th column)
+    while index one is the 0-th row and 1st column
+    """
+    if ind > nrows * ncols - 1:
+        err_msg = (f"ind={ind} exceeds total number of elements"
+                   f"tot_num={nrows*ncols}")
+        raise ValueError(err_msg)
+    row = int(np.floor(ind / ncols))
+    col = int(ind - row * ncols)
+    return row, col
+
+# the following command will throw an ValueError exception
+#
+#index_to_row_col(2000,5,12)
+
+
+# %% [markdown]
+# ## Q2 convert row,col to index
+#
+# Write a function row_col_to_index that takes a 2-dimensional array shape, 
+# a row number
+# and a column number and returns the index of that value
+# of the array.  i.e. write the function such that calling
+#
+# ```
+# ind=row_col_to_index(nrows,ncols,rownum,colnum)
+# ```
+#
+# followed by
+#
+# ```
+# rownum,colnum = index_to_row_col(ind, nrows,ncols)
+# ```
+#
+# gives the same rownum and colnum back you started with.
+
+# %% [markdown]
+# ### Q2 answer
+
+# %%
+def row_col_to_index(nrows, ncols, rownum, colnum):
+    """
+    in a 2D array, returns the 1D index associated
+    with a particular row and column
+    Index 0 is row 0, col 0 in the bottom left corner
+    of the array
+    """
+    totrows,totcols = the_array.shape
+    the_index=rownum*totcols + colnum
+    return the_index
+
+nrows=12
+ncols=5
+rownum=3
+colnum=4
+the_array = np.zeros([nrows,ncols])
+ind=row_col_to_index(nrows,ncols,rownum,colnum)
+row, col = index_to_row_col(ind,nrows,ncols)
+assert((row, col) == (rownum,colnum))
+
+# %% [markdown]
+# ## Q3 build_2D_array
+#
+# In the cell below, import the function 
+# [build_2D_matrix](https://github.com/phaustin/eosc213_students/blob/master/python/build_2D_matrix.py#L60) and use it along with imports of the 
+# [Problem_Def](https://github.com/phaustin/eosc213_students/blob/master/python/build_2D_matrix.py#L41)
+# and 
+# [Boundary_Def](https://github.com/phaustin/eosc213_students/blob/master/python/build_2D_matrix.py#L27)
+# classes to construct the 2D matrix defined in Question 3 of the
+# [8_finite_volume_by_hand_ans](https://phaustin.github.io/eosc213/web_notebooks/8_finite_volume_by_hand_ans.html)
+# assignment
+#
+# ### Q3 build_2D_array answer
+
+# %%
+from build_2D_matrix import Boundary_Def, Problem_Def, build_2D_matrix
+import build_2D_matrix as bd
+import numpy as np
+
+west = Boundary_Def("const", val=64.)
+east = Boundary_Def("const", val=125.)
+north = Boundary_Def("flux", val=0.)
+south = Boundary_Def("flux", val=0.)
+bc_dict = {"west": west, "north": north, "east": east, "south": south}
+n_x = 4
+n_y = 3
+width_x = 800.
+width_y = 600.
+poro=0.25
+Diff=1.e-10
+D_matrix = Diff * np.ones((n_y, n_x))
+Qsource = np.zeros((n_y, n_x))
+prob = Problem_Def(n_x, n_y, poro, width_x, width_y)
+A, b = build_2D_matrix(bc_dict, prob, D_matrix, Qsource)
+v = np.linalg.solve(A, b)
+print(v)
+
+# %% [markdown]
+# ## Q4 Python Classes
+#
+# Given the class definition and the instance below,
+# what will this line print?
+#
+# ```
+# print(out.data_array[3,:])
+# ```
+
+# %%
+import numpy as np
+class hold_data:
+    def __init__(self,nrows,ncols):
+        self.data_array=np.arange(0,nrows*ncols)
+        self.data_array.shape=[nrows,ncols]
+    
+out=hold_data(6,8)
+print(out.data_array[3,:])
+
+# %% [markdown]
+# ## Q5 Pandas indexing
+#
+# Given the code in the cell below, what will this line print?
+#
+# ```
+# print(test.loc[16,'e'] - test.loc[8,'d'])
+# ```
+
+# %%
+import pandas as pd
+test=pd.DataFrame(out.data_array,
+                  columns=['a','b','c','d','e','f','g','h'])
+test.set_index('a',inplace=True)
+test.head()
+
+# %%
+print(test.loc[16,'e'] - test.loc[8,'d'])

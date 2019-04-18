@@ -118,4 +118,6 @@ notebooks/cookbook_examples/colormap_example.ipynb                  `colormap_ex
 notebooks/cookbook_examples/separate_colorbars_example.ipynb        `separate_colorbars_example_html`_               `separate_colorbars_example_py`_               
 ------------------------------------------------------------------- ------------------------------------------------ ---------------------------------------------- 
 notebooks/cookbook_examples/contourline_example.ipynb               `contourline_example_html`_                      `contourline_example_py`_                      
+------------------------------------------------------------------- ------------------------------------------------ ---------------------------------------------- 
+notebooks/final_review_solutions.ipynb                              `final_review_solutions_html`_                   `final_review_solutions_py`_                   
 =================================================================== ================================================ ============================================== 
