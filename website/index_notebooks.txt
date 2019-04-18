@@ -79,6 +79,9 @@
 .. _9_finite_volume_f_diff_8_ipynb: notebooks/9_finite_volume_f_diff_8.ipynb
 .. _9_finite_volume_f_diff_8_html: web_notebooks/9_finite_volume_f_diff_8.ipynb
 .. _9_finite_volume_f_diff_8_py: https://github.com/phaustin/eosc213_students/blob/master/python/9_finite_volume_f_diff_8.py
+.. _9_finite_volume_f_diff_8_ans_ipynb: notebooks/9_finite_volume_f_diff_8_ans.ipynb
+.. _9_finite_volume_f_diff_8_ans_html: web_notebooks/9_finite_volume_f_diff_8_ans.ipynb
+.. _9_finite_volume_f_diff_8_ans_py: https://github.com/phaustin/eosc213_students/blob/master/python/9_finite_volume_f_diff_8_ans.py
 .. _class_intro_mar12_ipynb: notebooks/class_intro_mar12.ipynb
 .. _class_intro_mar12_html: web_notebooks/class_intro_mar12.ipynb
 .. _class_intro_mar12_py: https://github.com/phaustin/eosc213_students/blob/master/python/class_intro_mar12.py
@@ -127,3 +130,6 @@
 .. _contourline_example_ipynb: notebooks/cookbook_examples/contourline_example.ipynb
 .. _contourline_example_html: web_notebooks/contourline_example.ipynb
 .. _contourline_example_py: https://github.com/phaustin/eosc213_students/blob/master/python/contourline_example.py
+.. _final_review_solutions_ipynb: notebooks/final_review_solutions.ipynb
+.. _final_review_solutions_html: web_notebooks/final_review_solutions.ipynb
+.. _final_review_solutions_py: https://github.com/phaustin/eosc213_students/blob/master/python/final_review_solutions.py

@@ -79,6 +79,8 @@ notebooks/2D_Assignment_sparse/2D_Assignment_Transient_sparse.ipynb `2D_Assignme
 ------------------------------------------------------------------- ------------------------------------------------ ---------------------------------------------- 
 notebooks/9_finite_volume_f_diff_8.ipynb                            `9_finite_volume_f_diff_8_html`_                 `9_finite_volume_f_diff_8_py`_                 
 ------------------------------------------------------------------- ------------------------------------------------ ---------------------------------------------- 
+notebooks/9_finite_volume_f_diff_8_ans.ipynb                        `9_finite_volume_f_diff_8_ans_html`_             `9_finite_volume_f_diff_8_ans_py`_             
+------------------------------------------------------------------- ------------------------------------------------ ---------------------------------------------- 
 notebooks/class_intro_mar12.ipynb                                   `class_intro_mar12_html`_                        `class_intro_mar12_py`_                        
 ------------------------------------------------------------------- ------------------------------------------------ ---------------------------------------------- 
 notebooks/8_finite_volume_by_hand_ans.ipynb                         `8_finite_volume_by_hand_ans_html`_              `8_finite_volume_by_hand_ans_py`_              
@@ -116,4 +118,6 @@ notebooks/cookbook_examples/colormap_example.ipynb                  `colormap_ex
 notebooks/cookbook_examples/separate_colorbars_example.ipynb        `separate_colorbars_example_html`_               `separate_colorbars_example_py`_               
 ------------------------------------------------------------------- ------------------------------------------------ ---------------------------------------------- 
 notebooks/cookbook_examples/contourline_example.ipynb               `contourline_example_html`_                      `contourline_example_py`_                      
+------------------------------------------------------------------- ------------------------------------------------ ---------------------------------------------- 
+notebooks/final_review_solutions.ipynb                              `final_review_solutions_html`_                   `final_review_solutions_py`_                   
 =================================================================== ================================================ ============================================== 

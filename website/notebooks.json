@@ -44,6 +44,7 @@
     "week 10": [
         "2D_Assignment_Transient_sparse",
         "9_finite_volume_f_diff_8",
+        "9_finite_volume_f_diff_8_ans",
         "class_intro_mar12",
         "8_finite_volume_by_hand_ans",
         "class_intro_solution",
@@ -65,6 +66,7 @@
         "quiz4_solution",
         "colormap_example",
         "separate_colorbars_example",
-        "contourline_example"
+        "contourline_example",
+        "final_review_solutions"
    ]
 }
