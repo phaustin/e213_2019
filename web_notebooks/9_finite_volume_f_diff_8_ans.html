@@ -850,6 +850,15 @@ truncation error.</p>
 &- \overbrace{\left[ {(\Delta x)\over 2!}{d^2f(x_i)\over dx^2} + {(\Delta x)^2\over 3!}{d^3f(x_i)\over dx^3} + \cdots +  {(\Delta x)^{n-1}\over n!}{d^nf(x_i)\over dx^n} + \cdots \right]}^\text{truncation error} \label{8fd889} \nonumber \\
 & = \overbrace{{f(x_i+\Delta x) - f(x_i)\over \Delta x}}^\text{forward difference approximation}  + \mathcal{O}(\Delta x) \label{8fd8810} \\
 \end{align}</span> For this reason, we say that the forward difference approximation is <strong>First order</strong> because as <span class="math notranslate nohighlight">\(\Delta x \rightarrow 0\)</span>, the truncation error shrinks by <span class="math notranslate nohighlight">\((\Delta x)^1\)</span>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">antigravity</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="Backward-difference-Taylor-analysis">
 <h4>Backward difference Taylor analysis<a class="headerlink" href="#Backward-difference-Taylor-analysis" title="Permalink to this headline">¶</a></h4>
 <p>Subtract expansion for <span class="math notranslate nohighlight">\(f(x_i-\Delta x)\)</span>, <span class="math">\ref{8fd885}</span> from <span class="math notranslate nohighlight">\(f(x_i)\)</span>. <span class="math">\begin{align}
@@ -912,7 +921,7 @@ j_{EC}&= D\theta {c_E - c_C \over \Delta x} \label{8fd8819}\\
 </pre></div>
 </div>
 <div class="output_area docutils container">
-<a class="reference internal image-reference" href="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_30_0.png"><img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_30_0.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_30_0.png" style="width: 40%;" /></a>
+<a class="reference internal image-reference" href="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_31_0.png"><img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_31_0.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_31_0.png" style="width: 40%;" /></a>
 </div>
 </div>
 <p>To emphasize this, let’s use this finite-difference notation, <span class="math notranslate nohighlight">\(c_{i-1}=c_C\)</span>, <span class="math notranslate nohighlight">\(c_{i+1} = c_E\)</span> and write: <span class="math">\begin{align}
@@ -1083,7 +1092,7 @@ Exact derivative at x = 0.70, df/dx = -0.6442177
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_35_1.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_35_1.png" />
+<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_36_1.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_36_1.png" />
 </div>
 </div>
 </div>

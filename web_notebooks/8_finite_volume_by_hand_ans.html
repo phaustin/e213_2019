@@ -401,7 +401,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Assignment-Finite-volumes-by-hand---solution">
 <h1>Assignment Finite volumes by hand - solution<a class="headerlink" href="#Assignment-Finite-volumes-by-hand---solution" title="Permalink to this headline">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -414,13 +414,21 @@ div.rendered_html tbody tr:hover {
 <h1>The problem<a class="headerlink" href="#The-problem" title="Permalink to this headline">¶</a></h1>
 <p>Consider the two-dimensional diffusion problem below. There are zero-flux boundary conditions on the top and bottom of the domain, and prescribed concentration (more generally known as Dirichlet or first-type boundary conditions)on the to sides. Each gridblock is the same dimension <span class="math notranslate nohighlight">\(\Delta x = \Delta y = 200~m\)</span>, and <span class="math notranslate nohighlight">\(\Delta z= 3~m\)</span> (out of the page). The gridblock node is placed at Dirichlet (prescribed concentration) boundaries. The diffusion coefficient in each gridblock is as
 shown in the figure and the porosity is <span class="math notranslate nohighlight">\(\theta = 0.25\)</span> is the same everywhere.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;figures/by_hand.png&quot;</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="s2">&quot;50%&quot;</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/web_notebooks_8_finite_volume_by_hand_ans_3_0.png"><img alt="../_images/web_notebooks_8_finite_volume_by_hand_ans_3_0.png" src="../_images/web_notebooks_8_finite_volume_by_hand_ans_3_0.png" style="width: 50%;" /></a>
 </div>
 </div>
 <div class="section" id="Q1-Write-your-2d-Stencil">
@@ -440,13 +448,21 @@ shown in the figure and the porosity is <span class="math notranslate nohighligh
 <h2>The equations for each gridblock in the mesh.<a class="headerlink" href="#The-equations-for-each-gridblock-in-the-mesh." title="Permalink to this headline">¶</a></h2>
 <p>How many unknowns are there? In the 2-d problem above, we have 3 rows and 4 columns so <strong>12 unknowns</strong> in total.</p>
 <p>Python is organized so that so-called <strong>row-major</strong> numbering is the most efficient. That means we should number our gridblocks as shown here:</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;figures/by_hand_numbered.png&quot;</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="s2">&quot;50%&quot;</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/web_notebooks_8_finite_volume_by_hand_ans_7_0.png"><img alt="../_images/web_notebooks_8_finite_volume_by_hand_ans_7_0.png" src="../_images/web_notebooks_8_finite_volume_by_hand_ans_7_0.png" style="width: 50%;" /></a>
 </div>
 </div>
 </div>
@@ -533,12 +549,21 @@ c_{11}\\
 <div class="section" id="Check-your-answer">
 <h2>Check your answer<a class="headerlink" href="#Check-your-answer" title="Permalink to this headline">¶</a></h2>
 <p>Take the equation for any gridblock and substitute in the concentrations you computed. Is the equation satisfied? Consider equation for gridblock 5: <span class="math notranslate nohighlight">\(c_1 + c_4 +c_6 + c_9 - 4 c_5 = 0\)</span>?</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="mf">84.333333</span> <span class="o">+</span> <span class="mf">64.</span> <span class="o">+</span> <span class="mf">104.666667</span> <span class="o">+</span> <span class="mf">84.333333</span> <span class="o">-</span> <span class="mf">4.</span><span class="o">*</span> <span class="mf">84.333333</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>9.999999974752427e-07
 </pre></div>
 </div>
 </div>
