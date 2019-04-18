@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Finite volumes 8 - finite-difference approximations &#8212; E213</title>
+    <title>Finite volumes 9 - finite-difference approximations &#8212; E213</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -398,8 +398,8 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<div class="section" id="Finite-volumes-8---finite-difference-approximations">
-<h1>Finite volumes 8 - finite-difference approximations<a class="headerlink" href="#Finite-volumes-8---finite-difference-approximations" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Finite-volumes-9---finite-difference-approximations">
+<h1>Finite volumes 9 - finite-difference approximations<a class="headerlink" href="#Finite-volumes-9---finite-difference-approximations" title="Permalink to this headline">¶</a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -514,7 +514,7 @@ f(x)&= -(x - 2.5)^3 + 5
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>[&lt;matplotlib.lines.Line2D at 0x1150214e0&gt;]
+<span></span>[&lt;matplotlib.lines.Line2D at 0x10fc34470&gt;]
 </pre></div>
 </div>
 </div>
@@ -575,7 +575,7 @@ f(x)&= -(x - 2.5)^3 + 5
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>[&lt;matplotlib.lines.Line2D at 0x1150d7e80&gt;]
+<span></span>[&lt;matplotlib.lines.Line2D at 0x10fceaf28&gt;]
 </pre></div>
 </div>
 </div>
@@ -611,7 +611,7 @@ f(x)&= -(x - 2.5)^3 + 5
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>[&lt;matplotlib.lines.Line2D at 0x1151c3ba8&gt;]
+<span></span>[&lt;matplotlib.lines.Line2D at 0x10fe35c18&gt;]
 </pre></div>
 </div>
 </div>
@@ -647,7 +647,7 @@ f(x)&= -(x - 2.5)^3 + 5
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>[&lt;matplotlib.lines.Line2D at 0x11522a048&gt;]
+<span></span>[&lt;matplotlib.lines.Line2D at 0x10fe9d080&gt;]
 </pre></div>
 </div>
 </div>
@@ -787,7 +787,7 @@ Exact derivative at x = 2.00, df/dx = -0.7500
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;matplotlib.legend.Legend at 0x1152bc5c0&gt;
+<span></span>&lt;matplotlib.legend.Legend at 0x110064ac8&gt;
 </pre></div>
 </div>
 </div>
@@ -898,13 +898,21 @@ c_{i-1} = c(x_i &- \Delta x) \\
 \end{align}</span> What is the order of this approximation? This is a first-order forward in time approximation. Or, in math notation <span class="math notranslate nohighlight">\(\mathcal{O}(\Delta x)\)</span>. We do not know the value of the error, just the rate that it will decline when <span class="math notranslate nohighlight">\(\Delta x\)</span> is sufficiently small. #### Fluxes In our stencil, we approximate fluxes such as <span class="math notranslate nohighlight">\(j_{EC}\)</span> as: <span class="math">\begin{align}
 j_{EC}&= D\theta {c_E - c_C \over \Delta x} \label{8fd8819}\\
 \end{align}</span> Although this looks like a first order approximation, it’s really a second order. Why? It’s because the flux is really being approximated at the interface between the two gridblocks.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#Image(&quot;figures/flux_fd.png&quot;,width=&quot;40%&quot;)</span>
+<span></span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;figures/flux_fd.png&quot;</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="s2">&quot;40%&quot;</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_30_0.png"><img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_30_0.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_30_0.png" style="width: 40%;" /></a>
 </div>
 </div>
 <p>To emphasize this, let’s use this finite-difference notation, <span class="math notranslate nohighlight">\(c_{i-1}=c_C\)</span>, <span class="math notranslate nohighlight">\(c_{i+1} = c_E\)</span> and write: <span class="math">\begin{align}
@@ -993,7 +1001,7 @@ c_{i+1} - 2 c_{i} + c_{i-1} = 0\\
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1071,20 +1079,11 @@ Exact derivative at x = 0.70, df/dx = -0.6442177
   -0.645     -0.644       -0.644            0.000     0.000      0.000
 </pre></div></div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
-</pre></div>
-</div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;matplotlib.legend.Legend at 0x1158dbbe0&gt;
-</pre></div>
-</div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_35_2.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_35_2.png" />
+<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_35_1.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_35_1.png" />
 </div>
 </div>
 </div>
