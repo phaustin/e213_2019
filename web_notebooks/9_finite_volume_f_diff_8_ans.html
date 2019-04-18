@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Finite volumes 8 - finite-difference approximations &#8212; E213</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}, "extensions": ["color.js"]}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          Home</a>
+        <span class="navbar-text navbar-version pull-left"><b>2019Jan01</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../learning_goals/learning_goals.html">1. Learning goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Final-quiz-learning-goals-–-Thursday-April-17,-Buch-A104,-3:30pm-to-5pm">1.1. Final quiz learning goals – Thursday April 17, Buch A104, 3:30pm to 5pm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Math/numerics">Math/numerics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Python/coding">Python/coding</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-1-learning-goals">1.2. Quiz 1 learning goals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#ODEs">ODEs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-2-learning-goals">1.3. Quiz 2 learning goals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Finite-Volume-method">Finite Volume method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-3-learning-goals">1.4. Quiz 3 learning goals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Differential-equations">Differential equations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../learning_goals/learning_goals.html#Math-Details">Math Details</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../learning_goals/learning_goals.html#Quiz-4-learning-goals">1.5. Quiz 4 learning goals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Computational-methods">Computational methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Mathematics">Mathematics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Be-able-to-set-up-boundary-value-problem:">Be able to set up boundary value problem:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../learning_goals/learning_goals.html#Simulation-/-python">Simulation / python</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">2. Weekly notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-1-jan-3">2.1. Week 1  Jan 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-2-jan-8-jan-10">2.2. Week 2  Jan 8/Jan 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-3-jan-15-jan-17">2.3. Week 3  Jan 15/Jan 17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-4-jan-22-jan-24">2.4. Week 4  Jan 22/Jan 24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-5-jan-29-jan-31">2.5. Week 5  Jan 29/Jan 31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-6-feb-05-feb-07">2.6. Week 6  Feb 05/Feb 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-7-feb-19-feb-21">2.7. Week 7  Feb 19/Feb 21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-8-feb-26-feb-28">2.8. Week 8  Feb 26/Feb 28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-9-mar-05-mar-07">2.9. Week 9  Mar 05/Mar 07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-10-mar-12-mar-14">2.10. Week 10  Mar 12/Mar 14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-11-mar19-mar-21">2.11. Week 11 Mar19/Mar 21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-12-mar26-mar28">2.12. Week 12 Mar26/Mar28</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#week-13-apr02-apr04">2.13. Week 13 Apr02/Apr04</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week_notes.html#general-notes">2.14. General notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">3. Assignment solutions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../solutions.html#assignments">3.1. Assignments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../solutions.html#quizzes">3.2. Quizzes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">4. Texts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#math">4.1. Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../texts.html#python">4.2. Python</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">5. Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#python-introductory-texts">5.1. Python Introductory Texts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#moving-from-matlab-to-python">5.2. Moving from matlab to python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#cocalc">5.3. Cocalc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">6. Cheat sheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-shell-commands">6.1. Useful shell commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-git-commands">6.2. Useful git commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cheat_sheet.html#useful-debugger-commands">6.3. Useful debugger commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">7. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../learning_goals/learning_goals.html">1. Learning goals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">2. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">3. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">4. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">5. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">6. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">7. Notebook index</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/web_notebooks/9_finite_volume_f_diff_8_ans.ipynb.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../learning_goals/learning_goals.html">1. Learning goals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_notes.html">2. Weekly notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../solutions.html">3. Assignment solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">4. Texts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">5. Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheat_sheet.html">6. Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook_index.html">7. Notebook index</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 7ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Finite-volumes-8---finite-difference-approximations">
+<h1>Finite volumes 8 - finite-difference approximations<a class="headerlink" href="#Finite-volumes-8---finite-difference-approximations" title="Permalink to this headline">¶</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Learning-goals">
+<h2>Learning goals<a class="headerlink" href="#Learning-goals" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Be able to develop finite-difference approximations for first and second derivatives (total and partial).</p></li>
+<li><p>Be able to determine the truncation error and order of a finite - difference approximation from Taylor-series analysis.</p></li>
+<li><p>Can construction forwards, backwards and central finite difference approximation stencils.</p></li>
+<li><p>Can distinguish truncation error from roundoff error.</p></li>
+<li><p>Can identify the controls truncation error, and recognize pathological situations which lead to large truncation errors.</p></li>
+<li><p>Using a finite-difference stencil, can construct the system of equations for a finite-difference approximation to an ordinary or partial differential equation, including defining the grid of nodes and applying first-type (Dirichlet) and second-type (Neumann) boundary conditions.</p></li>
+<li><p>Can compare and contrast and finite-difference approximation to a finite-volume approximation (this last learning will only become apparent after we introduce the integral formulation of the finite-volume method and of our conservation PDEs).</p></li>
+</ol>
+<p>Advanced reference: LeVeque, Randal J, <em>Finite difference methods for ordinary and partial differential equations: Steady-state and time-dependent problems,</em> 2007 (can be downloaded from UBC library here: <a class="reference external" href="http://gw2jh3xr2c.search.serialssolutions.com/?ctx_ver=Z39.88-2004&amp;ctx_enc=info%3Aofi%2Fenc%3AUTF-8&amp;rfr_id=info%3Asid%2Fsummon.serialssolutions.com&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.title=Finite+difference+methods+for+ordinary+and+partial+differential+equations&amp;rft.au=LeVeque%2C+Randall+J&amp;rft.date=2007-01-01&amp;rft.pub=Society+for+Industrial+and+Applied+Mathematics&amp;rft.isbn=9780898716290&amp;rft.externalDocID=SIAMB0000334&amp;paramdict=en-US">UBC library
+link</a></p>
+</div>
+<div class="section" id="Finite-difference-approximations-to-derivatives">
+<h2>Finite-difference approximations to derivatives<a class="headerlink" href="#Finite-difference-approximations-to-derivatives" title="Permalink to this headline">¶</a></h2>
+<p>In notebook <code class="docutils literal notranslate"><span class="pre">6_finite_volume_4.ipynb</span></code> (<a class="reference external" href="https://phaustin.github.io/eosc213/web_notebooks/6_finite_volume_4.html">https://phaustin.github.io/eosc213/web_notebooks/6_finite_volume_4.html</a>) we were inspired to approximate the <span class="math notranslate nohighlight">\(x\)</span> component of the gradient in concentration as</p>
+<p><span class="math">\begin{align}
+{\partial c \over \partial x} &\approx  {c(x+\Delta x) - c(x)\over \Delta x} \label{fd881}\\
+\end{align}</span> where <span class="math notranslate nohighlight">\(\Delta x\)</span> is not infinitesimal, based upon the definition of the derivative where it is:</p>
+<p><span class="math">\begin{align}
+{\partial c \over \partial x} &= \lim_{\Delta x \rightarrow 0} {c(x+\Delta x) - c(x)\over \Delta x} \label{fd882}\\
+\end{align}</span></p>
+<p>where <span class="math notranslate nohighlight">\(c(x+\Delta x)\)</span> is notation for “the concentration at the point <span class="math notranslate nohighlight">\(x+\Delta x, y, z\)</span>”.</p>
+<p>Here we want to evaluate the accuracy of these finite-difference approximations. To do that, we need to look at <strong>Taylor series representations</strong> of functions.</p>
+<div class="section" id="Intuition">
+<h3>Intuition<a class="headerlink" href="#Intuition" title="Permalink to this headline">¶</a></h3>
+<p>Let’s first look at a simple function that we know so we can calculate the derivatives using calculus and compare them to the our finite-difference approximations. Then we’ll dig into the theory using Taylor Series. Let’s try the following function which is easy to plot and differentiate: <span class="math">\begin{align}
+f(x)&= -(x - 2.5)^3 + 5
+\end{align}</span> We can implement it in python below as <code class="docutils literal notranslate"><span class="pre">func_1</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">func_1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A simple function to be used to investigate test finite-difference approximations to derivatives</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x: (float)</span>
+<span class="sd">        function argument</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    func_1(x): (float)</span>
+<span class="sd">        the value of the function when argument is x</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="o">-</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mf">2.5</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">+</span> <span class="mf">5.0</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">dfunc_1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The derivative of func_1</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x: (float)</span>
+<span class="sd">        function argument</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dfunc_1(x): (float)</span>
+<span class="sd">        the derivative of the function when argument is x</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mf">3.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mf">2.5</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<p>Let’s plot it over short interval to see what it looks like. Using a rather coarse separation between points (<span class="math notranslate nohighlight">\(\Delta x = 1.\)</span>):</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x_pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>  <span class="c1"># creates an array [-3.,-2.,..., 2.0]</span>
+<span class="n">y_pts</span> <span class="o">=</span> <span class="n">func_1</span><span class="p">(</span>
+    <span class="n">x_pts</span>
+<span class="p">)</span>  <span class="c1"># computes the function at each point in x_pts, stores result in array y_pts</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_pts</span><span class="p">,</span> <span class="n">y_pts</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">)</span>  <span class="c1"># plot with points</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[&lt;matplotlib.lines.Line2D at 0x1150214e0&gt;]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_9_1.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_9_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># print out points</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;  x   f(x)&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_pts</span><span class="p">)):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{x_pts[j]: 3.1f}, {y_pts[j]: 3.2f}&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+  x   f(x)
+ 0.0,  20.62
+ 1.0,  8.38
+ 2.0,  5.12
+ 3.0,  4.88
+ 4.0,  1.62
+ 5.0, -10.62
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Backward-difference">
+<h3>Backward difference<a class="headerlink" href="#Backward-difference" title="Permalink to this headline">¶</a></h3>
+<p>Let’s look at evaluating the derivative at <span class="math notranslate nohighlight">\(x=2.0\)</span> using values of the function at neighbouring points. One option is to make a straight-line approximation using the value of the function at <span class="math notranslate nohighlight">\(x=1\)</span> and <span class="math notranslate nohighlight">\(x=2\)</span>: <span class="math">\begin{align}
+\left.{df(x)\over dx} \right| & \approx \frac{f(x)-f(x-\Delta x)}{\Delta x} \\
+\left.{df(x)\over dx} \right|_{x=2} & \approx \frac{f(2)-f(1)}{2-1} = (5.12 - 8.38)/1.0 = -3.26\\
+\end{align}</span></p>
+<p>So, we approximate the slope at <span class="math notranslate nohighlight">\(x=2\)</span> by the slope of the line that connects <span class="math notranslate nohighlight">\(f(1)\)</span> and <span class="math notranslate nohighlight">\(f(2)\)</span>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_pts</span><span class="p">,</span> <span class="n">y_pts</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">)</span>  <span class="c1"># plot the function</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Backward difference&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_pts</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">y_pts</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="s2">&quot;-r&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># plot the line segment</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[&lt;matplotlib.lines.Line2D at 0x1150d7e80&gt;]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_12_1.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_12_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Forward-difference">
+<h3>Forward difference<a class="headerlink" href="#Forward-difference" title="Permalink to this headline">¶</a></h3>
+<p>Here we make a straight-line approximation for the derivative at <span class="math notranslate nohighlight">\(x=2\)</span> using the value of the function at <span class="math notranslate nohighlight">\(x=3\)</span> and <span class="math notranslate nohighlight">\(x=2\)</span>: <span class="math">\begin{align}
+\left.{df(x)\over dx} \right| & \approx \frac{f(x+\Delta x)-f(x)}{\Delta x} \\
+\left.{df(x)\over dx} \right|_{x=2} & \approx \frac{f(3)-f(2)}{3-2} = (4.88 - 5.12)/1.0 = -0.24\\
+\end{align}</span></p>
+<p>Shown graphically:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_pts</span><span class="p">,</span> <span class="n">y_pts</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Forward difference&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_pts</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="n">y_pts</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="s2">&quot;-r&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[&lt;matplotlib.lines.Line2D at 0x1151c3ba8&gt;]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_14_1.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_14_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Central-difference">
+<h3>Central difference<a class="headerlink" href="#Central-difference" title="Permalink to this headline">¶</a></h3>
+<p>Here we make a straight-line approximation for the derivative at <span class="math notranslate nohighlight">\(x=2\)</span> using the value of the function at <span class="math notranslate nohighlight">\(x=3\)</span> and <span class="math notranslate nohighlight">\(x=1\)</span>: <span class="math">\begin{align}
+\left.{df(x)\over dx} \right| & \approx \frac{f(x+\Delta x)-f(x-\Delta x)}{2\Delta x} \\
+\left.{df(x)\over dx} \right|_{x=2} & \approx \frac{f(3)-f(1)}{3-1} = {(4.88 - 8.38)\over 2.0} = -1.75\\
+\end{align}</span></p>
+<p>Shown graphically:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_pts</span><span class="p">,</span> <span class="n">y_pts</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Central difference&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">((</span><span class="n">x_pts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x_pts</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="p">(</span><span class="n">y_pts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y_pts</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="s2">&quot;-r&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[&lt;matplotlib.lines.Line2D at 0x11522a048&gt;]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_16_1.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_16_1.png" />
+</div>
+</div>
+<p>Collecting them all together, and including the tangent line at that point, which is computed using the exact derivative:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x_pts2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">)</span>  <span class="c1"># x points at which to plot tangent line</span>
+<span class="n">tangent</span> <span class="o">=</span> <span class="mf">5.12</span> <span class="o">-</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span>
+    <span class="n">x_pts2</span> <span class="o">-</span> <span class="mf">2.0</span>
+<span class="p">)</span>  <span class="c1"># formula for the tangent line at x = 2</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_pts2</span><span class="p">,</span> <span class="n">func_1</span><span class="p">(</span><span class="n">x_pts2</span><span class="p">),</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;f(x)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_pts</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="n">y_pts</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="s2">&quot;-g&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Forward&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_pts</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">y_pts</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="s2">&quot;-b&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Backward&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">((</span><span class="n">x_pts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x_pts</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="p">(</span><span class="n">y_pts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y_pts</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="s2">&quot;-r&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Central&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_pts2</span><span class="p">,</span> <span class="n">tangent</span><span class="p">,</span> <span class="s2">&quot;--k&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Tangent&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>(0, 5.0, 3.0, 10.0)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_18_1.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_18_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Example:-approximation-error">
+<h3>Example: approximation error<a class="headerlink" href="#Example:-approximation-error" title="Permalink to this headline">¶</a></h3>
+<p>Let’s compute the error in the approximations at <span class="math notranslate nohighlight">\(x=2\)</span>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="n">exact_d</span> <span class="o">=</span> <span class="n">dfunc_1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># exact derivative coded above</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Exact derivative at x = {x:2.2f}, df/dx = {exact_d:3.4f}&quot;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;     FD approximation                          |error|&quot;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot; forward   backward   central        forward   backward   central &quot;</span><span class="p">)</span>
+
+<span class="c1"># Compute the error for a sequence of values of dx that decrease by a factor of two in size</span>
+<span class="n">dx_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.125</span><span class="p">,</span> <span class="mf">0.0625</span><span class="p">])</span>
+
+<span class="c1"># python - empty arrays that will hold the errors as we loop through the computation for different dx</span>
+<span class="n">for_err</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">back_err</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">cent_err</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># python iteration over elements in the np array dx_vals</span>
+<span class="k">for</span> <span class="n">dx</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">nditer</span><span class="p">(</span><span class="n">dx_vals</span><span class="p">):</span>
+    <span class="c1"># to avoid repeated function calls (for efficiency) store function calls in temporary variables</span>
+    <span class="n">f_xpdx</span> <span class="o">=</span> <span class="n">func_1</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">)</span>  <span class="c1"># f(x+dx) value of the function at x+dx</span>
+    <span class="n">f_x</span> <span class="o">=</span> <span class="n">func_1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># f(x) value of the function at x</span>
+    <span class="n">f_xmdx</span> <span class="o">=</span> <span class="n">func_1</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">dx</span><span class="p">)</span>  <span class="c1"># f(x-dx) value of the function at x-dx</span>
+
+    <span class="n">for_dif</span> <span class="o">=</span> <span class="p">(</span><span class="n">f_xpdx</span> <span class="o">-</span> <span class="n">f_x</span><span class="p">)</span> <span class="o">/</span> <span class="n">dx</span>  <span class="c1"># compute forward, backward and central difference</span>
+    <span class="n">back_dif</span> <span class="o">=</span> <span class="p">(</span><span class="n">f_x</span> <span class="o">-</span> <span class="n">f_xmdx</span><span class="p">)</span> <span class="o">/</span> <span class="n">dx</span>
+    <span class="n">cent_dif</span> <span class="o">=</span> <span class="p">(</span><span class="n">f_xpdx</span> <span class="o">-</span> <span class="n">f_xmdx</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+
+    <span class="c1"># compute the absolute value of the error, add to a list using .append method</span>
+    <span class="n">for_err</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">for_dif</span> <span class="o">-</span> <span class="n">exact_d</span><span class="p">))</span>
+    <span class="n">back_err</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">back_dif</span> <span class="o">-</span> <span class="n">exact_d</span><span class="p">))</span>
+    <span class="n">cent_err</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">cent_dif</span> <span class="o">-</span> <span class="n">exact_d</span><span class="p">))</span>
+    <span class="c1"># erros are now stored in lists  - these are not numpy arrays</span>
+    <span class="n">sv</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">f</span><span class="s2">&quot;{item:8.3f}&quot;</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="n">for_dif</span><span class="p">,</span>
+            <span class="n">back_dif</span><span class="p">,</span>
+            <span class="n">cent_dif</span><span class="p">,</span>
+            <span class="n">for_err</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">back_err</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">cent_err</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+        <span class="p">]</span>
+    <span class="p">]</span>
+
+    <span class="k">print</span><span class="p">(</span>
+        <span class="n">f</span><span class="s2">&quot;{sv[0]:8&gt;} {sv[1]:8&lt;}   {sv[2]:8&lt;}        {sv[3]:8&gt;}  {sv[4]:8&gt;}   {sv[5]:8&gt;}&quot;</span>
+    <span class="p">)</span>
+
+
+<span class="c1"># must convert lists that contain errors to numpy arrays to plot with matplotlib</span>
+<span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">for_err</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">back_err</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cent_err</span><span class="p">)</span>
+
+<span class="c1"># plot it!</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">dx_vals</span><span class="p">,</span> <span class="n">for_err</span><span class="p">,</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Forward&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">dx_vals</span><span class="p">,</span> <span class="n">back_err</span><span class="p">,</span> <span class="s2">&quot;-g&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Backward&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">dx_vals</span><span class="p">,</span> <span class="n">cent_err</span><span class="p">,</span> <span class="s2">&quot;-b&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Central&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;dx&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s2">&quot;large&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;|error|&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s2">&quot;large&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Exact derivative at x = 2.00, df/dx = -0.7500
+     FD approximation                          |error|
+ forward   backward   central        forward   backward   central
+  -0.250   -3.250     -1.750           0.500     2.500      1.000
+  -0.250   -1.750     -1.000           0.500     1.000      0.250
+  -0.438   -1.188     -0.812           0.312     0.438      0.062
+  -0.578   -0.953     -0.766           0.172     0.203      0.016
+  -0.660   -0.848     -0.754           0.090     0.098      0.004
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;matplotlib.legend.Legend at 0x1152bc5c0&gt;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_20_2.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_20_2.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Assess-error">
+<h3>Assess error<a class="headerlink" href="#Assess-error" title="Permalink to this headline">¶</a></h3>
+<p>Contemplate</p>
+<ol class="arabic simple">
+<li><p>Which approximation is the most accurate?</p></li>
+</ol>
+<ul class="simple">
+<li><p>Does the error depend upon <span class="math notranslate nohighlight">\(dx\)</span>?</p></li>
+<li><p>For which approximation does the error decrease the fastest as <span class="math notranslate nohighlight">\(dx\)</span> shrinks?</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>The accuracy depends upon <span class="math notranslate nohighlight">\(\Delta x\)</span>. In all cases, the backwards difference is the least accurate. At large <span class="math notranslate nohighlight">\(\Delta x\)</span> the forward difference is the most accurate. At small <span class="math notranslate nohighlight">\(\Delta x\)</span>, the central difference is the most accurate. Generally, we will never know which difference is the most accurate for an approximation and discretization <span class="math notranslate nohighlight">\(\Delta x\)</span> or <span class="math notranslate nohighlight">\(\Delta t\)</span>.</p></li>
+<li><p>Yes, clearly they all drop as <span class="math notranslate nohighlight">\(\Delta x\)</span> decreases. Note for the forward difference that the rate of decrease only becomes regular for a sufficiently small value of <span class="math notranslate nohighlight">\(\Delta x\)</span>.</p></li>
+<li><p>The error drops the most rapidly for the central difference.</p></li>
+</ol>
+<p>In the application of finite differences to solve differential equations, the function that we are solving for is not known a priori, so the error in the approximation cannot be computed. For that reason, when we assess a finite-difference approximation, we look at <strong>how quickly the error shrinks as we shrink</strong> <span class="math notranslate nohighlight">\(\Delta x\)</span>. To see that we have to revisit Taylor series.</p>
+</div>
+<div class="section" id="Taylor-Series-analysis-of-finite-difference-approximations">
+<h3>Taylor Series analysis of finite-difference approximations<a class="headerlink" href="#Taylor-Series-analysis-of-finite-difference-approximations" title="Permalink to this headline">¶</a></h3>
+<p>Taylor series reference: Khan Academy <a class="reference external" href="https://www.khanacademy.org/math/ap-calculus-bc/bc-series-new/bc-10-11/v/maclaurin-and-taylor-series-intuition">https://www.khanacademy.org/math/ap-calculus-bc/bc-series-new/bc-10-11/v/maclaurin-and-taylor-series-intuition</a> UBC Patrick Wall <a class="reference external" href="https://www.math.ubc.ca/~pwalls/math-python/differentiation/">https://www.math.ubc.ca/~pwalls/math-python/differentiation/</a> Video - Taylor series and finite differences <a class="reference external" href="https://www.coursera.org/lecture/computers-waves-simulations/w2v3-taylor-series-PEN8L">https://www.coursera.org/lecture/computers-waves-simulations/w2v3-taylor-series-PEN8L</a> #### Approach * manipulate Taylor series approximations to develop exact expressions for derivatives. * compare these expressions to
+finite-difference approximations and thereby develop expressions for the <strong>truncation error</strong> = exact - approximate.</p>
+<p>Recall a Taylor series gives you the value of a function at a location <span class="math notranslate nohighlight">\(x_i + dx\)</span> using the value of the function and its derivatives at the point <span class="math notranslate nohighlight">\(x_i\)</span>. Functions that can be approximated in this way are called analytic <a class="reference external" href="https://en.wikipedia.org/wiki/Analytic_function">https://en.wikipedia.org/wiki/Analytic_function</a>.</p>
+<p>Let’s represent a function <span class="math notranslate nohighlight">\(f\)</span> at points <span class="math notranslate nohighlight">\(x_i+\Delta x\)</span> and <span class="math notranslate nohighlight">\(x_i-\Delta x\)</span>: <span class="math">\begin{align}
+f(x_i+\Delta x) &= f(x_i) + (\Delta x){df(x_i)\over dx} + {(\Delta x)^2\over 2!}{d^2f(x_i)\over dx^2} + {(\Delta x)^3\over 3!}{d^3f(x_i)\over dx^3} \nonumber \\
+&+ \cdots +  {(\Delta x)^n\over n!}{d^nf(x_i)\over dx^n} + \cdots \label{8fd884} \\
+f(x_i-\Delta x) &= f(x_i) + (-\Delta x){df(x_i)\over dx} + {(-\Delta x)^2\over 2!}{d^2f(x_i)\over dx^2} + {(-\Delta x)^3\over 3!}{d^3f(x_i)\over dx^3} + \nonumber\\
+&\cdots +  {(-\Delta x)^n\over n!}{d^nf(x_i)\over dx^n} + \cdots \label{8fd885} \\
+\end{align}</span> #### Forward difference Taylor analysis Subtract <span class="math notranslate nohighlight">\(f(x_i)\)</span> from the Taylor approximation <span class="math notranslate nohighlight">\(f(x_i+\Delta x)\)</span> <span class="math">\ref{8fd884}</span></p>
+<p><span class="math">\begin{align}
+f(x_i+\Delta x) - f(x_i) &= (\Delta x){df(x_i)\over dx} + {(\Delta x)^2\over 2!}{d^2f(x_i)\over dx^2} + {(\Delta x)^3\over 3!}{d^3f(x_i)\over dx^3} + \cdots +  {(\Delta x)^n\over n!}{d^nf(x_i)\over dx^n} + \cdots \label{8fd886} \\
+\end{align}</span> Solve for <span class="math notranslate nohighlight">\({df(x_i)\over dx}\)</span>, the derivative at point <span class="math notranslate nohighlight">\(x_i\)</span>: <span class="math">\begin{align}
+{df(x_i)\over dx} & = \overbrace{{f(x_i+\Delta x) - f(x_i)\over \Delta x}}^\text{forward difference approximation} \nonumber\\
+&- \overbrace{\frac{1}{\Delta x}\left[ {(\Delta x)^2\over 2!}{d^2f(x_i)\over dx^2} +
+{(\Delta x)^3\over 3!}{d^3f(x_i)\over dx^3} + \cdots +  {(\Delta x)^n\over n!}{d^nf(x_i)\over dx^n} + \cdots \right]}^\text{truncation error} \label{8fd887} \\
+\end{align}</span> Let’s pause for a moment. The expression <span class="math">\ref{8fd887}</span> is exact. In words this expression says that the exact derivative at point <span class="math notranslate nohighlight">\(x_i\)</span> is given by the forward-difference approximation minus a <strong>truncation error</strong>, all the terms in the <span class="math notranslate nohighlight">\([]\)</span> braces. That is, true = approximate - error. ##### Truncation error The forward difference truncation error is <span class="math">\begin{align}
+\left[ \underbrace{\frac{(\Delta x)}{2!}}_\text{leading term}{d^2f(x_i)\over dx^2} + \underbrace{(\Delta x)^2\over 3!}_\text{2nd term}{d^3f(x_i)\over dx^3} + \cdots +  {(\Delta x)^{n-1}\over n!}{d^nf(x_i)\over dx^n} + \cdots \right] \label{8fd888} \\
+\end{align}</span> 1. What controls the size of the truncation error? * How can we characterize this truncation error? ##### Order of approximation <strong>Problem</strong>: when we used finite-difference approximations to compute Euler timesteps or fluxes, we did not know the function, and therefore in general we don’t know the values of the derivatives <span class="math notranslate nohighlight">\({df(x_i)\over dx}\)</span>, <span class="math notranslate nohighlight">\({d^2f(x_i)\over dx^2}\)</span>, etc, in the truncation error. So instead we focus on the effects of changing <span class="math notranslate nohighlight">\(\Delta x\)</span> on the
+truncation error.</p>
+<p><span class="math">\begin{align*}
+\begin{matrix}
+& & \text{leading term} & &\text{2nd term} \\
+\text{Reduce }\quad \Delta x \quad \text{by}\quad 1/2 & \text{reduces by}\quad &1/2& \text{reduces by}\quad &1/4 \\
+\text{Reduce }\quad \Delta x \quad \text{by}\quad 1/4 & \text{reduces by}\quad &1/4& \text{reduces by}\quad &1/16 \\
+\text{Reduce }\quad \Delta x \quad \text{by}\quad 1/8 & \text{reduces by}\quad &1/8& \text{reduces by}\quad &1/64 \\
+\end{matrix}
+\end{align*}</span></p>
+<p>When <span class="math notranslate nohighlight">\(\Delta x\)</span> is reduced, the leading term <span class="math notranslate nohighlight">\((\Delta x){df(x_i)\over dx}\)</span> decreases the most slowly. When <span class="math notranslate nohighlight">\(\Delta x\)</span> is reduced by a factor of 8, the leading term is reduced by a factor of 8, but the second term is reduced by a factor of 64. So, the error is dominated by the leading order behavior. Higher-order terms are eventually insignificant. So, we now write <span class="math">\begin{align}
+{df(x_i)\over dx} & = \overbrace{{f(x_i+\Delta x) - f(x_i)\over \Delta x}}^\text{forward difference approximation} \nonumber\\
+&- \overbrace{\left[ {(\Delta x)\over 2!}{d^2f(x_i)\over dx^2} + {(\Delta x)^2\over 3!}{d^3f(x_i)\over dx^3} + \cdots +  {(\Delta x)^{n-1}\over n!}{d^nf(x_i)\over dx^n} + \cdots \right]}^\text{truncation error} \label{8fd889} \nonumber \\
+& = \overbrace{{f(x_i+\Delta x) - f(x_i)\over \Delta x}}^\text{forward difference approximation}  + \mathcal{O}(\Delta x) \label{8fd8810} \\
+\end{align}</span> For this reason, we say that the forward difference approximation is <strong>First order</strong> because as <span class="math notranslate nohighlight">\(\Delta x \rightarrow 0\)</span>, the truncation error shrinks by <span class="math notranslate nohighlight">\((\Delta x)^1\)</span>.</p>
+<div class="section" id="Backward-difference-Taylor-analysis">
+<h4>Backward difference Taylor analysis<a class="headerlink" href="#Backward-difference-Taylor-analysis" title="Permalink to this headline">¶</a></h4>
+<p>Subtract expansion for <span class="math notranslate nohighlight">\(f(x_i-\Delta x)\)</span>, <span class="math">\ref{8fd885}</span> from <span class="math notranslate nohighlight">\(f(x_i)\)</span>. <span class="math">\begin{align}
+{df(x_i)\over dx} & = \overbrace{{f(x_i) - f(x_i-\Delta x)\over \Delta x}}^\text{backward difference approximation}  + \mathcal{O}(\Delta x) \label{8fd8811} \\
+\end{align}</span> The backward difference is also a <strong>First order</strong> approximation.</p>
+</div>
+<div class="section" id="Central-difference-Taylor-analysis">
+<h4>Central difference Taylor analysis<a class="headerlink" href="#Central-difference-Taylor-analysis" title="Permalink to this headline">¶</a></h4>
+<p>Subtract expansion for <span class="math notranslate nohighlight">\(f(x_i+ \Delta x)\)</span>, <span class="math">\ref{8fd884}</span> from <span class="math notranslate nohighlight">\(f(x_i-\Delta x)\)</span>, <span class="math">\ref{8fd885}</span>. <span class="math">\begin{align}
+{df(x_i)\over dx} & = \overbrace{{f(x_i + \Delta x) - f(x_i-\Delta x)\over 2\Delta x}}^\text{central difference approximation}  + \mathcal{O}(\Delta x)^2 \label{8fd88112} \\
+\end{align}</span> The central difference is a <strong>Second order</strong> approximation because as <span class="math notranslate nohighlight">\(\Delta x \rightarrow 0\)</span>, the truncation error shrinks by <span class="math notranslate nohighlight">\((\Delta x)^2\)</span>.</p>
+</div>
+<div class="section" id="Second-derivative">
+<h4>Second derivative<a class="headerlink" href="#Second-derivative" title="Permalink to this headline">¶</a></h4>
+<p>Add the Taylor expansions for <span class="math notranslate nohighlight">\(f(x_i+\Delta x)\)</span> <span class="math">\ref{8fd884}</span> and <span class="math notranslate nohighlight">\(f(x_i-\Delta x)\)</span> <span class="math">\ref{8fd885}</span> <span class="math">\begin{align}
+f(x_i + \Delta x) + f(x_i - \Delta x)&= 2 f(x_i) +   2{(\Delta x)^2\over 2!}{d^2f(x_i)\over dx^2} + 2\left[{(\Delta x)^4\over 4!}{d^4f(x_i)\over dx^4} + \cdots +  \right] \label{8fd8812} \\
+\end{align}</span> Solve for <span class="math notranslate nohighlight">\({d^2f(x_i)\over dx^2}\)</span>: <span class="math">\begin{align}
+{d^2f(x_i)\over dx^2}&= \overbrace{{f(x_i + \Delta x) -  2 f(x_i) + f(x_i - \Delta x)\over (\Delta x)^2}}^\text{central second derivative} + \mathcal{O}(\Delta x)^2   \label{8fd8813} \\
+\end{align}</span> The central second derivative is also <strong>second order</strong>.</p>
+</div>
+</div>
+<div class="section" id="Summary-of-finite-difference-approximations">
+<h3>Summary of finite difference approximations<a class="headerlink" href="#Summary-of-finite-difference-approximations" title="Permalink to this headline">¶</a></h3>
+<p>We derived three approximations for the first derivative: forward, backward and central. Let’s express them in terms of values of, say, concentration on a grid with constant grid spacing <span class="math notranslate nohighlight">\(\Delta x\)</span> and <span class="math">\begin{align*}
+c_i = c(&x_i) \\
+c_{i+1} = c(x_i &+\Delta x) \\
+c_{i-1} = c(x_i &- \Delta x) \\
+\end{align*}</span></p>
+<div class="section" id="First-derivative">
+<h4>First derivative<a class="headerlink" href="#First-derivative" title="Permalink to this headline">¶</a></h4>
+<p><span class="math">\begin{align}
+\text{Forward} \qquad {dc(x_i)\over dx} =& {c_{i+1} - c_{i} \over \Delta x} + \mathcal{O}(\Delta x)   \label{8fd8814} \\
+\text{Backward}\qquad {dc(x_i)\over dx}= & {c_{i} - c_{i-1} \over \Delta x} + \mathcal{O}(\Delta x)   \label{8fd8815} \\
+\text{Central} \qquad{dc(x_i)\over dx} =& {c_{i+1} - c_{i-1} \over 2\Delta x} + \mathcal{O}(\Delta x)^2   \label{8fd8816}\\
+\end{align}</span> #### Second derivative <span class="math">\begin{align}
+\text{Central} \qquad{d^2c(x_i)\over dx^2}= & {c_{i+1} -2 c_i + c_{i-1} \over (\Delta x)^2} + \mathcal{O}(\Delta x)^2   \label{8fd8817}\\
+\end{align}</span></p>
+</div>
+</div>
+<div class="section" id="Implications-for-finite-volumes">
+<h3>Implications for finite volumes<a class="headerlink" href="#Implications-for-finite-volumes" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="Euler-methods">
+<h4>Euler methods<a class="headerlink" href="#Euler-methods" title="Permalink to this headline">¶</a></h4>
+<p>In the forward and backward Euler (or explicit and implicit) time stepping the time derivative is approximated as: <span class="math">\begin{align}
+{dc\over dt} \approx {c(t+\Delta t) - c(t)\over \Delta t} \label{8fd8818}\\
+\end{align}</span> What is the order of this approximation? This is a first-order forward in time approximation. Or, in math notation <span class="math notranslate nohighlight">\(\mathcal{O}(\Delta x)\)</span>. We do not know the value of the error, just the rate that it will decline when <span class="math notranslate nohighlight">\(\Delta x\)</span> is sufficiently small. #### Fluxes In our stencil, we approximate fluxes such as <span class="math notranslate nohighlight">\(j_{EC}\)</span> as: <span class="math">\begin{align}
+j_{EC}&= D\theta {c_E - c_C \over \Delta x} \label{8fd8819}\\
+\end{align}</span> Although this looks like a first order approximation, it’s really a second order. Why? It’s because the flux is really being approximated at the interface between the two gridblocks.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#Image(&quot;figures/flux_fd.png&quot;,width=&quot;40%&quot;)</span>
+</pre></div>
+</div>
+</div>
+<p>To emphasize this, let’s use this finite-difference notation, <span class="math notranslate nohighlight">\(c_{i-1}=c_C\)</span>, <span class="math notranslate nohighlight">\(c_{i+1} = c_E\)</span> and write: <span class="math">\begin{align}
+j_{EC}&= D\theta {c_{i+1} - c_{i-1} \over \Delta x} \label{8fd8820}\\
+\end{align}</span> The idea is that we are approximating the flux at a point <span class="math notranslate nohighlight">\(x_i\)</span>, between <span class="math notranslate nohighlight">\(x_{i+1}\)</span> and <span class="math notranslate nohighlight">\(x_{i-1}\)</span>. So, the term looks like a central difference, where the grid points are separated by <span class="math notranslate nohighlight">\(\Delta x /2\)</span>. Accordingly, the order is order <span class="math notranslate nohighlight">\(\mathcal{O}((\Delta x)^2)\)</span> #### Why not finite differences? Finite-difference methods are straightforward to apply to simple equations (see the assignment below) with constant coefficients. However, for cases where the
+material properties vary with location (heterogeneous), they can be difficult to apply, for example, when the material properties are heterogeneous (diffusion coefficient, hydraulic conductivity, thermal conductivity, etc). A naive application can lead to <strong>non-conservative</strong> schemes - that is, ones that do not produce discrete approximations that are conservative. In contrast, the finite-volume method is a conservative discrete approximation.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Assignment">
+<h1>Assignment<a class="headerlink" href="#Assignment" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Finite-difference-stencil-for-diffusion">
+<h2>Finite difference stencil for diffusion<a class="headerlink" href="#Finite-difference-stencil-for-diffusion" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="1-D-Steady-state-diffusion-with-constant-coefficients">
+<h3>1-D Steady-state diffusion with constant coefficients<a class="headerlink" href="#1-D-Steady-state-diffusion-with-constant-coefficients" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="Partial-differential-equation-for-diffusion-with-homogeneous-diffusion-coefficient">
+<h4>Partial differential equation for diffusion with homogeneous diffusion coefficient<a class="headerlink" href="#Partial-differential-equation-for-diffusion-with-homogeneous-diffusion-coefficient" title="Permalink to this headline">¶</a></h4>
+<p>To apply finite-difference approximations to solve differential equations, one simply replaces the derivatives that appear in the equations with a finite difference approximation. The partial differential equation for diffusion in three dimensions (not in porous media) is (see <code class="docutils literal notranslate"><span class="pre">9_pdes_1.ipynb</span></code>): <span class="math">\begin{align}
+&{\partial c\over \partial t} = {\partial \over \partial x}\left( D {\partial c \over \partial x}\right) + {\partial \over \partial y}\left( D {\partial c \over \partial y}\right)+ {\partial \over \partial z}\left( D {\partial c \over \partial z}\right)  \label{8fd8821}\\
+\text{or}&\nonumber\\
+&{\partial c\over \partial t} = \vec{\nabla} \cdot (D \vec{\nabla} c)\label{8fd8822}\\
+\end{align}</span> Write the partial differential equation for 1-D (in the <span class="math notranslate nohighlight">\(x\)</span> direction) steady-state diffusion where the diffusion coefficient is spatially homogeneous.</p>
+<p><strong>Put your equation here</strong> <span class="math">\begin{align}
+&0 = {d^2 c\over dx^2}\\
+\text{or}&\nonumber\\
+&0 = {\nabla}^2 c \\
+\end{align}</span> Under these conditions, the concentration is described by Laplace’s equation.</p>
+</div>
+<div class="section" id="Finite-difference-stencil-for-steady-state-diffusion-with-homogeneous-diffusion-coefficient">
+<h4>Finite-difference stencil for steady-state diffusion with homogeneous diffusion coefficient<a class="headerlink" href="#Finite-difference-stencil-for-steady-state-diffusion-with-homogeneous-diffusion-coefficient" title="Permalink to this headline">¶</a></h4>
+<p>To construct a finite-difference approximation to a differential equation, we simply replace the derivatives in the equation with a finite difference approximation. For example, for an ordinary differential equation of the form <span class="math">\begin{align}
+{dy\over dx} &= 2 y + 6 \label{8fd8824}\\
+\end{align}</span> we develop a finite - difference stencil by replacing the derivative by a finite difference approximation. For example a forward difference approximation would be: <span class="math">\begin{align}
+{y(x_{i+1}) - y(x_i)\over \Delta x} &= 2 y(x_i) + 6 \label{8fd8825}\\
+\end{align}</span> This is usual written using this notation: <span class="math notranslate nohighlight">\(y(x_i)\rightarrow y_i\)</span>: <span class="math">\begin{align}
+{y_{i+1} - y_i\over \Delta x} &= 2 y_i + 6 \label{8fd8826}\\
+\end{align}</span> Write the finite-difference approximation for 1-D (in the <span class="math notranslate nohighlight">\(x\)</span> direction) steady-state diffusion where the diffusion coefficient is spatially homogeneous (that is, for the equation you developed above). Use a centered approximation. In a finite-difference approach, we look at the differential equation and replace derivatives with a finite-difference approximation. We developed the second - order central difference in <span class="math">\ref{8fd8817}</span> so we replace the second
+derivative with that approximation. Since the right side of the equation equals zero, the <span class="math notranslate nohighlight">\((\Delta x)^2\)</span> divides out to give: <span class="math">\begin{align}
+c_{i+1} - 2 c_{i} + c_{i-1} = 0\\
+\end{align}</span> Note the finite difference equation does not depend upon <span class="math notranslate nohighlight">\(\Delta x\)</span>, but the error does! So, for a more accurate solution, we would use more, closer - spaced (smaller <span class="math notranslate nohighlight">\(\Delta x\)</span>) gridpoints.</p>
+</div>
+<div class="section" id="Finite-volume-stencil-for-steady-state-diffusion-with-homogeneous-diffusion-coefficient">
+<h4>Finite-volume stencil for steady-state diffusion with homogeneous diffusion coefficient<a class="headerlink" href="#Finite-volume-stencil-for-steady-state-diffusion-with-homogeneous-diffusion-coefficient" title="Permalink to this headline">¶</a></h4>
+<p>The finite-volume approximation for one-dimensional steady diffusion (not in porous media) is: <span class="math">\begin{align}
+&\left(D {c_E - c_C \over \Delta x} +   D {c_W - c_C \over \Delta x}   \right) (\Delta y) (\Delta z) =0 \label{8fd8823}\\
+\end{align}</span> Write this equation for the case of homogeneous diffusion coefficient and constant gridblock size in the form <span class="math notranslate nohighlight">\(a_W c_W + a_C c_C + a_E c_E = rhs\)</span> (that is, determine <span class="math notranslate nohighlight">\(a_W\)</span>, <span class="math notranslate nohighlight">\(a_C\)</span>, <span class="math notranslate nohighlight">\(a_E\)</span> and <span class="math notranslate nohighlight">\(rhs\)</span>). <strong>Write your equation here.</strong></p>
+<p><span class="math">\begin{align}
+&c_{W} - 2 c_{C} + c_{E} = 0\\
+\end{align}</span> Note this is the same discrete approximation that we developed with a finite-difference method!</p>
+</div>
+</div>
+</div>
+<div class="section" id="Approximation-error">
+<h2>Approximation error<a class="headerlink" href="#Approximation-error" title="Permalink to this headline">¶</a></h2>
+<p>Compute the forward, backward and central difference error of <code class="docutils literal notranslate"><span class="pre">cos(x)</span></code> at <span class="math notranslate nohighlight">\(x = 0.7\)</span>, starting at <span class="math notranslate nohighlight">\(\Delta x = 0.5\)</span>, and the halving <span class="math notranslate nohighlight">\(\Delta x\)</span> 10 times (see code snippet below). Write a python code to: 1. compute and print the error for each value of <span class="math notranslate nohighlight">\(\Delta x\)</span> for the forward,centered and backwards approximations. * plot the error of each expression versus <span class="math notranslate nohighlight">\(\Delta x\)</span> * What should the slope of this plot be for the different approximations?</p>
+<p>You can reuse most of the code above for this assignment.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># code fragment to compute and print the values of delta x to be used in the error computation</span>
+<span class="n">dx_vals</span> <span class="o">=</span> <span class="mf">2.</span><span class="o">**-</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">dx</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">nditer</span><span class="p">(</span><span class="n">dx_vals</span><span class="p">):</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">dx</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{dx:9.2f},  {y:9.3f}&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+     0.50,     -0.801
+     0.25,     -0.628
+     0.12,     -0.526
+     0.06,     -0.472
+     0.03,     -0.444
+     0.02,     -0.430
+     0.01,     -0.423
+     0.00,     -0.420
+     0.00,     -0.418
+     0.00,     -0.417
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.7</span>
+<span class="n">exact_d</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># exact derivative coded above</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Exact derivative at x = {x:2.2f}, df/dx = {exact_d:3.7f}&quot;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;     FD approximation                       |error i-i /error _i|&quot;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot; forward    backward      central          forward    backward    central &quot;</span><span class="p">)</span>
+
+<span class="c1"># python - empty arrays that will hold the errors as we loop through the computation for different dx</span>
+<span class="n">for_err</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">back_err</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">cent_err</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># initialize</span>
+<span class="c1"># python iteration over elements in the np array dx_vals</span>
+<span class="k">for</span> <span class="n">dx</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">nditer</span><span class="p">(</span><span class="n">dx_vals</span><span class="p">):</span>
+    <span class="c1"># to avoid repeated function calls (for efficiency) store function calls in temporary variables</span>
+    <span class="n">f_xpdx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">)</span>  <span class="c1"># f(x+dx) value of the function at x+dx</span>
+    <span class="n">f_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># f(x) value of the function at x</span>
+    <span class="n">f_xmdx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">dx</span><span class="p">)</span>  <span class="c1"># f(x-dx) value of the function at x-dx</span>
+
+    <span class="n">for_dif</span> <span class="o">=</span> <span class="p">(</span><span class="n">f_xpdx</span> <span class="o">-</span> <span class="n">f_x</span><span class="p">)</span> <span class="o">/</span> <span class="n">dx</span>  <span class="c1"># compute forward, backward and central difference</span>
+    <span class="n">back_dif</span> <span class="o">=</span> <span class="p">(</span><span class="n">f_x</span> <span class="o">-</span> <span class="n">f_xmdx</span><span class="p">)</span> <span class="o">/</span> <span class="n">dx</span>
+    <span class="n">cent_dif</span> <span class="o">=</span> <span class="p">(</span><span class="n">f_xpdx</span> <span class="o">-</span> <span class="n">f_xmdx</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+
+    <span class="c1"># compute the absolute value of the error, add to a list using .append method</span>
+    <span class="n">for_err</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">for_dif</span> <span class="o">-</span> <span class="n">exact_d</span><span class="p">))</span>
+    <span class="n">back_err</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">back_dif</span> <span class="o">-</span> <span class="n">exact_d</span><span class="p">))</span>
+    <span class="n">cent_err</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">cent_dif</span> <span class="o">-</span> <span class="n">exact_d</span><span class="p">))</span>
+    <span class="c1"># errors are now stored in lists  - these are not numpy arrays</span>
+    <span class="n">sv</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">f</span><span class="s2">&quot;{item:8.3f}&quot;</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="n">for_dif</span><span class="p">,</span>
+            <span class="n">back_dif</span><span class="p">,</span>
+            <span class="n">cent_dif</span><span class="p">,</span>
+            <span class="n">for_err</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">back_err</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">cent_err</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+        <span class="p">]</span>
+    <span class="p">]</span>
+
+    <span class="k">print</span><span class="p">(</span>
+        <span class="n">f</span><span class="s2">&quot;{sv[0]:8&gt;}   {sv[1]:8&lt;}     {sv[2]:8&lt;}         {sv[3]:8&gt;}  {sv[4]:8&gt;}   {sv[5]:8&gt;}&quot;</span>
+    <span class="p">)</span>
+
+<span class="c1"># plot it!</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">dx_vals</span><span class="p">,</span> <span class="n">for_err</span><span class="p">,</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Forward&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">dx_vals</span><span class="p">,</span> <span class="n">back_err</span><span class="p">,</span> <span class="s2">&quot;-g&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Backward&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">dx_vals</span><span class="p">,</span> <span class="n">cent_err</span><span class="p">,</span> <span class="s2">&quot;-b&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Central&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;dx&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s2">&quot;large&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;|error|&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s2">&quot;large&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Exact derivative at x = 0.70, df/dx = -0.6442177
+     FD approximation                       |error i-i /error _i|
+ forward    backward      central          forward    backward    central
+  -0.805     -0.430       -0.618            0.161     0.214      0.027
+  -0.733     -0.542       -0.638            0.088     0.102      0.007
+  -0.690     -0.595       -0.643            0.046     0.049      0.002
+  -0.668     -0.620       -0.644            0.023     0.024      0.000
+  -0.656     -0.632       -0.644            0.012     0.012      0.000
+  -0.650     -0.638       -0.644            0.006     0.006      0.000
+  -0.647     -0.641       -0.644            0.003     0.003      0.000
+  -0.646     -0.643       -0.644            0.001     0.001      0.000
+  -0.645     -0.643       -0.644            0.001     0.001      0.000
+  -0.645     -0.644       -0.644            0.000     0.000      0.000
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;matplotlib.legend.Legend at 0x1158dbbe0&gt;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_35_2.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_ans_35_2.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Reflection">
+<h1>Reflection<a class="headerlink" href="#Reflection" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>What dictates your choice in the order of approximation used in a finite - difference approximation?</p></li>
+<li><p>How does the finite-difference approximation differ from the finite-volume approximation for the case you considered in the assignment above?</p></li>
+</ul>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2019, Philip Austin.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

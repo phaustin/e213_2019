@@ -3,6 +3,16 @@
   {
    "cell_type": "markdown",
    "metadata": {
+    "toc": true
+   },
+   "source": [
+    "<h1>Table of Contents<span class=\"tocSkip\"></span></h1>\n",
+    "<div class=\"toc\"><ul class=\"toc-item\"><li><span><a href=\"#Finite-volumes-8---finite-difference-approximations\" data-toc-modified-id=\"Finite-volumes-8---finite-difference-approximations-1\"><span class=\"toc-item-num\">1&nbsp;&nbsp;</span>Finite volumes 8 - finite-difference approximations</a></span><ul class=\"toc-item\"><li><span><a href=\"#Learning-goals\" data-toc-modified-id=\"Learning-goals-1.1\"><span class=\"toc-item-num\">1.1&nbsp;&nbsp;</span>Learning goals</a></span></li><li><span><a href=\"#Finite-difference-approximations-to-derivatives\" data-toc-modified-id=\"Finite-difference-approximations-to-derivatives-1.2\"><span class=\"toc-item-num\">1.2&nbsp;&nbsp;</span>Finite-difference approximations to derivatives</a></span><ul class=\"toc-item\"><li><span><a href=\"#Intuition\" data-toc-modified-id=\"Intuition-1.2.1\"><span class=\"toc-item-num\">1.2.1&nbsp;&nbsp;</span>Intuition</a></span></li><li><span><a href=\"#Backward--difference\" data-toc-modified-id=\"Backward--difference-1.2.2\"><span class=\"toc-item-num\">1.2.2&nbsp;&nbsp;</span>Backward  difference</a></span></li><li><span><a href=\"#Forward-difference\" data-toc-modified-id=\"Forward-difference-1.2.3\"><span class=\"toc-item-num\">1.2.3&nbsp;&nbsp;</span>Forward difference</a></span></li><li><span><a href=\"#Central-difference\" data-toc-modified-id=\"Central-difference-1.2.4\"><span class=\"toc-item-num\">1.2.4&nbsp;&nbsp;</span>Central difference</a></span></li><li><span><a href=\"#Example:-approximation-error\" data-toc-modified-id=\"Example:-approximation-error-1.2.5\"><span class=\"toc-item-num\">1.2.5&nbsp;&nbsp;</span>Example: approximation error</a></span></li><li><span><a href=\"#Assess-error\" data-toc-modified-id=\"Assess-error-1.2.6\"><span class=\"toc-item-num\">1.2.6&nbsp;&nbsp;</span>Assess error</a></span></li><li><span><a href=\"#Taylor-Series-analysis-of-finite-difference-approximations\" data-toc-modified-id=\"Taylor-Series-analysis-of-finite-difference-approximations-1.2.7\"><span class=\"toc-item-num\">1.2.7&nbsp;&nbsp;</span>Taylor Series analysis of finite-difference approximations</a></span></li><li><span><a href=\"#Summary-of-finite-difference-approximations\" data-toc-modified-id=\"Summary-of-finite-difference-approximations-1.2.8\"><span class=\"toc-item-num\">1.2.8&nbsp;&nbsp;</span>Summary of finite difference approximations</a></span></li><li><span><a href=\"#Implications-for-finite-volumes\" data-toc-modified-id=\"Implications-for-finite-volumes-1.2.9\"><span class=\"toc-item-num\">1.2.9&nbsp;&nbsp;</span>Implications for finite volumes</a></span></li></ul></li></ul></li><li><span><a href=\"#Assignment\" data-toc-modified-id=\"Assignment-2\"><span class=\"toc-item-num\">2&nbsp;&nbsp;</span>Assignment</a></span><ul class=\"toc-item\"><li><span><a href=\"#Finite-difference-stencil-for-diffusion\" data-toc-modified-id=\"Finite-difference-stencil-for-diffusion-2.1\"><span class=\"toc-item-num\">2.1&nbsp;&nbsp;</span>Finite difference stencil for diffusion</a></span><ul class=\"toc-item\"><li><span><a href=\"#1-D-Steady-state-diffusion-with-constant-coefficients\" data-toc-modified-id=\"1-D-Steady-state-diffusion-with-constant-coefficients-2.1.1\"><span class=\"toc-item-num\">2.1.1&nbsp;&nbsp;</span>1-D Steady-state diffusion with constant coefficients</a></span></li></ul></li><li><span><a href=\"#Approximation-error\" data-toc-modified-id=\"Approximation-error-2.2\"><span class=\"toc-item-num\">2.2&nbsp;&nbsp;</span>Approximation error</a></span></li></ul></li><li><span><a href=\"#Reflection\" data-toc-modified-id=\"Reflection-3\"><span class=\"toc-item-num\">3&nbsp;&nbsp;</span>Reflection</a></span></li></ul></div>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
     "lines_to_next_cell": 0
    },
    "source": [
@@ -881,9 +891,6 @@
    "language": "python",
    "name": "python3"
   },
-  "nbsphinx": {
-   "execute": "never"
-  },
   "language_info": {
    "codemirror_mode": {
     "name": "ipython",
@@ -894,7 +901,23 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.6.5"
+   "version": "3.7.3"
+  },
+  "nbsphinx": {
+   "execute": "never"
+  },
+  "toc": {
+   "base_numbering": 1,
+   "nav_menu": {},
+   "number_sections": true,
+   "sideBar": true,
+   "skip_h1_title": false,
+   "title_cell": "Table of Contents",
+   "title_sidebar": "Contents",
+   "toc_cell": true,
+   "toc_position": {},
+   "toc_section_display": true,
+   "toc_window_display": true
   }
  },
  "nbformat": 4,

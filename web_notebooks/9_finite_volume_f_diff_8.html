@@ -398,7 +398,25 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<div class="section" id="Finite-volumes-8---finite-difference-approximations">
+<h1><p>Table of Contents</p>
+</h1><div class="toc"><ul class="toc-item"><li><p>1  Finite volumes 8 - finite-difference approximations</p>
+<ul class="toc-item"><li><p>1.1  Learning goals</p>
+</li><li><p>1.2  Finite-difference approximations to derivatives</p>
+<ul class="toc-item"><li><p>1.2.1  Intuition</p>
+</li><li><p>1.2.2  Backward difference</p>
+</li><li><p>1.2.3  Forward difference</p>
+</li><li><p>1.2.4  Central difference</p>
+</li><li><p>1.2.5  Example: approximation error</p>
+</li><li><p>1.2.6  Assess error</p>
+</li><li><p>1.2.7  Taylor Series analysis of finite-difference approximations</p>
+</li><li><p>1.2.8  Summary of finite difference approximations</p>
+</li><li><p>1.2.9  Implications for finite volumes</p>
+</li></ul></li></ul></li><li><p>2  Assignment</p>
+<ul class="toc-item"><li><p>2.1  Finite difference stencil for diffusion</p>
+<ul class="toc-item"><li><p>2.1.1  1-D Steady-state diffusion with constant coefficients</p>
+</li></ul></li><li><p>2.2  Approximation error</p>
+</li></ul></li><li><p>3  Reflection</p>
+</li></ul></div><div class="section" id="Finite-volumes-8---finite-difference-approximations">
 <h1>Finite volumes 8 - finite-difference approximations<a class="headerlink" href="#Finite-volumes-8---finite-difference-approximations" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="Learning-goals">
 <h2>Learning goals<a class="headerlink" href="#Learning-goals" title="Permalink to this headline">¶</a></h2>
@@ -513,7 +531,7 @@ f(x)&= -(x - 2.5)^3 + 5
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_8_1.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_8_1.png" />
+<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_9_1.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_9_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -574,7 +592,7 @@ f(x)&= -(x - 2.5)^3 + 5
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_11_1.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_11_1.png" />
+<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_12_1.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_12_1.png" />
 </div>
 </div>
 </div>
@@ -610,7 +628,7 @@ f(x)&= -(x - 2.5)^3 + 5
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_13_1.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_13_1.png" />
+<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_14_1.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_14_1.png" />
 </div>
 </div>
 </div>
@@ -646,7 +664,7 @@ f(x)&= -(x - 2.5)^3 + 5
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_15_1.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_15_1.png" />
+<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_16_1.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_16_1.png" />
 </div>
 </div>
 <p>Collecting them all together, and including the tangent line at that point, which is computed using the exact derivative:</p>
@@ -683,7 +701,7 @@ f(x)&= -(x - 2.5)^3 + 5
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_17_1.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_17_1.png" />
+<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_18_1.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_18_1.png" />
 </div>
 </div>
 </div>
@@ -786,7 +804,7 @@ Exact derivative at x = 2.00, df/dx = -0.7500
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_19_2.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_19_2.png" />
+<img alt="../_images/web_notebooks_9_finite_volume_f_diff_8_20_2.png" src="../_images/web_notebooks_9_finite_volume_f_diff_8_20_2.png" />
 </div>
 </div>
 </div>

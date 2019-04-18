@@ -553,36 +553,165 @@ c_3 -2c_4&= -93 \label{eq6510}\\
 </div>
 <div class="section" id="Solve-the-system-of-equations">
 <h1>Solve the system of equations<a class="headerlink" href="#Solve-the-system-of-equations" title="Permalink to this headline">¶</a></h1>
-<p>Solve the equations by hand and plot the concentration versus <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<p>Solve the equations and plot the concentration versus <span class="math notranslate nohighlight">\(x\)</span>.</p>
 <div class="admonition note">
 </div>
-<div class="alert alert-warning"></div>
-<div class="section" id="Plot-it!">
-<h1>Plot it!<a class="headerlink" href="#Plot-it!" title="Permalink to this headline">¶</a></h1>
-<p>Complete the python code below - replace <code class="docutils literal notranslate"><span class="pre">c[1]</span></code> to <code class="docutils literal notranslate"><span class="pre">c[3]</span></code> with your answers below, and then write the python code to plot the results. See the TMF notebook for an example.</p>
-</div><div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="admonition note">
+<p class="admonition-title">The approximation for <span class="math notranslate nohighlight">\(j_{EC}\)</span> is given above in equation <span class="math">\ref{eq5148}</span>.</p>
+<p>Write the corresponding discrete approximation for <span class="math notranslate nohighlight">\(j_{WC}\)</span> in terms of <span class="math notranslate nohighlight">\(D\theta\)</span>, <span class="math notranslate nohighlight">\(c_W\)</span>, <span class="math notranslate nohighlight">\(c_C\)</span> and <span class="math notranslate nohighlight">\(\Delta x\)</span>, <span class="math notranslate nohighlight">\(\Delta y\)</span>, and <span class="math notranslate nohighlight">\(\Delta z\)</span>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title"><span class="math">\begin{align}
+j_{WC} &\approx {????} \label{eq5148}\\
+\end{align}</span></p>
+<ol class="arabic simple">
+<li><p>Is the sign of the flux <span class="math notranslate nohighlight">\(j_{WC}\)</span> computed using your expression positive for flux entering gridblock C?</p></li>
+<li><p>Give an example.</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="Summary">
+<h1>Summary<a class="headerlink" href="#Summary" title="Permalink to this headline">¶</a></h1>
+<p>Bringing it all together, the 1-D steady-state diffusion stencil</p>
+<p><span class="math">\begin{align*}
+&\left(j_{EC}+j_{WC}\right) (\Delta y) (\Delta z) = 0 \\
+\end{align*}</span></p>
+<p>becomes (replace <span class="math notranslate nohighlight">\(j_{WC}\)</span> in the expression below with your expression from above):</p>
+<p><span class="math">\begin{align}
+&\left(D\theta {c_E - c_C \over \Delta x} +   j_{WC}   \right) (\Delta y) (\Delta z) = 0 \label{eq5144}\\
+\end{align}</span></p>
+<p>Consider a three gridblocks W, C, E, where <span class="math notranslate nohighlight">\(c_W=28~mg/L\)</span>, <span class="math notranslate nohighlight">\(c_C=20~mg/L\)</span> and <span class="math notranslate nohighlight">\(c_E= 15 mg/L\)</span>, the diffusion coeffient is <span class="math notranslate nohighlight">\(D=2\times 10^{-10}~m^2/s\)</span>, and the porosity is <span class="math notranslate nohighlight">\(\theta = 0.25\)</span>. Write the python code to compute: 1. <span class="math notranslate nohighlight">\(j_{EC}\)</span> and <span class="math notranslate nohighlight">\(j_{WC}\)</span> 2. <span class="math notranslate nohighlight">\(J_{EC}\)</span> and <span class="math notranslate nohighlight">\(J_{WC}\)</span></p>
+<p>To solve a boundary value problem requires: 1. knowledge of the equations that govern the dependent variable. 2. specification of the problem domain. 3. specification of properties of the problem domain. 4. the value of the dependent variable or its derivatives on the boundary.</p>
+<p>Let’s go through the checklist for our problem. 1. we have not developed these yet, but we are going to use conservation of mass and an expression for diffusion to develop the equations that govern concentration.</p>
+<p>Why go to the trouble with the fancy math? Couple of reasons: * it is the most succinct and unambiguous way to state a physical principle. In that sense, mathematics is a language with a grammar and rules that allow one to make precise statements. We use the <em>language</em> of mathematics to write <em>literature</em>: precise descriptions of physical systems . * once we have a mathematical description, we can use the grammar rules of mathematics and manipulate the expressions to, for example, simplify
+them, or use calculus to derive solutions to our expressions.</p>
+</div>
+<div class="section" id="Context">
+<h1>Context<a class="headerlink" href="#Context" title="Permalink to this headline">¶</a></h1>
+<p>So far we have solved 0 dimensional problems:</p>
+<ul class="simple">
+<li><p>we have considered the mass of water to be given by one value</p></li>
+<li><p>we have considered that the concentration of sulfates was given by one value and that this value was the same at any point in the TMF.</p></li>
+</ul>
+<p>In reality, the concentration of sulfates is not necessarily the same everywhere, and the spatial distribution or evolution of the contaminant is important to know.</p>
+<p>Consider a factory releasing a contaminant: this contaminant will be transported in space and time.</p>
+<ul class="simple">
+<li><p>if the factory releases this contaminant in a river, it will follow the river current</p></li>
+<li><p>if it is released in the atmosphere, it will follow windspeed</p></li>
+<li><p>if is is released in the groundwater, it will follow the groundwater flow</p></li>
+</ul>
+<p>But the windspeed, the river current, the groundwater flow are not the same everywhere (they are not uniform). If we want to be able to predict where the contaminant goes, we need to understand which processes are responsible for its movement.</p>
+<p>In a 3 dimensional space, the concentration can be different at every point in space. But also, the concentration at each point in space can evolve in time. In general, the concentration will be described by a function <span class="math notranslate nohighlight">\(c(x,y,z,t)\)</span> which represents the concentration at each point of coordinates <span class="math notranslate nohighlight">\((x,y,z)\)</span> for each time <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<p>When we have developped Euler’s approaches, we have divided into small intervals. We are going to do the same with space. This is called <strong>discretization</strong>. It is the idea of splitting a variable who can take any value on a real axis into subdomains where this variable is supposed to be constant.</p>
+<p>Without a discretization, we would have to solve a problem for each possible <span class="math notranslate nohighlight">\((x,y,z)\)</span>, which would be impossible.</p>
+</div>
+<div class="section" id="Link-to-the-TMF-problem">
+<h1>Link to the TMF problem<a class="headerlink" href="#Link-to-the-TMF-problem" title="Permalink to this headline">¶</a></h1>
+<p>To introduce this spatial behaviour, let us go back to the TMF problem. The conceptual model could be expressed like this:</p>
+<p>This “spatial” view of the method we have applied corresponds precisely to the finite volume - difference method we will use. In our problem, we were only interested in one “point” in space, the TMF. This “point” representation of this TMF actually arises from a discretization of space.</p>
+<p>We have computed the evolution the mass/concentration of sulfates in that “point” by computing the fluxes which were going in and out of this “point”.</p>
+<p>What if the amount of sulfates in the pit/mill was not “infinite” (constant in all time)? Well, that would mean that <span class="math notranslate nohighlight">\(c_{\text{pit}}\)</span> would decrease during time, and the flux incoming from the pit would decrease as well. If that is the case, we now need to add another equation to compute the evolution of the concentration in the pit, and also a formulation which links the flux between the pit/mill towards the TMF.</p>
+<p>That is the central idea for the resolution of any transient (not steady) problem including spatial variation. The evolution of the concentration at each point of interest during a certain time is computed by</p>
+<ul class="simple">
+<li><p>summing all the fluxes going in - all the fluxes going out</p></li>
+<li><p>considering these fluxes are constant in time during that period of time ( // Euler’s method).</p></li>
+</ul>
+<p>So what we need, is to be able to compute these fluxes.</p>
+<p>Watch out, in physics, flux is usually defined as the amount (of matter, energy, …) which goes through a surface per unit of time. A mass flux is described in kg/m<span class="math notranslate nohighlight">\(^2\)</span>/s. Above, we have described a “flux” in mg/s. In the following, flux <span class="math notranslate nohighlight">\(\phi\)</span> will be denoted in units of Mass per unit of surface per unit of time.</p>
+</div>
+<div class="section" id="General-idea-between">
+<h1>General idea between<a class="headerlink" href="#General-idea-between" title="Permalink to this headline">¶</a></h1>
+<p>If we focus on the central volume here, it might exchange fluxes <span class="math notranslate nohighlight">\(\phi\)</span> with its neighbouring volumes. In a 2D space, central volume <span class="math notranslate nohighlight">\(i\)</span> has 4 neighbours: North-East-South-West, with whom it can exchange matter (or energy, …).</p>
+<p>So, if we know the mass-flux between volume <span class="math notranslate nohighlight">\(i\)</span> and volume North, <span class="math notranslate nohighlight">\(\phi_{i\rightarrow \text{North}}\)</span>, that means that the mass in volume <span class="math notranslate nohighlight">\(i\)</span> is evolving by the amount:</p>
+<p><span class="math">\begin{equation}
+\frac{dM}{dt} = \sum_j \phi_{j\rightarrow i} S_{ij}
+\end{equation}</span></p>
+<p>where <span class="math notranslate nohighlight">\(j\)</span> represents the set of every neighbour (here North, East, South, West). In 1D, there are 2 neighbours, in 3D, there are 6 neighbours.</p>
+<p>Where S is the surface (in m<span class="math notranslate nohighlight">\(^2\)</span>) of the interface between volumes i and North. So, to compute the evolution of mass in volume <span class="math notranslate nohighlight">\(i\)</span>, we only need to find the values of the different fluxes.</p>
+<p>The idea behind the space discretization is that, in each “volume”, the concentration is uniform and has only one value. That also means that, on every surface separating two volumes, the fluxes are uniform.</p>
+</div>
+<div class="section" id="Continuity-equation">
+<h1>Continuity equation<a class="headerlink" href="#Continuity-equation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="The-continuity-equation">
+<h2>The continuity equation<a class="headerlink" href="#The-continuity-equation" title="Permalink to this headline">¶</a></h2>
+<p>Multiplying both ends by the volume of water <span class="math notranslate nohighlight">\(V_0\)</span> yields:</p>
+<p>So, if the concentration is uniform in the volume <span class="math notranslate nohighlight">\(V\)</span>, that means that the mass can be obtained by:</p>
+<p><span class="math">\begin{equation}
+M = \int_V c dV = c \int_V dV = cV
+\end{equation}</span></p>
+<p>The evolution of the mass arises from the different fluxes</p>
+<p><span class="math">\begin{equation}
+\frac{\Delta M}{\Delta t} = \sum_j \phi_{j\rightarrow i} S_{ij} = -R
+\end{equation}</span></p>
+<p>The rate of matter evolution <span class="math notranslate nohighlight">\(R\)</span> (mg/s) through any surface is usually given by the integral of the flux over the surface: <span class="math">\begin{equation}
+R = \oint_S \overrightarrow{\phi}d\overrightarrow{S}
+\end{equation}</span></p>
+<p>where <span class="math notranslate nohighlight">\(d\overrightarrow{S}\)</span> represents the unit normal vector oriented towards the outside of the closed surface. So, <span class="math notranslate nohighlight">\(R\)</span> is positive when matters is going out ot the volume. This surface integral can be decomposed, in our cases, as the sum over the 4 straight lines delimiting our volume. And, since the flux is uniform through these straight lines, this integral becomes straightforward to compute:</p>
+<p>:nbsphinx-math:<a href="#id1"><span class="problematic" id="id2">`</span></a>begin{equation}
+begin{array}{lll}
+R &amp; = &amp; displaystyle{ oint_S overrightarrow{phi}doverrightarrow{S}} \</p>
+<blockquote>
+<div><p>&amp; = &amp; int_{S_{textrm{North}}} phi_{textrm{North}} dS + int_{S_{textrm{East}}} phi_{textrm{East}} dS + … \
+&amp; = &amp; phi_{textrm{North}} int_{S_{textrm{North}}}  dS + phi_{textrm{East}} int_{S_{textrm{East}}}  dS + … \
+&amp; = &amp; phi_{textrm{North}}S_{textrm{North}} + phi_{textrm{East}}S_{textrm{East}} + phi_{textrm{South}}S_{textrm{South}} + phi_{textrm{West}}S_{textrm{West}}   \
+&amp; = &amp; sum_j phi_{irightarrow j} S_{ij}</p>
+</div></blockquote>
+<p>end{array}
+end{equation}`</p>
+<p>But there is a math theorem (Green-Ostrogradski) which also states that</p>
+<p>The rate of matter evolution <span class="math notranslate nohighlight">\(R\)</span> (mg/s) through any surface is usually given by the integral of the flux over the surface: <span class="math">\begin{equation}
+\oint_{S(V)} \overrightarrow{\phi}d\overrightarrow{S} = \int_V \mathrm{div} \overrightarrow{\phi}
+\end{equation}</span></p>
+<p>This is the “divergence” theorem. The divergence operator is defined as:</p>
+<p><span class="math">\begin{equation}
+\mathrm{div} \overrightarrow{\phi} = \overrightarrow{\nabla} \cdot \overrightarrow{\phi}
+\end{equation}</span></p>
+<p>So, combining the different equation together, we get</p>
+<p>:nbsphinx-math:<a href="#id3"><span class="problematic" id="id4">`</span></a>begin{equation}
+begin{array}{llll}</p>
+<blockquote>
+<div><p>&amp; frac{dm}{dt} &amp; = &amp; sum_j phi_{jrightarrow i} S_{ij} \</p>
+</div></blockquote>
+<p>Longleftrightarrow &amp; displaystyle{frac{d}{dt} int_V c dV} &amp; = &amp; displaystyle{ - oint_S overrightarrow{phi}doverrightarrow{S}} \
+Longleftrightarrow &amp; displaystyle{frac{d}{dt} int_V c dV} &amp; = &amp; displaystyle{ - int_V mathrm{div} overrightarrow{phi} dV}
+end{array}
+end{equation}`</p>
+<p>And, since the integral over the same volume <span class="math notranslate nohighlight">\(V\)</span> has to be equal on both sides, that means that what is inside the integrals have to be equal, which gives the divergence equation:</p>
+<p><span class="math">\begin{equation}
+\frac{dc}{dt} + \mathrm{div} \overrightarrow{\phi} = 0
+\end{equation}</span></p>
+<p>This is known as the <strong>continuity equation</strong>, which is used in many areas of physics (quantum mechanics, fluid mechanics, energy, mass balance, …).</p>
+</div>
+<div class="section" id="Physical-interpretation-of-the-divergence">
+<h2>Physical interpretation of the divergence<a class="headerlink" href="#Physical-interpretation-of-the-divergence" title="Permalink to this headline">¶</a></h2>
+<p>The divergence theorem states that, for any given volume, the integral of the flux (mg/m:math:<cite>^2</cite>/s) over the surface which defines that volume (mg/s) corresponds to the integral over the volume of the “divergence” of the flux. <span class="math">\begin{equation}
+\oint_{S(V)} \overrightarrow{\phi}d\overrightarrow{S} = \int_V \mathrm{div} \overrightarrow{\phi}
+\end{equation}</span></p>
+<p>Remember Maxwell’s law of electromagnetism? If you look at a magnet, the lines describing the magnetic field always goes from the north to the south “pole”. And over one line, the value of the magnetic field <span class="math notranslate nohighlight">\(B\)</span> (in Tesla), is constant.</p>
+<p>That means that, if you define a volume <span class="math notranslate nohighlight">\(V\)</span> whatsoever, delimited by a closed surface <span class="math notranslate nohighlight">\(S(V)\)</span>, everything that is coming in, is going to come out. Maxwell’s law for that is</p>
+<p><span class="math">\begin{equation}
+\mathrm{div} \overrightarrow{B} = 0
+\end{equation}</span></p>
+<p>This is not the case for the electric field.</p>
+<p>In this case, the presence of one electric charge will generate electric field lines. So if you take any volume, whose incorporates that electric charge, the integral of the flux will be positive (for a positive charge). Maxwell’s law states, with <span class="math notranslate nohighlight">\(\rho\)</span> being the charge density:</p>
+<p><span class="math">\begin{equation}
+\mathrm{div} \overrightarrow{E} = \frac{\rho}{\epsilon_0}
+\end{equation}</span></p>
+<p>Here in our case, the divergence of a vector field <span class="math notranslate nohighlight">\(\rightarrow{q}\)</span> will basically indicate: <span class="math">\begin{equation}
+\mathrm{q} \propto \textrm{What goes out} - \textrm{What goes in}
+\end{equation}</span></p>
+<p>So, the continuity equation:</p>
+<p><span class="math">\begin{equation}
+\frac{dc}{dt} = - \mathrm{div} \overrightarrow{\phi} \propto \textrm{What goes in} - \textrm{What goes out}
+\end{equation}</span></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="c1"># set up the plot</span>
-
-<span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="nb">float</span><span class="p">)</span>
-<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
-<span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2000</span>  <span class="c1"># lower boundary condition</span>
-<span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2000</span>  <span class="c1"># replace with the correct value</span>
-<span class="n">c</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2000</span>  <span class="c1"># replace with the correct value</span>
-<span class="n">c</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">93</span>    <span class="c1"># replace with the correct value</span>
-<span class="n">c</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">93</span>    <span class="c1"># upper boundary condition</span>
-<span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
-<span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
-<span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.5</span>
-<span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span>
-
-<span class="c1"># use matplotlib to produce plot of concentration vs x (see TMF notebook for an example)</span>
+<span></span>
 </pre></div>
+</div>
 </div>
 </div>
 </div>

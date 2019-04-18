@@ -3,6 +3,7 @@
   {
    "cell_type": "markdown",
    "metadata": {
+    "lines_to_next_cell": 0,
     "toc": true
    },
    "source": [
@@ -12,7 +13,9 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {},
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
    "source": [
     "## Finite volumes 7 - transient problems and time integration"
    ]
@@ -41,7 +44,7 @@
    "source": [
     "## The two Eulers\n",
     "\n",
-    "We've covered transient ordinary differential equations of the form \n",
+    "We've covered transient ordinary differential equations of the form\n",
     "<br><br>\n",
     "\\begin{align}\n",
     "{dy\\over dt} &= f(y)\\label{7fv71}\\\\\n",
@@ -59,7 +62,7 @@
     "{y(t+\\Delta t) - y(t)\\over \\Delta t}  &= f(y)\\label{7fv73}\\\\\n",
     "\\end{align}\n",
     "<br><br>\n",
-    "This finite-difference approximation is accurate if $\\Delta t$ is small. The approach behind most transient problems is to **time step** with time steps that are sufficiently small to maintain accuracy and stability. We start with the **initial condition** (knowledge of the dependent variable ($y$) at the start of the period of interest ($t_0$)) and then find $y$ at time $t+\\Delta t$, ...: \n",
+    "This finite-difference approximation is accurate if $\\Delta t$ is small. The approach behind most transient problems is to **time step** with time steps that are sufficiently small to maintain accuracy and stability. We start with the **initial condition** (knowledge of the dependent variable ($y$) at the start of the period of interest ($t_0$)) and then find $y$ at time $t+\\Delta t$, ...:\n",
     "<br><br>\n",
     "\\begin{align*}\n",
     "\\text{Step 1}\\quad y(t_0)\\quad &\\underrightarrow{\\Delta t} \\quad  y(t_0+\\Delta t)\\\\\n",
@@ -76,7 +79,7 @@
     "<br><br>\n",
     "1. Start with an initial condition at $t = t_0$\n",
     "2. Determine solution at every node at $t = t_0 +\\Delta t$, where $\\Delta t$ is the time step.\n",
-    "3. Repeat, optionally with a different time step size, and march forward in time, one time step at a time. \n",
+    "3. Repeat, optionally with a different time step size, and march forward in time, one time step at a time.\n",
     "\n",
     "\n",
     "<br><br>\n",
@@ -105,7 +108,7 @@
     "In this notebook, we'll develop the transient 1-D finite volume stencil and then show how we can apply explicit and implicit time stepping schemes. It will then be clear why forward Euler is called explicit and backward Euler implicit (I prefer the terms implicit and explicit).\n",
     "<br><br><br><br>\n",
     "\n",
-    "##  Transient finite-volume equation for diffusion in porous media \n",
+    "##  Transient finite-volume equation for diffusion in porous media\n",
     "We'll develop the equations for 1-D. The 2- and 3-D equations follow the same pattern.\n",
     "Recall from notebook `5.1finite_volume_2.ipynb` the following transient mass conservation statement\n",
     "<br><br>\n",
@@ -142,7 +145,9 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {},
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
    "source": [
     "### Your turn\n",
     "Show that the dimensions of both sides of transient 1-D diffusion in porous media stencil \\ref{7fv710} are the same.\n",
@@ -154,14 +159,16 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {},
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
    "source": [
     "<br><br>\n",
     "As a last step, we convert the mass in the control volume C, $m_C$, into a concentration in the control volume $c_C$.\n",
     "\n",
     "\n",
     "In porous media, when the pores are fully saturated with water, the volume of water in the gridblock is porosity $\\times$ total volume of the gridblock: $\\theta (\\Delta x)(\\Delta y)(\\Delta z)$, so the mass of solute in the water in the gridblock is the volume of water $\\times$ the concentration in the water: $c \\theta (\\Delta x)(\\Delta y)(\\Delta z)$.\n",
-    "<br><br> \n",
+    "<br><br>\n",
     "So for $m_C$ we substitute $c\\theta (\\Delta x)(\\Delta y)(\\Delta z)$.\n",
     "<br><br>\n",
     "<br><br>\n",
@@ -175,7 +182,9 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {},
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
    "source": [
     "## Implicit and explicit methods\n",
     "\n",
@@ -216,7 +225,9 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {},
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
    "source": [
     "## Implicit 1-d stencil for diffusion in porous media\n",
     "<br><br>\n",
@@ -231,7 +242,9 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {},
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
    "source": [
     "### Your turn\n",
     "\n",
@@ -244,7 +257,9 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {},
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
    "source": [
     "### Your turn\n",
     "\n",
@@ -256,7 +271,9 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {},
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
    "source": [
     "## Summary\n",
     "\n",
@@ -274,7 +291,9 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {},
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
    "source": [
     "### Implicit method\n",
     "\n",
@@ -292,7 +311,9 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {},
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
    "source": [
     "<br><br>\n",
     "## Accuracy, stability and time-step constraints\n",
@@ -320,7 +341,9 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {},
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
    "source": [
     "### Your turn\n",
     "\n",
@@ -329,12 +352,12 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": null,
    "metadata": {},
    "outputs": [],
    "source": [
     "### BEGIN SOLUTION\n",
-    "dt = (0.1)*(0.1)/(2.*1e-9) \n",
+    "dt = (0.1) * (0.1) / (2.0 * 1e-9)\n",
     "### END SOLUTION"
    ]
   },
@@ -354,7 +377,7 @@
    "source": [
     "## Reflection\n",
     "\n",
-    "* What are the trade-offs between an explicit scheme and an implicit scheme? \n",
+    "* What are the trade-offs between an explicit scheme and an implicit scheme?\n",
     "* What considerations should you take into account when choosing a time-integration scheme and a time-step size?"
    ]
   },
@@ -375,7 +398,7 @@
     "extension": ".py",
     "format_name": "percent",
     "format_version": "1.2",
-    "jupytext_version": "1.0.0-rc4"
+    "jupytext_version": "1.0.1"
    }
   },
   "kernelspec": {
@@ -393,7 +416,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.6.7"
+   "version": "3.7.3"
   },
   "toc": {
    "base_numbering": 1,

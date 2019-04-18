@@ -96,9 +96,7 @@
     "lines_to_next_cell": 0
    },
    "source": [
-    "<div class=\"alert alert-info\">\n",
-    "Your answer here\n",
-    "</div>"
+    "Your answer here"
    ]
   },
   {
@@ -117,9 +115,7 @@
     "lines_to_next_cell": 0
    },
    "source": [
-    "<div class=\"alert alert-info\">\n",
-    "Your answer here\n",
-    "</div>"
+    "Your answer here"
    ]
   },
   {
@@ -141,9 +137,7 @@
     "lines_to_next_cell": 0
    },
    "source": [
-    "<div class=\"alert alert-info\">\n",
-    "Your answer here\n",
-    "</div>"
+    "Your answer here"
    ]
   },
   {
@@ -164,9 +158,7 @@
     "lines_to_next_cell": 0
    },
    "source": [
-    "<div class=\"alert alert-info\">\n",
-    "Your answer here\n",
-    "</div>"
+    "Your answers here."
    ]
   },
   {
@@ -178,10 +170,10 @@
     "\n",
     "### Fick's law of diffusion of solutes in porous media\n",
     "\n",
-    "We have to modify Fick's law slightly to apply to porous media. We need to introduce **porosity** to account for the fact that diffusion only occurs in the pore space.\n",
+    "We have to modify Fick's law slightly to apply porous media. We need to introduce **porosity** to account for the fact that diffusion only occurs in the pore space.\n",
     "\n",
     "\\begin{align*}\n",
-    "j_x = - D \\theta {\\partial c \\over \\partial x}\\\\\n",
+    "j_x = - D {\\partial (c\\theta) \\over \\partial x}\\\\\n",
     "\\end{align*}\n",
     "\n",
     "where\n",
@@ -205,20 +197,7 @@
     "\n",
     "Recall, that the specific flux $j$ is the mass flux of solute per unit area per unit time and that $J=jA$, where $A$ is the area normal to (perpendicular to) the component of flux.\n",
     "\n",
-    "<img src=\"figures/flux_normal-area.png\" style=\"width: 100px;\" >\n",
-    "\n",
-    "You can use the python cell below to compute the answer."
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
-   "outputs": [],
-   "source": [
-    "# here you can use python to compute the flux using the information given above"
+    "<img src=\"figures/flux_normal-area.png\" style=\"width: 100px;\" >"
    ]
   },
   {
@@ -227,21 +206,27 @@
     "lines_to_next_cell": 0
    },
    "source": [
-    "<div class=\"alert alert-warning\">\n",
-    "\n",
+    "Your answer here."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
     "#### Aside: Gradients in 3 dimensions\n",
     "\n",
-    "The gradient is a vector that points in the direction that a function is *increasing*. In Cartesian coordinates, it has $x$, $y$ and $z$ components. The diffusive flux is a vector that points in the direction that concentration is *decreasing*. Hence the minus sign in Fick's law. So the diffusive flux is also a vector:\n",
-    "\\begin{align}\n",
-    "j_x &= - D\\theta {\\partial c \\over \\partial x}\\\\\n",
-    "j_y &= - D\\theta {\\partial c\\over \\partial y}\\\\\n",
-    "j_z &= - D\\theta {\\partial c\\over \\partial z}\\\\\n",
-    "\\end{align}\n",
+    "The gradient is a vector that points in the direction that a function is *increasing*. In cartesian coordinates, it has $x$, $y$ and $z$ components. The diffuse flux is a gradient that points in the direction that concentration is *decreasing*. Hence the minus sign in Fick's law. So the diffusive flux is also a vector:\n",
+    "\\begin{align*}\n",
+    "j_x &= - D {\\partial (c\\theta) \\over \\partial x}\\\\\n",
+    "j_y &= - D {\\partial (c\\theta)\\over \\partial y}\\\\\n",
+    "j_z &= - D {\\partial (c\\theta)\\over \\partial z}\\\\\n",
+    "\\end{align*}\n",
     "\n",
     "We've switched to partial derivatives only to indicate that the concentration is a function of several independent variables ($x$, $y$, and $z$). We'll be pretty loose with our partials and non-partials (impartials??!), but it is almost always clear from the context what is meant.\n",
     "\n",
-    "\n",
-    "</div>"
+    "\n"
    ]
   },
   {
@@ -281,12 +266,9 @@
     "lines_to_next_cell": 0
    },
    "source": [
-    "<div class=\"alert alert-info\">\n",
-    "Your answer here\n",
+    "Your answer here:\n",
     "\n",
-    "$A=   $\n",
-    "\n",
-    "</div>"
+    "$A=   $"
    ]
   },
   {
@@ -309,15 +291,10 @@
     "lines_to_next_cell": 0
    },
    "source": [
-    "<div class=\"alert alert-info\">\n",
-    "Your answer here\n",
+    "Your answer here:\n",
+    "$ A = $\n",
     "\n",
-    "$A=   $\n",
-    "\n",
-    "\n",
-    "(remember to write $\\Delta$, use `$\\Delta $` - or don't bother with math type.\n",
-    "\n",
-    "</div>\n"
+    "(remember to write $\\Delta$ use `$\\Delta $` - or don't bother with math type."
    ]
   },
   {
@@ -333,11 +310,11 @@
     "<img src=\"figures/jwc-general.png\" style=\"width: 200px;\" >\n",
     "\n",
     "Choose one of (erase the two that are incorrect):\n",
-    "\\begin{align}\n",
-    "j_x &= - D\\theta{\\partial c \\over \\partial x}\\\\\n",
-    "j_y &= - D \\theta{\\partial c\\over \\partial y}\\\\\n",
-    "j_z &= - D\\theta {\\partial c\\over \\partial z}\\\\\n",
-    "\\end{align}\n",
+    "\\begin{align*}\n",
+    "j_x &= - D {\\partial (c\\theta) \\over \\partial x}\\\\\n",
+    "j_y &= - D {\\partial (c\\theta)\\over \\partial y}\\\\\n",
+    "j_z &= - D {\\partial (c\\theta)\\over \\partial z}\\\\\n",
+    "\\end{align*}\n",
     "\n",
     "\n"
    ]
@@ -350,7 +327,7 @@
    "source": [
     "#### 3 Discrete approximation for Fick's law\n",
     "\n",
-    "We need a way to approximate specific fluxes such as $j_x = - D\\theta {\\partial c \\over \\partial x}$ in terms of concentrations at nodal values in the centre of gridblocks as shown below.\n",
+    "We need a way to approximate specific fluxes such as $j_x = - D {\\partial (c\\theta) \\over \\partial x}$ in terms of concentrations at nodal values in the centre of gridblocks as shown below.\n",
     "\n",
     "<img src=\"figures/1d_stencil_w_nodes.png\" style=\"width: 200px;\" >\n",
     "\n",
@@ -368,9 +345,7 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {
-    "lines_to_next_cell": 0
-   },
+   "metadata": {},
    "source": [
     "### Putting it all together\n",
     "\n",
@@ -387,20 +362,19 @@
     "\n",
     "What have you learned? What have you struggled with? Some thoughts below. Reflect on anything else you have learned or struggled with and write it here.\n"
    ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
   }
  ],
  "metadata": {
   "jupytext": {
    "cell_metadata_filter": "all",
    "formats": "",
-   "notebook_metadata_filter": "all"
+   "notebook_metadata_filter": "all",
+   "text_representation": {
+    "extension": ".py",
+    "format_name": "percent",
+    "format_version": "1.2",
+    "jupytext_version": "1.0.0-rc2"
+   }
   },
   "kernelspec": {
    "display_name": "Python 3",
@@ -417,7 +391,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.6.8"
+   "version": "3.7.3"
   },
   "toc": {
    "base_numbering": 1,
