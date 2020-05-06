@@ -1,0 +1,314 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0,
+    "toc": true
+   },
+   "source": [
+    "<h1>Table of Contents<span class=\"tocSkip\"></span></h1>\n",
+    "<div class=\"toc\"><ul class=\"toc-item\"><li><span><a href=\"#One-dimensional-steady-state-finite-volume-approximation\" data-toc-modified-id=\"One-dimensional-steady-state-finite-volume-approximation-1\"><span class=\"toc-item-num\">1&nbsp;&nbsp;</span>One dimensional steady-state finite-volume approximation</a></span><ul class=\"toc-item\"><li><span><a href=\"#Problem\" data-toc-modified-id=\"Problem-1.1\"><span class=\"toc-item-num\">1.1&nbsp;&nbsp;</span>Problem</a></span><ul class=\"toc-item\"><li><span><a href=\"#Boundary-value-problem-(BVP)\" data-toc-modified-id=\"Boundary-value-problem-(BVP)-1.1.1\"><span class=\"toc-item-num\">1.1.1&nbsp;&nbsp;</span>Boundary-value problem (BVP)</a></span></li></ul></li><li><span><a href=\"#Number-of-equations-=-number-of-unknowns.\" data-toc-modified-id=\"Number-of-equations-=-number-of-unknowns.-1.2\"><span class=\"toc-item-num\">1.2&nbsp;&nbsp;</span>Number of equations = number of unknowns.</a></span></li></ul></li><li><span><a href=\"#Gridblock-conservation-equation\" data-toc-modified-id=\"Gridblock-conservation-equation-2\"><span class=\"toc-item-num\">2&nbsp;&nbsp;</span>Gridblock conservation equation</a></span><ul class=\"toc-item\"><li><span><a href=\"#One---dimensional-flux\" data-toc-modified-id=\"One---dimensional-flux-2.1\"><span class=\"toc-item-num\">2.1&nbsp;&nbsp;</span>One - dimensional flux</a></span></li><li><span><a href=\"#Your-turn\" data-toc-modified-id=\"Your-turn-2.2\"><span class=\"toc-item-num\">2.2&nbsp;&nbsp;</span>Your turn</a></span></li><li><span><a href=\"#Your-turn\" data-toc-modified-id=\"Your-turn-2.3\"><span class=\"toc-item-num\">2.3&nbsp;&nbsp;</span>Your turn</a></span></li><li><span><a href=\"#Gridblock-with-two-neighbours\" data-toc-modified-id=\"Gridblock-with-two-neighbours-2.4\"><span class=\"toc-item-num\">2.4&nbsp;&nbsp;</span>Gridblock with two neighbours</a></span><ul class=\"toc-item\"><li><span><a href=\"#Mass-in-gridblock\" data-toc-modified-id=\"Mass-in-gridblock-2.4.1\"><span class=\"toc-item-num\">2.4.1&nbsp;&nbsp;</span>Mass in gridblock</a></span></li><li><span><a href=\"#Fluxes\" data-toc-modified-id=\"Fluxes-2.4.2\"><span class=\"toc-item-num\">2.4.2&nbsp;&nbsp;</span>Fluxes</a></span></li></ul></li><li><span><a href=\"#Your-turn\" data-toc-modified-id=\"Your-turn-2.5\"><span class=\"toc-item-num\">2.5&nbsp;&nbsp;</span>Your turn</a></span></li><li><span><a href=\"#Approach-to-generate-an-equation-for-each-gridblock-in-the-mesh\" data-toc-modified-id=\"Approach-to-generate-an-equation-for-each-gridblock-in-the-mesh-2.6\"><span class=\"toc-item-num\">2.6&nbsp;&nbsp;</span>Approach to generate an equation for each gridblock in the mesh</a></span></li><li><span><a href=\"#Example\" data-toc-modified-id=\"Example-2.7\"><span class=\"toc-item-num\">2.7&nbsp;&nbsp;</span>Example</a></span><ul class=\"toc-item\"><li><span><a href=\"#Gridblock-2:\" data-toc-modified-id=\"Gridblock-2:-2.7.1\"><span class=\"toc-item-num\">2.7.1&nbsp;&nbsp;</span>Gridblock 2:</a></span></li></ul></li><li><span><a href=\"#Your-turn\" data-toc-modified-id=\"Your-turn-2.8\"><span class=\"toc-item-num\">2.8&nbsp;&nbsp;</span>Your turn</a></span><ul class=\"toc-item\"><li><span><a href=\"#Gridblock-3:\" data-toc-modified-id=\"Gridblock-3:-2.8.1\"><span class=\"toc-item-num\">2.8.1&nbsp;&nbsp;</span>Gridblock 3:</a></span></li><li><span><a href=\"#Gridblock-4:\" data-toc-modified-id=\"Gridblock-4:-2.8.2\"><span class=\"toc-item-num\">2.8.2&nbsp;&nbsp;</span>Gridblock 4:</a></span></li></ul></li></ul></li><li><span><a href=\"#Boundary-gridblocks\" data-toc-modified-id=\"Boundary-gridblocks-3\"><span class=\"toc-item-num\">3&nbsp;&nbsp;</span>Boundary gridblocks</a></span><ul class=\"toc-item\"><li><span><a href=\"#Boundary-conditions\" data-toc-modified-id=\"Boundary-conditions-3.1\"><span class=\"toc-item-num\">3.1&nbsp;&nbsp;</span>Boundary conditions</a></span><ul class=\"toc-item\"><li><span><a href=\"#Prescribed-concentration-boundary-condition\" data-toc-modified-id=\"Prescribed-concentration-boundary-condition-3.1.1\"><span class=\"toc-item-num\">3.1.1&nbsp;&nbsp;</span>Prescribed concentration boundary condition</a></span></li><li><span><a href=\"#Number-of-equations-=-number-of-unknowns?\" data-toc-modified-id=\"Number-of-equations-=-number-of-unknowns?-3.1.2\"><span class=\"toc-item-num\">3.1.2&nbsp;&nbsp;</span>Number of equations = number of unknowns?</a></span></li></ul></li></ul></li><li><span><a href=\"#Reflection\" data-toc-modified-id=\"Reflection-4\"><span class=\"toc-item-num\">4&nbsp;&nbsp;</span>Reflection</a></span></li><li><span><a href=\"#Next-steps\" data-toc-modified-id=\"Next-steps-5\"><span class=\"toc-item-num\">5&nbsp;&nbsp;</span>Next steps</a></span></li></ul></div>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "## One dimensional steady-state finite-volume approximation\n",
+    "\n",
+    "\n",
+    "### Problem\n",
+    "\n",
+    "Recall that our problem is to compute the steady-state sulfate concentration profile with depth in the top two meters of tailings at the bottom of the TMF under the assumptions that:\n",
+    "\n",
+    "* the TMF pond has a large surface area, and we are computing the profile in the middle of the TMF away from the edge.\n",
+    "* the concentration in the water in the TMF pond does not change in time and is fixed at $c=93~mg/L$\n",
+    "* the concentration at $2~m$ depth in the sediments does not change in time and is fixed at $c=2000~mg/L$\n",
+    "* sulfate is not produced in the top $2~m$ of the tailings.\n",
+    "* sulfate moves by diffusion only.\n",
+    "\n",
+    "We are going to compute a discrete approximation using a set of gridblocks aligned in the vertical direction. We will compute the concentration of sulfate at the center of each gridblock. Then we can interpolate between points to give us an approximate value at any point in the vertical direction.\n",
+    "\n",
+    "<img src=\"figures/tailings_diffusion_w_grid.png\" style=\"width: 456px;\" >\n",
+    "\n",
+    "#### Boundary-value problem (BVP)\n",
+    "\n",
+    "Can we even solve this problem? Our diffusion problem is an example of a class of problems called **boundary value problems** where the goal is to determine the value of the dependent variable (here, concentration) inside the problem domain when we know the dependent variable  or its derivative(s) on the boundary of the domain. We'll revisit this later when we relate the discrete approximation to a partial differential equation.\n",
+    "\n",
+    "\n",
+    "### Number of equations = number of unknowns.\n",
+    "\n",
+    "Common sense tell us that if our grid contains $n$ unknown values of concentration, one at the center of each gridblock (sometimes called nodes, or gridpoints), then we need $n$ equations to uniquely determine those $n$ unknown values. How? You probably guessed, it must have something to do with conservation principles.\n",
+    "\n",
+    "We will number each gridblock and each concentration in the grid: $c_1$ will be the concentration at the node in gridblock 1, $c_2$,\n",
+    "will be the concentration at the node in gridblock 2, $\\ldots$, $c_n$ will be the concentration at the node in gridblock n.\n",
+    "\n",
+    "\n",
+    "\n",
+    "## Gridblock conservation equation\n",
+    "\n",
+    "We start by considering a single gridblock of size $\\Delta x$, $\\Delta y$ and $\\Delta z$\n",
+    "\n",
+    "<img src=\"figures/xyz_single_block.png\" style=\"width: 263px;\" >\n",
+    "\n",
+    "### One - dimensional flux\n",
+    "\n",
+    "Let's consider the case where mass (like sulfate) is moving into and out of the gridblock on the \"E\" and \"W\" faces only as shown below:\n",
+    "\n",
+    "\n",
+    "<img src=\"figures/single_block_flux.png\" style=\"width: 300px;\" >\n",
+    "\n",
+    "\n",
+    "\n",
+    "Let's define $J_{E}~\\left[M\\over T\\right]$ as the total mass flux on the \"E\" side  and  $J_{W}~\\left[M\\over T\\right]$ as the total mass flux on the \"W\" side. Let $m_C(t)~\\left[M\\right]$ be the mass inside the gridblock \"C\" at time $t$ (**remember, our convention is that fluxes are positive for flux into the volume**).\n",
+    "\n",
+    "\n",
+    "\n",
+    "### Your turn\n",
+    "Write in words the meaning of the following equation\n",
+    "\n",
+    "\\begin{align}\n",
+    "\\Delta m_C = m_C(t+\\Delta t) - m_C(t) & = (J_E+J_W)\\Delta t \\label{1dcons}\\\\\n",
+    "\\end{align}\n",
+    "\n",
+    "\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "Your answer here"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "### Your turn\n",
+    "\n",
+    "What is the equation if the mass in the gridblock is not changing in time?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "Your answer here"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "In words, if the mass in the gridblock is not changing in time, them the **net** rate at which mass is flowing into the gridblock must equal zero.\n",
+    "\n",
+    "### Gridblock with two neighbours\n",
+    "\n",
+    "Now let's look a small section of a 1-D grid, where gridblock \"C\" is connected to gridblock \"E\" and \"W\" as shown here\n",
+    "<img src=\"figures/finite_volume_1d_uniform_noxyz.png\" style=\"width: 380px;\" >\n",
+    "\n",
+    "#### Mass in gridblock\n",
+    "* $m_W$ is the mass in gridblock W (\"West\")\n",
+    "* $m_C$ is the mass in gridblock C (\"Center\")\n",
+    "* $m_E$ is the mass in gridblock E (\"East\")\n",
+    "\n",
+    "#### Fluxes\n",
+    "Define fluxes:\n",
+    "* $J_{WC}~\\left[M\\over T\\right]$ as the total mass flux between the W and C gridblocks (positive if mass is entering C).\n",
+    "* $J_{EC}~\\left[M\\over T\\right]$ as the total mass flux between the E and C gridblock (positive if mass is entering C).\n",
+    "\n",
+    "The mass conservation statement for gridblock C over time period $\\Delta t$ is then\n",
+    "\n",
+    "\\begin{align*}\n",
+    "m_C(t+\\Delta t) - m_C(t) & = \\left(J_{EC}+J_{WC}\\right)\\Delta t \\\\\n",
+    "\\end{align*}\n",
+    "\n",
+    "\n",
+    "\n",
+    "\n",
+    "### Your turn\n",
+    "Write the **steady-state** mass conservation equation for gridblock C. How does this compare to the equation for the three tanks?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "Your answer here"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "### Approach to generate an equation for each gridblock in the mesh\n",
+    "\n",
+    "1. Write a discrete approximation for mass conservation for gridblock C. This equation is the fundamental stencil.\n",
+    "2. Apply this stencil to each gridblock in the grid to generate a unique equation for each gridblock in the grid.\n",
+    "\n",
+    "For n gridblocks, we can generate n equations.\n",
+    "\n",
+    "<img src=\"figures/1d-numbered-grid.png\" style=\"width: 380px;\" >\n",
+    "\n",
+    "### Example\n",
+    "\n",
+    "Consider a grid with 5 gridblocks. From your answer above, the steady-state 1-d finite volume equation for gridblock C is $J_{WC}+J_{EC}=0$.\n",
+    "\n",
+    "We can apply the stencil to the interior gridblocks of our 5 - gridblock example. Let's start with gridblock 2. We align the stencil so that C corresponds to gridblock 2:\n",
+    "\n",
+    "<img src=\"figures/block2_eq.png\" style=\"height: 110px;\" >\n",
+    "\n",
+    "You see then that in the stencil equation $J_{WC}+J_{EC}=0$, we replace C with 2, W with 1 and E with 3, so we have:\n",
+    "#### Gridblock 2:\n",
+    "\n",
+    "\\begin{align}\n",
+    "J_{12} + J_{32} = 0\\\\\n",
+    "\\end{align}\n",
+    "\n",
+    "### Your turn\n",
+    "\n",
+    "Replace the steady-state finite volume stencil equation for gridblock C with the correct equation for gridblock 3, and gridblock 4.\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "#### Gridblock 3:\n",
+    "<img src=\"figures/block3_eq.png\" style=\"height: 110px;\">\n",
+    "\n",
+    "Change the following stencil equation to the correct equation for gridblock 3.\n",
+    "$$\n",
+    "J_{WC}+J_{EC} =0\n",
+    "$$\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "#### Gridblock 4:\n",
+    "<img src=\"figures/block4_eq.png\" style=\"height: 110px;\" >\n",
+    "\n",
+    "Change the following stencil equation to the correct equation for gridblock 4.\n",
+    "$$\n",
+    "J_{WC}+J_{EC} =0\n",
+    "$$\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "lines_to_next_cell": 0
+   },
+   "source": [
+    "## Boundary gridblocks\n",
+    "\n",
+    "We now have generated one equation for the interior gridblocks 2, 3 and 4. But for a grid with 5 gridblocks don't we need 5 equations? What about the boundary gridblocks 1 and 5?\n",
+    "\n",
+    "### Boundary conditions\n",
+    "\n",
+    "There are two types of boundary conditions associated with diffusion problems:\n",
+    "1. The concentration is known at the boundary. This is called a prescribed concentration boundary condition.\n",
+    "2. The flux is known at the boundary. This is called a prescribed flux boundary.\n",
+    "\n",
+    "We'll deal with prescribed concentration boundary conditions here, and revisit prescribed flux later.\n",
+    "\n",
+    "#### Prescribed concentration boundary condition\n",
+    "\n",
+    "Say we know the concentration at the two boundaries. Since gridblocks 1 and 5 lie on the boundary, the concentrations in those gridblocks have to be the same as the boundary condition concentrations.\n",
+    "<img src=\"figures/5node-const-c-bc.png\" style=\"height: 110px;\" >\n",
+    "\n",
+    "That is, the concentrations in gridblocks 1, and 5 are known.\n",
+    "\n",
+    "#### Number of equations = number of unknowns?\n",
+    "\n",
+    "How many equations do we have? How many unknowns?\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Reflection\n",
+    "What have you learned? What have you struggled with? Some thoughts below. Reflect on anything else you have learned or struggled with and write it here.\n",
+    "* we can write a finite-volume expression for the instantaneous change in mass in a gridblock\n",
+    "* we developed a stencil for 1-d steady-state finite volume\n",
+    "* we used the stencil to develop one equation for each interior gridblock in the grid\n",
+    "* we used specified concentration boundary conditions to determine the concentrations in the boundary gridblocks\n",
+    "* we have not yet learned how to use specified flux boundary conditions\n",
+    "* our equations for interior gridblocks are in terms of fluxes, $J$, not concentrations.\n",
+    "\n",
+    "## Next steps\n",
+    "We will next use the principles of diffusion to replace fluxes such as $J_{12}$ with expressions in terms of concentrations in gridblocks. To do that, we need to look at Fick's law of diffusion, which we will do next.\n"
+   ]
+  }
+ ],
+ "metadata": {
+  "jupytext": {
+   "cell_metadata_filter": "all",
+   "formats": "",
+   "notebook_metadata_filter": "all",
+   "text_representation": {
+    "extension": ".py",
+    "format_name": "percent",
+    "format_version": "1.2",
+    "jupytext_version": "1.0.0-rc2"
+   }
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.3"
+  },
+  "toc": {
+   "base_numbering": 1,
+   "nav_menu": {},
+   "number_sections": true,
+   "sideBar": true,
+   "skip_h1_title": false,
+   "title_cell": "Table of Contents",
+   "title_sidebar": "Contents",
+   "toc_cell": true,
+   "toc_position": {},
+   "toc_section_display": true,
+   "toc_window_display": true
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

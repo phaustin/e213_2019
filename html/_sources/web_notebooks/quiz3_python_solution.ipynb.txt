@@ -1,0 +1,166 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "toc": true
+   },
+   "source": [
+    "<h1>Table of Contents<span class=\"tocSkip\"></span></h1>\n",
+    "<div class=\"toc\"><ul class=\"toc-item\"><li><span><a href=\"#Q1:--what-does-the-following-print?\" data-toc-modified-id=\"Q1:--what-does-the-following-print?-1\"><span class=\"toc-item-num\">1&nbsp;&nbsp;</span>Q1:  what does the following print?</a></span></li><li><span><a href=\"#Q2:-modify-Problem_Def-to-incorporate-get_spacing-as-an-instance-method\" data-toc-modified-id=\"Q2:-modify-Problem_Def-to-incorporate-get_spacing-as-an-instance-method-2\"><span class=\"toc-item-num\">2&nbsp;&nbsp;</span>Q2: modify Problem_Def to incorporate get_spacing as an instance method</a></span></li></ul></div>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "class Problem_Def:\n",
+    "    \"\"\"\n",
+    "    this class holds the specifcation for the domain,\n",
+    "    including the value of the porosity\n",
+    "    \"\"\"\n",
+    "\n",
+    "    nx: int\n",
+    "    ny: int\n",
+    "    poro: float\n",
+    "    wx: float\n",
+    "    wy: float\n",
+    "\n",
+    "    def __init__(self, nx, ny, poro, wx, wy):\n",
+    "        self.nx = nx\n",
+    "        self.ny = ny\n",
+    "        self.poro = poro\n",
+    "        self.wx = wx\n",
+    "        self.wy = wy\n",
+    "\n",
+    "\n",
+    "def get_spacing(nx=4, ny=3, poro=0.4, wx=10, wy=20):\n",
+    "    the_prob = Problem_Def(nx, ny, poro, wx, wy)\n",
+    "    delx = the_prob.wx / the_prob.nx\n",
+    "    dely = the_prob.wy / the_prob.ny\n",
+    "    return delx, dely"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Q1:  what does the following print?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "(1.6666666666666667, 6.666666666666667)\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(f\"{get_spacing(nx=6)}\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Q2: modify Problem_Def to incorporate get_spacing as an instance method\n",
+    "\n",
+    "\n",
+    "that is, create a version of Problem_Def for which the following will work::\n",
+    "\n",
+    "    the_instance = Problem_Def()\n",
+    "    delx, dely = the_instance.get_spacing()\n",
+    "\n",
+    "where the new constructor has the signature::\n",
+    "\n",
+    "     def __init__(self,nx=4,ny=3,poro=0.4,wx=10,wy=20):\n",
+    "        ...\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1.6666666666666667 6.666666666666667\n"
+     ]
+    }
+   ],
+   "source": [
+    "class Problem_Def:\n",
+    "    \"\"\"\n",
+    "    this class holds the specifcation for the domain,\n",
+    "    including the value of the porosity\n",
+    "    \"\"\"\n",
+    "\n",
+    "    nx: int\n",
+    "    ny: int\n",
+    "    poro: float\n",
+    "    wx: float\n",
+    "    wy: float\n",
+    "\n",
+    "    def __init__(self, nx=4, ny=3, poro=0.4, wx=10, wy=20):\n",
+    "        self.nx = nx\n",
+    "        self.ny = ny\n",
+    "        self.poro = poro\n",
+    "        self.wx = wx\n",
+    "        self.wy = wy\n",
+    "\n",
+    "    def get_spacing(self):\n",
+    "        delx = self.wx / self.nx\n",
+    "        dely = self.wy / self.ny\n",
+    "        return delx, dely\n",
+    "\n",
+    "\n",
+    "the_instance = Problem_Def(nx=6)\n",
+    "delx, dely = the_instance.get_spacing()\n",
+    "print(delx, dely)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "jupytext": {
+   "cell_metadata_filter": "trusted,toc,-all",
+   "main_language": "python",
+   "notebook_metadata_filter": "-all"
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

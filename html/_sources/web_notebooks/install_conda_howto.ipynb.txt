@@ -1,0 +1,124 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "toc": true
+   },
+   "source": [
+    "<h1>Table of Contents<span class=\"tocSkip\"></span></h1>\n",
+    "<div class=\"toc\"><ul class=\"toc-item\"><li><span><a href=\"#Links-to-videos\" data-toc-modified-id=\"Links-to-videos-1\"><span class=\"toc-item-num\">1&nbsp;&nbsp;</span>Links to videos</a></span></li><li><span><a href=\"#What-the-installers-do\" data-toc-modified-id=\"What-the-installers-do-2\"><span class=\"toc-item-num\">2&nbsp;&nbsp;</span>What the installers do</a></span></li><li><span><a href=\"#Basic-steps-in-the-video\" data-toc-modified-id=\"Basic-steps-in-the-video-3\"><span class=\"toc-item-num\">3&nbsp;&nbsp;</span>Basic steps in the video</a></span></li><li><span><a href=\"#Next-step\" data-toc-modified-id=\"Next-step-4\"><span class=\"toc-item-num\">4&nbsp;&nbsp;</span>Next step</a></span></li><li><span><a href=\"#Futher-reading\" data-toc-modified-id=\"Futher-reading-5\"><span class=\"toc-item-num\">5&nbsp;&nbsp;</span>Futher reading</a></span></li></ul></div>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Installing the conda python distribution\n",
+    "\n",
+    "These links supplement the two 6 minute screencasts I made that walk you through how to\n",
+    "install the EOSC 213 set of conda packages on your MacOS or Windows 10 laptop.\n",
+    "\n",
+    "##  Links to videos\n",
+    "\n",
+    "* [MacOs install](https://goo.gl/15JFnN)\n",
+    "\n",
+    "* [Windows install](https://goo.gl/6XY38C)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## What the installers do\n",
+    "\n",
+    "* On Macs \n",
+    "\n",
+    "  - install python plus packages in a folder of your choosing\n",
+    "  - edit your `~/.bash_profile` file so that when you launch a new\n",
+    "    bash terminal, python, jupyter, etc. are in your PATH and can\n",
+    "    be launched from the bash command line\n",
+    "    \n",
+    "* On Windows\n",
+    "\n",
+    "  - install python plus packages in a folder of your choosing\n",
+    "  - create a shortcut called `Anaconda prompt` that launches a cmd shell\n",
+    "    with python, jupyter in your PATH so that they can be launched\n",
+    "    from the cmd line\n",
+    "    \n",
+    "    "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Basic steps in the video\n",
+    "\n",
+    "* Go to [the miniconda download page](https://docs.conda.io/en/latest/miniconda.html) and download and\n",
+    "  install miniconda in a folder in your home directory\n",
+    "  \n",
+    "* Install git so you can get the list of packages needed for the course by cloning our github repository\n",
+    "\n",
+    "      conda install git\n",
+    "      git clone https://github.com/phaustin/eosc213_students.git\n",
+    "      \n",
+    "* Create the conda environment with the packages needed for the course, which are listed\n",
+    "  in [this file](https://github.com/phaustin/eosc213_students/blob/master/utils/eosc.yml)\n",
+    "  \n",
+    "      cd utils\n",
+    "      conda env create -f eosc.yml\n",
+    "      conda activate eosc\n",
+    "      \n",
+    "* So to work on a project\n",
+    "\n",
+    "  1.  Launch a terminal (either a `bash terminal` (Mac) or an `Anaconda prompt` (Windows)\n",
+    "  1.  cd to your project folder\n",
+    "  1.  `jupyter notebook`   or `jupyter qtconsole` or `ipython --matplotlib`, depending on you\n",
+    "      want to work\n",
+    "      \n",
+    "## Next step\n",
+    "      \n",
+    "* begin editing python scripts with [visual studio code](https://code.visualstudio.com/docs/languages/python) or [pycharm](https://www.jetbrains.com/pycharm/)\n",
+    "\n",
+    "## Futher reading\n",
+    "\n",
+    "* https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.7"
+  },
+  "toc": {
+   "base_numbering": 1,
+   "nav_menu": {},
+   "number_sections": true,
+   "sideBar": true,
+   "skip_h1_title": true,
+   "title_cell": "Table of Contents",
+   "title_sidebar": "Contents",
+   "toc_cell": true,
+   "toc_position": {},
+   "toc_section_display": true,
+   "toc_window_display": false
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
